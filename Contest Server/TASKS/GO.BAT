@@ -1,0 +1,5 @@
+Start SERVER.EXE
+Pause 10
+Start JUDGE.EXE \Denis\Contest\JUDGES.!!!
+Pause 10
+Copy SOURCE\A.PAS \DENIS\CONTEST\USERS.!!!\01\A.PAS

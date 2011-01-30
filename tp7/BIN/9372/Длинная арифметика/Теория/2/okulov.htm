@@ -1,0 +1,710 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251"><script type="text/javascript">var y5_pageId = 6259; var y5_statId = 0; document.write('<sc' + 'ript type="text/javascript" src="http://bs.yandex.ru/resource/narod_init.js?rnd=' + Math.round(Math.random() * 100000) + '"></sc' + 'ript>');</script><script type="text/javascript" src="okulov_files/narod_init.js"></script>
+<title>Длинная арифметика</title><meta name="description" content="Материалы для занятий по длинной арифметике (колирование длинных чисел, операции, основные процедуры и функции, упражнения)"><meta name="Keywords" content="Окулов,длинная арифметика,длинные числа,большие числа,подпрограмма,информатика,тест,тестирование,Паскаль,Pascal,Шестаков,задача,задание,упражнение"><meta name="author" content="Шестаков Александр Петрович"><link rel="stylesheet" href="okulov_files/style.css" type="text/css"></head><body><div style="background: transparent url(http://www.tns-counter.ru/V13a****yandex_ru/ru/CP1251/tmsec=narod_total/) repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous;"></div>
+
+
+
+
+
+
+
+<p style="text-align: right;"><font size="0">Статья заимствована на сервере газеты "Информатика" <a href="http://inf.1september.ru/2000/1/art/okul1.htm">http://inf.1september.ru/2000/1/art/okul1.htm</a></font></p>
+<h1>С.М. Окулов. "Длинная" арифметика</h1>
+
+<p>Известно, что арифметические действия,
+выполняемые компьютером в ограниченном числе
+разрядов, не всегда позволяют получить точный
+результат. Более того, мы ограничены размером
+(величиной) чисел, с которыми можем работать. А
+если нам необходимо выполнить арифметические
+действия над очень большими числами, например,
+</p><center>
+30! = 265252859812191058636308480000000?</center><p></p>
+<p>В таких случаях
+мы сами должны позаботиться о представлении
+чисел в машине и о точном выполнении
+арифметических операций над ними.</p>
+
+<p>Числа, для
+представления которых в стандартных
+компьютерных типах данных не хватает количества
+двоичных разрядов, называются <i>"длинными"</i>. Реализация
+арифметических операций над такими
+"длинными" числами получила название <i>"длинной арифметики"</i>.</p>
+
+<p>Организация
+работы с "длинными" числами во многом
+зависит от того, как мы представим в компьютере
+эти числа. "Длинное" число можно записать,
+например, с помощью массива десятичных цифр,
+количество элементов в таком массиве равно
+количеству значащих цифр в "длинном" числе.
+Но если мы будем реализовывать арифметические
+операции над этим числом, то размер массива
+должен быть достаточным, чтобы разместить в нем и
+результат, например, умножения.</p>
+
+<p>Существуют и другие представления "длинных" чисел.
+Рассмотрим одно из них. Представим
+наше число</p>
+<center>30! = 265252859812191058636308480000000</center>
+в виде:<br>
+<center>
+<font size="2">30! = 2 * (10<sup>4</sup>)<sup>8</sup> + 6525 * (10<sup>4</sup>)<sup>7</sup> + 2859 *
+(10<sup>4</sup>) + 8121 * (10<sup>4</sup>)<sup>5</sup> + 9105 * (10<sup>4</sup>)<sup>4</sup> +
+8636 * (10<sup>4</sup>)<sup>3</sup> +
+3084 * (10<sup>4</sup>)<sup>2</sup> +
+8000 * (10<sup>4</sup>)<sup>1</sup> +
+0000 * (10<sup>4</sup>)<sup>0</sup>.</font></center><br>
+Это представление наталкивает на мысль о
+массиве, представленном в табл. 1.<p></p>
+<p style="text-align: right;"><font size="2"><i>Таблица 1</i></font></p>
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+  <tbody><tr align="Center"><td align="Left">Номер элемента в массиве А</td>
+<td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+  <tr align="Center"><td align="Left">Значение</td>
+<td>&nbsp;&nbsp;9&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;0&nbsp;&nbsp;</td>
+<td>8000</td>
+<td>3084</td>
+<td>8636</td>
+<td>9105</td>
+<td>8121</td>
+<td>2859</td>
+<td>6525</td>
+<td>&nbsp;&nbsp;2&nbsp;&nbsp;</td></tr>
+</tbody></table>
+</center>
+<p>Мы можем считать, что наше "длинное"
+число представлено в 10000-10 системе
+счисления (десятитысячно-десятичная система
+счисления, приведите аналогию с
+восьмерично-десятичной системой счисления), а
+"цифрами" числа являются четырехзначные
+числа.</p>
+
+<p>Возникают
+вопросы. Что за 9 в А [0], почему число хранится
+"задом наперед"? Ответы очевидны, но
+подождем с преждевременными объяснениями.
+Ответы на вопросы будут ясны из текста.</p>
+<p><u>Примечание</u>. Мы
+работаем с положительными числами!</p>
+<p><b>Первая задача.</b>
+Ввести "длинное" число из файла. Решение
+задачи начнем с описания данных.</p>
+<pre>Const 	MaxDig = 1000; {Максимальное количество цифр — четырехзначных!}
+	Osn = 10000; {Основание нашей системы счисления, 
+			в элементах массива храним четырехзначные числа} 
+Type 	Tlong = Array[0..MaxDig] Of Integer;
+	{Максимальное количество десятичных цифр в нашем числе}
+</pre>
+
+<p>Алгоритм ввода "длинного" числа из файла рассмотрим на
+конкретном примере.</p>
+
+<p>Пусть в файле записано число
+23851674 и основанием (Osn) является 1000 (храним по три
+цифры в элементе массива А). Изменение значений
+элементов массива А в процессе ввода
+(посимвольного в переменную Ch) отражено в табл. 2.</p>
+
+<p style="text-align: right;"><font size="2"><i>Таблица 2</i></font></p>
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>А[0]</td><td>А[1]</td><td>А[2]</td><td>А[3]</td><td>Ch</td>
+<td align="Left">Примечание</td></tr>
+<tr align="Center"><td>3</td><td>674</td><td>851</td><td>23</td><td>-</td>
+<td align="Left">Конечное состояние</td></tr>
+<tr align="Center"><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td>
+<td align="Left">Начальное состояние</td></tr>
+<tr align="Center"><td>1</td><td>2</td><td>0</td><td>0</td><td>3</td>
+<td align="Left">1-й шаг</td></tr>
+<tr align="Center"><td>1</td><td>23</td><td>0</td><td>0</td><td>8</td>
+<td align="Left">2-й шаг</td></tr>
+<tr align="Center"><td>1</td><td>238</td><td>0</td><td>0</td><td>5</td>
+<td align="Left">3-й шаг</td></tr>
+<tr align="Center"><td>2</td><td>385</td><td>2</td><td>0</td><td>1</td>
+<td align="Left"><font size="2">4-й шаг: старшая цифра элемента А [1] перешла в пока "пустой" элемент А[2]</font></td></tr>
+<tr align="Center"><td>2</td><td>851</td><td>23</td><td>0</td><td>6</td>
+<td align="Left">5-й шаг</td></tr>
+<tr align="Center"><td>2</td><td>516</td><td>238</td><td>0</td><td>7</td>
+<td align="Left">6-й шаг</td></tr>
+<tr align="Center"><td>3</td><td>167</td><td>385</td><td>2</td><td>4</td>
+<td align="Left">7-й шаг</td></tr>
+<tr align="Center"><td>3</td><td>674</td><td>851</td><td>23</td><td>&nbsp;</td>
+<td>&nbsp;</td></tr>
+</tbody></table></center>
+
+<p>Проанализируем таблицу (и получим
+ответы на поставленные выше вопросы). <br>
+<b>1</b>. В А[0] храним количество задействованных
+(ненулевых) элементов массива А — это уже
+очевидно.<br>
+<b>2</b>. При обработке каждой очередной
+цифры входного числа старшая цифра элемента
+массива с номером <i>i</i> становится младшей цифрой числа в элементе <i>i</i>&nbsp;+&nbsp;1, а вводимая цифра будет младшей цифрой
+числа из А[1]. В результате работы нашего алгоритма мы получили число, записанное "задом наперед".</p>
+<p><u>Примечание
+(методическое)</u>: Можно ограничиться этим
+объяснением и разработку процедуры вынести на
+самостоятельное задание. Можно продолжить объяснение. Например,
+выписать фрагмент текста процедуры перенос
+старшей цифры из A[i] в  младшую цифру А[i+1], т.е. сдвиг уже введенной
+части числа на одну позицию вправо:<br>
+</p><pre>	For i := A[0] DownTo 1 Do
+	Begin 
+		A[i+l] := A[i+l] + (Longint(A[i]) * 10) Div Osn;
+		A[i] := (LongInt(A[i]) * 10) Mod Osn;
+	End;
+</pre><p></p>
+<p>Пусть мы вводим число 23851674 и первые 6 цифр
+уже разместили "задом наперед" в массиве А. В
+символьную переменную считали очередную цифру "длинного"
+числа — это "7". По нашему алгоритму эта
+цифра "7" должна быть размещена младшей  цифрой в А[1]. Выписанный фрагмент программы
+"освобождает" место для этой цифры. В таблице отражены результаты работы этого фрагмента.</p>
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>i</td><td>А[1]</td><td>А[2]</td><td>А[3]</td><td>&nbsp;&nbsp;ch&nbsp;&nbsp;</td></tr>
+<tr align="Center"><td>&nbsp;&nbsp;2&nbsp;&nbsp;</td><td>516</td><td>238</td><td>0</td><td>7</td></tr>
+<tr align="Center"><td>2</td><td>516</td><td>380</td><td>2</td><td>&nbsp;</td></tr>
+<tr align="Center"><td>1</td><td>160</td><td>385</td><td>2</td><td>&nbsp;</td></tr>
+</tbody></table>
+</center>
+После этого остается только добавить текущую
+(считанную в ch) цифру "длинного" числа к А[1] и изменить значение А[0].<p></p>
+<p>В конечном итоге процедура должна иметь
+следующий вид:<br>
+</p><pre>	Procedure ReadLong(Var A : Tlong);
+	Var ch : char; i : Integer;
+	Begin
+		FillChar(A, SizeOf(A), 0) ;
+		Read(ch);
+		While Not(ch In ['0'..'9']) Do Read(ch);
+		{пропуск не цифр во входном файле}
+		While ch In ['0'..'9'] Do
+		Begin
+			For i := A[0] DownTo 1 Do
+			Begin
+				{"протаскивание" старшей цифры в числе из A[i] 
+				в младшую цифру числа из A[i+l]}
+				A[i+l] := A[i+l] + (LongInt(A[i]) * 10) Div Osn;
+				A[i] := (LongInt(A[i]) * 10) Mod Osn
+			End;
+			A[1] := A[l] + Ord(ch) - Ord('0');
+			{добавляем младшую цифру к числу из А[1]}
+			If A[A[0]+1] &gt; 0 Then Inc(A[0]);
+			{изменяем длину, число задействованных элементов массива А}
+			Read(ch)
+		End
+	End;
+</pre><p></p>
+<p><b>Вторая задача.</b> Вывод
+"длинного" числа в файл или на экран.</p>
+
+<p>Казалось бы,
+нет проблем — выводи число за числом. Однако в
+силу выбранного нами представления
+"длинного" числа мы должны всегда помнить,
+что в каждом элементе массива хранится не
+последовательность цифр "длинного" числа, а
+значение числа, записанного этими цифрами. Пусть
+в элементах массива хранятся четырехзначные
+числа. Тогда "длинное" число 128400583274 будет в
+массиве А представлено следующим образом:<br>
+</p><center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>A[0]</td><td>A[1]</td><td>A[2]</td><td>A[3]</td></tr>
+<tr align="Center"><td>3</td><td>3274</td><td>58</td><td>1284</td></tr>
+</tbody></table>
+</center>
+<p>При выводе "длинного" числа из массива нам необходимо вывести 0058, иначе
+будет потеря цифр. Итак, незначащие нули также
+необходимо выводить. Процедура вывода имеет вид:</p>
+<pre>	Procedure WriteLong(Const A : Tlong);
+	Var 	ls, s : String; i : Integer;
+	Begin
+		Str(Osn Div 10, Is);
+		Write(A[A[0]]; {выводим старшие цифры числа}
+		For i := A[0] - l DownTo 1 Do
+		Begin
+			Str(A[i], s);
+			While Length(s) &lt; Length(Is) Do s := '0' + s;
+			{дополняем незначащими нулями}
+			Write(s)
+		End;
+		WriteLn
+	End;
+</pre>
+
+<p><b>Третья задача.</b> Предварительная работа по описанию
+способа хранения, вводу и выводу "длинных"
+чисел выполнена.</p>
+
+<p>У нас есть все необходимые "кирпичики", например, для написания
+программы сложения двух "длинных" положительных чисел. Исходные числа и результат
+храним в файлах. Назовем процедуру сложения SumLongTwo.</p>
+
+<p>Тогда программа ввода двух "длинных" чисел и вывода результата их
+сложения будет иметь следующий вид:</p>
+<pre>	Var A, B, C : Tlong;
+	Begin
+		Assign(Input, 'Input.txt'); Reset(Input);
+		ReadLong(A); ReadLong(B) ;
+		Close(Input);
+		SumLongTwo(A, B, C);
+		Assign(Output, 'Output.txt');
+		Rewrite(Output);
+		WriteLong(C);
+		Close(Output)
+	End.
+</pre>
+<p>Алгоритм процедуры сложения можно объяснить на простом
+примере. Пусть <i>А</i>&nbsp;=&nbsp;870613029451, <i>В</i>&nbsp;=&nbsp;3475912100517461.</p>
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>i</td><td>A[i]</td><td>B[i]</td><td>C[1]</td><td>C[2]</td><td>C[3]</td><td>C[4]</td></tr>
+<tr align="Center"><td>&nbsp;&nbsp;1&nbsp;&nbsp;</td><td>9451</td><td>7461</td><td>6912</td><td>1</td><td>0</td><td>0</td></tr>
+<tr align="Center"><td>2</td><td>1302</td><td>51</td><td>6912</td><td>1354</td><td>0</td><td>0</td></tr>
+<tr align="Center"><td>3</td><td>8706</td><td>9121</td><td>6912</td><td>1354</td><td>7827</td><td>1</td></tr>
+<tr align="Center"><td>4</td><td>0</td><td>3475</td><td>6912</td><td>1354</td><td>7827</td><td>3476</td></tr>
+</tbody></table>
+</center>
+<p>Алгоритм имитирует привычное сложение
+столбиком, начиная с младших разрядов. И именно
+для простоты реализации арифметических операций
+над "длинными" числами используется машинное представление
+"задом наперед".</p>
+<p>Результат: С = 3476782713546912.</p>
+<p>Ниже приведен текст процедуры сложения двух "длинных" чисел.</p>
+<pre>	Procedure SumLongTwo(A, B : Nlong; Var C : Tlong);
+	Var i, k : Integer;
+	Begin
+		FillChar(C, SizeOf (C), 0) ;
+		If A[0] &gt; B[0] Then k := A[0] Else k : =B[0];
+		For i := l To k Do
+		Begin 	С [i+1] := (C[i] + A[i] + B[i]) Div Osn;
+			C[i] := (C[i] + A[i] + B[i]) Mod Osn
+			{Есть ли в этих операторах ошибка?}
+		End;
+		If C[k+l] = 0 Then C[0] := k Else C[0] := k + l
+	End;
+</pre>
+
+<p><b>Четвертая задача.</b>
+Реализация операций сравнения для "длинных"
+чисел (А&nbsp;=&nbsp;В, А&nbsp;&lt;&nbsp;В, А&nbsp;&gt;&nbsp;В, А&nbsp;&lt;=&nbsp;В, А&nbsp;&gt;=&nbsp;В).</p>
+<pre>	Function Eq(A, B : TLong) : Boolean;
+	Var i : Integer;
+	Begin
+		Eq := False;
+		If A[0] &lt;&gt; B[0] Then Exit 
+		Else Begin
+			i := l;
+			While (i &lt;= A[0]) And (A[i] = B[i]) Do Inc(i);
+			Eq := i = A[0] + l
+		      End
+	End;
+</pre>
+<p>Реализация функции А &gt; В также прозрачна.</p>
+<pre>	Function More(A, B : Tlong) : Boolean;
+	Var i : Integer;
+	Begin If A[0] &lt; B[0] 	Then More := False
+				Else 	If A[0] &gt; B[0] Then More := True 
+					Else Begin
+						i := A[0];
+						While (i &gt; 0) And (A[i] = B[i]) Do Dec(i);
+						If i = 0 	Then More := False
+							Else If A[i] &gt; B[i] Then More := True
+						Else More:=False
+					End
+	End;
+</pre>
+<p>Остальные функции реализуются через функции Eq и More.</p>
+<pre>	Function Less(A, B : Tlong) : Boolean; {A &lt; B}
+	Begin
+		Less := Not(More(A, B) Or Eq(A, B))
+	End;
+	Function More_Eq(A, B : Tlong) : Boolean; {A &gt;= B}
+	Begin
+		More_Eq := More(A, B) Or Eq(A, B)
+	End;
+	Function Less_Eq(A, B : Tlong) : Boolean; {A &lt;= B}
+	Begin
+		Less_Eq := Not More(A, B)
+	End;
+</pre>
+<p>Для самостоятельного решения может быть предложена
+следующая, более сложная, задача. Требуется
+разработать функцию, которая выдает 0, если А
+больше В, 1, если А меньше В, и 2 при равенстве
+чисел. Но сравнение должно быть выполнено с
+учетом сдвига. О чем идет речь? Поясним на
+примере. Пусть А равно 56784, а В — 634. При сдвиге
+числа В на 2 позиции влево функция должна сказать,
+что В больше А, без сдвига, что А больше В. Другой
+пример. При А равном 56700, а В — 567 и сдвиге 2 функция
+должна "сказать", что числа равны. Решение
+может иметь следующий вид:</p>
+<pre>Function More(Const А, В : Tlong; Const sdvig : Integer) : Byte;
+Var i : Integer;
+Begin
+	If A[0] &gt; B[0] + sdvig Then More := 0
+				Else 
+					If A[0] &lt; B[0] + sdvig Then More := l
+					Else Begin
+						i := A[0];
+						While (i &gt; sdvig) And
+							(A[i] = B[i-sdvig]) Do Dec(i);
+						If i = sdvig Then Begin
+								More:=0;
+						{совпадение чисел с учетом сдвига}
+								For i := 1 To sdvig Do
+									If A[i] &gt; 0 Then Exit;
+								More := 2;
+						{числа равны, "хвост" числа А равен нулю}
+								End
+						Else More := Byte(A[i] &lt; B[i-sdvig])
+					End
+End;
+</pre>
+<p><b>Пятая задача.</b> Умножение длинного числа на короткое. Под
+коротким понимается целое число типа LongInt.</p>
+<p>Процедура очень походит на процедуру сложения двух длинных чисел.</p>
+<pre>	Procedure Mul(Const A : TLong; Const К : Longlnt; Var С : TLong);
+	Var i : Integer;
+	{результат - значение переменной С}
+	Begin
+		FillChar (С, SizeOf(С), 0);
+		If K = 0 Then Inc(С[0]){умножение на ноль}
+		Else Begin
+			For i:= l To A[0] Do
+			Begin
+				C[i+l] := (LongInt(A[i]) * K + C[i]) Div Osn;
+				C[i] := (LongInt(A[i])* K + C[i]) Mod Osn
+			End;
+			If C[A[0]+1] &gt; 0 Then C[0]:= A[0] + 1
+			Else C[0]:= A[0]
+			{определяем длину результата}
+			End
+	End;
+</pre>
+<p><b>Шестая задача.</b>
+Вычитание двух длинных чисел с учетом сдвига</p>
+
+<p>Если понятие сдвига пока не понятно, то
+оставьте его в покое, на самом деле вычитание с
+учетом сдвига потребуется при реализации
+операции деления. В начале выясните логику
+работы процедуры при нулевом сдвиге.</p>
+
+<p>Введем ограничение: число, из которого
+вычитают, больше числа, которое вычитается. Работать с "длинными" отрицательными
+числами мы не умеем.</p>
+
+<p>Процедура была бы похожа на процедуры
+сложения и умножения, если бы не одно "но" — заимствование единицы из старшего разряда
+вместо переноса единицы в старший разряд. Например, в обычной системе счисления мы
+вычитаем 9 из 11 — идет заимствование 1 из разряда десятков, а если из 10000 вычитаем 9 — процесс
+заимствования несколько сложнее.</p>
+<pre>	Procedure Sub (Var A : TLong; Const B : TLong; Const sp : Integer);
+	Var i, j : Integer;
+		{из А вычитаем В с учетом сдвига sp, результат вычитания в А}
+	Begin
+		For i := l To B[0] Do 
+		Begin Dec(A[i+sp], B[i]);
+			j: = i;{*}
+			{реализация сложного заимствования}
+			while (A[j+sp] &lt; 0) and (j &lt;= A[0]) Do
+			Begin{*}
+				Inc(A[j+sp], Osn) ;
+				Dec(A[j+sp+l]); Inc(j); {*}
+			end; {*}
+			{Реализация простого заимствования.
+			Если операторы, отмеченные *, заменить
+			на нижеприведенные операторы в фигурных скобках, то,
+			по понятным причинам, логика не будет работать
+			при всех исходных данных. Можно сознательно сделать
+			ошибку и предложить найти ее — принцип "обучение через ошибку"}
+			{If A[i+sp]&lt;0 Then Begin Inc(A[i+sp], Osn);
+			Dec (A[i+sp+l]);End;}
+		End;
+		i := A[0];
+		While (i &gt; l) And (A[i] = 0) Do Dec(i);
+		A[0] := i
+		{корректировка длины результата операции}
+	End;
+</pre>
+<p>Рекомендуется выполнить трассировку
+работы данной процедуры, например, для следующих
+исходных данных. Число <i>А</i>
+равно 100000001000000000000, число <i>В</i> — 2000073859998.</p>
+<p><b>Седьмая задача.</b>
+Деление двух длинных чисел, т.е. нахождение целой
+части частного и остатка.</p>
+<p>Написать исходную (без уточнений) часть
+логики не составляет труда. Это:</p>
+<pre>	Procedure Long_Div_Long(Const А, В : TLong; Var Res, Ost : TLong);
+	Begin
+		FillChar(Res, SizeOf(Res), 0); Res[0] := 1;
+		FillChar(Ost, SizeOf(Ost), 0); 0st[0] := 1;
+		Case More(A, B, 0) Of 
+		0: MakeDel(A, B, Res, Ost);
+		{А больше В, пока не знаем, как выполнять операцию - "выносим" в процедуру}
+		1: Ost:=A; {А меньше В}
+		2: Res[l] := l; {А равно В}
+		End;
+	End;
+</pre>
+<p>А дальше? Дальше
+начинаются проблемы. Делить столбиком нас
+научили в школе. Например,</p>
+<pre>      1000143123567 |73859998
+     - 73859998     |----------
+       ---------    |13541 (Целая часть частного)
+       261543143
+     - 221579994
+       ----------
+        399631495
+      - 369299990
+         ---------
+         303315056
+       - 295439992
+         ----------
+           78750647
+         - 73859998
+           -------- 
+            4890649 (Остаток)
+</pre>
+<p>Что мы делали?
+На каждом этапе в уме подбирали цифру (1, 3, 5 и т.д.),
+такую, что произведение этой цифры на делитель
+дает число меньшее, но наиболее близкое к числу...
+Какому? Это трудно сказать словами, но из примера
+ясно. Зачем нам это делать в уме, пусть делает
+компьютер. Однако упростим пример, оставим его
+для тестирования окончательной логики процедуры, тем более что и числа "длинные".
+Пусть число А будет меньше В&nbsp;*&nbsp;10, тогда в
+результате (целой части деления) будет одна
+цифра. Например, А равно 564, а В — 63 и простая
+десятичная система счисления. Попробуем
+подобрать цифру результата, но не методом
+прямого перебора, а методом деления отрезка
+пополам. Пусть Down — верхняя граница интервала изменения
+подбираемой цифры, Up — нижняя граница интервала, Ost равен
+делимому.</p>
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>Down</td><td>Up</td><td>С = В *  ( (Down + Up) Div 2)</td><td>Ost = 564</td></tr>
+<tr align="Center"><td>0</td><td>10</td><td>315 = 63 *  ( (0 + 10) Div 2)</td><td>C &lt; Ost</td></tr>
+<tr align="Center"><td>5</td><td>10</td><td>441 = 63 *  ( (5 + 10) Div 2)</td><td>C &lt; Ost</td></tr>
+<tr align="Center"><td>7</td><td>10</td><td>504 = 63 *  ( (7 + 10) Div 2)</td><td>C &lt; Ost</td></tr>
+<tr align="Center"><td>8</td><td>10</td><td>567 = 63 *  ( (8 + 10) Div 2)</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>8</td><td>9</td><td>504 = 63 *  ( (8 + 9) Div 2)</td><td>C &lt; Ost</td></tr>
+</tbody></table>
+</center>
+<p>Итак, результат — целая часть частного —
+равен (Up + Down) Div  2, остаток от деления — разность между значениями Ost
+и С. Нижнюю границу (Down) изменяем, если результат
+(С) меньше остатка, верхнюю (Up), — если больше.</p>
+
+<p>Усложним пример.
+Пусть <i>А</i> равно 27856, а <i>В</i> — 354.
+Основанием системы счисления является не 10, а 10000.</p>
+
+<center>
+<table border="1" cellpadding="3" cellspacing="0">
+<tbody><tr align="Center"><td>Down</td><td>Up</td><td>С</td><td>Ost = 27856</td></tr>
+<tr align="Center"><td>0</td><td>10000</td><td>1770000</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>5000</td><td>885000</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>2500</td><td>442500</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>1250</td><td>221250</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>625</td><td>110448</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>312</td><td>55224</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>0</td><td>156</td><td>27612</td><td>C &lt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>156</td><td>41418</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>117</td><td>34338</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>97</td><td>30798</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>87</td><td>29028</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>82</td><td>28320</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>80</td><td>27966</td><td>C &gt; Ost</td></tr>
+<tr align="Center"><td>78</td><td>79</td><td>27612</td><td>C &lt; Ost</td></tr>
+</tbody></table>
+</center>
+<p>Целая часть частного равна 78,
+остаток от деления — 27856 минус 27612, т.е. 244.</p>
+
+<p>Пора приводить процедуру. Используемые "кирпичики": функция сравнения
+чисел (More) с учетом сдвига и функция умножения длинного числа на
+короткое (Mul) описаны выше.</p>
+<pre>Function FindBin(Var Ost : Tlong; Const В : TLong; Const sp : Integer) : Longint;
+Var Down, Up : Word; C : TLong;
+Begin
+	Down := 0;Up := 0sn;
+	{основание системы счисления}
+	While Up - l &gt; Down Do
+	Begin
+		{Есть возможность преподавателю сделать
+		сознательную ошибку. Изменить условие
+		цикла на Up&gt;Down. Результат - зацикливание программы.}
+		Mul(В, (Up + Down) Div 2, С);
+		Case More(Ost, C, sp) Of
+		0: Down := (Down + Up) Div 2;
+		1: Up := (Up + Down) Div 2;
+		2: Begin Up := (Up + Down) Div 2; Down := Up End;
+		End;
+	End;
+	Mul(B, (Up + Down) Div 2, C);
+	If More (Ost, C, 0) = 0 Then Sub(Ost, C, sp)
+		{находим остаток от деления}
+	Else begin Sub (C, Ost, sp); Ost := C end;
+	FindBin := (Up + Down) Div 2;
+	{целая часть частного}
+End;
+</pre>
+<p>Осталось разобраться со сдвигом, значением переменной sp в
+нашем изложении. Опять вернемся к обычной
+системе счисления и попытаемся разделить,
+например, 635 на 15. Что мы делаем? Вначале делим 63 на
+15 и формируем, подбираем в уме первую цифру
+результата. Подбирать с помощью компьютера мы
+научились. Подобрали — это цифра 4, и это старшая
+цифра результата. Изменим остаток. Если вначале
+он был 635, то сейчас стал 35. Вычитать с учетом
+сдвига мы умеем. Опять подбираем цифру. Вторую
+цифру результата. Это цифра 2 и остаток 5. Итак,
+результат (целая часть) 42, остаток от деления 5. А
+что изменится, если основанием будет не 10, а 10000?
+Логика совпадает, только в уме считать несколько
+труднее, но ведь у нас же есть молоток под
+названием компьютер — пусть он вбивает гвозди.</p>
+<pre>Procedure MakeDel(Const А, В : TLong; Var Res, Ost : TLong);
+Var sp : Integer;
+Begin
+	Ost := A; {первоначальное значение остатка}
+	sp := А[0] - В[0];
+	If More(А, В, sp) = l Then Dec(sp);
+	{B * Osn &gt; A, в результате одна цифра}
+	Res[0] := sp + l;
+	While sp &gt;= 0 Do
+	Begin
+		{находим очередную цифру результата}
+		Res[sp + 1] := FindBin(Ost, B, sp);
+		Dec(sp)
+	End
+End;
+</pre>
+<p><b>Методические рекомендации.</b>
+Представленный материал излагается на четырех
+занятиях по известной схеме: 10-15-минутное
+изложение идей, а затем работа учащихся под
+руководством преподавателя.</p>
+<p><b>1-е занятие.</b> Ввод, вывод и
+сложение длинных чисел (задачи 1, 2, 3).</p>
+<p><b>2-е занятие.</b> Функции
+сравнения (задача 4).</p>
+<p><b>3-е занятие.</b> Умножение и
+вычитание длинных чисел (задачи 5, 6).</p>
+<p><b>4-е занятие.</b> Деление длинных
+чисел (задача 7). Безусловно, эта схема не догма. В зависимости от уровня подготовки учащихся на
+самостоятельное выполнение может быть вынесена значительная часть материала. Замечу только, что
+в силу сложившейся традиции в ряде случаев допускаются при изложении сознательные ошибки. В
+результате работы каждый учащийся должен иметь собственный модуль для работы с "длинными"
+числами.</p>
+<p><b>Темы для исследований</b></p>
+<p><b>1.</b> Решение задач: поиск наибольшего общего
+делителя двух "длинных" чисел; поиск наименьшего общего кратного двух "длинных"
+чисел; извлечение квадратного корня из "длинного" числа и т.д.</p>
+<p><b>2.</b> "Длинные" числа могут быть отрицательными. Как изменятся описанные выше
+операции для этого случая?</p>
+<p><b>3.</b> Для хранения "длинных" чисел используется не массив, а стек, реализованный с
+помощью списка. Модифицировать модуль работы с "длинными" числами.</p>
+<p>&nbsp;</p>
+<center>
+<hr>
+<!-- SpyLOG v2 f:0111 -->
+<script language="javascript">
+u="u093.61.spylog.com";d=document;nv=navigator;na=nv.appName;t="";p=1;
+sz=" width=88 height=31 ";
+hl=history.length;d.cookie="b=b";c=0;
+bv=Math.round(parseFloat(nv.appVersion)*100);
+if (d.cookie) c=1;n=(na.substring(0,2)=="Mi")?0:1;
+if((n==0)||(bv >= 300)){rn=Math.random();t=(new Date()).getTimezoneOffset();} else {rn=0;}
+z="p="+p+"&rn="+rn+"&t="+t+"&c="+c+"&hl="+hl;
+if (self != top) { fr=1;} else { fr=0;}
+r=escape(d.referrer);r1="";
+sl="1.0";h=0;
+</script>
+<script language="javascript1.1" src="okulov_files/c2.js"></script><script language="javascript1.2">sl="1.2";s=screen;wh=s.width+'x'+s.height;px=(n==0)?screen.colorDepth:screen.pixelDepth;z+="&wh="+wh+"&px="+px;</script><script language="javascript1.3">sl="1.3";</script><a href="http://u093.61.spylog.com/cnt?f=3&amp;p=1&amp;rn=0.12724919283409464" target="_blank"><img src="okulov_files/cnt_002.gif" alt="SpyLOG" border="0" height="31" width="88"></a>
+<script language="javascript">
+if (h==0){ y="";
+y+="<a href='http://"+u+"/cnt?f=3&p="+p+"&rn="+rn+"' target=_blank>";
+y+="<img src='http://"+u+"/cnt?";
+ y+=z+"&sl="+sl+"&fr="+fr+"&r="+r+"&r1="+r1+"'";
+y+="' border=0 "+sz+" alt='SpyLOG'>";
+y+="</a>"; 
+d.write(y);
+}
+</script>
+<script language="javascript1.2"><!--
+if (n == 0) { d.write("<");d.write("!--"); }
+//--></script>
+<noscript>
+<a href="http://u093.61.spylog.com/cnt?f=3&p=1" target=_blank>
+<img src="http://u093.61.spylog.com/cnt?p=1" alt='SpyLOG' border='0'  width=88 height=31 >
+</a>
+</noscript>
+<script language="javascript1.2"><!--
+if (n == 0) { d.write("--");d.write(">"); }
+//--></script>
+<!-- SpyLOG  -->
+<!-- начало HTML-кода рейтинга УралWeb -->
+<a href="http://www.uralweb.ru/hits/computer4/go" target="_top"><img src="okulov_files/computer4.gif" alt="Рейтинг ресурсов УралWeb" border="0" height="31" width="88"></a>
+<!-- конец HTML-кода рейтинга УралWeb -->
+
+<!--NUMBER ONE COUNTER--><a target="_top" href="http://www.one.ru/"><script language="javascript"><!--
+document.write("<img src=\"http://www.one.ru/cgi-bin/cnt.cgi?id=5531&t=1",
+"&r="+escape(parent.document.referrer),"\" width=88 height=31 ",
+"border=0 alt=\"become number one\">");//--></script><img src="okulov_files/cnt.gif" alt="become number one" border="0" height="31" width="88"><noscript>
+<img src="http://www.one.ru/cgi-bin/cnt.cgi?id=5531&t=1"
+width=88 height=31 alt="be number one" border=0></noscript></a>
+<!--NUMBER ONE COUNTER-->
+
+<!-- TopList COUNTER -->
+<a target="_top" href="http://top.list.ru/jump?from=58469"><script language="JavaScript"><!--
+d=document;js=10;a='';a+=';r='+escape(d.referrer)
+//--></script><script language="JavaScript1.1"><!--
+js=11;a+=';j='+navigator.javaEnabled()
+//--></script><script language="JavaScript1.2"><!--
+js=12;s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+//--></script><script language="JavaScript1.3"><!--
+js=13//--></script><script language="JavaScript"><!--
+d.write('<img src="http://top.list.ru/counter'+
+'?id=58469;t=51;js='+js+a+'" alt="TopList" '+
+'border=0 height=31 width=88>')
+if(js>11)d.write('<'+'!-- ')//--></script><img class=" ekaobfhptdkhkcfzqbab" src="okulov_files/counter.gif" alt="TopList" border="0" height="31" width="88"><!-- <noscript><img
+src="http://top.list.ru/counter?js=na;id=58469;t=51"
+border=0 height=31 width=88
+alt="TopList"></noscript><script language="JavaScript"><!--
+if(js>11)d.write('--'+'>')
+//--></a>
+<!--TopList COUNTER-->
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='http://counter.yadro.ru/hit?t18.11;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><a href="http://www.liveinternet.ru/click" target="_blank"><img src="okulov_files/hit.gif" alt="" title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня" border="0" height="31" width="88"></a><!--/LiveInternet-->
+<hr>
+</center>
+<p>&nbsp;</p>
+<font size="1">© Окулов Станислав Михайлович</font>
+</body></html>

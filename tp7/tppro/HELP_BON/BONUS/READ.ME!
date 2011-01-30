@@ -1,0 +1,118 @@
+                Turbo Professional BONUS Subdirectory
+                -------------------------------------
+
+The files in this subdirectory are non-commercial units and utilities
+developed for Turbo Pascal by a variety of authors, including us at
+TurboPower Software. Many of the utilities build upon Turbo
+Professional units; others stand by themselves. Almost all have
+complete source code, so you can use them, modify them, or just study
+them for ideas.
+
+TurboPower Software provides this BONUS subdirectory as a free service
+to our customers.
+
+TurboPower Software offers no warranty, express or implied, for the
+programs in the BONUS subdirectory. You may use a BONUS unit bearing
+the TurboPower copyright within any application that you write,
+without restriction. Other programs in the BONUS subdirectory have
+either been released to the public domain by their authors, or are
+distributed here by their express permission. You may give copies of
+the files in the BONUS subdirectory to anyone.
+
+If you have a unit or utility that you think would be an appropriate
+addition to the BONUS subdirectory, please let us know.
+
+If you'd like more information about TurboPower Software's products
+for Turbo Pascal, contact us at
+
+  TurboPower Software
+  P.O. Box 49009
+  Colorado Springs, CO 80949-9009
+
+  719-260-6641 (Monday-Friday)
+  Compuserve 76004,2611
+
+Each unit has been compressed into an LZH file with its supporting
+files in order to save disk space. To extract the individual files,
+use the supplied LHARC.EXE program. From the DOS prompt, enter
+
+  LHARC X ArchiveName
+
+For example, LHARC X CHAIN would extract all of the files from the
+CHAIN archive.
+
+The following descriptions indicate whether the associated files are
+compatible with DOS protected mode operation using Borland Pascal 7.0 by
+placing (pmode) after the description.
+
+Here's a brief description of the BONUS files.
+
+ASYNC4
+  A simple but effective set of asynchronous communications routines.
+  Emulates the popular ASYNC.INC from Turbo 3. (pmode)
+
+CHAIN
+  A unit that adds a Chain command to Turbo 4, 5, 6, or 7.
+
+COLORDEF
+  A unit that defines constants corresponding to all the foreground on
+  background color combinations, e.g., YellowOnBlue. (pmode)
+
+EXECWIN
+  A unit that execs a child process, keeping its output in a window.
+  (pmode)
+
+EXTEND
+  A unit for increasing the number of file handles available to a
+  program.
+
+LHARCMAN
+  Documentation for the LHARC archiving utility.
+
+LPT
+  A unit that replaces the Turbo PRINTER unit with one using BIOS
+  calls for improved speed and binary output capability. (pmode)
+
+OPSTACK
+  A unit that automatically determines the amount of stack and
+  heap usage of a program.
+
+OPTIMER
+  A unit to take timings with microsecond resolution. (pmode)
+
+OPXMS
+  A unit offering access to the most commonly used XMS functions.
+
+PSCREEN
+  A memory resident program that captures a text screen and writes a
+  compressed version of it to a file.
+
+STAKDUMP
+  Unit that provides a stack trace report following program halts.
+
+TESTEMU
+  A program that demonstrates how to safely use Turbo Pascal 5's
+  floating point emulator within an interrupt service routine or
+  popup.
+
+TPCLONE
+  A unit that assists in the writing of installation programs. (pmode)
+
+TPENV
+  A number of routines to manipulate the DOS environment, including
+  one to execute a DOS shell with a custom prompt. (Use Object
+  Professional's OPDOS unit for pmode applications)
+
+TPKEYS
+  A sample installation program that uses TPCLONE. Allows you to
+  modify the key assignments for the TPEDIT, TPENTRY, TPHELP, TPMENU,
+  and TPPICK units. (pmode)
+
+TPSPOOL
+  A memory resident program that captures printer output and routes it
+  to a file.
+
+TPSWITCH
+  A unit that allows you to switch between screens on a dual-display
+  system. (pmode)
+

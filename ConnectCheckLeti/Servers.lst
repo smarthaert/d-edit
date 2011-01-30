@@ -1,0 +1,10 @@
+dionis.argosgrp.ru pop3;dionis.argosgrp.ru;110;ns.argosgrp.ru;8110;;;dionis.argosgrp.ru;
+dionis.argosgrp.ru smtp;dionis.argosgrp.ru;25;ns.argosgrp.ru;8025;;;dionis.argosgrp.ru;
+dionis2.argosgrp.ru pop3;dionis2.argosgrp.ru;110;ns.argosgrp.ru;9110;;;dionis2.argosgrp.ru;
+dionis2.argosgrp.ru smtp;dionis2.argosgrp.ru;25;ns.argosgrp.ru;9025;;;dionis2.argosgrp.ru;
+dionis3.argosgrp.ru pop3;dionis3.argosgrp.ru;110;dionis3.argosgrp.ru;8110;;;dionis3.argosgrp.ru;
+dionis3.argosgrp.ru smtp;dionis3.argosgrp.ru;25;dionis3.argosgrp.ru;8025;;;dionis3.argosgrp.ru;
+dionis4.argosgrp.ru pop3;dionis4.argosgrp.ru;110;dionis4.argosgrp.ru;8110;;;dionis4.argosgrp.ru;
+dionis4.argosgrp.ru smtp;dionis4.argosgrp.ru;25;dionis4.argosgrp.ru;8025;;;dionis4.argosgrp.ru;
+updater.argosgrp.ru;updater.argosgrp.ru;80;;;;;It works!;
+pointer.argosgrp.ru;pointer.argosgrp.ru;80;;;;;Apache Tomcat;

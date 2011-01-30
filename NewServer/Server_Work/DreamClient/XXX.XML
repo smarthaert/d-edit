@@ -1,0 +1,95 @@
+<Arhive>
+	<Messages>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>20</Time>
+			<Answer>Wrong Answer, test: 2</Answer>
+			<Num>1</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>25</Time>
+			<Answer>Wrong Answer, test: 5</Answer>
+			<Num>2</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>40</Time>
+			<Answer>Accepted</Answer>
+			<Num>3</Num>
+		</Message>
+		<Message>
+			<Litera>A</Litera>
+			<Name>A+B Problem</Name>
+			<Time>0</Time>
+			<Answer>Undefined error</Answer>
+			<Num>4</Num>
+		</Message>
+	</Messages>
+</Arhive>

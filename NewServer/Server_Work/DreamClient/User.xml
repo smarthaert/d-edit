@@ -1,0 +1,43 @@
+<Config>
+   <Problems>
+       <Problem>
+            <ID>1</ID>
+            <Name>A+B Problem</Name>
+            <Litera>A</Litera>
+       </Problem>
+       <Problem>
+            <ID>2</ID>
+            <Name>A-B Problem</Name>
+            <Litera>B</Litera>
+       </Problem>
+   </Problems>
+   <Compilers>
+       <Compilator>
+             <Name>Borland Delphi 6.0</Name>
+             <Mask>*.dpr</Mask>
+       </Compilator>
+       <Compilator>
+             <Name>Borland C++ 3.11</Name>
+             <Mask>*.c;*.cpp</Mask>
+       </Compilator>
+       <Compilator>
+             <Name>Borland Pascal 7.0</Name>
+             <Mask>*.pas</Mask>
+       </Compilator>
+       <Compilator>
+             <Name>MS Visual C++ 6.0</Name>
+             <Mask>*.cpp</Mask>
+       </Compilator>
+       <Compilator>
+             <Name>Java</Name>
+             <Mask>*.java</Mask>
+       </Compilator>
+       <Compilator>
+             <Name>MS Visual Basic 6.0</Name>
+             <Mask>*.bas</Mask>
+       </Compilator>
+   </Compilers>
+   <Paths>
+      <Queue>E:\ETUClub\Users\02</Queue>
+   </Paths>
+</Config>

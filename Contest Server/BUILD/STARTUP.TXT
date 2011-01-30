@@ -1,0 +1,9 @@
+TasksDir W:\CONTEST\CONTEST\TASKS
+JudgesDir W:\CONTEST\CONTEST\JUDGES.!!!
+UsersDir W:\CONTEST\CONTEST\USERS.!!!
+InfoDir W:\CONTEST\CONTEST\INFO.!!!
+WorkDir W:\CONTEST\CONTEST\WORK.!!!
+UsersList
+LastProblem F
+Start 10
+Monitor

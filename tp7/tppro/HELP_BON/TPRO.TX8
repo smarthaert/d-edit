@@ -1,0 +1,1723 @@
+;
+;===========================================================================
+!TOPIC 860 TpMouse
+TPMOUSE provides a full complement of routines for dealing with the
+Microsoft mouse and compatibles in text mode. The routines in TPMOUSE are
+modeled after those in TPCRT in order to reduce your learning curve and
+also to make integration with higher-level keyboard-oriented routines as
+easy as possible.
+
+      0911Button Detection       0912Cursor Control         0913Event Handling
+      0914Miscellaneous          0915Mouse Window
+;
+;---------------------------------------------------------------------------
+!TOPIC 861 MouseInstalled
+!NOINDEX
+var
+  0860TpMouse.MouseInstalled : Boolean;
+
+Set to True by TPMOUSE's initialization code if a compatible mouse driver is
+detected.
+
+See also: 0884InitializeMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 862 MouseCursorOn
+!NOINDEX
+var
+  0860TpMouse.MouseCursorOn : Boolean;
+
+True when the mouse cursor is visible.
+
+See also: 0885ShowMouse  0886HideMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 863 ButtonStatus
+!NOINDEX
+type
+  0860TpMouse.ButtonStatus = (
+    NoButton, LeftButton, RightButton, BothButtons,
+    {the following values are possible only on a 3-button mouse}
+    CenterButton, LeftAndCenterButtons, RightAndCenterButtons, All3Buttons);
+
+Enumerated type describing the various possible states of the mouse buttons.
+
+See also: 0910Mouse Scan Codes
+;
+;---------------------------------------------------------------------------
+!TOPIC 864 Mouse Events
+!NOINDEX
+The following bit masks describe the possible events that can be
+communicated to a 0860TpMouse event handling routine.
+
+const
+  DisableEventHandler  = $00;
+  MouseMoved           = $01;
+  LeftButtonPressed    = $02;
+  LeftButtonReleased   = $04;
+  RightButtonPressed   = $08;
+  RightButtonReleased  = $10;
+  CenterButtonPressed  = $20;
+  CenterButtonReleased = $40;
+  AllMouseEvents       = $7F;
+
+See also: 0865MouseEventType
+;
+;---------------------------------------------------------------------------
+!TOPIC 865 MouseEventType
+!NOINDEX
+type
+  0860TpMouse.MouseEventType = DisableEventHandler..AllMouseEvents;
+
+Describes all possible 0864mouse events.
+;
+;---------------------------------------------------------------------------
+!TOPIC 866 DefaultScreenMask
+!NOINDEX
+const
+  0860TpMouse.DefaultScreenMask = $FFFF;
+
+Default screen mask used to create a 0896soft mouse cursor. The screen mask is
+ANDed with the underlying character and attribute. The resulting word is
+XORed with 0867DefaultCursorMask to obtain the cursor. Because the default
+screen mask has the value $FFFF, it has no effect.
+;
+;---------------------------------------------------------------------------
+!TOPIC 867 DefaultCursorMask
+!NOINDEX
+const
+  0860TpMouse.DefaultCursorMask = $7700;
+
+Default cursor mask used to create a 0896soft mouse cursor. The cursor mask is
+XORed with the result of ANDing the underlying character and attribute with
+the screen mask 0866DefaultScreenMask. The effect of the two default masks is to
+leave the underlying character the same, but to exchange its foreground and
+background colors.
+;
+;---------------------------------------------------------------------------
+!TOPIC 868 MouseState
+!NOINDEX
+type
+  0860TpMouse.MouseState =
+    record
+      BufSize : Word;
+      Buffer : array[1..400] of Byte;
+    end;
+  MouseStatePtr = ^MouseState;
+
+Data type used to save and restore the state of the mouse driver in a popup
+program.
+
+See also: 0907MouseStateBufferSize  0908SaveMouseState  0909RestoreMouseState
+;
+;---------------------------------------------------------------------------
+!TOPIC 869 Mouse Window Coordinates
+!NOINDEX
+var
+  0860TpMouse.MouseXLo : Byte;           {0-based}
+          MouseYLo : Byte;           {0-based}
+          MouseXHi : Byte;           {1-based}
+          MouseYHi : Byte;           {1-based}
+
+Describes the current mouse window coordinates.
+
+See also: 0893MouseWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 870 WaitForButtonRelease
+!NOINDEX
+const
+  0860TpMouse.WaitForButtonRelease : Boolean = True;
+
+If True, 0880MouseKeyWord waits for the button to be released before returning
+its key code. This is desirable when multiple mouse buttons are to be
+pressed simultaneously.
+;
+;---------------------------------------------------------------------------
+!TOPIC 871 MouseKeyWordX
+!NOINDEX
+var
+  0860TpMouse.MouseKeyWordX : Byte;
+
+Mouse X coordinate at time of call to 0880MouseKeyWord. Relative to mouse
+window.
+
+See also: 0872MouseKeyWordY
+;
+;---------------------------------------------------------------------------
+!TOPIC 872 MouseKeyWordY
+!NOINDEX
+var
+  0860TpMouse.MouseKeyWordY : Byte;
+
+Mouse Y coordinate at time of call to 0880MouseKeyWord. Relative to mouse
+window.
+
+See also: 0871MouseKeyWordX
+;
+;---------------------------------------------------------------------------
+!TOPIC 873 MouseRoutine
+!NOINDEX
+const
+  0860TpMouse.MouseRoutine : Pointer = nil;
+
+Pointer to a routine that will gain control after selected mouse events are
+detected. MouseRoutine should be modified only by calling
+0904SetMouseEventHandler.
+
+See also: 0864Mouse Events
+;
+;---------------------------------------------------------------------------
+!TOPIC 874 MouseRoutineEvent
+!NOINDEX
+const
+  0860TpMouse.MouseRoutineEvent : 0865MouseEventType = DisableEventHandler;
+
+Mask describing events which will trigger a call to 0873MouseRoutine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 875 MouseEvent
+!NOINDEX
+const
+  0860TpMouse.MouseEvent : 0865MouseEventType = DisableEventHandler;
+
+The actual mouse event that triggered a call to 0873MouseRoutine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 876 MouseStatus
+!NOINDEX
+const
+  0860TpMouse.MouseStatus : 0863ButtonStatus = NoButton;
+
+Which mouse buttons were held down when 0873MouseRoutine was called.
+;
+;---------------------------------------------------------------------------
+!TOPIC 877 MouseLastX
+!NOINDEX
+const
+  0860TpMouse.MouseLastX : Byte = 1;
+
+The window-relative mouse X position at the time of the call to
+0873MouseRoutine.
+
+See also: 0878MouseLastY
+;
+;---------------------------------------------------------------------------
+!TOPIC 878 MouseLastY
+!NOINDEX
+const
+  0860TpMouse.MouseLastY : Byte = 1;
+
+The window-relative mouse Y position at the time of the call to
+0873MouseRoutine.
+
+See also: 0877MouseLastX
+;
+;---------------------------------------------------------------------------
+!TOPIC 879 MousePressed
+!NOINDEX
+function 0860TpMouse.MousePressed : Boolean;
+
+Return True if a mouse button is currently being pressed.
+
+See also: 0882EnableEventHandling  0891MouseButtonPressed
+;
+;---------------------------------------------------------------------------
+!TOPIC 880 MouseKeyWord
+!NOINDEX
+function 0860TpMouse.MouseKeyWord : Word;
+
+Wait for a mouse button to be pressed (and possibly released, depending on
+the state of 0870WaitForButtonRelease), and then return a pseudo-scan code to
+identify the button(s). Requires that 0882EnableEventHandling be called first.
+
+See also: 0881ReadKeyOrButton
+;
+;---------------------------------------------------------------------------
+!TOPIC 881 ReadKeyOrButton
+!NOINDEX
+function 0860TpMouse.ReadKeyOrButton : Word;
+
+Wait for next keystroke or mouse button press and return scan code.
+
+See also: 0880MouseKeyWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 882 EnableEventHandling
+!NOINDEX
+procedure 0860TpMouse.EnableEventHandling;
+
+Enable the event handler needed for 0879MousePressed and 0880MouseKeyWord.
+
+See also: 0883DisableEventHandling
+;
+;---------------------------------------------------------------------------
+!TOPIC 883 DisableEventHandling
+!NOINDEX
+procedure 0860TpMouse.DisableEventHandling;
+
+Disable the event handler installed by 0882EnableEventHandling.
+;
+;---------------------------------------------------------------------------
+!TOPIC 884 InitializeMouse
+!NOINDEX
+procedure 0860TpMouse.InitializeMouse;
+
+Reinitialize mouse and set 0861MouseInstalled to True or False. Called
+automatically by TPMOUSE's initialization code. Disables 0882event handlers.
+;
+;---------------------------------------------------------------------------
+!TOPIC 885 ShowMouse
+!NOINDEX
+procedure 0860TpMouse.ShowMouse;
+
+Show the mouse cursor.
+
+See also: 0886HideMouse  0897HardMouseCursor  0896SoftMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 886 HideMouse
+!NOINDEX
+procedure 0860TpMouse.HideMouse;
+
+Hide the mouse cursor.
+
+See also: 0885ShowMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 887 MouseWhereXY
+!NOINDEX
+procedure 0860TpMouse.MouseWhereXY(var MouseX, MouseY : Byte;
+                               var Status : 0863ButtonStatus);
+
+Return current (window-relative) mouse position and button status.
+
+See also: 0888MouseWhereX  0889MouseWhereY
+;
+;---------------------------------------------------------------------------
+!TOPIC 888 MouseWhereX
+!NOINDEX
+function 0860TpMouse.MouseWhereX : Byte;
+
+Return current (window-relative) X coordinate for mouse.
+
+See also: 0887MouseWhereXY  0889MouseWhereY
+;
+;---------------------------------------------------------------------------
+!TOPIC 889 MouseWhereY
+!NOINDEX
+function 0860TpMouse.MouseWhereY : Byte;
+
+Return current (window-relative) Y coordinate for mouse.
+
+See also: 0888MouseWhereX  0887MouseWhereXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 890 MouseGotoXY
+!NOINDEX
+procedure 0860TpMouse.MouseGotoXY(MouseX, MouseY : Byte);
+
+Set window-relative mouse position.
+;
+;---------------------------------------------------------------------------
+!TOPIC 891 MouseButtonPressed
+!NOINDEX
+function 0860TpMouse.MouseButtonPressed(Button : 0863ButtonStatus;
+                                    var Count : Word;
+                                    var LastX, LastY : Byte) : Boolean;
+
+Return True if the Button to check has been pressed. If so, Count has the
+number of times it has been pressed, and LastX/LastY have its position the
+last time it was pressed.
+
+See also: 0892MouseButtonReleased
+;
+;---------------------------------------------------------------------------
+!TOPIC 892 MouseButtonReleased
+!NOINDEX
+function 0860TpMouse.MouseButtonReleased(Button : 0863ButtonStatus;
+                                     var Count : Word;
+                                     var LastX, LastY : Byte) : Boolean;
+
+Return True if the Button to check has been released. If so, Count has the
+number of times it has been released, and LastX/LastY have its position the
+last time it was released.
+
+See also: 0891MouseButtonPressed
+;
+;---------------------------------------------------------------------------
+!TOPIC 893 MouseWindow
+!NOINDEX
+procedure 0860TpMouse.MouseWindow(XLow, YLow, XHigh, YHigh : Byte);
+
+Set 0869window coordinates to be observed by the mouse.
+;
+;---------------------------------------------------------------------------
+!TOPIC 894 FullMouseWindow
+!NOINDEX
+procedure 0860TpMouse.FullMouseWindow;
+
+Set mouse window coordinates to full screen.
+
+See also: 0893MouseWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 895 MouseInWindow
+!NOINDEX
+function 0860TpMouse.MouseInWindow(XLo, YLo, XHi, YHi : Byte) : Boolean;
+
+Return True if mouse is within the specified window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 896 SoftMouseCursor
+!NOINDEX
+procedure 0860TpMouse.SoftMouseCursor(ScreenMask, CursorMask : Word);
+
+Set mouse to use a software cursor. See 0866DefaultScreenMask and
+0867DefaultCursorMask for more about how the masks work.
+
+See also: 0897HardMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 897 HardMouseCursor
+!NOINDEX
+procedure 0860TpMouse.HardMouseCursor(StartLine, EndLine : Word);
+
+Set mouse to use the hardware cursor. StartLine and EndLine specify the
+shape of the cursor.
+
+See also: 0900BlockMouseCursor   0899FatMouseCursor  0901HiddenMouseCursor
+          0898NormalMouseCursor  0896SoftMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 898 NormalMouseCursor
+!NOINDEX
+procedure 0860TpMouse.NormalMouseCursor;
+
+Set normal scan lines for mouse cursor based on current video mode.
+
+See also: 0897HardMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 899 FatMouseCursor
+!NOINDEX
+procedure 0860TpMouse.FatMouseCursor;
+
+Set larger scan lines for mouse cursor based on current video mode.
+
+See also: 0897HardMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 900 BlockMouseCursor
+!NOINDEX
+procedure 0860TpMouse.BlockMouseCursor;
+
+Set scan lines for a block mouse cursor.
+
+See also: 0897HardMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 901 HiddenMouseCursor
+!NOINDEX
+procedure 0860TpMouse.HiddenMouseCursor;
+
+Hide the hardware mouse cursor.
+
+See also: 0897HardMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 902 GetMickeyCount
+!NOINDEX
+procedure 0860TpMouse.GetMickeyCount(var Horizontal, Vertical : Integer);
+
+Return the horizontal and vertical mickey count since the last call to this
+function. Negative numbers indicate movement up or to the left; positive
+numbers indicate movement down or to the right.
+;
+;---------------------------------------------------------------------------
+!TOPIC 903 SetMickeyToPixelRatio
+!NOINDEX
+procedure 0860TpMouse.SetMickeyToPixelRatio(Horizontal, Vertical : Integer);
+
+Set the mickey-to-pixel ratio. Default setting is 8,16. A setting of 16,32
+slows down the mouse considerably. A setting of 4,8 makes the mouse fly.
+;
+;---------------------------------------------------------------------------
+!TOPIC 904 SetMouseEventHandler
+!NOINDEX
+procedure 0860TpMouse.SetMouseEventHandler(EventMask : 0865MouseEventType;
+                                       UserRoutine : Pointer);
+
+Sets the address of a routine to be called when the specified mouse events
+occur. TPMOUSE handles the saving of the mouse driver's registers and sets
+up the DS register for the UserRoutine. Information about the Event is
+passed to UserRoutine using the global variables 0875MouseEvent, 0876MouseStatus,
+0877MouseLastX, and 0878MouseLastY. UserRoutine must be global, compiled with the
+far directive, and match the following declaration:
+
+  procedure EventHandler;
+  begin
+    ...
+  end;
+;
+;---------------------------------------------------------------------------
+!TOPIC 905 GetMousePage
+!NOINDEX
+function 0860TpMouse.GetMousePage : Byte;
+
+Return the video page where the mouse is being displayed. May not be
+implemented in all mouse drivers.
+
+See also: 0906SetMousePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 906 SetMousePage
+!NOINDEX
+procedure 0860TpMouse.SetMousePage(Page : Byte);
+
+Set the video page where the mouse will be displayed. May not be
+implemented in all mouse drivers.
+
+See also: 0905GetMousePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 907 MouseStateBufferSize
+!NOINDEX
+function 0860TpMouse.MouseStateBufferSize : Word;
+
+Return amount of memory needed to save the state of the mouse driver. May
+not be implemented in all mouse drivers.
+
+See also: 0868MouseStatePtr  0908SaveMouseState
+;
+;---------------------------------------------------------------------------
+!TOPIC 908 SaveMouseState
+!NOINDEX
+procedure 0860TpMouse.SaveMouseState(var MSP : 0868MouseStatePtr;
+                                 Allocate : Boolean);
+
+Save the state of the mouse driver, allocating the buffer if requested. May
+not be implemented in all mouse drivers.
+
+See also: 0909RestoreMouseState
+;
+;---------------------------------------------------------------------------
+!TOPIC 909 RestoreMouseState
+!NOINDEX
+procedure 0860TpMouse.RestoreMouseState(var MSP : 0868MouseStatePtr;
+                                    Deallocate : Boolean);
+
+Restore the state of the mouse driver and Deallocate the buffer if
+requested. May not be implemented in all mouse drivers.
+
+See also: 0908SaveMouseState
+;
+;---------------------------------------------------------------------------
+!TOPIC 910 Mouse Scan Codes
+!NOINDEX
+const
+  0860TpMouse.MouseLft    = $EF00;     {left button}
+          MouseRt     = $EE00;     {right button}
+          MouseBoth   = $ED00;     {both buttons}
+          MouseCtr    = $EC00;     {center button}
+          MouseLftCtr = $EB00;     {left and center buttons}
+          MouseRtCtr  = $EA00;     {right and center buttons}
+          MouseThree  = $E900;     {all three buttons}
+
+Pseudo-scan codes returned by 0872MouseKeyWord so that mouse button presses
+can be interpreted like keyboard input.
+;
+;---------------------------------------------------------------------------
+!TOPIC 911 Button Detection
+!NOINDEX
+TPMOUSE provides the following routines to detect mouse button activity:
+
+      0863ButtonStatus           0910Mouse Scan Codes       0891MouseButtonPressed
+      0892MouseButtonReleased    0880MouseKeyWord           0871MouseKeyWordX
+      0872MouseKeyWordY          0879MousePressed           0881ReadKeyOrButton
+      0870WaitForButtonRelease
+;
+;---------------------------------------------------------------------------
+!TOPIC 912 Cursor Control
+!NOINDEX
+TPMOUSE provides the following routines to control or monitor the position
+and shape of the mouse cursor:
+
+      0900BlockMouseCursor       0867DefaultCursorMask      0866DefaultScreenMask
+      0899FatMouseCursor         0897HardMouseCursor        0901HiddenMouseCursor
+      0886HideMouse              0862MouseCursorOn          0890MouseGotoXY
+      0888MouseWhereX            0887MouseWhereXY           0889MouseWhereY
+      0898NormalMouseCursor      0885ShowMouse              0896SoftMouseCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 913 Event Handling
+!NOINDEX
+TPMOUSE provides the following capabilities for interrupt-driven event
+handling of the mouse:
+
+      0883DisableEventHandling   0882EnableEventHandling    0864Mouse Events
+      0875MouseEvent             0865MouseEventType         0877MouseLastX
+      0878MouseLastY             0873MouseRoutine           0874MouseRoutineEvent
+      0876MouseStatus            0904SetMouseEventHandler
+;
+;---------------------------------------------------------------------------
+!TOPIC 914 Miscellaneous
+!NOINDEX
+TPMOUSE provides the following miscellaneous mouse management routines:
+
+      0902GetMickeyCount         0905GetMousePage           0884InitializeMouse
+      0861MouseInstalled         0868MouseState             0907MouseStateBufferSize
+      0868MouseStatePtr          0909RestoreMouseState      0908SaveMouseState
+      0903SetMickeyToPixelRatio  0906SetMousePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 915 Mouse Window
+!NOINDEX
+TPMOUSE provides the following routines for monitoring and controlling the
+mouse window:
+
+      0894FullMouseWindow        0869Mouse Window Coordinates 0895MouseInWindow
+      0893MouseWindow
+;
+;===========================================================================
+!TOPIC 916 TpPick
+Whenever a program must prompt for a choice from a list, TPPICK can perform
+the necessary low-level actions. Whether the list contains a directory of
+files, a set of configuration options, or a collection of states and zip
+codes, TPPICK provides the necessary flexibility to display the list, let
+the user browse through it, and select an entry.
+
+      0959Getting a Choice       0960Pick Properties        0961Searching a List
+;
+;---------------------------------------------------------------------------
+!TOPIC 917 MaxSearchLen
+!NOINDEX
+const
+  0916TpPick.MaxSearchLen = 16;
+
+Maximum length of incremental search string.
+
+See also: 0920SrchString
+;
+;---------------------------------------------------------------------------
+!TOPIC 918 PKType
+!NOINDEX
+type
+  0916TpPick.PKType = PKSNone..PKSUser9;
+
+Byte values associated with pick commands. See TPPICK.PAS or the Turbo
+Professional manual for all the constants associated with this type.
+
+See also: 0940PickKeySet  0953AddPickCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 919 PickColorArray
+!NOINDEX
+type
+  0916TpPick.PickColorType =
+  (WindowAttr,                    {Color for normal unselected items}
+   FrameAttr,                     {Color for window frame}
+   HeaderAttr,                    {Color for window header}
+   SelectAttr,                    {Color for normal selected item}
+   AltNormal,                     {Color for alternate unselected items}
+   AltHigh,                       {Color for alternate selected item}
+   UnpickableAttr);               {Color for unpickable item}
+  PickColorArray = array[PickColorType] of Byte;
+
+Video attributes associated with pick lists.
+;
+;---------------------------------------------------------------------------
+!TOPIC 920 SrchString
+!NOINDEX
+type
+  0916TpPick.SrchString = String[0917MaxSearchLen];
+
+Data type for storing the pick list incremental search string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 921 SrchType
+!NOINDEX
+type
+  0916TpPick.SrchType =
+  (NoPickSrch,                    {Alpha characters ignored}
+   StringPickSrch,                {Incremental search}
+   StringAltSrch,                 {Alternate incremental search}
+   CharPickSrch,                  {Single char search}
+   CharPickNow);                  {Single char search, exit on match}
+
+Enumerated type listing the various search modes within a pick list.
+;
+;---------------------------------------------------------------------------
+!TOPIC 922 PickOrientType
+!NOINDEX
+type
+  0916TpPick.PickOrientType =
+  (PickOrientNone,                {No orientation selected}
+   PickVertical,                  {Items arranged vertically}
+   PickHorizontal,                {Items arranged horizontally}
+   PickSnaking);                  {Items arranged vertically, snaking}
+
+Enumerated type listing the possible pick list orientations.
+
+See also: 0950SetHorizontalPick  0951SetSnakingPick  0949SetVerticalPick
+;
+;---------------------------------------------------------------------------
+!TOPIC 923 PickMinRows
+!NOINDEX
+const
+  0916TpPick.PickMinRows : Word = 0;
+
+Minimum rows in the pick window.
+
+See also: 0924PickMaxRows
+;
+;---------------------------------------------------------------------------
+!TOPIC 924 PickMaxRows
+!NOINDEX
+const
+  0916TpPick.PickMaxRows : Word = 9999;
+
+Maximum visible rows in the pick window.
+
+See also: 0923PickMinRows
+;
+;---------------------------------------------------------------------------
+!TOPIC 925 PickMatrix
+!NOINDEX
+const
+  0916TpPick.PickMatrix : Byte = 1;
+
+Number of columns of items in the pick window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 926 PickStick
+!NOINDEX
+const
+  0916TpPick.PickStick : Boolean = True;
+
+If True, the highlight bar will "stick" at the top and bottom of scrolling
+picklists. Otherwise, the bar will jump to the opposite end of the next
+appropriate column.
+;
+;---------------------------------------------------------------------------
+!TOPIC 927 PickMore
+!NOINDEX
+const
+  0916TpPick.PickMore : Boolean = True;
+
+If True, TPPICK will display a "more" prompt in the lower right portion of
+the window frame when there are items not visible within the window.
+
+See also: 0933PickMouseScroll
+;
+;---------------------------------------------------------------------------
+!TOPIC 928 PickAlterPageRow
+!NOINDEX
+const
+  0916TpPick.PickAlterPageRow : Boolean = True;
+
+If True, TPPICK will alter the relative row on which the highlight bar
+appears when PgUp or PgDn is pressed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 929 PickSrch
+!NOINDEX
+const
+  0916TpPick.PickSrch : 0921SrchType = NoPickSrch;
+
+Controls whether the user can enter alphanumeric characters to search within
+the pick list. By default, no such searching is activated.
+;
+;---------------------------------------------------------------------------
+!TOPIC 930 SrchStart
+!NOINDEX
+const
+  0916TpPick.SrchStart : Byte = 1;
+
+Starting position of search in each item string.
+
+See also: 0929PickSrch
+;
+;---------------------------------------------------------------------------
+!TOPIC 931 PickSrchStat
+!NOINDEX
+const
+  0916TpPick.PickSrchStat : Boolean = True;
+
+If True, TPPICK displays the current incremental search string in the lower
+left corner of the pick window.
+
+See also: 0929PickSrch
+;
+;---------------------------------------------------------------------------
+!TOPIC 932 HideCursor
+!NOINDEX
+const
+  0916TpPick.HideCursor : Boolean = True;
+
+If False, TPPICK leaves the hardware cursor visible during pick operations.
+;
+;---------------------------------------------------------------------------
+!TOPIC 933 PickMouseScroll
+!NOINDEX
+const
+  0916TpPick.PickMouseScroll : Boolean = True;
+
+If True and a mouse is installed, TPPICK provides a mouse scroll bar when
+there are more items than will fit within the pick window.
+
+See also: 0927PickMore
+;
+;---------------------------------------------------------------------------
+!TOPIC 934 PickMousePage
+!NOINDEX
+const
+  0916TpPick.PickMousePage : Boolean = False;
+
+If True and a mouse is installed, TPPICK scrolls the pick list by one page
+for each click on the scroll bar arrows. Otherwise, it scrolls by one item.
+
+See also: 0935PickMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 935 PickMouseEnabled
+!NOINDEX
+const
+  0916TpPick.PickMouseEnabled : Boolean = False;
+
+True if mouse support in TPPICK is enabled.
+
+See also: 0954EnablePickMouse  0955DisablePickMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 936 PickMouseWindow
+!NOINDEX
+const
+  0916TpPick.PickMouseWindow : Boolean = True;
+
+True if mouse movement is restricted to just the pick
+window. If set to False, the mouse can be moved around the
+entire screen.
+
+See also: 0954EnablePickMouse  0955DisablePickMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 937 AltPickAttr
+!NOINDEX
+const
+  0916TpPick.AltPickAttr : Boolean = False;
+
+When set True by the user string function, special 0919color attributes are used
+to display the corresponding pick item. TPPICK resets this constant to
+False after each item is displayed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 938 Pickable
+!NOINDEX
+const
+  0916TpPick.Pickable : Boolean = True;
+
+When set False by the user string function, the corresponding pick item is
+considered "unpickable." The highlight will never stop on such an item and
+it is displayed in a special 0919color. TPPICK resets this constant to True
+after each call to the string function.
+;
+;---------------------------------------------------------------------------
+!TOPIC 939 PickKeyMax
+!NOINDEX
+const
+  0916TpPick.PickKeyMax = 111;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPPICK.
+
+See also: 0940PickKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 940 PickKeySet
+!NOINDEX
+const
+  0916TpPick.PickKeySet : array[0..0939PickKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPPICK.
+
+See also: 0953AddPickCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 941 PickKeyPtr
+!NOINDEX
+var
+  0916TpPick.PickKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 942 PickUserPtr
+!NOINDEX
+var
+  0916TpPick.PickUserPtr : Pointer;
+
+If not nil, points to a routine called just prior to getting each command
+from the keyboard. The routine must be declared far and global, and must
+match the following declaration:
+
+  procedure PickUserProc(CurrentItem : Word);
+  begin
+    ...
+  end;
+;
+;---------------------------------------------------------------------------
+!TOPIC 943 PickHelpPtr
+!NOINDEX
+var
+  0916TpPick.PickHelpPtr : Pointer;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 944 PickSrchPtr
+!NOINDEX
+var
+  0916TpPick.PickSrchPtr : Pointer;
+
+Points to a routine used to search the pick list for a match to an
+alphanumeric string. The routine must be declared far and global, and must
+match the following declaration:
+
+  function SearchFunc(PickChar : Char; var Item : Word) : Boolean;
+  begin
+    ...
+  end.
+
+The routine should return True and an Item number if it finds a match. The
+most recent alpha character entered is passed in PickChar. The search
+function may also refer to the global variables 0958SStr and 0930SrchStart.
+
+See also: 0929PickSrch
+;
+;---------------------------------------------------------------------------
+!TOPIC 945 PickWindow
+!NOINDEX
+function 0916TpPick.PickWindow
+  (StringFunc : Pointer;    {Pointer to function to return each item string}
+   NumItems : Word;         {Number of items to pick from}
+   XLow, YLow : Byte;       {Window coordinates, including frame if any}
+   XHigh, YHigh : Byte;     {Window coordinates, including frame if any}
+   DrawFrame : Boolean;     {True to draw a frame around window}
+   Colors : 0919PickColorArray; {Video attributes to use}
+   Header : String;         {Title for window}
+   var Choice : Word        {The item selected, in the range 1..NumItems}
+   ) : Boolean;             {True if PickWindow was successful}
+
+Display a window, let user scroll around in it, and return choice. Choice
+returned is in the range 1..NumItems. The string function must be declared
+far and global and must match the following declaration:
+
+  function GetString(Item : Word) : String;
+  begin
+    ...
+  end;
+
+See also: 0937AltPickAttr       0932HideCursor       0938Pickable
+          0928PickAlterPageRow  0943PickHelpPtr      0941PickKeyPtr
+          0925PickMatrix        0924PickMaxRows      0923PickMinRows
+          0927PickMore          0934PickMousePage    0933PickMouseScroll
+          0926PickStick         0942PickUserPtr      0950SetHorizontalPick
+          0951SetSnakingPick    0949SetVerticalPick
+;
+;---------------------------------------------------------------------------
+!TOPIC 946 FillPickWindow
+!NOINDEX
+procedure 0916TpPick.FillPickWindow(
+   W : WindowPtr;           {The window to operate within}
+   StringFunc : Pointer;    {Pointer to function to return each item string}
+   NumItems : Word;         {Number of items in PickArray}
+   Colors : PickColorArray; {Video attributes to use}
+   Choice : Word;           {Highlighted item number}
+   FirstChoice : Word);     {Item in upper left corner of window}
+
+Display a window, fill it with choices, and return. Choice specifies the
+initial item highlighted. FirstChoice specifies the item number to appear in
+the upper left corner of the window.
+
+See also: 0947PickBar  0945PickWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 947 PickBar
+!NOINDEX
+procedure 0916TpPick.PickBar(
+   W : WindowPtr;           {The window to operate within}
+   StringFunc : Pointer;    {Pointer to function to return items}
+   NumItems : Word;         {The number of items to pick from}
+   Colors : PickColorArray; {Video attributes to use}
+   EraseBar : Boolean;      {Unhighlight the bar when finished?}
+   var Choice : Word;       {The item selected, range 1..NumItems}
+   var FirstChoice : Word); {Item in upper left corner of window}
+
+Choose from a pick list already displayed on the screen.
+
+See also: 0946FillPickWindow  0945PickWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 948 EvaluatePickCommand
+!NOINDEX
+procedure 0916TpPick.EvaluatePickCommand(
+   W : WindowPtr;          {The window to operate within}
+   StringFunc : Pointer;   {Pointer to function to return items}
+   NumItems : Word;        {The number of items to pick from}
+   var Choice : Word;      {The item selected, range 1..NumItems}
+   var FirstChoice : Word; {The item in the upper left corner}
+   var Cmd : 0918PKType);      {Command to evaluate, modified if mouse select}
+
+Given a command Cmd, determine the effect on Choice and FirstChoice. Does
+not update the screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 949 SetVerticalPick
+!NOINDEX
+procedure 0916TpPick.SetVerticalPick;
+
+Arrange pick items in columns vertically.
+
+See also: 0950SetHorizontalPick  0951SetSnakingPick  0952PickOrientation
+;
+;---------------------------------------------------------------------------
+!TOPIC 950 SetHorizontalPick
+!NOINDEX
+procedure 0916TpPick.SetHorizontalPick;
+
+Arrange pick items in rows horizontally.
+
+See also: 0949SetVerticalPick  0951SetSnakingPick  0952PickOrientation
+;
+;---------------------------------------------------------------------------
+!TOPIC 951 SetSnakingPick
+!NOINDEX
+procedure 0916TpPick.SetSnakingPick;
+
+Arrange pick items in columns vertically, where the item at the top of one
+column is the one immediately following the item at the bottom of the
+previous column.
+
+See also: 0949SetVerticalPick  0950SetHorizontalPick  0952PickOrientation
+;
+;---------------------------------------------------------------------------
+!TOPIC 952 PickOrientation
+!NOINDEX
+function 0916TpPick.PickOrientation : 0922PickOrientType;
+
+Return the current pick orientation.
+;
+;---------------------------------------------------------------------------
+!TOPIC 953 AddPickCommand
+!NOINDEX
+function 0916TpPick.AddPickCommand(Cmd : 0918PKType; NumKeys : Byte;
+                               Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+
+See also: 0940PickKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 954 EnablePickMouse
+!NOINDEX
+procedure 0916TpPick.EnablePickMouse;
+
+Enable mouse control of pick lists.
+
+See also: 0955DisablePickMouse  0935PickMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 955 DisablePickMouse
+!NOINDEX
+procedure 0916TpPick.DisablePickMouse;
+
+Disable mouse control of pick lists.
+
+See also: 0954EnablePickMouse  0935PickMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 956 PickCmdNum
+!NOINDEX
+var
+  0916TpPick.PickCmdNum : 0918PKType;
+
+Command number used to exit pick.
+;
+;---------------------------------------------------------------------------
+!TOPIC 957 PickChar
+!NOINDEX
+var
+  0916TpPick.PickChar : Char;
+
+Character used to exit pick.
+;
+;---------------------------------------------------------------------------
+!TOPIC 958 SStr
+!NOINDEX
+var
+  0916TpPick.SStr : 0920SrchString;
+
+Current value of incremental search string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 959 Getting a Choice
+!NOINDEX
+TPPICK provides the following procedures and data structures for getting a
+choice from a pick list:
+
+      0948EvaluatePickCommand    0946FillPickWindow         0947PickBar
+      0957PickChar               0956PickCmdNum             0945PickWindow
+      0918PKType
+;
+;---------------------------------------------------------------------------
+!TOPIC 960 Pick Properties
+!NOINDEX
+TPPICK provides the following routines and data structures for customizing
+the appearance and behavior of pick lists:
+
+  0953AddPickCommand    0937AltPickAttr       0955DisablePickMouse  0954EnablePickMouse
+  0932HideCursor        0938Pickable          0928PickAlterPageRow  0919PickColorArray
+  0919PickColorType     0943PickHelpPtr       0939PickKeyMax        0941PickKeyPtr
+  0940PickKeySet        0925PickMatrix        0924PickMaxRows       0923PickMinRows
+  0927PickMore          0935PickMouseEnabled  0934PickMousePage     0933PickMouseScroll
+  0936PickMouseWindow   0952PickOrientation   0922PickOrientType    0926PickStick
+  0942PickUserPtr       0950SetHorizontalPick 0951SetSnakingPick    0949SetVerticalPick
+;
+;---------------------------------------------------------------------------
+!TOPIC 961 Searching a List
+!NOINDEX
+TPPICK provides the following data structures for performing alphanumeric
+searches of pick lists:
+
+      0917MaxSearchLen           0929PickSrch               0944PickSrchPtr
+      0931PickSrchStat           0930SrchStart              0920SrchString
+      0921SrchType               0958SStr
+;
+;===========================================================================
+!TOPIC 962 TpScreen
+The main attraction in the TPSCREEN unit is its support for virtual screens.
+Working in conjunction with the TPCRT unit, the routines here allow you to
+treat almost any region of memory as a "screen", write to it, and then move
+its contents to the actual screen. Normally a virtual screen is either an
+alternate video page (on a color graphics adapter) or a buffer allocated on
+the heap.
+
+      1019Color Mapping          1020Fast Video I/O         1021TPCRT Compatibility
+      1022Virtual Screens
+;
+;---------------------------------------------------------------------------
+!TOPIC 963 MaxScreens
+!NOINDEX
+const
+  0962TpScreen.MaxScreens = 10;
+
+Maximum number of virtual screens TPSCREEN can manage at once.
+
+See also: 0972Screens
+;
+;---------------------------------------------------------------------------
+!TOPIC 964 Turbo3StyleColors
+!NOINDEX
+const
+  0962TpScreen.Turbo3StyleColors : Boolean = False;
+
+If True, then 0974NormVideo, 0973HighVideo, and 0975LowVideo work as they did in Turbo
+Pascal 3.0 (yellow on black, etc.).
+;
+;---------------------------------------------------------------------------
+!TOPIC 965 TpScreen Colors
+!NOINDEX
+0962TpScreen defines the standard color names as typed constants so that they
+can be changed at runtime. The 0992MonoColors routine remaps these typed
+constants to look better on monochrome screens, and 0993ColorColors resets them.
+
+const
+  Black        : Byte = 0;
+  Blue         : Byte = 1;
+  Green        : Byte = 2;
+  Cyan         : Byte = 3;
+  Red          : Byte = 4;
+  Magenta      : Byte = 5;
+  Brown        : Byte = 6;
+  LightGray    : Byte = 7;
+  DarkGray     : Byte = 8;
+  LightBlue    : Byte = 9;
+  LightGreen   : Byte = 10;
+  LightCyan    : Byte = 11;
+  LightRed     : Byte = 12;
+  LightMagenta : Byte = 13;
+  Yellow       : Byte = 14;
+  White        : Byte = 15;
+;
+;---------------------------------------------------------------------------
+!TOPIC 966 WindowCoordinates
+!NOINDEX
+type
+  0962TpScreen.WindowCoordinates =
+    record
+      XL, YL, XH, YH : Byte;
+    end;
+
+Record used to save and restore window coordinates.
+
+See also: 1007StoreWindowCoordinates  1008RestoreWindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 967 ScreenRec
+!NOINDEX
+type
+  0962TpScreen.ScreenRec =
+    record
+      Alloc : Boolean;       {is it allocated ?}
+      Size : Word;           {Size in words}
+      SCols,                 {Number of columns}
+      SRows,                 {Number of Rows}
+      XLo,                   {0..79 format}
+      YLo,                   {0..24/42 format}
+      XHi,                   {1..80 format}
+      YHi,                   {1..25/43 format}
+      Col,                   {Cursor coordinates}
+      Row : Byte;
+      BPtr : Pointer;        {Pointer to screen buffer}
+    end;
+
+Record used to manage a virtual screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 968 VisiblePage
+!NOINDEX
+var
+  0962TpScreen.VisiblePage : Byte absolute 155TpCrt.CurrentPage;
+
+The display page currently visible on-screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 969 ActivePage
+!NOINDEX
+var
+  0962TpScreen.ActivePage : Byte;
+
+The display page we're currently writing to.
+
+See also: 0969ActivePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 970 CurrentScreen
+!NOINDEX
+var
+  0962TpScreen.CurrentScreen : Byte;
+
+Handle for the current virtual screen. Equals 0 for real screen.
+
+See also: 1010SelectScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 971 OutputToScreen
+!NOINDEX
+var
+  0962TpScreen.OutputToScreen : Boolean;
+
+True when output is going to the physical screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 972 Screens
+!NOINDEX
+var
+  0962TpScreen.Screens : array[0..0963MaxScreens] of 0967ScreenRec;
+
+Data structure TPSCREEN uses to manage virtual screens.
+;
+;---------------------------------------------------------------------------
+!TOPIC 973 HighVideo
+!NOINDEX
+procedure 0962TpScreen.HighVideo;
+
+Select high intensity video attribute.
+
+See also: 0964Turbo3StyleColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 974 NormVideo
+!NOINDEX
+procedure 0962TpScreen.NormVideo;
+
+Select 'normal' intensity video attribute.
+
+See also: 0964Turbo3StyleColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 975 LowVideo
+!NOINDEX
+procedure 0962TpScreen.LowVideo;
+
+Select low intensity video attribute.
+
+See also: 0964Turbo3StyleColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 976 TextColor
+!NOINDEX
+procedure 0962TpScreen.TextColor(Color : Byte);
+
+Set foreground color for screen writes. Provides color mapping on monochrome
+displays.
+
+See also: 0965TpScreen Colors
+;
+;---------------------------------------------------------------------------
+!TOPIC 977 TextBackground
+!NOINDEX
+procedure 0962TpScreen.TextBackGround(Color : Byte);
+
+Set background color for screen writes. Provides color mapping on monochrome
+displays.
+
+See also: 0965TpScreen Colors
+;
+;---------------------------------------------------------------------------
+!TOPIC 978 WhereXY
+!NOINDEX
+function 0962TpScreen.WhereXY : Word;
+
+Return absolute row and column coordinates of cursor. High byte has current
+row (Y), low byte has current column (X). Aware of virtual screens.
+
+See also: 0979WhereXabs  0980WhereYabs
+;
+;---------------------------------------------------------------------------
+!TOPIC 979 WhereXabs
+!NOINDEX
+function 0962TpScreen.WhereXabs : Byte;
+
+Return absolute column coordinate of cursor. Aware of virtual screens.
+
+See also: 0981WhereX  0978WhereXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 980 WhereYabs
+!NOINDEX
+function 0962TpScreen.WhereYabs : Byte;
+
+Return absolute row coordinate of cursor. Aware of virtual screens.
+
+See also: 0982WhereY  0978WhereXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 981 WhereX
+!NOINDEX
+function 0962TpScreen.WhereX : Byte;
+
+Return column coordinate of cursor, relative to Window. Aware of virtual
+screens.
+
+See also: 0979WhereXabs
+;
+;---------------------------------------------------------------------------
+!TOPIC 982 WhereY
+!NOINDEX
+function 0962TpScreen.WhereY : Byte;
+
+Return row coordinate of cursor, relative to Window. Aware of virtual
+screens.
+
+See also: 0980WhereYabs
+;
+;---------------------------------------------------------------------------
+!TOPIC 983 GotoXYabs
+!NOINDEX
+procedure 0962TpScreen.GotoXYabs(X, Y : Byte);
+
+Move cursor to column X, row Y. Aware of virtual screens.
+
+See also: 0984GoToXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 984 GotoXY
+!NOINDEX
+procedure 0962TpScreen.GoToXY(X, Y : Byte);
+
+Move cursor to column X, row Y, relative to Window. Aware of virtual
+screens.
+
+See also: 0983GotoXYabs
+;
+;---------------------------------------------------------------------------
+!TOPIC 985 ClrScr
+!NOINDEX
+procedure 0962TpScreen.ClrScr;
+
+Clear the active window. Uses special background character, BackgroundChar,
+and is aware of virtual screens.
+
+See also: 0994SetBackgroundChar
+;
+;---------------------------------------------------------------------------
+!TOPIC 986 ClrEol
+!NOINDEX
+procedure 0962TpScreen.ClrEol;
+
+Clear to end of line. Uses special background character, BackgroundChar, and
+is aware of virtual screens.
+
+See also: 0994SetBackgroundChar
+;
+;---------------------------------------------------------------------------
+!TOPIC 987 TextMode
+!NOINDEX
+procedure 0962TpScreen.TextMode(Mode : Word);
+
+Switch to specified text mode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 988 Window
+!NOINDEX
+procedure 0962TpScreen.Window(X1, Y1, X2, Y2 : Byte);
+
+Set the window coordinates for the active screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 989 ScrollWindowUp
+!NOINDEX
+procedure 0962TpScreen.ScrollWindowUp(X1, Y1, X2, Y2, Lines : Byte);
+
+Scroll the designated window up the specified number of lines. Always
+affects the active page of the physical screen.
+
+See also: 0990ScrollWindowDown
+;
+;---------------------------------------------------------------------------
+!TOPIC 990 ScrollWindowDown
+!NOINDEX
+procedure 0962TpScreen.ScrollWindowDown(X1, Y1, X2, Y2, Lines : Byte);
+
+Scroll the designated window down the specified number of lines. Always
+affects the active page of the physical screen.
+
+See also: 0989ScrollWindowUp
+;
+;---------------------------------------------------------------------------
+!TOPIC 991 AssignCrt
+!NOINDEX
+procedure 0962TpScreen.AssignCrt(var F : Text);
+
+Initialize the virtual screen-aware text file device driver. Called
+automatically in TPSCREEN's initialization block.
+
+See also: 1011ReinitScreen  1018ReleaseVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 992 MonoColors
+!NOINDEX
+procedure 0962TpScreen.MonoColors;
+
+Switch the color map to monochrome/black and white.
+
+See also: 0993ColorColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 993 ColorColors
+!NOINDEX
+procedure 0962TpScreen.ColorColors;
+
+Switch the color map to color.
+
+See also: 0992MonoColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 994 SetBackgroundChar
+!NOINDEX
+procedure 0962TpScreen.SetBackgroundChar(Ch : Char);
+
+Set a background character (something other than space) to use for 0985ClrScr
+and 0986ClrEol.
+;
+;---------------------------------------------------------------------------
+!TOPIC 995 CurrentRows
+!NOINDEX
+function 0962TpScreen.CurrentRows : Byte;
+
+Return the number of rows in the current (virtual) screen.
+
+See also: 0996CurrentCols
+;
+;---------------------------------------------------------------------------
+!TOPIC 996 CurrentCols
+!NOINDEX
+function 0962TpScreen.CurrentCols : Byte;
+
+Return the number of columns in the current (virtual) screen.
+
+See also: 0995CurrentRows
+;
+;---------------------------------------------------------------------------
+!TOPIC 997 FastWriteMem
+!NOINDEX
+procedure 0962TpScreen.FastWriteMem(St : string; var Address; Attr : Byte);
+
+Write St at Address in video attribute Attr without snow. Primarily for
+internal use.
+
+See also: 1001SpeedWrite  1002CenterWrite
+;
+;---------------------------------------------------------------------------
+!TOPIC 998 FillAttribChar
+!NOINDEX
+procedure 0962TpScreen.FillAttribChar(var Dest; Number : Word;
+                                  Ch : Char; Attr : Byte);
+
+Fill Dest with Number character/attribute pairs without snow. Primarily for
+internal use.
+
+See also: 0999FillVideoChar  1000FillWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 999 FillVideoChar
+!NOINDEX
+procedure 0962TpScreen.FillVideoChar(R, C : Byte; Number : Word;
+                                 Ch : Char; Attr : Byte);
+
+Fill Number character/attribute pairs at row R, column C of physical screen.
+
+See also: 0998FillAttribChar  1000FillWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1000 FillWindow
+!NOINDEX
+procedure 0962TpScreen.FillWindow(Ch : Char);
+
+Fills the active window with the specified character.
+
+See also: 0985ClrScr
+;
+;---------------------------------------------------------------------------
+!TOPIC 1001 SpeedWrite
+!NOINDEX
+procedure 0962TpScreen.SpeedWrite(S : string);
+
+Write a string onto the screen at the current cursor location with the
+current attributes. If the cursor is not inside the boundaries of the active
+window, the string is not written. If it extends beyond the window, it is
+clipped. After the string is written, the cursor is updated to the end of
+the string.
+
+See also: 1002CenterWrite
+;
+;---------------------------------------------------------------------------
+!TOPIC 1002 CenterWrite
+!NOINDEX
+procedure 0962TpScreen.CenterWrite(S : string);
+
+Center a string on the current line in the active window.
+
+See also: 1001SpeedWrite
+;
+;---------------------------------------------------------------------------
+!TOPIC 1003 FastReadLine
+!NOINDEX
+function 0962TpScreen.FastReadLine(Handle, Row : Byte) : string;
+
+Read one row of text from the specified screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1004 DefineScreen
+!NOINDEX
+procedure 0962TpScreen.DefineScreen(BufAddr : Pointer;
+                                Handle, Cols, Rows : Byte);
+
+Define a virtual screen. BufAddr must point to a preallocated memory buffer.
+
+See also: 1006AllocateScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1005 DeallocateScreen
+!NOINDEX
+procedure 0962TpScreen.DeallocateScreen(Handle : Byte);
+
+Deallocate the buffer for a virtual screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1006 AllocateScreen
+!NOINDEX
+function 0962TpScreen.AllocateScreen(Handle, Cols, Rows : Byte) : Boolean;
+
+Define a virtual screen and allocate a buffer for it. If a buffer has
+already been allocated for Handle, the old buffer is deallocated first.
+
+See also: 1004DefineScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1007 StoreWindowCoordinates
+!NOINDEX
+procedure 0962TpScreen.StoreWindowCoordinates(
+            var WC : 0966WindowCoordinates);
+
+Store the window coordinates for the active window.
+
+See also: 1008RestoreWindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 1008 RestoreWindowCoordinates
+!NOINDEX
+procedure 0962TpScreen.RestoreWindowCoordinates(
+            WC : 0966WindowCoordinates);
+
+Restore previously saved window coordinates.
+
+See also: 1007StoreWindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 1009 SetActivePage
+!NOINDEX
+procedure 0962TpScreen.SetActivePage(PageNo : Byte);
+
+Select the video page that will be written to with subsequent operations on
+the screen. Ignored unless a CGA or compatible adapter is active. Will not
+select the physical screen if it isn't selected already. To do that, use
+1010SelectScreen(0).
+
+See also: 0969ActivePage  0968VisiblePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 1010 SelectScreen
+!NOINDEX
+procedure 0962TpScreen.SelectScreen(Handle : Byte);
+
+Select the screen to be written to. Handle=0 selects the physical screen.
+
+See also: 1009SetActivePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 1011 ReinitScreen
+!NOINDEX
+procedure 0962TpScreen.ReinitScreen;
+
+Must be called after every video mode change before trying to write to the
+physical screen. ReinitScreen automatically selects the physical screen as
+the active screen, the visual page as the active page, and the full screen
+as the active window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1012 CopyScreen
+!NOINDEX
+procedure 0962TpScreen.CopyScreen(Handle : Byte);
+
+Copy a screen buffer specified by Handle to the active screen. If the
+destination buffer isn't the same size as the source, it tries to change the
+dimensions of the destination.
+
+See also: 1013CopyWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1013 CopyWindow
+!NOINDEX
+procedure 0962TpScreen.CopyWindow(Handle : Word);
+
+Copy a window from the specified screen to the active screen.
+
+See also: 1012CopyScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1014 MoveWindowHorizontal
+!NOINDEX
+procedure 0962TpScreen.MoveWindowHorizontal(Handle, Cols : Byte;
+                                        MoveRight : Boolean);
+
+Move the active window Cols columns to the left or right, filling in the
+background with text from the specified screen, which must be the same size
+as the active screen.
+
+See also: 1015MoveWindowVertical
+;
+;---------------------------------------------------------------------------
+!TOPIC 1015 MoveWindowVertical
+!NOINDEX
+procedure 0962TpScreen.MoveWindowVertical(Handle, Lines : Byte;
+                                      MoveDown : Boolean);
+
+Move the active window Lines rows up or down, filling in the background with
+text from the specified screen, which must be the same size as the active
+screen.
+
+See also: 1014MoveWindowHorizontal
+;
+;---------------------------------------------------------------------------
+!TOPIC 1016 FrameWindow
+!NOINDEX
+procedure 0962TpScreen.FrameWindow(
+            LeftCol, TopRow, RightCol, BotRow : Byte;
+            FAttr, HAttr : Byte; Header : string);
+
+Draw a frame around a window using the current 140FrameChars from the TPCRT
+unit. Aware of virtual windows.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1017 InitVideo
+!NOINDEX
+procedure 0962TpScreen.InitVideo;
+
+Initialize TPSCREEN internal data structures. Called automatically in the
+initialization block.
+
+See also: 1011ReinitScreen  1018ReleaseVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 1018 ReleaseVideo
+!NOINDEX
+procedure 0962TpScreen.ReleaseVideo;
+
+Route all output through TPCRT. This may need to be called in error handlers
+to disable output to a virtual screen.
+
+See also: 1011ReinitScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1019 Color Mapping
+!NOINDEX
+TPSCREEN provides the following routines and data structures to manage color
+mapping on monochrome displays:
+
+      0993ColorColors            0992MonoColors             0965TpScreen Colors
+      0964Turbo3StyleColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 1020 Fast Video I/O
+!NOINDEX
+TPSCREEN provides the following routines for fast output to virtual and
+physical screens:
+
+      1002CenterWrite            1003FastReadLine           0997FastWriteMem
+      0998FillAttribChar         0999FillVideoChar          1000FillWindow
+      1016FrameWindow            0990ScrollWindowDown       0989ScrollWindowUp
+      0994SetBackgroundChar      1001SpeedWrite
+;
+;---------------------------------------------------------------------------
+!TOPIC 1021 TPCRT Compatibility
+!NOINDEX
+TPSCREEN provides the following routines which offer TPCRT-compatible
+operations on virtual screens.
+
+      0991AssignCrt              0986ClrEol                 0985ClrScr
+      0984GoToXY                 0983GotoXYabs              0973HighVideo
+      0975LowVideo               0974NormVideo              1008RestoreWindowCoordinates
+      1007StoreWindowCoordinates 0977TextBackGround         0976TextColor
+      0987TextMode               0981WhereX                 0979WhereXabs
+      0978WhereXY                0982WhereY                 0980WhereYabs
+      0988Window                 0966WindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 1022 Virtual Screens
+!NOINDEX
+TPSCREEN provides the following data structures and routines for managing
+virtual screens:
+
+      0969ActivePage             1006AllocateScreen         1012CopyScreen
+      1013CopyWindow             0996CurrentCols            0995CurrentRows
+      0970CurrentScreen          1005DeallocateScreen       1004DefineScreen
+      1017InitVideo              0963MaxScreens             1014MoveWindowHorizontal
+      1015MoveWindowVertical     0971OutputToScreen         1011ReinitScreen
+      1018ReleaseVideo           0967ScreenRec              0972Screens
+      1010SelectScreen           1009SetActivePage          0968VisiblePage
+

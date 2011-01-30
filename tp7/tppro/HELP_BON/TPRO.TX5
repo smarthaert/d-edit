@@ -1,0 +1,1382 @@
+;
+;===========================================================================
+!TOPIC 495 TpEntry
+The TPENTRY unit provides a powerful full-screen data entry facility.
+Unlike the routines in TPEDIT, which are designed for editing individual
+strings and numbers, TPENTRY allows you to group multiple fields together in
+a single entry screen. You lay out the screen, and TPENTRY handles the tasks
+of editing, cursor movement, range checking, and validation of input.
+
+      600Adding Fields          601Data Types             602Dynamic Hooks
+      603Editing                604Field Attributes       605Global Initialization
+
+;
+;---------------------------------------------------------------------------
+!TOPIC 496 On
+!NOINDEX
+const
+  495TpEntry.On = True;
+
+Helps to self-document code when used as a parameter to 561SetAutoAdvance,
+548SetBeepOnError, 560SetNumeric, and other TPENTRY routines that take boolean
+parameters.
+;
+;---------------------------------------------------------------------------
+!TOPIC 497 Off
+!NOINDEX
+const
+  495TpEntry.Off = False;
+
+Helps to self-document code when used as a parameter to 561SetAutoAdvance,
+548SetBeepOnError, 560SetNumeric, and other TPENTRY routines that take boolean
+parameters.
+;
+;---------------------------------------------------------------------------
+!TOPIC 498 Entry Error Codes
+!NOINDEX
+The following 495TpEntry error codes are passed to a user-defined handler
+which has been installed by calling 552SetErrorPtr.
+
+  InitError     = 00;    {uninitialized 513ESrecord}
+  OverflowError = 01;    {too many fields}
+  ParamError    = 02;    {a bad parameter to a procedure}
+  MemoryError   = 03;    {not enough memory}
+  FormatError   = 04;    {bad format}
+  RangeError    = 05;    {entry out of range}
+  ReqFldError   = 06;    {field is required}
+  BlanksError   = 07;    {field contains blanks}
+  PartialError  = 08;    {field contains partial entry}
+  BadCharError  = 09;    {field contains illegal character}
+  BadFieldID    = $FFFF; {illegal field ID value}
+;
+;---------------------------------------------------------------------------
+!TOPIC 499 EStype
+!NOINDEX
+type
+  495TpEntry.EStype = ESnone..ESmouse;
+
+Byte values associated with entry screen commands. See TPENTRY.IN0 or the
+Turbo Professional manual for all the constants associated with this type.
+
+See also: 518EntryKeySet  590AddEntryCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 500 CommandSet
+!NOINDEX
+type
+  495TpEntry.CommandSet = set of 499EStype;
+
+Represents a set of valid entry screen commands.
+;
+;---------------------------------------------------------------------------
+!TOPIC 501 CaseChange
+!NOINDEX
+type
+  495TpEntry.CaseChange = (NoChange, UpperCase, LowerCase);
+
+Enumerated type describing how the case of characters is changed in
+507user-defined character sets.
+;
+;---------------------------------------------------------------------------
+!TOPIC 502 StringCommands
+!NOINDEX
+const
+  495TpEntry.StringCommands : 500CommandSet = [ESchar..ESmouse];
+
+The set of all possible entry screen commands for the string editor.
+
+See also: 524AddStringField
+;
+;---------------------------------------------------------------------------
+!TOPIC 503 ReadOnlyCommands
+!NOINDEX
+const
+  495TpEntry.ReadOnlyCommands : 500CommandSet =
+    [EShome..ESwordRight, ESins..ESbackTab, ESnextField..ESmouse];
+
+The set of entry screen commands used when a field is available for browsing
+only.
+;
+;---------------------------------------------------------------------------
+!TOPIC 504 NumberCommands
+!NOINDEX
+const
+  495TpEntry.NumberCommands : 500CommandSet =
+    [ESchar, ESrestore..ESdelLine, ESins..ESmouse];
+
+The set of entry screen commands used by the numeric editor.
+
+See also: 534AddRealField
+;
+;---------------------------------------------------------------------------
+!TOPIC 505 ChoiceCommands
+!NOINDEX
+const
+  495TpEntry.ChoiceCommands : 500CommandSet =
+    [ESchar, ESrestore, ESleft..ESwordRight, EShelp..ESmouse];
+
+The set of entry screen commands used for multiple choice fields.
+
+See also: 545AddChoiceField
+;
+;---------------------------------------------------------------------------
+!TOPIC 506 Entry Pictures
+!NOINDEX
+A broad range of options is available for controlling which characters are
+valid in a given position of an entry field. This section lists 495TpEntry's
+picture mask characters.
+
+const
+  AnyChar     = 'X';         {allows any character}
+  ForceUp     = '!';         {allows any character, forces upper case}
+  ForceLo     = 'L';         {allows any character, forces lower case}
+  AlphaOnly   = 'a';         {allows alphas only}
+  UpperAlpha  = 'A';         {allows alphas only, forces upper case}
+  LowerAlpha  = 'l';         {allows alphas only, forces lower case}
+  NumberOnly  = '9';         {allows numbers and spaces only}
+  DigitOnly   = '#';         {allows numbers, spaces, minus, period}
+  BooleanOnly = 'B';         {allows T, t, F, f}
+  YesNoOnly   = 'Y';         {allows Y, y, N, n}
+
+  User1       = '1';         {for 507user-defined character sets 1..8}
+  ...
+  User8       = '8';
+
+  FloatDollar = '$';               {floating dollar sign}
+  CurrencyLt  = 'c';               {currency to left of the amount}
+  CurrencyLtStr : string[5] = '$'; {corresponding string}
+  CurrencyRt  = 'C';               {currency to right of the amount}
+  CurrencyRtStr : string[5] = '';
+  DecimalPt   = '.';               {insert decimal point}
+  DecimalChar : Char = '.';        {character used for decimal point}
+  Comma       = ',';               {character used to separate numbers}
+  CommaChar   : Char = ',';        {character used for comma}
+
+The following special characters are used by 595ValidateSubfields:
+
+const
+  PartialChar   = 'p';  {prohibit Partial entry in this subfield}
+  ReqdChar      = 'r';  {entire subfield is Required}
+  UnlessChar    = 'u';  {no blanks in subfield Unless whole field is blank}
+;
+;---------------------------------------------------------------------------
+!TOPIC 507 User Character Sets
+!NOINDEX
+const
+  495TpEntry.UserSet1 : CharSet = [#0..#255];
+          UserSet2 : CharSet = [#0..#255];
+          UserSet3 : CharSet = [#0..#255];
+          UserSet4 : CharSet = [#0..#255];
+          UserSet5 : CharSet = [#0..#255];
+          UserSet6 : CharSet = [#0..#255];
+          UserSet7 : CharSet = [#0..#255];
+          UserSet8 : CharSet = [#0..#255];
+
+Each defines a set of characters that is valid at the position corresponding
+to a user 506picture character ('1', '2', ...). The typed constant array
+508ForceCaseUser determines whether the case of alphabetic characters is to be
+forced to lower or upper.
+;
+;---------------------------------------------------------------------------
+!TOPIC 508 ForceCaseUser
+!NOINDEX
+const
+  495TpEntry.ForceCaseUser : array[User1..User8] of 501CaseChange = (
+    NoChange, NoChange, NoChange, NoChange,
+    NoChange, NoChange, NoChange, NoChange);
+
+These determine whether or not upper/lower case is forced for 507user sets.
+;
+;---------------------------------------------------------------------------
+!TOPIC 509 EntryMouseEnabled
+!NOINDEX
+const
+  495TpEntry.EntryMouseEnabled : Boolean = False;
+
+True when the mouse has been enabled in TPENTRY.
+
+See also: 575EnableEntryMouse  576DisableEntryMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 510 ScrollByPage
+!NOINDEX
+const
+  495TpEntry.ScrollByPage : Boolean = False;
+
+If True while a scrolling entry screen is active, moving the cursor to field
+above or below the edges of the entry window will cause the entry screen to
+scroll by one full page rather than a single line.
+;
+;---------------------------------------------------------------------------
+!TOPIC 511 WrapModeType
+!NOINDEX
+type
+  495TpEntry.WrapModeType = (StopAtEdges, WrapAtEdges, ExitAtEdges);
+
+Type describing entry screen behavior when the cursor is on the last or
+first row of an edit screen and the user has given a command that requires
+it to be moved to the next or previous row. StopAtEdges means that the
+command will be ignored. WrapAtEdges means that the cursor will "wrap" to
+the other edge of the screen. And for ExitAtEdges the command will be
+interpreted as an exit command.
+
+See also: 546SetWrapMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 512 FieldRec
+!NOINDEX
+type
+  495TpEntry.FieldRecPtr = ^FieldRec;
+  FieldRec =
+    record
+      FieldID     : Word;         {field ID--assigned automatically}
+      ...
+      Picture     : StringPtr;    {points to edit mask}
+      ...
+      EditSt      : StringPtr;    {points to string to edit}
+      ...
+      RangeLo     : RangeType;    {valid range for the field}
+      RangeHi     : RangeType;
+      ...
+      VarPtr      : Pointer;      {points to the actual variable}
+      ...
+    end;
+
+Variables of type FieldRec contain all pertinent information about a
+particular edit field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 513 ESrecord
+!NOINDEX
+type
+  495TpEntry.ESrecord =
+    record
+      ...
+      CurrentID : Word;         {ID of current field}
+      ...
+    end;
+
+Variables of this type are used to store general information about a
+particular edit screen.
+
+See also: 512FieldRec
+;
+;---------------------------------------------------------------------------
+!TOPIC 514 EntryKeyPtr
+!NOINDEX
+var
+  495TpEntry.EntryKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 515 EntryHelpPtr
+!NOINDEX
+const
+  495TpEntry.EntryHelpPtr : Pointer = nil;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 516 LastEntryCommand
+!NOINDEX
+const
+  495TpEntry.LastEntryCommand : 499EStype = ESnone;
+
+The last edit command entered by the user. May be referred to within a
+validation routine or even changed within a pre- or post-edit routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 517 EntryKeyMax
+!NOINDEX
+const
+  495TpEntry.EntryKeyMax = 240;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPENTRY.
+
+See also: 518EntryKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 518 EntryKeySet
+!NOINDEX
+const
+  495TpEntry.EntryKeySet : array[0..517EntryKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPENTRY.
+
+See also: 590AddEntryCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 519 InitESrecord
+!NOINDEX
+procedure 495TpEntry.InitESrecord(var ESR : ESrecord);
+
+Initialize an 513ESrecord. Must be done before anything else when building an
+entry screen.
+
+See also: 523DisposeEditScreen  547SetEntryWindow  598EntryScrollCheck
+;
+;---------------------------------------------------------------------------
+!TOPIC 520 DrawEditScreen
+!NOINDEX
+procedure 495TpEntry.DrawEditScreen(var ESR : ESrecord);
+
+Redraw an entire edit screen.
+
+See also: 577ClearEntryWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 521 EditScreen
+!NOINDEX
+function 495TpEntry.EditScreen(var ESR : 513ESrecord;
+                            StartField : Word;
+                            ReadOnly : Boolean) : 499EStype;
+
+Edit fields until an exit command is issued.
+
+See also: 522EditString
+;
+;---------------------------------------------------------------------------
+!TOPIC 522 EditString
+!NOINDEX
+procedure 495TpEntry.EditString(
+            Prompt : string;       {edit prompt}
+            Row, Col : Byte;       {coordinates for prompt}
+            EditLen : Byte;        {width of edit field}
+            Picture : string;      {edit mask}
+            HelpIndex : Word;      {index to pass to help routine}
+            var Escaped : Boolean; {True if ESquit command given}
+            var EditSt : string);  {string to edit}
+
+Use one of the field editors to edit a string. If 506Picture contains '$' or
+',', numeric mode is selected automatically unless IncludeNumeric is
+unDEFINEd, in which case the program is aborted. In numeric mode, Picture
+characters are stripped from the string before it is returned.
+
+See also: 521EditScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 523 DisposeEditScreen
+!NOINDEX
+procedure 495TpEntry.DisposeEditScreen(var ESR : ESrecord);
+
+Deallocate all field records associated with ESR.
+;
+;---------------------------------------------------------------------------
+!TOPIC 524 AddStringField
+!NOINDEX
+procedure 495TpEntry.AddStringField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            EditLen : Byte;       {width of edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            Validation : Pointer; {pointer to validation routine}
+            var EditSt : string); {string to edit}
+
+Add a field of type string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 525 AddArrayField
+!NOINDEX
+procedure 495TpEntry.AddArrayField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            EditLen : Byte;       {width of edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            Validation : Pointer; {pointer to validation routine}
+            var EditVar);         {array to edit}
+
+Add a field of type array of Char.
+
+See also: 524AddStringField
+;
+;---------------------------------------------------------------------------
+!TOPIC 526 AddCharField
+!NOINDEX
+procedure 495TpEntry.AddCharField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            CharLo : Char;        {lowest char}
+            CharHi : Char;        {highest char}
+            var EditChar : Char); {Char to edit}
+
+Add a field of type Char.
+
+See also: 528AddYesNoField  527AddBooleanField
+;
+;---------------------------------------------------------------------------
+!TOPIC 527 AddBooleanField
+!NOINDEX
+procedure 495TpEntry.AddBooleanField(
+            var ESR : ESrecord;      {the edit screen to add to}
+            Prompt : string;         {edit prompt}
+            pRow, pCol : Word;       {coordinates for prompt}
+            506Picture : string;        {edit mask}
+            eRow, eCol : Word;       {coordinates for edit field}
+            HelpIndex : Word;        {index to pass to help routine}
+            var EditBool : Boolean); {Boolean to edit}
+
+Add a field of type Boolean (accepts T or F for an answer).
+
+See also: 528AddYesNoField
+;
+;---------------------------------------------------------------------------
+!TOPIC 528 AddYesNoField
+!NOINDEX
+procedure 495TpEntry.AddYesNoField(
+            var ESR : ESrecord;       {the edit screen to add to}
+            Prompt : string;          {edit prompt}
+            pRow, pCol : Word;        {coordinates for prompt}
+            506Picture : string;         {edit mask}
+            eRow, eCol : Word;        {coordinates for edit field}
+            HelpIndex : Word;         {index to pass to help routine}
+            var EditYesNo : Boolean); {Boolean to edit}
+
+Add a field of type yes/no (accepts Y or N for an answer).
+
+See also: 527AddBooleanField
+;
+;---------------------------------------------------------------------------
+!TOPIC 529 AddLongField
+!NOINDEX
+procedure 495TpEntry.AddLongField(
+            var ESR : ESrecord;      {the edit screen to add to}
+            Prompt : string;         {edit prompt}
+            pRow, pCol : Word;       {coordinates for prompt}
+            506Picture : string;        {edit mask}
+            eRow, eCol : Word;       {coordinates for edit field}
+            HelpIndex : Word;        {index to pass to help routine}
+            LongLo : LongInt;        {low limit}
+            LongHi : LongInt;        {high limit}
+            var EditLong : LongInt); {LongInt to edit}
+
+Add a field of type LongInt.
+
+See also: 532AddByteField   531AddIntField
+          533AddShortField  530AddWordField
+;
+;---------------------------------------------------------------------------
+!TOPIC 530 AddWordField
+!NOINDEX
+procedure 495TpEntry.AddWordField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            WordLo : Word;        {low limit}
+            WordHi : Word;        {high limit}
+            var EditWord : Word); {Word to edit}
+
+Add a field of type Word.
+
+See also: 529AddLongField
+;
+;---------------------------------------------------------------------------
+!TOPIC 531 AddIntField
+!NOINDEX
+procedure 495TpEntry.AddIntField(
+            var ESR : ESrecord;     {the edit screen to add to}
+            Prompt : string;        {edit prompt}
+            pRow, pCol : Word;      {coordinates for prompt}
+            506Picture : string;       {edit mask}
+            eRow, eCol : Word;      {coordinates for edit field}
+            HelpIndex : Word;       {index to pass to help routine}
+            IntLo : Integer;        {low limit}
+            IntHi : Integer;        {high limit}
+            var EditInt : Integer); {Integer to edit}
+
+Add a field of type Integer.
+
+See also: 529AddLongField
+;
+;---------------------------------------------------------------------------
+!TOPIC 532 AddByteField
+!NOINDEX
+procedure 495TpEntry.AddByteField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            ByteLo : Byte;        {low limit}
+            ByteHi : Byte;        {high limit}
+            var EditByte : Byte); {Byte to edit}
+
+Add a field of type Byte.
+
+See also: 529AddLongField
+;
+;---------------------------------------------------------------------------
+!TOPIC 533 AddShortField
+!NOINDEX
+procedure 495TpEntry.AddShortField(
+            var ESR : ESrecord;        {the edit screen to add to}
+            Prompt : string;           {edit prompt}
+            pRow, pCol : Word;         {coordinates for prompt}
+            506Picture : string;          {edit mask}
+            eRow, eCol : Word;         {coordinates for edit field}
+            HelpIndex : Word;          {index to pass to help routine}
+            ShortLo : ShortInt;        {low limit}
+            ShortHi : ShortInt;        {high limit}
+            var EditShort : ShortInt); {ShortInt to edit}
+
+Add a field of type ShortInt.
+
+See also: 529AddLongField
+;
+;---------------------------------------------------------------------------
+!TOPIC 534 AddRealField
+!NOINDEX
+procedure 495TpEntry.AddRealField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            RealLo : Real;        {low limit}
+            RealHi : Real;        {high limit}
+            Places : Byte;        {max decimal places}
+            var EditReal : Real); {real to edit}
+
+Add a field of type real.
+
+See also: 536AddExtField
+;
+;---------------------------------------------------------------------------
+!TOPIC 535 AddBcdField
+!NOINDEX
+procedure 495TpEntry.AddBcdField(
+            var ESR : ESrecord; {the edit screen to add to}
+            Prompt : string;    {edit prompt}
+            pRow, pCol : Word;  {coordinates for prompt}
+            506Picture : string;   {edit mask}
+            eRow, eCol : Word;  {coordinates for edit field}
+            HelpIndex : Word;   {index to pass to help routine}
+            BcdLo : BCD;        {low value}
+            BcdHi : BCD;        {high value}
+            Places : Byte;      {max decimal places}
+            var EditBcd : BCD); {BCD to edit}
+
+Add a field of type BCD.
+
+See also: 534AddRealField  536AddExtField
+;
+;---------------------------------------------------------------------------
+!TOPIC 536 AddExtField
+!NOINDEX
+procedure 495TpEntry.AddExtField(
+            var ESR : ESrecord;      {the edit screen to add to}
+            Prompt : string;         {edit prompt}
+            pRow, pCol : Word;       {coordinates for prompt}
+            506Picture : string;        {edit mask}
+            eRow, eCol : Word;       {coordinates for edit field}
+            HelpIndex : Word;        {index to pass to help routine}
+            ExtLo : Extended;        {low limit}
+            ExtHi : Extended;        {high limit}
+            Places : Byte;           {max decimal places}
+            var EditExt : Extended); {Extended to edit}
+
+Add a field of type Extended.
+
+See also: 534AddRealField  538AddSglField  537AddDblField
+;
+;---------------------------------------------------------------------------
+!TOPIC 537 AddDblField
+!NOINDEX
+procedure 495TpEntry.AddDblField(
+            var ESR : ESrecord;    {the edit screen to add to}
+            Prompt : string;       {edit prompt}
+            pRow, pCol : Word;     {coordinates for prompt}
+            506Picture : string;      {edit mask}
+            eRow, eCol : Word;     {coordinates for edit field}
+            HelpIndex : Word;      {index to pass to help routine}
+            DblLo : Double;        {low limit}
+            DblHi : Double;        {high limit}
+            Places : Byte;         {max decimal places}
+            var EditDbl : Double); {Double to edit}
+
+Add a field of type Double.
+
+See also: 536AddExtField
+;
+;---------------------------------------------------------------------------
+!TOPIC 538 AddSglField
+!NOINDEX
+procedure 495TpEntry.AddSglField(
+            var ESR : ESrecord;    {the edit screen to add to}
+            Prompt : string;       {edit prompt}
+            pRow, pCol : Word;     {coordinates for prompt}
+            506Picture : string;      {edit mask}
+            eRow, eCol : Word;     {coordinates for edit field}
+            HelpIndex : Word;      {index to pass to help routine}
+            SglLo : Single;        {low limit}
+            SglHi : Single;        {high limit}
+            Places : Byte;         {max decimal places}
+            var EditSgl : Single); {Single to edit}
+
+Add a field of type Single.
+
+See also: 536AddExtField
+;
+;---------------------------------------------------------------------------
+!TOPIC 539 AddCompField
+!NOINDEX
+procedure 495TpEntry.AddCompField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            CompLo : Comp;        {low limit}
+            CompHi : Comp;        {high limit}
+            var EditComp : Comp); {Comp to edit}
+
+Add a field of type Comp.
+
+See also: 529AddLongField
+;
+;---------------------------------------------------------------------------
+!TOPIC 540 AddDateField
+!NOINDEX
+procedure 495TpEntry.AddDateField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            311Picture : DateString; {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            DateLo : Date;        {low limit}
+            DateHi : Date;        {high limit}
+            var EditDate : Date); {Date to edit}
+
+Add a field of type 290Date.
+;
+;---------------------------------------------------------------------------
+!TOPIC 541 AddDateStField
+!NOINDEX
+procedure 495TpEntry.AddDateStField(
+            var ESR : ESrecord;         {the edit screen to add to}
+            Prompt : string;            {edit prompt}
+            pRow, pCol : Word;          {coordinates for prompt}
+            311Picture : DateString;       {edit mask}
+            eRow, eCol : Word;          {coordinates for edit field}
+            HelpIndex : Word;           {index to pass to help routine}
+            var EditDate : DateString); {date string to edit}
+
+Add a field of type 292DateString.
+;
+;---------------------------------------------------------------------------
+!TOPIC 542 AddTimeField
+!NOINDEX
+procedure 495TpEntry.AddTimeField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            312Picture : DateString; {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            TimeLo : Time;        {low limit}
+            TimeHi : Time;        {high limit}
+            var EditTime : Time); {Time variable to edit}
+
+Add a field of type 293Time.
+;
+;---------------------------------------------------------------------------
+!TOPIC 543 AddUserField
+!NOINDEX
+procedure 495TpEntry.AddUserField(
+            var ESR : ESrecord;   {the edit screen to add to}
+            Prompt : string;      {edit prompt}
+            pRow, pCol : Word;    {coordinates for prompt}
+            506Picture : string;     {edit mask}
+            eRow, eCol : Word;    {coordinates for edit field}
+            EditLen : Byte;       {width of edit field}
+            HelpIndex : Word;     {index to pass to help routine}
+            Validation : Pointer; {pointer to validation routine}
+            Conversion : Pointer; {pointer to conversion routine}
+            UserPtr1 : Pointer;   {pointers to user-defined data}
+            UserPtr2 : Pointer;   {    structures (optional)    }
+            var EditVar);         {variable to edit}
+
+Add a field of a user-defined type.
+;
+;---------------------------------------------------------------------------
+!TOPIC 544 AddNestedField
+!NOINDEX
+procedure 495TpEntry.AddNestedField(
+            var ESR : ESrecord; {the edit screen to add to}
+            Prompt : string;    {edit prompt}
+            pRow, pCol : Word;  {coordinates for prompt}
+            506Picture : string;   {edit mask}
+            eRow, eCol : Word;  {coordinates for edit field}
+            EditLen : Byte;     {width of edit field}
+            HelpIndex : Word);  {index to pass to help routine}
+
+Add a field that is associated with a nested form.
+;
+;---------------------------------------------------------------------------
+!TOPIC 545 AddChoiceField
+!NOINDEX
+procedure 495TpEntry.AddChoiceField(
+            var ESR : ESrecord;  {the edit screen to add to}
+            Prompt : string;     {edit prompt}
+            pRow, pCol : Word;   {coordinates for prompt}
+            506Picture : string;    {edit mask}
+            eRow, eCol : Word;   {coordinates for edit field}
+            HelpIndex : Word;    {index to pass to help routine}
+            DataSize : Byte;     {size of the data type}
+            Increment : Pointer; {pointer to incrementing routine}
+            var EditVar);        {variable to edit}
+
+Add a multiple choice field.
+
+Increment points to a user-defined routine which gets control when keys are
+pressed. It must be compiled both far and global and must match the
+following declaration:
+
+ procedure IncValue(var Value; ID : Byte; Factor : Integer; var S : string);
+ begin
+   ...
+ end;
+;
+;---------------------------------------------------------------------------
+!TOPIC 546 SetWrapMode
+!NOINDEX
+procedure 495TpEntry.SetWrapMode(var ESR : ESrecord;
+                              WrapMode : 511WrapModeType);
+
+Select the wrap mode for an edit screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 547 SetEntryWindow
+!NOINDEX
+procedure 495TpEntry.SetEntryWindow(var ESR : ESrecord;
+                                 XLow, YLow, XHigh, YHigh : Byte;
+                                 Framed : Boolean;
+                                 BackAttr, FrameAttr : Byte);
+
+Set coordinates and background color for a data entry window. Does not imply
+that the screen underneath the entry window will be saved and restored or
+that window coordinates used by Write statements will be modified. Use
+TPWINDOW or TPCRT facilities for that.
+
+See also: 577ClearEntryWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 548 SetBeepOnError
+!NOINDEX
+procedure 495TpEntry.SetBeepOnError(var ESR : ESrecord; On : Boolean);
+
+When activated, a Beep will sound when an illegal character is entered.
+
+See also: 578SetBell
+;
+;---------------------------------------------------------------------------
+!TOPIC 549 SetDelimiters
+!NOINDEX
+procedure 495TpEntry.SetDelimiters(var ESR : ESrecord;
+                                Left, Right : Char;
+                                FieldAttr : Byte;
+                                SelectAttr : Byte);
+
+Set field delimiters (characters to appear immediately to the left and right
+of each edit field) for the edit screen. Character #0 means no delimiter.
+;
+;---------------------------------------------------------------------------
+!TOPIC 550 SetPreEditPtr
+!NOINDEX
+procedure 495TpEntry.SetPreEditPtr(var ESR : ESrecord; P : Pointer);
+
+Set pointer to a routine to display help message (or perform other tasks)
+just before each field is edited. P must be a pointer to a routine with the
+following declaration, which has been compiled far and global.
+
+  procedure PreEditRoutine(var ESR : ESrecord);
+  begin
+    ...
+  end;
+
+See also: 516LastEntryCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 551 SetPostEditPtr
+!NOINDEX
+procedure 495TpEntry.SetPostEditPtr(var ESR : ESrecord; P : Pointer);
+
+Set pointer to a routine to call after editing each field. P must be a
+pointer to a routine with the following declaration, which has been compiled
+far and global.
+
+  procedure PostEditRoutine(var ESR : ESrecord);
+  begin
+    ...
+  end;
+
+See also: 582ChangeProtectionFast  581ChangeProtection
+          585ChangeRequired        599CopyVirtualScreenToWindow
+          584CurrentFieldModified  593DrawField
+          592EvaluateESCommand     594FindFieldID
+          516LastEntryCommand      583ResetEntryScreenFlags
+;
+;---------------------------------------------------------------------------
+!TOPIC 552 SetErrorPtr
+!NOINDEX
+procedure 495TpEntry.SetErrorPtr(var ESR : ESrecord; P : Pointer);
+
+Set pointer to a routine to be called after error. P must be a pointer to a
+routine with the following declaration, which has been compiled far and
+global.
+
+  procedure ErrorHandler(var ESR : ESrecord; Code : Byte; Msg : string);
+  begin
+    ...
+  end;
+
+See also: 498Entry Error Codes
+;
+;---------------------------------------------------------------------------
+!TOPIC 553 SetUpdatePtr
+!NOINDEX
+procedure 495TpEntry.SetUpdatePtr(var ESR : ESrecord; P : Pointer);
+
+Set pointer to a routine to call after entry screen is redrawn. P must be a
+pointer to a routine with the following declaration, which has been compiled
+far and global.
+
+  procedure UpdateRoutine(var ESR : ESrecord);
+  begin
+    ...
+  end;
+
+The primary purpose for this hook is to allow ordinary text strings to be
+displayed within a scrollable entry screen.
+
+See also: 599CopyVirtualScreenToWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 554 SetAllFieldLinks
+!NOINDEX
+procedure 495TpEntry.SetAllFieldLinks(var ESR : ESrecord; var LinksMap);
+
+Set the forward and backward links for all fields in an entry screen.
+
+See also: 574SetFieldLinks
+;
+;---------------------------------------------------------------------------
+!TOPIC 555 SetPromptAttr
+!NOINDEX
+procedure 495TpEntry.SetPromptAttr(A : Byte);
+
+Set the prompt attribute for a given field (to be added).
+
+See also: 556SetFieldAttr  557SetStringAttr  559SetProtectAttrs
+;
+;---------------------------------------------------------------------------
+!TOPIC 556 SetFieldAttr
+!NOINDEX
+procedure 495TpEntry.SetFieldAttr(A : Byte);
+
+Set the field attribute (the attribute when a field is not selected).
+
+See also: 555SetPromptAttr  557SetStringAttr  559SetProtectAttrs
+;
+;---------------------------------------------------------------------------
+!TOPIC 557 SetStringAttr
+!NOINDEX
+procedure 495TpEntry.SetStringAttr(A : Byte);
+
+Set the string attribute (the attribute when a field is selected).
+
+See also: 555SetPromptAttr  556SetFieldAttr  559SetProtectAttrs
+;
+;---------------------------------------------------------------------------
+!TOPIC 558 SetCtrlAttr
+!NOINDEX
+procedure 495TpEntry.SetCtrlAttr(A : Byte);
+
+Set the attribute for control characters. If this attribute is the same as
+the string attribute (set with 557SetStringAttr), then control characters may
+not be entered.
+;
+;---------------------------------------------------------------------------
+!TOPIC 559 SetProtectAttrs
+!NOINDEX
+procedure 495TpEntry.SetProtectAttrs(PromptA, FieldA : Byte);
+
+Set prompt and field attributes for a protected field.
+
+See also: 555SetPromptAttr  556SetFieldAttr
+;
+;---------------------------------------------------------------------------
+!TOPIC 560 SetNumeric
+!NOINDEX
+procedure 495TpEntry.SetNumeric(On : Boolean);
+
+Activate or deactivate use of the numeric (right to left, calculator-style)
+editor.
+;
+;---------------------------------------------------------------------------
+!TOPIC 561 SetAutoAdvance
+!NOINDEX
+procedure 495TpEntry.SetAutoAdvance(On : Boolean);
+
+Turn AutoAdvance on or off. The state of the AutoAdvance option for a given
+field determines what happens when the cursor is at the edge of the field
+and the user presses a key that might cause the cursor to exit the field:
+e.g., pressing Right when the cursor is at the right edge of the field.
+When AutoAdvance is on, the cursor will go to the next field, otherwise the
+command will be ignored.
+
+See also: 546SetWrapMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 562 SetCursorToEnd
+!NOINDEX
+procedure 495TpEntry.SetCursorToEnd(On : Boolean);
+
+Turn CursorToEnd on or off. Determines whether the cursor is positioned at
+the end or beginning of a field when it first moves to the field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 563 SetTrimBlanks
+!NOINDEX
+procedure 495TpEntry.SetTrimBlanks(On : Boolean);
+
+Turn blank trimming on or off.
+;
+;---------------------------------------------------------------------------
+!TOPIC 564 SetRightJustify
+!NOINDEX
+procedure 495TpEntry.SetRightJustify(On : Boolean);
+
+Turn right justification on or off. Fields that don't use the numeric editor
+or don't contain fixed decimal points are right-justified only after exiting
+the field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 565 SetPadChar
+!NOINDEX
+procedure 495TpEntry.SetPadChar(Ch : Char);
+
+Set character used to pad ends of strings.
+
+See also: 549SetDelimiters
+;
+;---------------------------------------------------------------------------
+!TOPIC 566 SetClearFirstChar
+!NOINDEX
+procedure 495TpEntry.SetClearFirstChar(On : Boolean);
+
+Turn ClearFirstChar on or off. When ClearFirstChar is on and the first
+character entered is an ASCII character, the existing text will be cleared.
+
+See also: 562SetCursorToEnd
+;
+;---------------------------------------------------------------------------
+!TOPIC 567 SetInsertPushes
+!NOINDEX
+procedure 495TpEntry.SetInsertPushes(On : Boolean);
+
+Turn InsertPushes flag on or off. When InsertPushes is on, text inserted
+within the field can push existing text off the right edge of the field,
+causing it to be lost.
+
+See also: 572SetForceMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 568 SetAutoNumLock
+!NOINDEX
+procedure 495TpEntry.SetAutoNumLock(On : Boolean);
+
+Turn AutoNumLock on or off. When AutoNumLock is on, the field editor forces
+NumLock on when entering the field and restores it to its previous state
+afterwards.
+;
+;---------------------------------------------------------------------------
+!TOPIC 569 SetRequired
+!NOINDEX
+procedure 495TpEntry.SetRequired(On : Boolean);
+
+Turn required field flag on or off. When a field is required, it cannot be
+left completely blank.
+
+See also: 585ChangeRequired
+;
+;---------------------------------------------------------------------------
+!TOPIC 570 SetPasswordMode
+!NOINDEX
+procedure 495TpEntry.SetPasswordMode(On : Boolean);
+
+Turn password mode on or off. When password mode is on, the display of any
+text entered into the field is suppressed, and the character designated by
+579SetPasswordChar will be used to represent all characters in a string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 571 SetProtection
+!NOINDEX
+procedure 495TpEntry.SetProtection(On : Boolean);
+
+Turn protection on or off. A protected field cannot be edited, and the
+cursor will never go to it.
+
+See also: 581ChangeProtection
+;
+;---------------------------------------------------------------------------
+!TOPIC 572 SetForceMode
+!NOINDEX
+procedure 495TpEntry.SetForceMode(Force, Overtype : Boolean);
+
+Force insert or overtype mode, else use previous setting.
+
+See also: 567SetInsertPushes
+;
+;---------------------------------------------------------------------------
+!TOPIC 573 SetExitOnSecondClick
+!NOINDEX
+procedure 495TpEntry.SetExitOnSecondClick(On : Boolean);
+
+When this flag is on, double-clicking on a field with the mouse will produce
+the ESclickExit exit command.
+
+See also: 575EnableEntryMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 574 SetFieldLinks
+!NOINDEX
+procedure 495TpEntry.SetFieldLinks(var ESR : ESrecord;
+                                FieldID, Next, Prev : Word);
+
+Specify the fields to jump to when Enter or ShTab pressed on a given
+field.
+
+See also: 554SetAllFieldLinks
+;
+;---------------------------------------------------------------------------
+!TOPIC 575 EnableEntryMouse
+!NOINDEX
+procedure 495TpEntry.EnableEntryMouse;
+
+Enable mouse support in TPENTRY.
+
+See also: 576DisableEntryMouse  509EntryMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 576 DisableEntryMouse
+!NOINDEX
+procedure 495TpEntry.DisableEntryMouse;
+
+Disable mouse support in TPENTRY.
+
+See also: 575EnableEntryMouse  509EntryMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 577 ClearEntryWindow
+!NOINDEX
+procedure 495TpEntry.ClearEntryWindow(var ESR : ESrecord);
+
+Clear the window for the entry screen. If no window coordinates have been
+set (using 547SetEntryWindow), the entire screen will be cleared.
+;
+;---------------------------------------------------------------------------
+!TOPIC 578 SetBell
+!NOINDEX
+procedure 495TpEntry.SetBell(Pitch, Duration : Word);
+
+Set the pitch and duration for bell used to report entry errors.
+
+See also: 580RingBell
+;
+;---------------------------------------------------------------------------
+!TOPIC 579 SetPasswordChar
+!NOINDEX
+procedure 495TpEntry.SetPasswordChar(C : Char);
+
+Set the character used in password mode.
+
+See also: 570SetPasswordMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 580 RingBell
+!NOINDEX
+procedure 495TpEntry.RingBell;
+
+Ring the bell.
+
+See also: 578SetBell
+;
+;---------------------------------------------------------------------------
+!TOPIC 581 ChangeProtection
+!NOINDEX
+procedure 495TpEntry.ChangeProtection(var ESR : ESrecord; FieldID : Word;
+                                   OnOff : Boolean);
+
+Modify the protection status of a field after it has been added.
+
+See also: 582ChangeProtectionFast
+;
+;---------------------------------------------------------------------------
+!TOPIC 582 ChangeProtectionFast
+!NOINDEX
+procedure 495TpEntry.ChangeProtectionFast(var ESR : ESrecord; FieldID : Word;
+                                       OnOff : Boolean);
+
+Modify the protection status of a field after it has been added. When used
+within a post-edit routine, the last call to ChangeProtectionFast must be
+followed by a call to 583ResetEntryScreenFlags.
+;
+;---------------------------------------------------------------------------
+!TOPIC 583 ResetEntryScreenFlags
+!NOINDEX
+procedure 495TpEntry.ResetEntryScreenFlags(var ESR : ESrecord);
+
+Flags the first and last rows in the entry screen. Needs to be called only
+if 582ChangeProtectionFast is used.
+;
+;---------------------------------------------------------------------------
+!TOPIC 584 CurrentFieldModified
+!NOINDEX
+function 495TpEntry.CurrentFieldModified(var ESR : ESrecord) : Boolean;
+
+Return True if current field was modified. Call only from within a post-edit
+routine.
+
+See also: 551SetPostEditPtr
+;
+;---------------------------------------------------------------------------
+!TOPIC 585 ChangeRequired
+!NOINDEX
+procedure 495TpEntry.ChangeRequired(var ESR : ESrecord; FieldID : Word;
+                                 OnOff : Boolean);
+
+Modify the required status of a field after it has been added.
+;
+;---------------------------------------------------------------------------
+!TOPIC 586 ChangeValidation
+!NOINDEX
+procedure 495TpEntry.ChangeValidation(var ESR  : ESrecord; FieldID  : Word;
+                                   Validate : Pointer);
+
+Change the validation routine for the specified field. Validate must point
+to a routine that has been compiled far and global and matches the
+following declaration:
+
+  function Validation(var FR : 512FieldRec; var 498ErrCode : Byte;
+                      var ErrorSt : StringPtr) : Boolean;
+  begin
+    {return True if field is valid}
+  end;
+;
+;---------------------------------------------------------------------------
+!TOPIC 587 ChangePromptAttr
+!NOINDEX
+procedure 495TpEntry.ChangePromptAttr(var ESR : ESrecord; FieldID : Word;
+                                   A : Byte);
+
+Change the prompt attribute for the specified field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 588 ChangeFieldAttr
+!NOINDEX
+procedure 495TpEntry.ChangeFieldAttr(var ESR : ESrecord; FieldID : Word;
+                                  A : Byte);
+
+Change the field attribute for the specified field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 589 ChangeStringAttr
+!NOINDEX
+procedure 495TpEntry.ChangeStringAttr(var ESR : ESrecord; FieldID : Word;
+                                   A : Byte);
+
+Change the string attribute for the specified field.
+;
+;---------------------------------------------------------------------------
+!TOPIC 590 AddEntryCommand
+!NOINDEX
+function 495TpEntry.AddEntryCommand(Cmd : EStype; NumKeys : Byte;
+                                 Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+
+See also: 518EntryKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 591 InternationalCurrency
+!NOINDEX
+function 495TpEntry.InternationalCurrency(
+            FormChar : Char; MaxDigits : Byte;
+            FloatIfPossible : Boolean;
+            AddCommas : Boolean) : string;
+
+Return a 506picture mask for a currency string, based on DOS's country info.
+;
+;---------------------------------------------------------------------------
+!TOPIC 592 EvaluateESCommand
+!NOINDEX
+function 495TpEntry.EvaluateESCommand(var ESR : ESrecord;
+                                   ESC : EStype) : FieldRecPtr;
+
+Given a command, return a pointer to the field the cursor will move to next.
+This routine is intended to be called only from within a 551post-edit routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 593 DrawField
+!NOINDEX
+procedure 495TpEntry.DrawField(var ESR : ESrecord; FieldID : Word);
+
+Draw the edit field corresponding to FieldID.
+;
+;---------------------------------------------------------------------------
+!TOPIC 594 FindFieldID
+!NOINDEX
+function 495TpEntry.FindFieldID(var ESR : ESrecord;
+                             FieldID : Word) : 512FieldRecPtr;
+
+Return a pointer to the FieldRec with the specified ID, or nil if not found.
+;
+;---------------------------------------------------------------------------
+!TOPIC 595 ValidateSubFields
+!NOINDEX
+function 495TpEntry.ValidateSubfields(SubfieldMask : string;
+                                   var FR : FieldRec;
+                                   var 498ErrCode : Byte;
+                                   var ErrorSt : StringPtr) : Boolean;
+
+Validate that the subfields in a string meet the requirements of
+506SubfieldMask. Note: This is not a regular validation routine. It should be
+called only by a higher-level validation routine that has a SubfieldMask to
+give it.
+;
+;---------------------------------------------------------------------------
+!TOPIC 596 ValidateNoBlanks
+!NOINDEX
+function 495TpEntry.ValidateNoBlanks(var FR : FieldRec;
+                                  var 498ErrCode : Byte;
+                                  var ErrorSt : StringPtr) : Boolean;
+
+Validate that no usable subfields in a string contain spaces.
+
+See also: 586ChangeValidation
+;
+;---------------------------------------------------------------------------
+!TOPIC 597 ValidateNotPartial
+!NOINDEX
+function 495TpEntry.ValidateNotPartial(var FR : FieldRec;
+                                    var 498ErrCode : Byte;
+                                    var ErrorSt : StringPtr) : Boolean;
+
+Validate that no usable subfields in a string contain spaces unless all do.
+
+See also: 586ChangeValidation
+;
+;---------------------------------------------------------------------------
+!TOPIC 598 EntryScrollCheck
+!NOINDEX
+function 495TpEntry.EntryScrollCheck(var ESR : ESrecord) : Boolean;
+
+Determine if window is scrollable. If so, allocate and initialize virtual
+screen. Returns False only in case of insufficient memory. This routine is
+called automatically, but you may want to call it explicitly in order to
+handle possible errors.
+;
+;---------------------------------------------------------------------------
+!TOPIC 599 CopyVirtualScreenToWindow
+!NOINDEX
+procedure 495TpEntry.CopyVirtualScreenToWindow(var ESR : ESrecord);
+
+Copy the virtual screen to the edit window. Intended primarily for internal
+use, but interfaced for use by programs that need to write to the virtual
+screen associated with a particular ESrecord, then update the physical
+screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 600 Adding Fields
+!NOINDEX
+TPENTRY provides the following routines for adding data fields of various
+types.
+
+  525AddArrayField     535AddBcdField       527AddBooleanField   532AddByteField
+  526AddCharField      545AddChoiceField    539AddCompField      540AddDateField
+  541AddDateStField    537AddDblField       536AddExtField       531AddIntField
+  529AddLongField      544AddNestedField    534AddRealField      538AddSglField
+  533AddShortField     524AddStringField    542AddTimeField      543AddUserField
+  530AddWordField      528AddYesNoField
+;
+;---------------------------------------------------------------------------
+!TOPIC 601 Data Types
+!NOINDEX
+TPENTRY interfaces the following constants, types, and variables:
+
+      501CaseChange             505ChoiceCommands         500CommandSet
+      515EntryHelpPtr           517EntryKeyMax            514EntryKeyPtr
+      518EntryKeySet            509EntryMouseEnabled      513ESrecord
+      499EStype                 512FieldRec               512FieldRecPtr
+      508ForceCaseUser          504NumberCommands         497Off
+      496On                     503ReadOnlyCommands       502StringCommands
+      507User Character Sets    511WrapModeType
+;
+;---------------------------------------------------------------------------
+!TOPIC 602 Dynamic Hooks
+!NOINDEX
+TPENTRY provides the following routines which may be used to dynamically
+modify the behavior of an entry screen:
+
+      588ChangeFieldAttr        587ChangePromptAttr       582ChangeProtectionFast
+      581ChangeProtection       585ChangeRequired         589ChangeStringAttr
+      586ChangeValidation   599CopyVirtualScreenToWindow  584CurrentFieldModified
+      593DrawField              592EvaluateESCommand      594FindFieldID
+      516LastEntryCommand       583ResetEntryScreenFlags  596ValidateNoBlanks
+      597ValidateNotPartial     595ValidateSubfields
+;
+;---------------------------------------------------------------------------
+!TOPIC 603 Editing
+!NOINDEX
+TPENTRY provides the following routines to edit and update the display of an
+initialized entry screen:
+
+      577ClearEntryWindow       520DrawEditScreen         521EditScreen
+      522EditString             498Entry Error Codes      580RingBell
+;
+;---------------------------------------------------------------------------
+!TOPIC 604 Field Attributes
+!NOINDEX
+TPENTRY provides the following routines to modify the behavior and
+appearance of individual entry fields:
+
+  506Entry Pictures    591InternationalCurrency 561SetAutoAdvance 568SetAutoNumLock
+  548SetBeepOnError    566SetClearFirstChar 558SetCtrlAttr       562SetCursorToEnd
+  573SetExitOnSecondClick 556SetFieldAttr   572SetForceMode      567SetInsertPushes
+  560SetNumeric        565SetPadChar        570SetPasswordMode   555SetPromptAttr
+  559SetProtectAttrs   571SetProtection     569SetRequired       564SetRightJustify
+  557SetStringAttr     563SetTrimBlanks
+;
+;---------------------------------------------------------------------------
+!TOPIC 605 Global Initialization
+!NOINDEX
+TPENTRY provides the following routines to initialize and designate the
+global properties of edit screens:
+
+      590AddEntryCommand        576DisableEntryMouse      523DisposeEditScreen
+      575EnableEntryMouse       598EntryScrollCheck       519InitESrecord
+      510ScrollByPage           554SetAllFieldLinks       578SetBell
+      549SetDelimiters          547SetEntryWindow         552SetErrorPtr
+      574SetFieldLinks          579SetPasswordChar        551SetPostEditPtr
+      550SetPreEditPtr          553SetUpdatePtr           546SetWrapMode

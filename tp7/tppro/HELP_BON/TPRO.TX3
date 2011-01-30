@@ -1,0 +1,1656 @@
+;
+;===========================================================================
+!TOPIC 288 TpDate
+TPDATE specializes in history. Its primary function is to provide routines
+that allow you to store dates and times in compact formats, to convert them
+to other forms when necessary, and to perform date/time arithmetic. TPDATE
+provides numerous functions for converting Julian dates and times to strings
+and back again. To allow the maximum amount of flexibility, and to insure
+that the same routines can be used internationally, TPDATE lets you
+specify a "picture mask" to indicate how a given string should be formatted.
+
+  346Arithmetic        347Data Structures   348Date Strings      349Time Strings
+;
+;---------------------------------------------------------------------------
+!TOPIC 289 DateLen
+!NOINDEX
+const
+  288TpDate.DateLen = 20;
+
+Maximum length of Picture strings.
+
+See also: 292DateString
+;
+;---------------------------------------------------------------------------
+!TOPIC 290 Date
+!NOINDEX
+type
+  {$IFDEF FourByteDates}
+    288TpDate.Date = LongInt;
+  {$ELSE}
+    Date = Word;
+  {$ENDIF}
+
+Data structure used to store dates. If FourByteDates is defined, TPDATE
+allows dates ranging from the year 1600 to 3999. Otherwise, valid dates lie
+between 1900 and 2078.
+;
+;---------------------------------------------------------------------------
+!TOPIC 291 DayType
+!NOINDEX
+type
+  288TpDate.DayType = (Sunday, Monday, Tuesday, Wednesday,
+                    Thursday, Friday, Saturday);
+
+Enumerated type describing the days of the week.
+
+See also: 314DayString
+;
+;---------------------------------------------------------------------------
+!TOPIC 292 DateString
+!NOINDEX
+type
+  288TpDate.DateString = string[289DateLen];
+
+String type for storing 311date picture masks.
+;
+;---------------------------------------------------------------------------
+!TOPIC 293 Time
+!NOINDEX
+type
+  288TpDate.Time = LongInt;
+
+Data structure used to store times as the number of seconds since midnight.
+;
+;---------------------------------------------------------------------------
+!TOPIC 294 DateTimeRec
+!NOINDEX
+type
+  288TpDate.DateTimeRec =
+    record
+      D : 290Date;
+      T : 293Time;
+    end;
+
+Data structure stores a particular moment in history. Note that the size and
+range of this structure depends on the define FourByteDates.
+;
+;---------------------------------------------------------------------------
+!TOPIC 295 MinYear
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.MinYear  = 1600;
+  {$ELSE}
+    MinYear  = 1900;
+  {$END}
+
+The minimum acceptable year for a 290date variable.
+
+See also: 296MaxYear
+;
+;---------------------------------------------------------------------------
+!TOPIC 296 MaxYear
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.MaxYear  = 3999;
+  {$ELSE}
+    MaxYear  = 2078;
+  {$END}
+
+The maximum acceptable year for a 290date variable.
+
+See also: 295MinYear
+;
+;---------------------------------------------------------------------------
+!TOPIC 297 MinDate
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.MinDate  = $00000000;    {= 01/01/1600}
+  {$ELSE}
+    MinDate  = $0000;               {= 01/01/1900}
+  {$END}
+
+The minimum acceptable date for a 290date variable.
+
+See also: 298MaxDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 298 MaxDate
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.MaxDate = $000D6025;     {= 12/31/3999}
+  {$ELSE}
+    MaxDate  = $FF62;               {= 12/31/2078}
+  {$END}
+
+The maximum acceptable date for a 290date variable.
+
+See also: 297MinDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 299 Date1900
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.Date1900 = $0001AC05;    {= 01/01/1900}
+  {$ELSE}
+    Date1900 = $0000;               {= 01/01/1900}
+  {$END}
+
+The 290date value for January 1, 1900.
+
+See also: 300Date1980
+;
+;---------------------------------------------------------------------------
+!TOPIC 300 Date1980
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.Date1980 = $00021E28;    {= 01/01/1980}
+  {$ELSE}
+    Date1980 = $7223;               {= 01/01/1980}
+  {$END}
+
+The 290date value for January 1, 1980.
+
+See also: 299Date1900
+;
+;---------------------------------------------------------------------------
+!TOPIC 301 BadDate
+!NOINDEX
+const
+  {$IFDEF FourByteDates}
+    288TpDate.BadDate = $FFFFFFFF;
+  {$ELSE}
+    BadDate  = $FFFF;
+  {$END}
+
+Special 290date value reserved to indicate that an invalid date was detected
+during conversion from another format.
+
+See also: 304BadTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 302 MinTime
+!NOINDEX
+const
+  288TpDate.MinTime = 0;               {= 00:00:00 am}
+
+The minimum acceptable 293time value.
+
+See also: 303MaxTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 303 MaxTime
+!NOINDEX
+const
+  288TpDate.MaxTime = 86399;           {= 23:59:59 pm}
+
+The maximum acceptable 293time value (number of seconds in a day minus 1).
+
+See also: 302MinTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 304 BadTime
+!NOINDEX
+const
+  288TpDate.BadTime = $FFFFFFFF;
+
+Special 293time value reserved to indicate that an invalid date was detected
+during conversion from another format.
+
+See also: 301BadDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 305 SecondsInDay
+!NOINDEX
+const
+  288TpDate.SecondsInDay = 86400;
+
+Number of seconds in a day.
+
+See also: 306SecondsInHour  307SecondsInMinute
+;
+;---------------------------------------------------------------------------
+!TOPIC 306 SecondsInHour
+!NOINDEX
+const
+  288TpDate.SecondsInHour = 3600;
+
+Number of seconds in an hour.
+
+See also: 305SecondsInDay  307SecondsInMinute
+;
+;---------------------------------------------------------------------------
+!TOPIC 307 SecondsInMinute
+!NOINDEX
+const
+  288TpDate.SecondsInMinute = 60;
+
+Number of seconds in a minute.
+
+See also: 305SecondsInDay  306SecondsInHour
+;
+;---------------------------------------------------------------------------
+!TOPIC 308 HoursInDay
+!NOINDEX
+const
+  288TpDate.HoursInDay = 24;
+
+Number of hours in a day.
+
+See also: 305SecondsInDay
+;
+;---------------------------------------------------------------------------
+!TOPIC 309 MinutesInHour
+!NOINDEX
+const
+  288TpDate.MinutesInHour = 60;
+
+Number of minutes in an hour.
+
+See also: 306SecondsInHour
+;
+;---------------------------------------------------------------------------
+!TOPIC 310 DefaultYear
+!NOINDEX
+var
+  288TpDate.DefaultYear : Integer;
+
+Default year. Used by 326DateStringToDMY when the current year isn't specified.
+;
+;---------------------------------------------------------------------------
+!TOPIC 311 Date Pictures
+!NOINDEX
+The following characters are meaningful in 288TpDate date picture strings:
+
+const
+  MonthOnly  = 'm';         {pad with '0'}
+  DayOnly    = 'd';         {pad with '0'}
+  YearOnly   = 'y';         {pad with '0'}
+  MonthOnlyU = 'M';         {pad with ' '}
+  DayOnlyU   = 'D';         {pad with ' '}
+  DateSlash  = '/';
+  SlashChar  : Char = '/';  {character used to separate components of date}
+
+For example,
+  'mm/dd/yy'       '01/02/85'
+  'MM/dd/yy'       ' 1/02/85'
+  'mm/dd/yyyy'   '01/02/1985'
+  'mm-dd-yyyy'   '01-02-1985'
+
+See also: 322DateToDateString  327DMYtoDateString  321DateStringToDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 312 Time Pictures
+!NOINDEX
+The following characters are meaningful in 288TpDate time picture strings:
+
+const
+  HourOnly   = 'h';             {pad with '0'}
+  MinOnly    = 'm';             {pad with '0'}
+  SecOnly    = 's';             {pad with '0'}
+  HourOnlyU  = 'H';             {pad with ' '}
+  MinOnlyU   = 'M';             {pad with ' '}
+  SecOnlyU   = 'S';             {pad with ' '}
+  TimeOnly   = 't';             {generates 'p', 'P', 'a', or 'A'}
+  EmOnly     = 'e';             {optional--generates 'm' or 'M'}
+  TimeColon  = ':';
+  ColonChar  : Char = ':';      {character used to separate time components}
+  UpCaseTime : Boolean = False; {if true, 't' and 'e' use uppercase}
+
+For example,
+  'hh:mm:ss te'      '12:00:00 pm'
+  'hh:mmt'           '12:00p'
+
+See also: 332TimeToTimeString  333TimeToAmPmString  331TimeStringToTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 313 MonthString
+!NOINDEX
+const
+  288TpDate.MonthString : array[1..12] of string[9] = (
+    'January', 'February', 'March', 'April', 'May', 'June', 'July',
+    'August', 'September', 'October', 'November', 'December');
+
+Names of the months.
+;
+;---------------------------------------------------------------------------
+!TOPIC 314 DayString
+!NOINDEX
+const
+  288TpDate.DayString : array[291DayType] of string[9] = (
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+    'Thursday', 'Friday', 'Saturday');
+
+Names of the days.
+;
+;---------------------------------------------------------------------------
+!TOPIC 315 ValidDate
+!NOINDEX
+function 288TpDate.ValidDate(Day, Month, Year : Integer) : Boolean;
+
+Verify that day, month, year is a valid date.
+
+See also: 316DMYtoDate  301BadDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 316 DMYtoDate
+!NOINDEX
+function 288TpDate.DMYtoDate(Day, Month, Year : Integer) : 290Date;
+
+Convert from day, month, year to a julian date.
+
+See also: 315ValidDate  301BadDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 317 DateToDMY
+!NOINDEX
+procedure 288TpDate.DateToDMY(Julian : 290Date;
+                           var Day, Month, Year : Integer);
+
+Convert from a julian date to day, month, year.
+
+See also: 316DMYtoDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 318 IncDate
+!NOINDEX
+function 288TpDate.IncDate(Julian : 290Date;
+                        Days, Months, Years : Integer) : Date;
+
+Add (or subtract) the number of days, months, and years to a date.
+
+See also: 341IncDateTime  319DateDiff
+;
+;---------------------------------------------------------------------------
+!TOPIC 319 DateDiff
+!NOINDEX
+procedure 288TpDate.DateDiff(Date1, Date2 : 290Date;
+                          var Days, Months, Years : Integer);
+
+Return the difference in days,months,years between two valid julian dates.
+
+See also: 336TimeDiff  318IncDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 320 DayOfWeek
+!NOINDEX
+function 288TpDate.DayOfWeek(Julian : 290Date) : 291DayType;
+
+Return the day of the week (as enumerated type) for the date.
+
+See also: 314DayString
+;
+;---------------------------------------------------------------------------
+!TOPIC 321 DateStringToDate
+!NOINDEX
+function 288TpDate.DateStringToDate(Picture, S : 292DateString)
+                                 : 290Date;
+
+Convert S, a string of the form indicated by 311Picture, to a julian date.
+Picture and S must be of equal lengths. Returns 301BadDate for invalid input.
+;
+;---------------------------------------------------------------------------
+!TOPIC 322 DateToDateString
+!NOINDEX
+function 288TpDate.DateToDateString(Picture : 292DateString;
+                                 Julian : 290Date) : DateString;
+
+Convert Julian to a string of the form indicated by 311Picture.
+;
+;---------------------------------------------------------------------------
+!TOPIC 323 Today
+!NOINDEX
+function 288TpDate.Today : 290Date;
+
+Return today's date as a julian.
+
+See also: 334CurrentTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 324 DateToSortString
+!NOINDEX
+function 288TpDate.DateToSortString(Julian : 290Date) : string;
+
+Convert a date to a sortable string. The string is not meant for display.
+
+See also: 325SortStringToDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 325 SortStringToDate
+!NOINDEX
+function 288TpDate.SortStringToDate(S : string) : 290Date;
+
+Convert a sortable string form to a date.
+
+See also: 324DateToSortString
+;
+;---------------------------------------------------------------------------
+!TOPIC 326 DateStringToDMY
+!NOINDEX
+function 288TpDate.DateStringToDMY(311Picture, S : 292DateString;
+                                var D, M, Y : Integer) : Boolean;
+
+Extract day, month, and year from S, returning true if string is valid.
+
+See also: 321DateStringToDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 327 DMYtoDateString
+!NOINDEX
+function 288TpDate.DMYtoDateString(Picture : DateString;
+                                Day, Month, Year : Integer)
+                                : 292DateString;
+
+Merge the month, day, and year into the 311picture.
+
+See also: 322DateToDateString
+;
+;---------------------------------------------------------------------------
+!TOPIC 328 TodayString
+!NOINDEX
+function 288TpDate.TodayString(311Picture : 292DateString)
+                            : DateString;
+
+Returns today's date as a string of the specified form.
+
+See also: 335CurrentTimeString
+;
+;---------------------------------------------------------------------------
+!TOPIC 329 TimeToHMS
+!NOINDEX
+procedure 288TpDate.TimeToHMS(T : 293Time;
+                           var Hours, Minutes, Seconds : Byte);
+
+Convert a valid Time variable to Hours, Minutes, Seconds.
+
+See also: 330HMStoTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 330 HMStoTime
+!NOINDEX
+function 288TpDate.HMStoTime(Hours, Minutes, Seconds : Byte) : 293Time;
+
+Convert Hours, Minutes, Seconds to a Time variable.
+
+See also: 329TimeToHMS
+;
+;---------------------------------------------------------------------------
+!TOPIC 331 TimeStringToTime
+!NOINDEX
+function 288TpDate.TimeStringToTime(Picture, S : 292DateString)
+                                 : 293Time;
+
+Convert S, a string of the form indicated by 312Picture, to Time.
+
+See also: 332TimeToTimeString
+;
+;---------------------------------------------------------------------------
+!TOPIC 332 TimeToTimeString
+!NOINDEX
+function 288TpDate.TimeToTimeString(Picture : 292DateString;
+                                 T : 293Time) : DateString;
+
+Convert T to a string of the form indicated by 312Picture.
+
+See also: 333TimeToAmPmString  331TimeStringToTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 333 TimeToAmPmString
+!NOINDEX
+function 288TpDate.TimeToAmPmString(Picture : 292DateString;
+                                 T : 293Time) : DateString;
+
+Convert T to a string of the form indicated by 312Picture. Times are always
+displayed in am/pm format.
+
+See also: 332TimeToTimeString
+;
+;---------------------------------------------------------------------------
+!TOPIC 334 CurrentTime
+!NOINDEX
+function 288TpDate.CurrentTime : 293Time;
+
+Return current time in seconds since midnight.
+
+See also: 335CurrentTimeString
+;
+;---------------------------------------------------------------------------
+!TOPIC 335 CurrentTimeString
+!NOINDEX
+function 288TpDate.CurrentTimeString(312Picture : 292DateString)
+                                  : DateString;
+
+Return current time as a string of the specified form.
+
+See also: 334CurrentTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 336 TimeDiff
+!NOINDEX
+procedure 288TpDate.TimeDiff(Time1, Time2 : 293Time;
+                          var Hours, Minutes, Seconds : Byte);
+
+Return the difference in hours,minutes,seconds between two times.
+
+See also: 345IncTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 337 RoundToNearestHour
+!NOINDEX
+function 288TpDate.RoundToNearestHour(T : 293Time; Truncate : Boolean)
+                                   : Time;
+
+Round T to the nearest hour, or Truncate minutes and seconds from T.
+
+See also: 338RoundToNearestMinute
+;
+;---------------------------------------------------------------------------
+!TOPIC 338 RoundToNearestMinute
+!NOINDEX
+function 288TpDate.RoundToNearestMinute(T : 293Time;
+                                     Truncate : Boolean) : Time;
+
+Round T to the nearest minute, or Truncate seconds from T.
+
+See also: 337RoundToNearestHour
+;
+;---------------------------------------------------------------------------
+!TOPIC 339 SortStringToTime
+!NOINDEX
+function 288TpDate.SortStringToTime(S : string) : 293Time;
+
+Convert a sortable string to a time variable.
+
+See also: 344TimeToSortString
+;
+;---------------------------------------------------------------------------
+!TOPIC 340 DateTimeDiff
+!NOINDEX
+procedure 288TpDate.DateTimeDiff(DT1, DT2 : 294DateTimeRec;
+                              var Days : Word; var Secs : LongInt);
+
+Return the difference in days and seconds between two points in time.
+
+See also: 319DateDiff  336TimeDiff
+;
+;---------------------------------------------------------------------------
+!TOPIC 341 IncDateTime
+!NOINDEX
+procedure 288TpDate.IncDateTime(var DT1, DT2 : 294DateTimeRec;
+                             Days : Integer; Secs : LongInt);
+
+Increment (or decrement) DT1 by the specified number of days and seconds and
+put the result in DT2.
+
+See also: 318IncDate  345IncTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 342 InternationalDate
+!NOINDEX
+function 288TpDate.InternationalDate(WholeYear, ZeroPad : Boolean)
+                                  : 292DateString;
+
+Return a 311picture mask for a date string, based on DOS's country info.
+;
+;---------------------------------------------------------------------------
+!TOPIC 343 InternationalTime
+!NOINDEX
+function 288TpDate.InternationalTime(WithSeconds, ZeroPad : Boolean;
+                                  ExtraSpace, WithEm : Boolean)
+                                  : 292DateString;
+
+Return a 312picture mask for a time string, based on DOS's country info.
+;
+;---------------------------------------------------------------------------
+!TOPIC 344 TimeToSortString
+!NOINDEX
+function 288TpDate.TimeToSortString(T : 293Time) : string;
+
+Convert a time variable to a sortable string. The string is not meant for
+display.
+
+See also: 339SortStringToTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 345 IncTime
+!NOINDEX
+function 288TpDate.IncTime(T : 293Time;
+                        Hours, Minutes, Seconds : Byte) : Time;
+
+Add the specified Hours, Minutes, Seconds to T and return the result.
+
+See also: 336TimeDiff  341IncDateTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 346 Arithmetic
+!NOINDEX
+TPDATE provides the following constants and routines for performing
+date/time arithmetic:
+
+      334CurrentTime            319DateDiff               340DateTimeDiff
+      317DateToDMY              320DayOfWeek              316DMYtoDate
+      330HMStoTime              308HoursInDay             318IncDate
+      341IncDateTime            345IncTime                309MinutesInHour
+      338RoundToNearestMinute   337RoundToNearestHour     305SecondsInDay
+      306SecondsInHour          307SecondsInMinute        336TimeDiff
+      329TimeToHMS              323Today                  315ValidDate
+;
+;---------------------------------------------------------------------------
+!TOPIC 347 Data Structures
+!NOINDEX
+TPDATE uses the following constants, types, and variables for managing dates
+and times:
+
+      301BadDate                304BadTime                290Date
+      299Date1900               300Date1980               294DateTimeRec
+      291DayType                310DefaultYear            298MaxDate
+      303MaxTime                296MaxYear                297MinDate
+      302MinTime                295MinYear                293Time
+;
+;---------------------------------------------------------------------------
+!TOPIC 348 Date Strings
+!NOINDEX
+TPDATE provides the following routines for converting dates to and from
+strings:
+
+      311Date Pictures          289DateLen                292DateString
+      326DateStringToDMY        321DateStringToDate       322DateToDateString
+      324DateToSortString       314DayString              327DMYtoDateString
+      342InternationalDate      313MonthString            311SlashChar
+      325SortStringToDate       328TodayString
+;
+;---------------------------------------------------------------------------
+!TOPIC 349 Time Strings
+!NOINDEX
+TPDATE provides the following routines for converting times to and from
+strings:
+
+      312ColonChar              335CurrentTimeString      343InternationalTime
+      339SortStringToTime       312Time Pictures          331TimeStringToTime
+      333TimeToAmPmString       344TimeToSortString       332TimeToTimeString
+      312UpCaseTime
+;
+;===========================================================================
+!TOPIC 350 TpDir
+TPDIR builds upon the pick unit TPPICK to solve a common programming
+problem: the selection of filenames. TPDIR's main routine is GetFileName,
+which takes a wildcard specification as input, opens a window displaying the
+matching files, allows the user to browse around, and finally returns the
+selected filename.
+
+  363ChangeDirectory   364CompleteFileName  360DatePicture       359DirDisplayStr
+  353DirsUpper         354FilesUpper        362GetFileName       356ReturnCompletePath
+  352SeparateDirs      355ShowExtension     357ShowSizeDateTime  358SizeDisplay
+  361TimePicture       351UseFileFrame
+;
+;---------------------------------------------------------------------------
+!TOPIC 351 UseFileFrame
+!NOINDEX
+
+const
+  350TpDir.UseFileFrame : Boolean = True;
+
+True to draw frame around pick window used for choosing filenames.
+;
+;---------------------------------------------------------------------------
+!TOPIC 352 SeparateDirs
+!NOINDEX
+const
+  350TpDir.SeparateDirs : Boolean = True;
+
+True to sort directories to start and files to end of pick list.
+;
+;---------------------------------------------------------------------------
+!TOPIC 353 DirsUpper
+!NOINDEX
+const
+  350TpDir.DirsUpper : Boolean = True;
+
+True to display directories in uppercase.
+
+See also: 354FilesUpper
+;
+;---------------------------------------------------------------------------
+!TOPIC 354 FilesUpper
+!NOINDEX
+const
+  350TpDir.FilesUpper : Boolean = False;
+
+True to display files in uppercase.
+
+See also: 353DirsUpper
+;
+;---------------------------------------------------------------------------
+!TOPIC 355 ShowExtension
+!NOINDEX
+const
+  350TpDir.ShowExtension : Boolean = True;
+
+True to display file extension as well as name.
+;
+;---------------------------------------------------------------------------
+!TOPIC 356 ReturnCompletePath
+!NOINDEX
+const
+  350TpDir.ReturnCompletePath : Boolean = True;
+
+True to return complete pathnames for files chosen with 362GetFileName. If
+False, it returns a path relative to the current directory.
+;
+;---------------------------------------------------------------------------
+!TOPIC 357 ShowSizeDateTime
+!NOINDEX
+{$IFDEF AllowDateTime}
+!LINE
+const
+  350TpDir.ShowSizeDateTime : Boolean = False;
+!LINE
+{$ENDIF}
+
+True to show size, date, and/or time of files.
+
+See also: 358SizeDisplay  360DatePicture  361TimePicture
+;
+;---------------------------------------------------------------------------
+!TOPIC 358 SizeDisplay
+!NOINDEX
+{$IFDEF AllowDateTime}
+!LINE
+const
+  350TpDir.SizeDisplay :
+   (SizeNone,      {Don't display the file size}
+    SizeBytes,     {Display size in bytes}
+    SizeKBytes)    {Display size in kilobytes}
+  = SizeBytes;
+!LINE
+{$ENDIF}
+
+Determines whether and how the file size is displayed with each filename.
+
+See also: 357ShowSizeDateTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 359 DirDisplayStr
+!NOINDEX
+{$IFDEF AllowDateTime}
+!LINE
+const
+  350TpDir.DirDisplayStr : string[5] = '<dir>';
+!LINE
+{$ENDIF}
+
+The string displayed in the size column for subdirectories.
+
+See also: 357ShowSizeDateTime
+;
+;---------------------------------------------------------------------------
+!TOPIC 360 DatePicture
+!NOINDEX
+{$IFDEF AllowDateTime}
+!LINE
+const
+  350TpDir.DatePicture : string[12] = 'Mm/dd/yy';
+!LINE
+{$ENDIF}
+
+311Picture mask used to format file date. Set to an empty string to exclude
+date.
+;
+;---------------------------------------------------------------------------
+!TOPIC 361 TimePicture
+!NOINDEX
+{$IFDEF AllowDateTime}
+!LINE
+const
+  350TpDir.TimePicture : string[12] = 'Hh:mmt';
+!LINE
+{$ENDIF}
+
+312Picture mask used to format file time. Set to an empty string to exclude
+time.
+;
+;---------------------------------------------------------------------------
+!TOPIC 362 GetFileName
+!NOINDEX
+function 350TpDir.GetFileName
+   (Mask : string;           {Search mask}
+    FileAttr : Byte;         {Search attribute for files}
+    XLow, YLow : Byte;       {Upper left corner of window, including frame}
+    YHigh, 0925PickCols : Byte;  {Lower row, and number of columns of files}
+    Colors : 0919PickColorArray; {Video attributes to use}
+    var FileName : string    {Full path of selected file}
+    ) : Word;                {Status}
+
+Given a search mask (which may contain wildcards), pop up a directory window,
+let user choose, and return pathname. Returns zero for success, non-zero for
+error. If FileAttr has the Directory bit set, the user will be able to
+browse among available subdirectories.
+
+Error codes:
+      0 = Success
+      1 = Path not found
+      2 = No matching files
+      3 = New file
+      4 = Insufficient memory
+      5 = Won't fit on screen
+    else  Turbo critical error code
+
+See also: 360DatePicture    359DirDisplayStr       353DirsUpper
+          354FilesUpper     356ReturnCompletePath  352SeparateDirs
+          355ShowExtension  357ShowSizeDateTime    358SizeDisplay
+          361TimePicture    351UseFileFrame
+;
+;---------------------------------------------------------------------------
+!TOPIC 363 ChangeDirectory
+!NOINDEX
+function 350TpDir.ChangeDirectory
+  (Mask : string;           {New directory or mask}
+   XLow, YLow : Byte;       {Upper left corner of window, including frame}
+   YHigh, 0925PickCols : Byte;  {Lower row, and number of columns of files}
+   Colors : 0919PickColorArray  {Video attributes to use}
+   ) : Word;                {Status}
+
+Given a mask (which may contain wildcards), change to that directory. If a
+wildcard is specified or if the input mask is empty, show the directories
+there and allow selection. If no error occurs, the current directory will be
+the final selection when the user presses <Esc> or otherwise exits the
+routine.
+
+The returned status word is a Turbo IoResult value, with the following
+exceptions:
+      4 = Insufficient memory
+      5 = Won't fit on screen
+
+See also: 360DatePicture       359DirDisplayStr  353DirsUpper
+          357ShowSizeDateTime  358SizeDisplay    361TimePicture
+          351UseFileFrame
+;
+;---------------------------------------------------------------------------
+!TOPIC 364 CompleteFileName
+!NOINDEX
+function 350TpDir.CompleteFileName(Name : string) : string;
+
+Convert a relative path name into a complete one.
+;
+;===========================================================================
+!TOPIC 365 TpDos
+TPDOS complements Turbo Pascal's own DOS unit. When combined, these two
+units contain most of the routines you should ever need to harness the power
+of DOS and the BIOS.
+
+      410Disk Management        411DOS Shell              412File Management
+      413Miscellaneous          414Printing
+;
+;---------------------------------------------------------------------------
+!TOPIC 366 ActionCodeType
+!NOINDEX
+type
+  365TpDos.ActionCodeType = (
+    ExecSaveScreen, ExecShowMemory, ExecPauseAfterRun, ExecRestoreScreen);
+
+Enumerated type describing the possible actions of an 399ExecDos user routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 367 DiskClass
+!NOINDEX
+type
+  365TpDos.DiskClass = (
+    Floppy360, Floppy720, Floppy12, Floppy144, OtherFloppy, Bernoulli,
+    HardDisk, RamDisk, SubstDrive, UnknownDisk, InvalidDrive,
+    NovellDrive, CDRomDisk);
+
+Enumerated type describing the possible categories of disk detected by
+367GetDiskClass.
+;
+;---------------------------------------------------------------------------
+!TOPIC 368 IoResultPtr
+!NOINDEX
+var
+  365TpDos.IoResultPtr : Pointer;
+
+If not nil, must point to a routine like 704Int24Result that returns an I/O
+error code. All TPDOS routines that check I/O errors will use this routine
+when supplied. The routine must be compiled far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 369 StackSafetyMargin
+!NOINDEX
+const
+  365TpDos.StackSafetyMargin : Word = 1000;
+
+Amount of stack space to leave available for the user service routine during
+a call to 399ExecDos.
+;
+;---------------------------------------------------------------------------
+!TOPIC 370 MinSpaceForDos
+!NOINDEX
+const
+  365TpDos.MinSpaceForDos : Word = 20000;
+
+Minimum bytes for DOS shell to run. 399ExecDos will return with an error if it
+cannot free at least this much memory.
+;
+;---------------------------------------------------------------------------
+!TOPIC 371 StdInHandle
+!NOINDEX
+const
+  365TpDos.StdInHandle = 0;
+
+DOS handle number for the standard input device. Used as a parameter to
+404OpenStdDev.
+;
+;---------------------------------------------------------------------------
+!TOPIC 372 StdOutHandle
+!NOINDEX
+const
+  365TpDos.StdOutHandle = 1;
+
+DOS handle number for the standard output device. Used as a parameter to
+404OpenStdDev.
+;
+;---------------------------------------------------------------------------
+!TOPIC 373 StdErrHandle
+!NOINDEX
+const
+  365TpDos.StdErrHandle = 2;
+
+DOS handle number for the standard error device. Used as a parameter to
+404OpenStdDev.
+;
+;---------------------------------------------------------------------------
+!TOPIC 374 StdPrnHandle
+!NOINDEX
+const
+  365TpDos.StdPrnHandle = 4;
+
+DOS handle number for the standard printer device. Used as a parameter to
+404OpenStdDev.
+;
+;---------------------------------------------------------------------------
+!TOPIC 375 DOSVersion
+!NOINDEX
+function 365TpDos.DOSVersion : Word;
+
+Returns the DOS version number. High byte has major version number, low byte
+has minor version number, e.g., DOS 3.1 => $0301. Caution: the Turbo
+Pascal DOS unit starting with version 5.0 also provides a function called
+DOSVersion and it returns the version number in byte-reversed order.
+;
+;---------------------------------------------------------------------------
+!TOPIC 376 NumberOfDrives
+!NOINDEX
+function 365TpDos.NumberOfDrives : Byte;
+
+Returns the number of logical drives. Under DOS 3.0 or later, some of these
+drives may not be valid. To determine if a drive is valid, call 377SelectDrive
+and see if the 378DefaultDrive changed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 377 SelectDrive
+!NOINDEX
+procedure 365TpDos.SelectDrive(Drive : Char);
+
+Selects the specified drive as default if possible.
+
+See also: 378DefaultDrive  376NumberOfDrives
+;
+;---------------------------------------------------------------------------
+!TOPIC 378 DefaultDrive
+!NOINDEX
+function 365TpDos.DefaultDrive : Char;
+
+Return the default drive as an uppercase letter.
+
+See also: 377SelectDrive
+;
+;---------------------------------------------------------------------------
+!TOPIC 379 GetDiskInfo
+!NOINDEX
+function 365TpDos.GetDiskInfo(
+            Drive : Byte; var ClustersAvailable, TotalClusters,
+            BytesPerSector, SectorsPerCluster : Word) : Boolean;
+
+Return technical info about the specified drive. Warning: this call may not
+work correctly under DOS 4.0 with a drive exceeding 32 megabytes.
+
+See also: 380GetDiskClass
+;
+;---------------------------------------------------------------------------
+!TOPIC 380 GetDiskClass
+!NOINDEX
+function 365TpDos.GetDiskClass(Drive : Char;
+                            var SubstDriveChar : Char) : 367DiskClass;
+
+Return the disk class for the drive with the specified letter. Note that a
+formatted disk must be in the drive to obtain correct results.
+
+See also: 379GetDiskInfo
+;
+;---------------------------------------------------------------------------
+!TOPIC 381 ReadDiskSectors
+!NOINDEX
+function 365TpDos.ReadDiskSectors(Drive : Word; FirstSect : Longint;
+                               NumSects : Word; var Buf) : Boolean;
+
+Read absolute disk sectors using DOS services. Works correctly with DOS 4.0.
+
+See also: 382WriteDiskSectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 382 WriteDiskSectors
+!NOINDEX
+function 365TpDos.WriteDiskSectors(Drive : Word; FirstSect : Longint;
+                                NumSects : Word; var Buf) : Boolean;
+
+Write absolute disk sectors using DOS services. Works correctly with DOS
+4.0. Use with extreme caution!
+
+See also: 381ReadDiskSectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 383 GetFileMode
+!NOINDEX
+function 365TpDos.GetFileMode(FName : string; var Attr : Word) : Byte;
+
+Returns a file's attribute in Attr and the DOS error code as the function
+result.
+
+See also: 407ExistFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 384 FileHandlesLeft
+!NOINDEX
+function 365TpDos.FileHandlesLeft : Byte;
+
+Return the number of available file handles. Will never return a value
+larger than 20 even if more handles are really available.
+
+See also: 385FileHandlesOpen
+;
+;---------------------------------------------------------------------------
+!TOPIC 385 FileHandlesOpen
+!NOINDEX
+function 365TpDos.FileHandlesOpen(CountDevices : Boolean) : Byte;
+
+Return the number of open files owned by a program, counting standard
+"devices" like input, output, and printer if requested. Will never return a
+value larger than 20 even if more handles are really open.
+
+See also: 384FileHandlesLeft
+;
+;---------------------------------------------------------------------------
+!TOPIC 386 SetDta
+!NOINDEX
+procedure 365TpDos.SetDta(DTAptr : Pointer);
+
+Set the DOS Disk Transfer Area to point to DTAptr.
+
+See also: 387GetDta
+;
+;---------------------------------------------------------------------------
+!TOPIC 387 GetDta
+!NOINDEX
+procedure 365TpDos.GetDta(var DTAptr : Pointer);
+
+Return the DOS Disk Transfer Area pointer.
+
+See also: 386SetDta
+;
+;---------------------------------------------------------------------------
+!TOPIC 388 VerifyOn
+!NOINDEX
+function 365TpDos.VerifyOn : Boolean;
+
+Returns True if DOS disk write verification is on.
+
+See also: 389SetVerify
+;
+;---------------------------------------------------------------------------
+!TOPIC 389 SetVerify
+!NOINDEX
+procedure 365TpDos.SetVerify(On : Boolean);
+
+Turn DOS disk write verification on/off.
+
+See also: 388VerifyOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 390 ParsePath
+!NOINDEX
+function 365TpDos.ParsePath(var InputPath, SearchPath,
+                         LeadInPath : string) : Boolean;
+
+Given a user entered path, trim blanks, and return a valid global search
+path and a valid lead-in path.
+
+See also: 364TpDir.CompleteFileName  1100TpString.JustPathName
+;
+;---------------------------------------------------------------------------
+!TOPIC 391 PrintInstalled
+!NOINDEX
+function 365TpDos.PrintInstalled : Boolean;
+
+Return True if PRINT.COM is installed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 392 SubmitPrintFile
+!NOINDEX
+function 365TpDos.SubmitPrintFile(FileName : string) : Byte;
+
+Submit a file to PRINT.COM under PC-DOS 3.0 or later.
+
+See also: 393CancelPrintFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 393 CancelPrintFile
+!NOINDEX
+procedure 365TpDos.CancelPrintFile(FileMask : string);
+
+Remove files that match FileMask from the PRINT.COM print queue.
+
+See also: 394CancelAllPrintFiles
+;
+;---------------------------------------------------------------------------
+!TOPIC 394 CancelAllPrintFiles
+!NOINDEX
+procedure 365TpDos.CancelAllPrintFiles;
+
+Cancels all files in the PRINT.COM print queue.
+
+See also: 393CancelPrintFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 395 GetPrintStatus
+!NOINDEX
+function 365TpDos.GetPrintStatus(var QPtr : Pointer) : Byte;
+
+Halt printing, return current error status, and put a pointer to the
+filename queue in the QPtr variable. Filenames in the queue are 64-byte
+ASCIIZ strings. The end of the queue is marked by a name starting with a
+null. Call 396EndPrintStatus to resume printing.
+;
+;---------------------------------------------------------------------------
+!TOPIC 396 EndPrintStatus
+!NOINDEX
+procedure 365TpDos.EndPrintStatus;
+
+Resume printing after a call to 395GetPrintStatus procedure.
+;
+;---------------------------------------------------------------------------
+!TOPIC 397 GetEnvironmentString
+!NOINDEX
+function 365TpDos.GetEnvironmentString(SearchString : string) : string;
+
+Return a string from the environment.
+;
+;---------------------------------------------------------------------------
+!TOPIC 398 SetBlock
+!NOINDEX
+function 365TpDos.SetBlock(var Paragraphs : Word) : Boolean;
+
+Change size of DOS memory block allocated to this program. If call fails,
+the number of paragraphs that could have been allocated is returned.
+;
+;---------------------------------------------------------------------------
+!TOPIC 399 ExecDos
+!NOINDEX
+function 365TpDos.ExecDos(Command : string; UseSecond : Boolean;
+                       UserRoutine : Pointer) : Integer;
+
+Execute any DOS command. Call with Command = '' for a new shell. If
+UseSecond is false, Command must be the full pathname of a program to be
+executed; otherwise, ExecDos uses COMMAND.COM to find and execute the
+program.
+
+UserRoutine is the address of a routine to display status, save/restore the
+screen, etc., or a nil pointer. It must be of the form:
+
+   procedure UserRoutine(ActionCode : 366ActionCodeType; Param : Word);
+
+and it must be compiled far and global.
+
+ExecDos return codes are as follows:
+         0 : Success
+        -1 : Insufficient memory to store free list
+        -2 : DOS setblock error before EXEC call
+        -3 : DOS setblock error after EXEC call  -- critical error!
+        -4 : Insufficient memory to run DOS command
+      else   a DOS error code
+
+See also: 370MinSpaceForDos  369StackSafetyMargin
+;
+;---------------------------------------------------------------------------
+!TOPIC 400 TextSeek
+!NOINDEX
+function 365TpDos.TextSeek(var F : Text; Target : LongInt) : Boolean;
+
+Seek to Target position within a text file opened for input. Returns False
+in case of I/O error.
+
+See also: 402TextPos
+;
+;---------------------------------------------------------------------------
+!TOPIC 401 TextFileSize
+!NOINDEX
+function 365TpDos.TextFileSize(var F : Text) : LongInt;
+
+Return the size of text file F. Returns -1 in case of I/O error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 402 TextPos
+!NOINDEX
+function 365TpDos.TextPos(var F : Text) : LongInt;
+
+Return the current position of the logical file pointer (that is, the
+position of the physical file pointer, adjusted to account for buffering).
+Returns -1 in case of I/O error.
+
+See also: 400TextSeek
+;
+;---------------------------------------------------------------------------
+!TOPIC 403 TextFlush
+!NOINDEX
+function 365TpDos.TextFlush(var F : Text) : Boolean;
+
+Flush the buffer for a text file. Returns False in case of I/O error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 404 OpenStdDev
+!NOINDEX
+function 365TpDos.OpenStdDev(var F : Text; StdHandle : Word) : Boolean;
+
+Assign the text file to a standard DOS device: 0, 1, 2, or 4. Use the
+constants StdInHandle, StdOutHandle, StdErrHandle, and StdPrnHandle to
+refer to these devices. Returns False if error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 405 HandleIsConsole
+!NOINDEX
+function 365TpDos.HandleIsConsole(Handle : Word) : Boolean;
+
+Return True if handle refers to the console device. Useful to determine
+whether standard input (371StdInHandle) or output (372StdOutHandle) has been
+redirected.
+;
+;---------------------------------------------------------------------------
+!TOPIC 406 SetRawMode
+!NOINDEX
+procedure 365TpDos.SetRawMode(var F : Text; On : Boolean);
+
+Set "raw" mode on or off for the specified text file, which must refer to a
+device. When raw mode is on, DOS does not filter the input or output streams
+looking for control characters like Ctrl-Z and Ctrl-C.
+;
+;---------------------------------------------------------------------------
+!TOPIC 407 ExistFile
+!NOINDEX
+function 365TpDos.ExistFile(FName : string) : Boolean;
+
+Return true if file is found in current or specified directory.
+
+See also: 408ExistOnPath
+;
+;---------------------------------------------------------------------------
+!TOPIC 408 ExistOnPath
+!NOINDEX
+function 365TpDos.ExistOnPath(FName : string;
+                           var FullName : string) : Boolean;
+
+Return true if FName is found in
+   a) current directory
+   b) program's directory (DOS 3.X only)
+   c) any DOS path directory
+
+and return a full path name to the file.
+
+See also: 407ExistFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 409 TimeMs
+!NOINDEX
+function 365TpDos.TimeMs : LongInt;
+
+Return time of day in milliseconds since midnight. Note that the resolution
+of the time returned is 55 milliseconds.
+;
+;---------------------------------------------------------------------------
+!TOPIC 410 Disk Management
+!NOINDEX
+TPDOS provides the following routines for managing DOS disk drives:
+
+      378DefaultDrive           367DiskClass              380GetDiskClass
+      379GetDiskInfo            376NumberOfDrives         381ReadDiskSectors
+      377SelectDrive            389SetVerify              388VerifyOn
+      382WriteDiskSectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 411 DOS Shell
+!NOINDEX
+TPDOS provides the following data structures and routines for an advanced
+DOS shell:
+
+      366ActionCodeType         399ExecDos                370MinSpaceForDos
+      369StackSafetyMargin
+;
+;---------------------------------------------------------------------------
+!TOPIC 412 File Management
+!NOINDEX
+TPDOS provides the following routines for DOS file management:
+
+      407ExistFile              408ExistOnPath            384FileHandlesLeft
+      385FileHandlesOpen        383GetFileMode            405HandleIsConsole
+      368IoResultPtr            404OpenStdDev             390ParsePath
+      406SetRawMode             373StdErrHandle           371StdInHandle
+      372StdOutHandle           374StdPrnHandle           401TextFileSize
+      403TextFlush              402TextPos                400TextSeek
+;
+;---------------------------------------------------------------------------
+!TOPIC 413 Miscellaneous
+!NOINDEX
+TPDOS provides the following miscellaneous DOS capabilities:
+
+      375DOSVersion             387GetDta                 397GetEnvironmentString
+      398SetBlock               386SetDta                 409TimeMs
+;
+;---------------------------------------------------------------------------
+!TOPIC 414 Printing
+!NOINDEX
+TPDOS provides the following capabilities for accessing the DOS print
+spooler:
+
+      394CancelAllPrintFiles    393CancelPrintFile        396EndPrintStatus
+      395GetPrintStatus         391PrintInstalled         392SubmitPrintFile
+;
+;===========================================================================
+!TOPIC 415 TpEarray
+TPEARRAY stores large arrays in Lotus/Intel/MicroSoft expanded memory. The
+arrays can be of one or two dimensions, with up to 65535 rows and columns,
+and each element can be up to 16K bytes in size. The total array size can be
+as large as 32 megabytes under the EMS 4.0 specification, or 8 megabytes
+under earlier versions of EMS.
+
+The routines in TPEARRAY, TPRARRAY, and TPVARRAY are all very similar,
+differing only in the fact that the three array models store their data in
+different places. The help topics for the three models are combined,
+pointing out differences only as necessary.
+!PAGE
+      427ClearA                 429DisposeA               423EmsAvailable
+      424ErrorA                 421HaltOnError            419InitType
+      431LoadA                  428MakeA                  422RangeCheck
+      425RetA                   426SetA                   430StoreA
+      418TpArray                420WriteError
+;
+;===========================================================================
+!TOPIC 416 TpRarray
+TPRARRAY stores large arrays on the Turbo Pascal heap. The arrays can be of
+one or two dimensions, with up to 65535 rows and columns, and each element
+can be up to 64K bytes in size. The total array size can be as large as the
+available heap space, which probably sets a limit of 640K bytes.
+
+The routines in TPEARRAY, TPRARRAY, and TPVARRAY are all very similar,
+differing only in the fact that the three array models store their data in
+different places. The help topics for the three models are combined,
+pointing out differences only as necessary.
+!PAGE
+      427ClearA                 429DisposeA               424ErrorA
+      421HaltOnError            419InitType               431LoadA
+      435LoadVA                 428MakeA                  432MakeAPrimitive
+      422RangeCheck             425RetA                   426SetA
+      430StoreA                 434StoreVA                418TpArray
+      420WriteError
+;
+;===========================================================================
+!TOPIC 417 TpVarray
+TPVARRAY stores large arrays in a disk file, and pages portions of the array
+into memory on demand. The arrays can be of one or two dimensions, with up
+to 65535 rows and columns, and each element can be up to 64K bytes in size.
+The total array size can be as large as the available disk space. The paging
+area in normal memory can be as small as two array "pages", or as large as
+available memory. Larger paging areas provide faster array access times.
+
+The routines in TPEARRAY, TPRARRAY, and TPVARRAY are all very similar,
+differing only in the fact that the three array models store their data in
+different places. The help topics for the three models are combined.
+!PAGE
+      427ClearA                 429DisposeA               424ErrorA
+      436FlushA                 421HaltOnError            419InitType
+      433KeepDiskCurrent        431LoadA                  428MakeA
+      432MakeAPrimitive         422RangeCheck             425RetA
+      426SetA                   430StoreA                 418TpArray
+      420WriteError
+;
+;---------------------------------------------------------------------------
+!TOPIC 418 TpArray
+!NOINDEX
+type
+  416TpRarray.TpArray = Pointer;
+
+Generic type of a large array. For each array model, it points to a
+different internal data structure.
+
+See also: 415TpEarray  417TpVarray
+;
+;---------------------------------------------------------------------------
+!TOPIC 419 InitType
+!NOINDEX
+type
+  416TpRarray.InitType = (ExactInit, FastInit);
+
+Initialization options for new arrays. FastInit set all bytes of the
+array to an identical value, specified by the call to 427ClearA.
+;
+;---------------------------------------------------------------------------
+!TOPIC 420 WriteError
+!NOINDEX
+const
+  416TpRarray.WriteError : Boolean = True;
+
+When True, the large array units write a message to the output file whenever
+an error occurs.
+
+See also: 424ErrorA
+;
+;---------------------------------------------------------------------------
+!TOPIC 421 HaltOnError
+!NOINDEX
+const
+  416TpRarray.HaltOnError : Boolean = True;
+
+When True, the large array units halt the program when any error is
+detected. Otherwise, execution continues and it is the application's
+responsibility to check the error code in 424ErrorA.
+
+See also: 422RangeCheck
+;
+;---------------------------------------------------------------------------
+!TOPIC 422 RangeCheck
+!NOINDEX
+const
+  416TpRarray.RangeCheck : Boolean = False;
+
+When True, all array indexes are checked to be in a valid range. Invalid
+indexes cause an array error.
+
+See also: 424ErrorA
+;
+;---------------------------------------------------------------------------
+!TOPIC 423 EmsAvailable
+!NOINDEX
+var
+  415TpEarray.EmsAvailable : Boolean;
+
+True if EMS is available on the current machine. The routines in TPEARRAY
+won't work unless EmsAvailable is True.
+;
+;---------------------------------------------------------------------------
+!TOPIC 424 ErrorA
+!NOINDEX
+function 416TpRarray.ErrorA : Word;
+
+Return the last error number and reset the error variable. Error codes:
+
+  1  Row index out of range
+  2  Column index out of range
+  3  Invalid element size
+  4  Invalid row or column limit
+  5  Invalid page size
+  6  Invalid page index size
+  7  Insufficient memory to allocate array
+  8  File creation error
+  9  File write error
+  10 Error while closing file
+  11 File not found
+  12 File read error
+  13 EMS page mapping error
+  14 EMS driver and/or hardware not installed
+  15 Insufficient EMS memory to allocate array
+  16 Error deallocating EMS memory
+  17 Invalid file format
+
+See also: 421HaltOnError  422RangeCheck
+;
+;---------------------------------------------------------------------------
+!TOPIC 425 RetA
+!NOINDEX
+procedure 416TpRarray.RetA(A : TpArray; R, C : Word; var Value);
+
+Return Value of A[r,c].
+
+See also: 426SetA
+;
+;---------------------------------------------------------------------------
+!TOPIC 426 SetA
+!NOINDEX
+procedure 416TpRarray.SetA(A : TpArray; R, C : Word; var Value);
+
+Set array element A[r,c] to Value.
+
+See also: 425RetA
+;
+;---------------------------------------------------------------------------
+!TOPIC 427 ClearA
+!NOINDEX
+procedure 416TpRarray.ClearA(A : TpArray; var Value;
+                          Initialize : 419InitType);
+
+Initialize all array values to Value. If Initialize is FastInit, only the
+first byte of Value is used; otherwise, all significant bytes are used.
+;
+;---------------------------------------------------------------------------
+!TOPIC 428 MakeA
+!NOINDEX
+procedure 416TpRarray.MakeA(var A : TpArray; Rows : Word; Cols : Word;
+                ElementSize : Word);
+!LINE
+procedure 417TpVarray.MakeA(var A : TpArray; Rows : Word; Cols : Word;
+                ElementSize : Word;
+                FileName : string; RamBytesForData : LongInt);
+
+Allocate array. Rows and Cols specify the total number of each in the array.
+For a one-dimensional array, specify 1 row or 1 column. The second
+declaration applies only to virtual arrays (TPVARRAY), and specifies the
+filename for array storage, and the number of bytes of RAM to use for page
+caching.
+
+See also: 432MakeAPrimitive  429DisposeA
+;
+;---------------------------------------------------------------------------
+!TOPIC 429 DisposeA
+!NOINDEX
+procedure 416TpRarray.DisposeA(var A : TpArray);
+!LINE
+procedure 417TpVarray.DisposeA(var A : TpArray; DeleteFile : Boolean);
+
+Deallocate array. The second declaration applies only to virtual arrays
+(TPVARRAY), and specifies whether the array file should be erased when the
+array is removed from memory.
+
+See also: 428MakeA
+;
+;---------------------------------------------------------------------------
+!TOPIC 430 StoreA
+!NOINDEX
+procedure 416TpRarray.StoreA(A : TpArray; FileName : string);
+!LINE
+procedure 417TpVarray.StoreA(A : TpArray);
+
+Write array to disk. The second declaration is used only for virtual arrays,
+where the file name is already known. Note that each array model uses a
+unique disk format. However, RAM arrays can use the 434StoreVA and 435LoadVA
+routines to store and load RAM arrays using a virtual array format.
+
+See also: 431LoadA
+;
+;---------------------------------------------------------------------------
+!TOPIC 431 LoadA
+!NOINDEX
+procedure 416TpRarray.LoadA(var A : TpArray; FileName : string);
+
+Allocate and read array from disk. Note that each array model uses a unique
+disk format. However, RAM arrays can use the 434StoreVA and 435LoadVA routines to
+store and load RAM arrays using a virtual array format.
+
+See also: 430StoreA
+;
+;---------------------------------------------------------------------------
+!TOPIC 432 MakeAPrimitive
+!NOINDEX
+procedure 416TpRarray.MakeAPrimitive(var A : TpArray;
+                                  RowsInPage : Word; ColsInPage : Word;
+                                  PagesDown : Word; PagesAcross : Word;
+                                  ElementSize : Word);
+!LINE
+procedure 417TpVarray.MakeAPrimitive(var A : TpArray;
+                                  RowsInPage : Word; ColsInPage : Word;
+                                  PagesDown : Word; PagesAcross : Word;
+                                  ElementSize : Word;
+                                  FileName : string; RamBytesForData : LongInt);
+
+Allocate array memory, with full control over page structure. The first
+routine applies only to RAM arrays, and the second to virtual arrays. These
+may be used to optimize performance in certain situations.
+
+See also: 428MakeA
+;
+;---------------------------------------------------------------------------
+!TOPIC 433 KeepDiskCurrent
+!NOINDEX
+const
+  417TpVarray.KeepDiskCurrent : Boolean = False;
+
+When true, TPVARRAY updates the disk every time an element is changed.
+Otherwise, it updates the disk only when forced to by a page miss, when
+436FlushA is called, or when 429DisposeA is call.
+;
+;---------------------------------------------------------------------------
+!TOPIC 434 StoreVA
+!NOINDEX
+procedure 416TpRarray.StoreVA(A : TpArray; FileName : string);
+
+Write a RAM array to disk in VARRAY format.
+
+See also: 435LoadVA
+;
+;---------------------------------------------------------------------------
+!TOPIC 435 LoadVA
+!NOINDEX
+procedure 416TpRarray.LoadVA(var A : TpArray; FileName : string);
+
+Allocate and read a RAM array from disk in VARRAY format.
+
+See also: 434StoreVA
+;
+;---------------------------------------------------------------------------
+!TOPIC 436 FlushA
+!NOINDEX
+procedure 417TpVarray.FlushA(A : TpArray);
+
+Update the disk image of a virtual array.
+
+See also: 433KeepDiskCurrent

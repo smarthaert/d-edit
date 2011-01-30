@@ -1,0 +1,63 @@
+This file summarizes changes made between Turbo Professional versions
+5.20 and 5.21. It is of interest primarily to Fast Update Plan
+subscribers.
+
+New Features and Changes
+---------------------------------------------------------------------
+Most new features are described in detail in READ.1ST. The following
+is a brief description of them, arranged by unit. Minor enhancements
+to existing programs and routines are listed here only and are denoted
+by asterisks.
+
+TPCRT
+  - Support UseCrt and CRT/TPCRT checking
+
+TPERRHAN
+  * Allow to link with SB Pascal+ 6.14
+
+TPMENU
+  * Make it more speech-friendly
+
+TPMOUSE
+  * Protect against bogus MouseMove event
+
+TPPICK
+  - Added more PKSUser constants (PKSUser4..PKSUser9).
+  - Added new option to not restrict mouse window
+
+
+Bugs Fixed
+---------------------------------------------------------------------
+TPDOS
+  - GetDiskClass returned SubstDrive for invalid drives
+  - GetDiskClass didn't work correctly in an OS/2 DOS box
+  - GetDiskClass CD-ROM detection code failed on some drivers
+  - SetDta died in pmode
+  - FileHandlesOpen GPF'ed in pmode
+  - PRINT.COM services GPF'ed in pmode
+  - SetRawMode sometimes GPF'ed in pmode
+
+TPENHKBD
+  - Int 16 handler returned bad results for KeyPressed call
+
+TPENTRY
+  - ResetEntryScreenFlags performed incorrectly when ChangeProtection
+    was used
+  - Sometimes generated GPFs in protected mode
+
+TPINT
+  - Using EmulateInt could lead to random behavior/hangs
+
+TPMENU
+  - Lost ability to activate another top menu item with the mouse
+
+TPTSR
+  - ModuleInstalled and ModulePtrByName fail with MemoryMate loaded after
+
+Various
+  - Wouldn't compile if $T+ directive was specified under BP7
+    (affected files: TPCMD, TPSCREEN, TPMACRO, TPSTRDEV, PCALC, SMACS)
+
+VBROWSE
+  - Ruler sometimes displayed garbage at right edge during scrolling
+

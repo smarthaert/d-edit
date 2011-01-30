@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+  <xs:element name="TESTER" type="TESTERType"/>
+  <xs:complexType name="TESTERType"><xs:annotation>
+      <xs:appinfo xdb:docElement="TESTER"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="PATHS" type="PATHSType"/>
+      <xs:element name="PROBLEMS" type="PROBLEMSType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PATHSType">
+    <xs:sequence>
+      <xs:element name="QUEUE" type="xs:string"/>
+      <xs:element name="MAIN" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROBLEMSType">
+    <xs:sequence>
+      <xs:element name="PROBLEM" type="PROBLEMType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROBLEMType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="Litera" type="xs:string"/>
+      <xs:element name="INPUT_FILE" type="xs:string"/>
+      <xs:element name="OUTPUT_FILE" type="xs:string"/>
+      <xs:element name="TEST_IN" type="xs:string"/>
+      <xs:element name="TEST_OUT" type="xs:string"/>
+      <xs:element name="TESTS" type="xs:integer"/>
+      <xs:element name="TIMELIMIT" type="xs:integer"/>
+      <xs:element name="PATH" type="xs:string"/>
+      <xs:element name="TESTER" type="xs:string"/>
+      <xs:element name="STATUS" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

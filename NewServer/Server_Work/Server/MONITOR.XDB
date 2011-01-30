@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+  <xs:element name="MONITOR" type="MONITORType"/>
+  <xs:complexType name="MONITORType"><xs:annotation>
+      <xs:appinfo xdb:docElement="MONITOR"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="USERS" type="USERSType"/>
+      <xs:element name="PROBLEMS" type="PROBLEMSType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="USERSType"><xs:annotation>
+      <xs:appinfo xdb:identifierName="IXMLUSERSTypes"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="USER" type="USERType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="USERType"><xs:annotation>
+      <xs:appinfo xdb:identifierName="IXMLUSERTypes"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="Data" type="DataType"/>
+      <xs:element name="Submits" type="SubmitsType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DataType">
+    <xs:sequence>
+      <xs:element name="U_Name" type="xs:string"/>
+      <xs:element name="Rank" type="xs:integer"/>
+      <xs:element name="Time" type="xs:integer"/>
+      <xs:element name="Solved" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubmitsType">
+    <xs:sequence>
+      <xs:element name="Submit" type="SubmitType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubmitType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="NUM_Submits" type="xs:string"/>
+      <xs:element name="Kol_Submits" type="xs:integer"/>
+      <xs:element name="Solve_Time" type="xs:integer"/>
+      <xs:element name="Balls" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROBLEMSType">
+    <xs:sequence>
+      <xs:element name="Problem" type="ProblemType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProblemType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Litera" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

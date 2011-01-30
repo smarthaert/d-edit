@@ -1,0 +1,145 @@
+object edit_new_frm: Tedit_new_frm
+  Left = 354
+  Height = 87
+  Top = 184
+  Width = 312
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'edit_new_frm'
+  ClientHeight = 87
+  ClientWidth = 312
+  ParentFont = False
+  LCLVersion = '0.9.26'
+  object Label1: TLabel
+    Left = 16
+    Height = 16
+    Top = -69
+    Width = 25
+    Anchors = [akLeft, akBottom]
+    Caption = 'Имя'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 16
+    Top = -45
+    Width = 50
+    Anchors = [akLeft, akBottom]
+    Caption = 'Телефон'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 16
+    Height = 16
+    Top = 3
+    Width = 30
+    Anchors = [akLeft, akBottom]
+    Caption = 'Email'
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 16
+    Height = 16
+    Top = 27
+    Width = 44
+    Anchors = [akLeft, akBottom]
+    Caption = 'ICQ UIN'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 16
+    Height = 16
+    Top = -21
+    Width = 76
+    Anchors = [akLeft, akBottom]
+    Caption = 'Моб.телефон'
+    ParentColor = False
+  end
+  object comb: TComboBox
+    Left = 16
+    Height = 21
+    Top = 8
+    Width = 280
+    Ctl3D = True
+    ItemHeight = 13
+    Items.Strings = (
+      'Имя'
+      'Телефон'
+      'Мобильный'
+      'email'
+      'ICQ UIN'
+    )
+    OnChange = combChange
+    Style = csDropDownList
+    TabOrder = 7
+    Visible = False
+  end
+  object Editor: TEdit
+    Left = 16
+    Height = 23
+    Top = 32
+    Width = 280
+    TabOrder = 8
+    Visible = False
+  end
+  object Etel: TEdit
+    Left = 96
+    Height = 23
+    Top = -46
+    Width = 202
+    Anchors = [akLeft, akBottom]
+    TabOrder = 1
+  end
+  object Email: TEdit
+    Left = 96
+    Height = 23
+    Top = 2
+    Width = 202
+    Anchors = [akLeft, akBottom]
+    TabOrder = 3
+  end
+  object Eicq: TEdit
+    Left = 96
+    Height = 23
+    Top = 26
+    Width = 202
+    Anchors = [akLeft, akBottom]
+    TabOrder = 4
+  end
+  object Emobtel: TEdit
+    Left = 96
+    Height = 23
+    Top = -22
+    Width = 202
+    Anchors = [akLeft, akBottom]
+    TabOrder = 2
+  end
+  object EName: TEdit
+    Left = 96
+    Height = 23
+    Top = -70
+    Width = 202
+    Anchors = [akLeft, akBottom]
+    TabOrder = 0
+  end
+  object cancel_btn: TButton
+    Left = 213
+    Height = 25
+    Top = 58
+    Width = 85
+    Anchors = [akLeft, akBottom]
+    Caption = 'О&тмена'
+    OnClick = cancel_btnClick
+    TabOrder = 6
+  end
+  object ok_btn: TButton
+    Left = 125
+    Height = 25
+    Top = 58
+    Width = 85
+    Anchors = [akLeft, akBottom]
+    Caption = '&ОК'
+    OnClick = ok_btnClick
+    TabOrder = 5
+  end
+end

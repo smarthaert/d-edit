@@ -1,0 +1,1722 @@
+;===========================================================================
+!TOPIC 112 TpCrt
+TPCRT is a plug-in replacement for Turbo Pascal's standard CRT unit.
+Although completely compatible with CRT where it counts, TPCRT offers an
+impressive array of extensions and enhancements. You'll find every
+imaginable routine for moving the cursor and changing its shape; routines to
+read characters and strings from the screen; routines to write directly to
+video memory at top speed; routines to save and restore windows; routines to
+save screens to disk in a compressed format; routines to switch in and out
+of the EGA's 43-line mode and the VGA's 50-line mode without clearing the
+screen; routines to poll the keyboard; the list goes on.
+!PAGE
+
+      279Color control          280Cursor control         281Fast screen I/O
+      282Keyboard input         283Libraries              284Miscellaneous
+      285Scrolling              286Video modes            287Windows
+;
+;---------------------------------------------------------------------------
+!TOPIC 113 FrameCharType
+!NOINDEX
+type
+  112TpCrt.FrameCharType = (ULeft, LLeft, URight, LRight, Horiz, Vert);
+
+Positions within a 114FrameArray. Specifies the upper left, lower left, upper
+right, lower right, horizontal, and vertical portions of a window frame.
+
+See also: 244SetFrameChars
+;
+;---------------------------------------------------------------------------
+!TOPIC 114 FrameArray
+!NOINDEX
+type
+  112TpCrt.FrameArray = array[113FrameCharType] of Char;
+
+Type used to store the characters that form a window frame.
+;
+;---------------------------------------------------------------------------
+!TOPIC 115 BW40
+!NOINDEX
+const
+  112TpCrt.BW40 = 0;
+
+Black and white 40-column video mode used with 181TextMode and 64CurrentMode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 116 CO40
+!NOINDEX
+const
+  112TpCrt.CO40 = 1;
+  C40  = 1;
+
+Color 40-column video mode used with 181TextMode and 64CurrentMode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 117 BW80
+!NOINDEX
+const
+  112TpCrt.BW80 = 2;
+
+Black and white 80-column video mode used with 181TextMode and 64CurrentMode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 118 CO80
+!NOINDEX
+const
+  112TpCrt.CO80 = 3;
+  C80 = CO80;
+
+Color 80-column video mode used with 181TextMode and 64CurrentMode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 119 Mono
+!NOINDEX
+const
+  112TpCrt.Mono = 7;
+
+Monochrome 80-column video mode used with 181TextMode and 64CurrentMode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 120 Font8x8
+!NOINDEX
+const
+  112TpCrt.Font8x8 = 256;
+
+Adding this to other video mode constants (usually BW80 or CO80) and passing
+the result to 181TextMode causes the screen to switch to 43 or 50 line mode on
+an EGA or VGA.
+;
+;---------------------------------------------------------------------------
+!TOPIC 121 Black
+!NOINDEX
+const
+  112TpCrt.Black = 0;
+
+The color black.
+;
+;---------------------------------------------------------------------------
+!TOPIC 122 Blue
+!NOINDEX
+const
+  112TpCrt.Blue = 1;
+
+The color blue.
+;
+;---------------------------------------------------------------------------
+!TOPIC 123 Green
+!NOINDEX
+const
+  112TpCrt.Green = 2;
+
+The color green.
+;
+;---------------------------------------------------------------------------
+!TOPIC 124 Cyan
+!NOINDEX
+const
+  112TpCrt.Cyan = 3;
+
+The color Cyan (light blue).
+;
+;---------------------------------------------------------------------------
+!TOPIC 125 Red
+!NOINDEX
+const
+  112TpCrt.Red = 4;
+
+The color red.
+;
+;---------------------------------------------------------------------------
+!TOPIC 126 Magenta
+!NOINDEX
+const
+  112TpCrt.Magenta = 5;
+
+The color Magenta.
+;
+;---------------------------------------------------------------------------
+!TOPIC 127 Brown
+!NOINDEX
+const
+  112TpCrt.Brown = 6;
+
+The color brown.
+;
+;---------------------------------------------------------------------------
+!TOPIC 128 LightGray
+!NOINDEX
+const
+  112TpCrt.LightGray = 7;
+
+The color intense gray.
+;
+;---------------------------------------------------------------------------
+!TOPIC 129 DarkGray
+!NOINDEX
+const
+  112TpCrt.DarkGray = 8;
+
+The color "intense black".
+;
+;---------------------------------------------------------------------------
+!TOPIC 130 LightBlue
+!NOINDEX
+const
+  112TpCrt.LightBlue = 9;
+
+The color intense blue.
+;
+;---------------------------------------------------------------------------
+!TOPIC 131 LightGreen
+!NOINDEX
+const
+  112TpCrt.LightGreen = 10;
+
+The color intense green.
+;
+;---------------------------------------------------------------------------
+!TOPIC 132 LightCyan
+!NOINDEX
+const
+  112TpCrt.LightCyan = 11;
+
+The color intense cyan.
+;
+;---------------------------------------------------------------------------
+!TOPIC 133 LightRed
+!NOINDEX
+const
+  112TpCrt.LightRed = 12;
+
+The color intense red.
+;
+;---------------------------------------------------------------------------
+!TOPIC 134 LightMagenta
+!NOINDEX
+const
+  112TpCrt.LightMagenta = 13;
+
+The color intense magenta.
+;
+;---------------------------------------------------------------------------
+!TOPIC 135 Yellow
+!NOINDEX
+const
+  112TpCrt.Yellow = 14;
+
+The color yellow.
+;
+;---------------------------------------------------------------------------
+!TOPIC 136 White
+!NOINDEX
+const
+  112TpCrt.White = 15;
+
+The color white.
+;
+;---------------------------------------------------------------------------
+!TOPIC 137 Blink
+!NOINDEX
+const
+  112TpCrt.Blink = 128;
+
+Adding this constant to one of the other color constants and passing the
+result to 190TextColor causes the ensuing text to blink, unless the video
+adapter's blink capability has been disabled.
+;
+;---------------------------------------------------------------------------
+!TOPIC 138 DetectMultitasking
+!NOINDEX
+const
+  112TpCrt.DetectMultitasking : Boolean = False;
+
+Set to True to allow programs to run as background tasks under DesqView or
+OmniView. Must be set False for TSR's. Must call 277ReinitCRT after changing.
+;
+;---------------------------------------------------------------------------
+!TOPIC 139 BiosScroll
+!NOINDEX
+const
+  112TpCrt.BiosScroll : Boolean = True;
+
+Set to False to use TPCRT routines for clean scrolling. Avoids some bugs in
+older video BIOS ROM's.
+;
+;---------------------------------------------------------------------------
+!TOPIC 140 FrameChars
+!NOINDEX
+const
+  112TpCrt.FrameChars : 114FrameArray = 'ÕÔ¸¾Í³';
+
+Default frame characters used by TPWINDOW and elsewhere.
+
+See also: 244SetFrameChars
+;
+;---------------------------------------------------------------------------
+!TOPIC 141 MapColors
+!NOINDEX
+const
+  112TpCrt.MapColors : Boolean = True;
+
+True to let 262MapColor map colors for monochrome visibility. Some routines, such
+as all the window-relative fastwriting routines, map colors automatically if
+this constant is left True.
+;
+;---------------------------------------------------------------------------
+!TOPIC 142 DisplayType
+!NOINDEX
+type
+  112TpCrt.DisplayType = (MonoHerc, CGA, MCGA, EGA, VGA, PGC);
+
+The types of video adapters that TPCRT's initialization code can detect.
+Variables 159CurrentDisplay and 160EnhancedDisplay are of this type.
+;
+;---------------------------------------------------------------------------
+!TOPIC 143 HercCardType
+!NOINDEX
+type
+  112TpCrt.HercCardType = (HercNone, HercPlain, HercPlus, HercInColor);
+
+The types of Hercules video adapters that TPCRT's initialization code can
+detect. The variable 161WhichHerc is of this type.
+;
+;---------------------------------------------------------------------------
+!TOPIC 144 FlexAttrs
+!NOINDEX
+type
+  112TpCrt.FlexAttrs = array[0..3] of Byte;
+
+Attributes for 240FlexWrite. Specifies four different video attributes, the
+first used by default, the second used after ^A, the third after ^B, the
+fourth after ^C.
+;
+;---------------------------------------------------------------------------
+!TOPIC 145 WindowCoordinates
+!NOINDEX
+type
+  112TpCrt.WindowCoordinates =
+    record
+      XL, YL, XH, YH : Byte;
+    end;
+
+Record used to save and restore window coordinates. Variables of this type
+are passed to procedures 246StoreWindowCoordinates and
+247RestoreWindowCoordinates.
+;
+;---------------------------------------------------------------------------
+!TOPIC 146 CheckBreak
+!NOINDEX
+var
+  112TpCrt.CheckBreak : Boolean;
+
+True to enable Ctrl-Break checking.
+;
+;---------------------------------------------------------------------------
+!TOPIC 147 CheckEOF
+!NOINDEX
+var
+  112TpCrt.CheckEOF : Boolean;
+
+True to enable Ctrl-Z checking.
+;
+;---------------------------------------------------------------------------
+!TOPIC 148 DirectVideo
+!NOINDEX
+var
+  112TpCrt.DirectVideo : Boolean;
+
+True to write directly to screen with WriteLn statements, or False to use
+BIOS services.
+;
+;---------------------------------------------------------------------------
+!TOPIC 149 CheckSnow
+!NOINDEX
+var
+  112TpCrt.CheckSnow : Boolean;
+
+True to prevent snow on CGA's.
+
+See also: 148DirectVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 150 TextAttr
+!NOINDEX
+var
+  112TpCrt.TextAttr : Byte;
+
+Current video attribute for Write and ClrScr statements.
+
+See also: 190TextColor 191TextBackground
+;
+;---------------------------------------------------------------------------
+!TOPIC 151 WindMin
+!NOINDEX
+var
+  112TpCrt.WindMin : Word;
+
+Current window XLow and YLow in 0..79, 0..24 format.
+
+See also: 182Window  152WindMax
+;
+;---------------------------------------------------------------------------
+!TOPIC 152 WindMax
+!NOINDEX
+var
+  112TpCrt.WindMax : Word;
+
+Current window XHigh and YHigh in 1..25, 1..80 format.
+
+See also: 182Window  151WindMin
+;
+;---------------------------------------------------------------------------
+!TOPIC 153 LastMode
+!NOINDEX
+var
+  112TpCrt.LastMode : Word;
+
+Current video mode in low byte, 8x8 flag in high byte.
+
+See also: 156CurrentMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 154 CtrlBreakFlag
+!NOINDEX
+var
+  112TpCrt.CtrlBreakFlag : Boolean;
+
+Set to true when Ctrl-Break pressed.
+
+See also: 146CheckBreak
+;
+;---------------------------------------------------------------------------
+!TOPIC 155 CurrentPage
+!NOINDEX
+var
+  112TpCrt.CurrentPage : Byte;
+
+Current video page for text writes and display.
+
+See also: 206SetVisiblePage
+;
+;---------------------------------------------------------------------------
+!TOPIC 156 CurrentMode
+!NOINDEX
+var
+  112TpCrt.CurrentMode : Byte absolute 153LastMode;
+
+Current video mode (strips off 8x8 indicator).
+;
+;---------------------------------------------------------------------------
+!TOPIC 157 ScreenWidth
+!NOINDEX
+var
+  112TpCrt.ScreenWidth : Word;
+
+Current width of screen, typically 80.
+
+See also: 158ScreenHeight
+;
+;---------------------------------------------------------------------------
+!TOPIC 158 ScreenHeight
+!NOINDEX
+var
+  112TpCrt.ScreenHeight : Word;
+
+Current height of screen, typically 25, 43, or 50.
+
+See also: 157ScreenWidth
+;
+;---------------------------------------------------------------------------
+!TOPIC 159 CurrentDisplay
+!NOINDEX
+var
+  112TpCrt.CurrentDisplay : DisplayType;
+
+The currently selected display adapter.
+
+See also: 160EnhancedDisplay
+;
+;---------------------------------------------------------------------------
+!TOPIC 160 EnhancedDisplay
+!NOINDEX
+var
+  112TpCrt.EnhancedDisplay : DisplayType;
+
+Meaningful only if it is set to MCGA, VGA, or EGA. It is useful primarily in
+detecting situations where two adapters are installed, a plain monochrome
+adapter and an EGA attached to a color monitor, for example. In such a case
+EnhancedDisplay would be set to EGA, even though 159CurrentDisplay was set to
+MonoHerc. This information is especially needed by memory resident programs
+which want to support the 43- and 50-line modes (which use the 8x8 font)
+available on the EGA and VGA, respectively. See SMACS.PAS for an example. If
+an MCGA, VGA, or EGA is not installed, EnhancedDisplay will be set to
+MonoHerc.
+;
+;---------------------------------------------------------------------------
+!TOPIC 161 WhichHerc
+!NOINDEX
+var
+  112TpCrt.WhichHerc : 143HercCardType;
+
+Type of Hercules card installed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 162 InTextMode
+!NOINDEX
+var
+  112TpCrt.InTextMode : Boolean;
+
+Set to false when in graphics mode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 163 NormalAttr
+!NOINDEX
+var
+  112TpCrt.NormalAttr : Byte;
+
+Video attribute used for 194NormVideo.
+;
+;---------------------------------------------------------------------------
+!TOPIC 164 VideoSegment
+!NOINDEX
+var
+  112TpCrt.VideoSegment : Word;
+
+Current segment for video memory.
+;
+;---------------------------------------------------------------------------
+!TOPIC 165 BufLen
+!NOINDEX
+var
+  112TpCrt.BufLen : Word;
+
+Maximum length of string for Read and ReadLn. Reset to 128 after each read.
+;
+;---------------------------------------------------------------------------
+!TOPIC 166 MultiTaskingOn
+!NOINDEX
+var
+  112TpCrt.MultiTaskingOn : Boolean;
+
+Set to True if 138DetectMultitasking is True and a multitasker (DesqView or
+OmniView) is detected.
+;
+;---------------------------------------------------------------------------
+!TOPIC 167 OneMs
+!NOINDEX
+var
+  112TpCrt.OneMS : Word;
+
+Loop count used for a 1 ms delay.
+
+See also: 198Delay
+;
+;---------------------------------------------------------------------------
+!TOPIC 168 CurrentWidth
+!NOINDEX
+var
+  112TpCrt.CurrentWidth : Word absolute 157ScreenWidth;
+
+Current width of display. Provided for backward compatibility with Turbo
+Professional 4.0.
+;
+;---------------------------------------------------------------------------
+!TOPIC 169 CurrentHeight
+!NOINDEX
+var
+  112TpCrt.CurrentHeight : Word;
+
+Current height of display - 1, for example 24 on a 25-line screen. Provided
+for backward compatibility with Turbo Professional 4.0.
+;
+;---------------------------------------------------------------------------
+!TOPIC 170 VirtualSegment
+!NOINDEX
+var
+  112TpCrt.VirtualSegment : Word;
+
+Alternate segment for video memory. Used by TPWINDOW to allow convenient
+fastwriting to virtual screens.
+;
+;---------------------------------------------------------------------------
+!TOPIC 171 VirtualWidth
+!NOINDEX
+var
+  112TpCrt.VirtualWidth : Word;
+
+Alternate width of display. Used by TPWINDOW to allow convenient fastwriting
+to virtual screens.
+;
+;---------------------------------------------------------------------------
+!TOPIC 172 DisplayOverride
+!NOINDEX
+const
+  112TpCrt.DisplayOverride : ShortInt = -1;
+
+Because auto-detection of display adapters is an imperfect art, we provide a
+means of overriding it: DisplayOverride. This variable is initialized to -1,
+which enables auto-detection. If you need to force TPCRT to treat, say, an
+EGA as a CGA, you can set DisplayOverride to the ordinal value of the
+appropriate 142DisplayType -- "DisplayOverride := Ord(CGA);" -- then call
+277ReinitCrt. An important use for this variable is to force TPCRT to
+recognize an adapter as an EGA or VGA when auto-detection has failed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 173 TextChar
+!NOINDEX
+const
+  112TpCrt.TextChar : Char = ' ';
+
+Background character used by 183ClrScr, 207ScrollWindowUp, and 208ScrollWindowDown.
+Gets reset to ' ' automatically after each use.
+;
+;---------------------------------------------------------------------------
+!TOPIC 174 PackedWindowPtr
+!NOINDEX
+type
+  112TpCrt.PackedScreen = array[1..4000] of Byte;
+  PackedWindow =
+    record
+      Size : Word;             {size of packed window, including header}
+      TopRow : Byte;           {coordinates for top left corner of window}
+      TopCol : Byte;
+      Rows : Byte;             {height of window}
+      Cols : Byte;             {width of window}
+      AStart : Word;           {index to start of attributes section}
+      CDelta : Word;           {bytes before first PackRec - chars}
+      ADelta : Word;           {bytes before first PackRec - attrs}
+      Contents : PackedScreen; {the contents of the packed screen}
+    end;
+  PackedWindowPtr = ^PackedWindow;
+
+Data types used to manage packed windows.
+;
+;---------------------------------------------------------------------------
+!TOPIC 175 Directory Status
+!NOINDEX
+const
+  112TpCrt.deInUse = 0;
+  deUnused = -1;
+  deDeleted = -2;
+
+Codes stored in the Status field of a window library 177DirectoryEntry.
+;
+;---------------------------------------------------------------------------
+!TOPIC 176 LibName
+!NOINDEX
+type
+  112TpCrt.LibName = string[12];
+
+String used to name an entry in a window library.
+
+See also: 259AddWindowToLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 177 DirectoryPtr
+!NOINDEX
+type
+  112TpCrt.DirectoryEntry =
+    record
+      Status : ShortInt;     {0 = in use, -1 = unused, -2 = deleted}
+      Name : deName;         {name and extension in FCB format}
+      Index : Word;          {index to this member}
+      MemberLength : Word;   {# of 128-byte blocks used by member}
+      CRC : Word;            {not implemented}
+      CreationDate : Word;   {date entry was created--not used}
+      LastChangeDate : Word; {date it was last changed--not used}
+      CreationTime : Word;   {time entry was created--not used}
+      LastChangeTime : Word; {time it was last changed--not used}
+      PadCount : Byte;       {unused bytes in last block of member}
+      Filler : array[28..32] of Byte; {padded to 32 bytes}
+    end;
+  DirectoryType = array[0..255] of DirectoryEntry;
+  DirectoryPtr = ^DirectoryType;
+
+Format of the directory at the beginning of a window library created with
+255CreateLibrary. The actual number of entries in a directory can vary.
+;
+;---------------------------------------------------------------------------
+!TOPIC 178 BlankDeName
+!NOINDEX
+const
+  112TpCrt.BlankDeName : deName = '           ';
+
+An empty window directory name used when deleting directory entries.
+;
+;---------------------------------------------------------------------------
+!TOPIC 179 CrtError
+!NOINDEX
+const
+  112TpCrt.CrtError : Word = 0;
+
+Much like the DosError variable in the DOS unit, this variable is used to
+return I/O error codes from any of the routines in TPCRT that perform file
+I/O (255CreateLibrary, 256OpenLibrary, etc.).
+
+Non-standard error codes for CrtError:
+  CrtNotEnoughMem  = $FFFF;
+  CrtNilPointer    = $FFFE;
+  CrtNotValidLib   = $FFFD;
+  CrtWinNotFound   = $FFFC;
+  CrtDirectoryFull = $FFFB;
+  CrtBadWindow     = $FFFA;
+;
+;---------------------------------------------------------------------------
+!TOPIC 180 Unit Codes
+!NOINDEX
+Turbo Professional assigns unique integer codes to units that are designed
+to provide context sensitive help via TPHELP. These codes are then passed to
+a standard help routine so that an application can determine where a help
+request came from. The following codes are defined:
+
+  HelpForUser  = 00;         {unused}
+  HelpForPick  = 01;         {TPPICK}
+  HelpForEdit  = 02;         {TPEDIT}
+  HelpForMenu  = 03;         {TPMENU}
+  HelpForEntry = 04;         {TPENTRY}
+  HelpForMacEd = 05;         {TPMACED}
+  HelpForMemo  = 06;         {TPMEMO}
+  HelpForXXXX2 = 07;         {reserved}
+  HelpForXXXX3 = 08;         {reserved}
+  HelpForXXXX4 = 09;         {reserved}
+  HelpForXXXX5 = 10;         {reserved}
+;
+;---------------------------------------------------------------------------
+!TOPIC 181 TextMode
+!NOINDEX
+procedure 112TpCrt.TextMode(Mode : Word);
+
+Switch to or set text mode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 182 Window
+!NOINDEX
+procedure 112TpCrt.Window(XLow, YLow, XHigh, YHigh : Byte);
+
+Set current window coordinates.
+
+See also: 151WindMin 152WindMax
+;
+;---------------------------------------------------------------------------
+!TOPIC 183 ClrScr
+!NOINDEX
+procedure 112TpCrt.ClrScr;
+
+Clear the current window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 184 ClrEol
+!NOINDEX
+procedure 112TpCrt.ClrEol;
+
+Clear the remainder of the current screen line.
+;
+;---------------------------------------------------------------------------
+!TOPIC 185 InsLine
+!NOINDEX
+procedure 112TpCrt.InsLine;
+
+Insert a new line at the position of the cursor.
+
+See also: 208ScrollWindowDown
+;
+;---------------------------------------------------------------------------
+!TOPIC 186 DelLine
+!NOINDEX
+procedure 112TpCrt.DelLine;
+
+Delete current screen line.
+
+See also: 207ScrollWindowUp
+;
+;---------------------------------------------------------------------------
+!TOPIC 187 GoToXY
+!NOINDEX
+procedure 112TpCrt.GoToXY(X, Y : Byte);
+
+Move cursor to column X, row Y, relative to Window.
+
+See also: 202GotoXYAbs
+;
+;---------------------------------------------------------------------------
+!TOPIC 188 WhereX
+!NOINDEX
+function 112TpCrt.WhereX : Byte;
+
+Return column coordinate of cursor, relative to Window.
+
+See also: 205WhereXAbs  203WhereXY  189WhereY
+;
+;---------------------------------------------------------------------------
+!TOPIC 189 WhereY
+!NOINDEX
+function 112TpCrt.WhereY : Byte;
+
+Return row coordinate of cursor, relative to Window.
+
+See also: 204WhereYAbs  203WhereXY  188WhereX
+;
+;---------------------------------------------------------------------------
+!TOPIC 190 TextColor
+!NOINDEX
+procedure 112TpCrt.TextColor(Color : Byte);
+
+Set foreground color for screen writes.
+
+See also: 191TextBackground
+;
+;---------------------------------------------------------------------------
+!TOPIC 191 TextBackground
+!NOINDEX
+procedure 112TpCrt.TextBackground(Color : Byte);
+
+Set background color for screen writes.
+
+See also: 190TextColor
+;
+;---------------------------------------------------------------------------
+!TOPIC 192 LowVideo
+!NOINDEX
+procedure 112TpCrt.LowVideo;
+
+Select low intensity video.
+
+See also: 193HighVideo  194NormVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 193 HighVideo
+!NOINDEX
+procedure 112TpCrt.HighVideo;
+
+Select high video intensity.
+
+See also: 192LowVideo  194NormVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 194 NormVideo
+!NOINDEX
+procedure 112TpCrt.NormVideo;
+
+Select video attribute detected at start of program.
+
+See also: 192LowVideo  193HighVideo
+;
+;---------------------------------------------------------------------------
+!TOPIC 195 KeyPressed
+!NOINDEX
+function 112TpCrt.KeyPressed : Boolean;
+
+Return true if a key has been pressed.
+
+See also: 273CheckKbd  196ReadKey  272ReadKeyWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 196 ReadKey
+!NOINDEX
+function 112TpCrt.ReadKey : Char;
+
+Read a character from the keyboard. Returns #0 as the first character of an
+extended keystroke sequence.
+
+See also: 273CheckKbd  272ReadKeyWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 197 AssignCrt
+!NOINDEX
+procedure 112TpCrt.AssignCrt(var F : Text);
+
+Routes input and output through the TPCRT routines.
+
+See also: 277ReInitCrt
+;
+;---------------------------------------------------------------------------
+!TOPIC 198 Delay
+!NOINDEX
+procedure 112TpCrt.Delay(MS : Word);
+
+Delay for MS milliseconds.
+;
+;---------------------------------------------------------------------------
+!TOPIC 199 Sound
+!NOINDEX
+procedure 112TpCrt.Sound(Hz : Word);
+
+Turn on the sound at the designated frequency.
+
+See also: 200NoSound
+;
+;---------------------------------------------------------------------------
+!TOPIC 200 NoSound
+!NOINDEX
+procedure 112TpCrt.NoSound;
+
+Turn off the sound.
+
+See also: 199Sound
+;
+;---------------------------------------------------------------------------
+!TOPIC 201 GetCrtMode
+!NOINDEX
+function 112TpCrt.GetCrtMode : Byte;
+
+Get the current video mode. Also reinitializes internal variables. May
+reset: 156CurrentMode, 157ScreenWidth, 158ScreenHeight, 155CurrentPage, and
+164VideoSegment.
+;
+;---------------------------------------------------------------------------
+!TOPIC 202 GotoXYAbs
+!NOINDEX
+procedure 112TpCrt.GotoXYAbs(X, Y : Byte);
+
+Move cursor to column X, row Y (not relative to Window). No error checking
+done.
+
+See also: 187GoToXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 203 WhereXY
+!NOINDEX
+function 112TpCrt.WhereXY : Word;
+
+Return absolute row and column coordinates of cursor. High byte has current
+row (Y), low byte has current column (X).
+
+See also: 205WhereXAbs  204WhereYAbs
+;
+;---------------------------------------------------------------------------
+!TOPIC 204 WhereYAbs
+!NOINDEX
+function 112TpCrt.WhereYAbs : Byte;
+
+Return absolute row coordinate of cursor.
+
+See also: 189WhereY  203WhereXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 205 WhereXAbs
+!NOINDEX
+function 112TpCrt.WhereXAbs : Byte;
+
+Return absolute column coordinate of cursor.
+
+See also: 188WhereX  203WhereXY
+;
+;---------------------------------------------------------------------------
+!TOPIC 206 SetVisiblePage
+!NOINDEX
+procedure 112TpCrt.SetVisiblePage(PageNum : Byte);
+
+Set current video page for writing and display.
+
+See also: 155CurrentPage
+;
+;---------------------------------------------------------------------------
+!TOPIC 207 ScrollWindowUp
+!NOINDEX
+procedure 112TpCrt.ScrollWindowUp(XLo, YLo, XHi, YHi, Lines : Byte);
+
+Scrolls the designated window up the specified number of lines. If Lines =
+0, the entire window is cleared.
+
+See also: 186DelLine
+;
+;---------------------------------------------------------------------------
+!TOPIC 208 ScrollWindowDown
+!NOINDEX
+procedure 112TpCrt.ScrollWindowDown(XLo, YLo, XHi, YHi, Lines : Byte);
+
+Scrolls the designated window down the specified number of lines. If Lines =
+0, the entire window is cleared.
+
+See also: 185InsLine
+;
+;---------------------------------------------------------------------------
+!TOPIC 209 CursorTypeSL
+!NOINDEX
+function 112TpCrt.CursorTypeSL : Word;
+
+Returns a word describing the cursor shape. High byte has starting scan
+line, low byte has ending.
+
+See also: 210CursorStartLine  211CursorEndLine  212SetCursorSize
+;
+;---------------------------------------------------------------------------
+!TOPIC 210 CursorStartLine
+!NOINDEX
+function 112TpCrt.CursorStartLine : Byte;
+
+Returns the starting scan line of the cursor.
+
+See also: 211CursorEndLine
+;
+;---------------------------------------------------------------------------
+!TOPIC 211 CursorEndLine
+!NOINDEX
+function 112TpCrt.CursorEndLine : Byte;
+
+Returns the ending scan line of the cursor.
+
+See also: 210CursorStartLine
+;
+;---------------------------------------------------------------------------
+!TOPIC 212 SetCursorSize
+!NOINDEX
+procedure 112TpCrt.SetCursorSize(Startline, EndLine : Byte);
+
+Sets the cursor's starting and ending scan lines. Use 213NormalCursor,
+214FatCursor, 215BlockCursor, or 216HiddenCursor for most applications.
+;
+;---------------------------------------------------------------------------
+!TOPIC 213 NormalCursor
+!NOINDEX
+procedure 112TpCrt.NormalCursor;
+
+Set normal scan lines for cursor based on current video mode.
+
+See also: 212SetCursorSize
+;
+;---------------------------------------------------------------------------
+!TOPIC 214 FatCursor
+!NOINDEX
+procedure 112TpCrt.FatCursor;
+
+Set larger scan lines for cursor based on current video mode.
+
+See also: 212SetCursorSize
+;
+;---------------------------------------------------------------------------
+!TOPIC 215 BlockCursor
+!NOINDEX
+procedure 112TpCrt.BlockCursor;
+
+Set scan lines for a block cursor.
+
+See also: 212SetCursorSize
+;
+;---------------------------------------------------------------------------
+!TOPIC 216 HiddenCursor
+!NOINDEX
+procedure 112TpCrt.HiddenCursor;
+
+Hide the cursor.
+
+See also: 212SetCursorSize
+;
+;---------------------------------------------------------------------------
+!TOPIC 217 ReadCharAtCursor
+!NOINDEX
+function 112TpCrt.ReadCharAtCursor : Char;
+
+Returns character at the current cursor location on the selected page.
+
+See also: 218ReadAttrAtCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 218 ReadAttrAtCursor
+!NOINDEX
+function 112TpCrt.ReadAttrAtCursor : Byte;
+
+Returns video attribute at the current cursor location on the selected page.
+
+See also: 217ReadCharAtCursor
+;
+;---------------------------------------------------------------------------
+!TOPIC 219 GetCursorState
+!NOINDEX
+procedure 112TpCrt.GetCursorState(var XY, ScanLines : Word);
+
+Return the current position and shape of the cursor.
+
+See also: 203WhereXY  209CursorTypeSL
+;
+;---------------------------------------------------------------------------
+!TOPIC 220 RestoreCursorState
+!NOINDEX
+procedure 112TpCrt.RestoreCursorState(XY, ScanLines : Word);
+
+Reset the cursor to a position and size saved with 219GetCursorState.
+;
+;---------------------------------------------------------------------------
+!TOPIC 221 FastWrite
+!NOINDEX
+procedure 112TpCrt.FastWrite(St : string; Row, Col, Attr : Byte);
+
+Write string St at absolute position Row,Col in video attribute Attr without
+snow.
+
+See also: 223FastText  222FastWriteWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 222 FastWriteWindow
+!NOINDEX
+procedure 112TpCrt.FastWriteWindow(St : string; Row, Col, Attr : Byte);
+
+FastWrite a string using window-relative coordinates.
+
+See also: 221FastWrite  224FastTextWindow  141MapColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 223 FastText
+!NOINDEX
+procedure 112TpCrt.FastText(St : string; Row, Col : Byte);
+
+FastWrite St at Row,Col without changing the underlying video attribute.
+
+See also: 221FastWrite  224FastTextWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 224 FastTextWindow
+!NOINDEX
+procedure 112TpCrt.FastTextWindow(St : string; Row, Col : Byte);
+
+Write St at window-relative Row,Col without changing the underlying video
+attribute.
+
+See also: 223FastText  222FastWriteWindow  141MapColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 225 FastVert
+!NOINDEX
+procedure 112TpCrt.FastVert(St : string; Row, Col, Attr : Byte);
+
+Write string St vertically at absolute position Row,Col in video attribute
+Attr.
+
+See also: 226FastVertWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 226 FastVertWindow
+!NOINDEX
+procedure 112TpCrt.FastVertWindow(St : string; Row, Col, Attr : Byte);
+
+FastWrite a string vertically using window-relative coordinates.
+
+See also: 225FastVert
+;
+;---------------------------------------------------------------------------
+!TOPIC 227 FastFill
+!NOINDEX
+procedure 112TpCrt.FastFill(Number : Word; Ch : Char;
+                         Row, Col, Attr : Byte);
+
+Fill Number characters at absolute position Row,Col in video attribute Attr
+without snow.
+
+See also: 228FastFillWindow  237ChangeAttribute
+;
+;---------------------------------------------------------------------------
+!TOPIC 228 FastFillWindow
+!NOINDEX
+procedure 112TpCrt.FastFillWindow(Number : Word; Ch : Char;
+                               Row, Col, Attr : Byte);
+
+Fill Number characters at window-relative Row,Col in video attribute Attr
+without snow.
+
+See also: 227FastFill  238ChangeAttributeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 229 FastCenter
+!NOINDEX
+procedure 112TpCrt.FastCenter(St : string; Row, Attr : Byte);
+
+Write string St centered on window Row in video attribute Attr without snow.
+
+See also: 230FastFlush
+;
+;---------------------------------------------------------------------------
+!TOPIC 230 FastFlush
+!NOINDEX
+procedure 112TpCrt.FastFlush(St : string; Row, Attr : Byte);
+
+Write string St flush right on window Row in video attribute Attr without
+snow.
+
+See also: 229FastCenter
+;
+;---------------------------------------------------------------------------
+!TOPIC 231 FastRead
+!NOINDEX
+procedure 112TpCrt.FastRead(Number, Row, Col : Byte; var St : string);
+
+Read Number characters from the screen into string St starting at absolute
+position Row,Col.
+
+See also: 232FastReadWindow  233ReadAttribute
+;
+;---------------------------------------------------------------------------
+!TOPIC 232 FastReadWindow
+!NOINDEX
+procedure 112TpCrt.FastReadWindow(Number, Row, Col : Byte;
+                               var St : string);
+
+Read Number characters from the screen into string St starting at
+window-relative Row,Col.
+
+See also: 231FastRead  234ReadAttributeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 233 ReadAttribute
+!NOINDEX
+procedure 112TpCrt.ReadAttribute(Number, Row, Col : Byte;
+                              var St : string);
+
+Read Number attributes from the screen into string St starting at absolute
+position Row,Col.
+
+See also: 234ReadAttributeWindow  231FastRead
+;
+;---------------------------------------------------------------------------
+!TOPIC 234 ReadAttributeWindow
+!NOINDEX
+procedure 112TpCrt.ReadAttributeWindow(Number, Row, Col : Byte;
+                                    var St : string);
+
+Read Number attributes from the screen into string St starting at
+window-relative Row,Col.
+
+See also: 233ReadAttribute  232FastReadWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 235 WriteAttribute
+!NOINDEX
+procedure 112TpCrt.WriteAttribute(St : String; Row, Col : Byte);
+
+Write string of video attributes St at absolute position Row,Col without
+changing the characters.
+
+See also: 236WriteAttributeWindow  237ChangeAttribute
+;
+;---------------------------------------------------------------------------
+!TOPIC 236 WriteAttributeWindow
+!NOINDEX
+procedure 112TpCrt.WriteAttributeWindow(St : String; Row, Col : Byte);
+
+Write string of video attributes St at window-relative Row,Col without
+changing characters.
+
+See also: 235WriteAttribute  238ChangeAttributeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 237 ChangeAttribute
+!NOINDEX
+procedure 112TpCrt.ChangeAttribute(Number : Word;
+                                Row, Col, Attr : Byte);
+
+Change Number video attributes to Attr starting at absolute position
+Row,Col.
+
+See also: 238ChangeAttributeWindow  235WriteAttribute
+;
+;---------------------------------------------------------------------------
+!TOPIC 238 ChangeAttributeWindow
+!NOINDEX
+procedure 112TpCrt.ChangeAttributeWindow(Number : Word;
+                                      Row, Col, Attr : Byte);
+
+Change Number video attributes to Attr starting at window-relative Row,Col.
+
+See also: 237ChangeAttribute  236WriteAttributeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 239 MoveScreen
+!NOINDEX
+procedure 112TpCrt.MoveScreen(var Source, Dest; Length : Word);
+
+Move Length words from Source to Dest without snow. Note that unlike the
+built-in Move routine, this one specifies the amount to move in Words.
+;
+;---------------------------------------------------------------------------
+!TOPIC 240 FlexWrite
+!NOINDEX
+procedure 112TpCrt.FlexWrite(St : string; Row, Col : Byte;
+                          var FAttrs : 144FlexAttrs);
+
+Write string St at absolute position Row,Col with flexible color handling.
+St may contain control characters ^A, ^B, and ^C to toggle among the
+attribute set.
+
+See also: 241FlexWriteWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 241 FlexWriteWindow
+!NOINDEX
+procedure 112TpCrt.FlexWriteWindow(St : string; Row, Col : Byte;
+                                var FAttrs : 144FlexAttrs);
+
+FlexWrite a string using window-relative coordinates.
+
+See also: 240FlexWrite
+;
+;---------------------------------------------------------------------------
+!TOPIC 242 SaveWindow
+!NOINDEX
+function 112TpCrt.SaveWindow(XLow, YLow, XHigh, YHigh : Byte;
+                          Allocate : Boolean;
+                          var Covers : Pointer) : Boolean;
+
+Allocate buffer space if requested and save window contents to the buffer,
+without snow. If Allocate is False, the Covers pointer must be initialized
+by the caller.
+
+See also: 243RestoreWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 243 RestoreWindow
+!NOINDEX
+procedure 112TpCrt.RestoreWindow(XLow, YLow, XHigh, YHigh : Byte;
+                              Deallocate : Boolean; var Covers : Pointer);
+
+Restore screen contents and deallocate buffer space if requested.
+
+See also: 242SaveWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 244 SetFrameChars
+!NOINDEX
+procedure 112TpCrt.SetFrameChars(Vertical, Horizontal, LowerRight,
+                              UpperRight, LowerLeft, UpperLeft : Char);
+
+Set the frame characters to be used on subsequent 245FrameWindow calls.
+
+See also: 140FrameChars
+;
+;---------------------------------------------------------------------------
+!TOPIC 245 FrameWindow
+!NOINDEX
+procedure 112TpCrt.FrameWindow(LeftCol, TopRow, RightCol,
+                            BotRow, FAttr, HAttr : Byte;
+                            Header : string);
+
+Draws a frame around a window using the 140FrameChars previously stored by a
+call to 244SetFrameChars.
+;
+;---------------------------------------------------------------------------
+!TOPIC 246 StoreWindowCoordinates
+!NOINDEX
+procedure 112TpCrt.StoreWindowCoordinates(var WC : 145WindowCoordinates);
+
+Store the window coordinates for the active window.
+
+See also: 247RestoreWindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 247 RestoreWindowCoordinates
+!NOINDEX
+procedure 112TpCrt.RestoreWindowCoordinates(WC : 145WindowCoordinates);
+
+Restore previously saved window coordinates.
+
+See also: 246StoreWindowCoordinates
+;
+;---------------------------------------------------------------------------
+!TOPIC 248 PackWindow
+!NOINDEX
+function 112TpCrt.PackWindow(XLow, YLow,
+                          XHigh, YHigh : Byte) : 174PackedWindowPtr;
+
+Pack the specified window into a newly allocated buffer, returning a pointer
+to it, or nil if not enough memory.
+
+See also: 253WritePackedWindow  252DisposePackedWindow  249DispPackedWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 249 DispPackedWindow
+!NOINDEX
+procedure 112TpCrt.DispPackedWindow(PWP : 174PackedWindowPtr);
+
+Display the packed window pointed to by PWP.
+
+See also: 250DispPackedWindowAt  251MapPackedWindowColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 250 DispPackedWindowAt
+!NOINDEX
+procedure 112TpCrt.DispPackedWindowAt(PWP : 174PackedWindowPtr;
+                                   Row, Col : Byte);
+
+Display the packed window pointed to by PWP at absolute position Row,Col. If
+necessary, the coordinates are adjusted to allow the window to fit on the
+screen.
+
+See also: 249DispPackedWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 251 MapPackedWindowColors
+!NOINDEX
+procedure 112TpCrt.MapPackedWindowColors(PWP : 174PackedWindowPtr);
+
+Map the colors in a packed window for improved appearance on monochrome and
+black and white displays.
+
+See also: 249DispPackedWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 252 DisposePackedWindow
+!NOINDEX
+procedure 112TpCrt.DisposePackedWindow(var PWP : 174PackedWindowPtr);
+
+Deallocate the heap space of a packed window, setting PWP to nil on exit.
+
+See also: 248PackWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 253 WritePackedWindow
+!NOINDEX
+procedure 112TpCrt.WritePackedWindow(PWP : PackedWindowPtr;
+                                  FName : string);
+
+Store the packed window pointed to by PWP in the file named FName.
+
+See also: 248PackWindow  254ReadPackedWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 254 ReadPackedWindow
+!NOINDEX
+function 112TpCrt.ReadPackedWindow(FName : string) : PackedWindowPtr;
+
+Read the packed window stored in FName into memory, allocating a heap block
+and returning a pointer to it. Returns nil if error, and the error code is
+stored in 179CrtError.
+
+See also: 253WritePackedWindow  249DispPackedWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 255 CreateLibrary
+!NOINDEX
+function 112TpCrt.CreateLibrary(var F : file; Name : string;
+                             Entries : Byte) : 177DirectoryPtr;
+
+Create a new window library with the specified number of directory entries.
+
+See also: 256OpenLibrary  259AddWindowToLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 256 OpenLibrary
+!NOINDEX
+function 112TpCrt.OpenLibrary(var F : file;
+                           Name : string) : 177DirectoryPtr;
+
+Open an existing window library and return a pointer to its directory.
+
+See also: 255CreateLibrary  259AddWindowToLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 257 CloseLibrary
+!NOINDEX
+procedure 112TpCrt.CloseLibrary(var F : file;
+                             var DP : 177DirectoryPtr);
+
+Close window library F and deallocate its directory on the heap.
+
+See also: 258PackLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 258 PackLibrary
+!NOINDEX
+procedure 112TpCrt.PackLibrary(LName : string);
+
+Pack a library to remove deleted entries.
+
+See also: 261DeleteWindowFromLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 259 AddWindowToLibrary
+!NOINDEX
+procedure 112TpCrt.AddWindowToLibrary(PWP : 174PackedWindowPtr;
+                                   var F : file;
+                                   DP : 177DirectoryPtr;
+                                   WinName : 176LibName);
+
+Add a packed window to the specified library.
+
+See also: 261DeleteWindowFromLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 260 ReadWindowFromLibrary
+!NOINDEX
+function 112TpCrt.ReadWindowFromLibrary(var F : file;
+                                     DP : 177DirectoryPtr;
+                                     WinName : 176LibName)
+                                     : 174PackedWindowPtr;
+
+Read a packed window from a library.
+
+See also: 259AddWindowToLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 261 DeleteWindowFromLibrary
+!NOINDEX
+procedure 112TpCrt.DeleteWindowFromLibrary(var F : file;
+                                        DP : 177DirectoryPtr;
+                                        WinName : LibName);
+
+Delete a packed window from the specified library.
+
+See also: 259AddWindowToLibrary  258PackLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 262 MapColor
+!NOINDEX
+function 112TpCrt.MapColor(c : Byte) : Byte;
+
+Map a video attribute for visibility on monochrome or black and white
+displays. Color mapping is an imperfect art! Do not expect perfect results.
+
+See also: 141MapColors
+;
+;---------------------------------------------------------------------------
+!TOPIC 263 SetBlink
+!NOINDEX
+procedure 112TpCrt.SetBlink(On : Boolean);
+
+Enable text mode attribute blinking if On is True, disable it otherwise.
+Attribute blinking cannot be controlled on all video adapters.
+;
+;---------------------------------------------------------------------------
+!TOPIC 264 SetCrtBorder
+!NOINDEX
+procedure 112TpCrt.SetCrtBorder(Attr : Byte);
+
+Set border to background color if card type and mode allow. EGA and VGA
+adapters perform poorly in this regard.
+;
+;---------------------------------------------------------------------------
+!TOPIC 265 Font8x8Selected
+!NOINDEX
+function 112TpCrt.Font8x8Selected : Boolean;
+
+Return True if EGA or VGA is active and using 8x8 font. This corresponds to
+43 or 50 line mode.
+
+See also: 266SelectFont8x8
+;
+;---------------------------------------------------------------------------
+!TOPIC 266 SelectFont8x8
+!NOINDEX
+procedure 112TpCrt.SelectFont8x8(On : Boolean);
+
+Toggle 8x8 font on or off on an EGA or VGA video adapter.
+
+See also: 265Font8x8Selected
+;
+;---------------------------------------------------------------------------
+!TOPIC 267 HercPresent
+!NOINDEX
+function 112TpCrt.HercPresent : Boolean;
+
+Return true if a Hercules graphics card is present.
+
+See also: 161WhichHerc  270HercModeTestWorks
+;
+;---------------------------------------------------------------------------
+!TOPIC 268 SwitchInColorCard
+!NOINDEX
+procedure 112TpCrt.SwitchInColorCard(ColorOn : Boolean);
+
+Activate or deactivate colors on a Hercules InColor card.
+
+See also: 271SetHercMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 269 HercGraphicsMode
+!NOINDEX
+function 112TpCrt.HercGraphicsMode : Boolean;
+
+Return True if a Hercules card is in graphics mode.
+
+See also: 270HercModeTestWorks
+;
+;---------------------------------------------------------------------------
+!TOPIC 270 HercModeTestWorks
+!NOINDEX
+function 112TpCrt.HercModeTestWorks : Boolean;
+
+Return True if 269HercGraphicsMode will return reliable results.
+;
+;---------------------------------------------------------------------------
+!TOPIC 271 SetHercMode
+!NOINDEX
+procedure 112TpCrt.SetHercMode(GraphMode : Boolean; GraphPage : Byte);
+
+Set Hercules card to graphics mode or text mode, and activate specified
+graphics page (if switching to graphics mode).
+
+See also: 267HercPresent  268SwitchInColorCard
+;
+;---------------------------------------------------------------------------
+!TOPIC 272 ReadKeyWord
+!NOINDEX
+function 112TpCrt.ReadKeyWord : Word;
+
+Wait for keypress, then return scan and character codes together. Does not
+return keys specific to an enhanced keyboard.
+
+See also: 196ReadKey
+;
+;---------------------------------------------------------------------------
+!TOPIC 273 CheckKbd
+!NOINDEX
+function 112TpCrt.CheckKbd(var KeyCode : Word) : Boolean;
+
+Return True (and the key codes) if a keystroke is waiting.
+
+See also: 195KeyPressed
+;
+;---------------------------------------------------------------------------
+!TOPIC 274 KbdFlags
+!NOINDEX
+function 112TpCrt.KbdFlags : Byte;
+
+Return keyboard status flags as a bit-coded byte.
+
+See also: 195KeyPressed
+;
+;---------------------------------------------------------------------------
+!TOPIC 275 StuffKey
+!NOINDEX
+procedure 112TpCrt.StuffKey(W : Word);
+
+Stuff one key into the keyboard buffer.
+
+See also: 276StuffString
+;
+;---------------------------------------------------------------------------
+!TOPIC 276 StuffString
+!NOINDEX
+procedure 112TpCrt.StuffString(S : string);
+
+Stuff the contents of S into the keyboard buffer. Limited to 16 characters.
+
+See also: 275StuffKey
+;
+;---------------------------------------------------------------------------
+!TOPIC 277 ReInitCrt
+!NOINDEX
+procedure 112TpCrt.ReInitCrt;
+
+Reinitialize TPCRT's internal variables. For TSR's or programs with DOS
+shells. May reset: CurrentMode, ScreenWidth, ScreenHeight, WindMin/WindMax,
+CurrentPage, CurrentDisplay, CheckSnow, and VideoSegment.
+;
+;---------------------------------------------------------------------------
+!TOPIC 278 deName
+!NOINDEX
+type
+  112TpCrt.deName = array[1..11] of Char;
+
+Internal representation of the name associated with a directory entry in a
+window library. First 8 characters have name, last 3 have extension.
+
+See also: 177DirectoryEntry
+;
+;---------------------------------------------------------------------------
+!TOPIC 279 Color Control
+!NOINDEX
+TPCRT capabilities for controlling video colors:
+
+  121Black             137Blink             122Blue              127Brown
+  124Cyan              129DarkGray          123Green             193HighVideo
+  130LightBlue         132LightCyan         128LightGray         131LightGreen
+  134LightMagenta      133LightRed          192LowVideo          126Magenta
+  262MapColor          141MapColors         163NormalAttr        194NormVideo
+  125Red               150TextAttr          191TextBackground    190TextColor
+  136White             135Yellow
+;
+;---------------------------------------------------------------------------
+!TOPIC 280 Cursor Control
+!NOINDEX
+TPCRT capabilities for cursor control:
+
+      215BlockCursor            211CursorEndLine          210CursorStartLine
+      209CursorTypeSL           214FatCursor              219GetCursorState
+      187GoToXY                 202GotoXYAbs              216HiddenCursor
+      213NormalCursor           220RestoreCursorState     212SetCursorSize
+      188WhereX                 205WhereXAbs              203WhereXY
+      189WhereY                 204WhereYAbs
+;
+;---------------------------------------------------------------------------
+!TOPIC 281 Fast Screen I/O
+!NOINDEX
+TPCRT capabilities for fast writing and reading:
+
+  237ChangeAttribute   238ChangeAttributeWindow 149CheckSnow     184ClrEol
+  183ClrScr            229FastCenter        227FastFill          228FastFillWindow
+  230FastFlush         231FastRead          232FastReadWindow    223FastText
+  224FastTextWindow    225FastVert          226FastVertWindow    221FastWrite
+  222FastWriteWindow   144FlexAttrs         240FlexWrite         241FlexWriteWindow
+  239MoveScreen        218ReadAttrAtCursor  233ReadAttribute     234ReadAttributeWindow
+  217ReadCharAtCursor  173TextChar          235WriteAttribute    236WriteAttributeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 282 Keyboard Input
+!NOINDEX
+TPCRT capabilities for keyboard input:
+
+      165BufLen                 146CheckBreak             147CheckEOF
+      273CheckKbd               154CtrlBreakFlag          274KbdFlags
+      195KeyPressed             196ReadKey                272ReadKeyWord
+      275StuffKey               276StuffString
+;
+;---------------------------------------------------------------------------
+!TOPIC 283 Libraries
+!NOINDEX
+TPCRT capabilities for window libraries:
+
+      259AddWindowToLibrary     178BlankDeName            257CloseLibrary
+      255CreateLibrary          179CrtBadWindow           179CrtDirectoryFull
+      179CrtError               179CrtNilPointer          179CrtNotEnoughMem
+      179CrtNotValidLib         179CrtWinNotFound         175deDeleted
+      175deInUse                261DeleteWindowFromLibrary  278deName
+      175deUnused               177DirectoryEntry         177DirectoryPtr
+      177DirectoryType          176LibName                256OpenLibrary
+      258PackLibrary            260ReadWindowFromLibrary
+;
+;---------------------------------------------------------------------------
+!TOPIC 284 Miscellaneous
+!NOINDEX
+TPCRT miscellaneous capabilities:
+
+      198Delay                  180HelpForEdit            180HelpForEntry
+      180HelpForMacEd           180HelpForMemo            180HelpForMenu
+      180HelpForPick            180HelpForUser            200NoSound
+      167OneMS                  199Sound
+;
+;---------------------------------------------------------------------------
+!TOPIC 285 Scrolling
+!NOINDEX
+TPCRT scrolling capabilities:
+
+      139BiosScroll             186DelLine                185InsLine
+      207ScrollWindowUp         208ScrollWindowDown
+;
+;---------------------------------------------------------------------------
+!TOPIC 286 Video Modes
+!NOINDEX
+TPCRT capabilities for detecting and controlling video modes:
+
+  197AssignCrt          115BW40              117BW80              116C40
+  118C80                116CO40              118CO80              159CurrentDisplay
+  169CurrentHeight      156CurrentMode       155CurrentPage       168CurrentWidth
+  138DetectMultitasking 148DirectVideo       172DisplayOverride   142DisplayType
+  160EnhancedDisplay    120Font8x8           265Font8x8Selected   201GetCrtMode
+  143HercCardType       269HercGraphicsMode  270HercModeTestWorks 267HercPresent
+  162InTextMode         153LastMode          119Mono              166MultiTaskingOn
+  277ReInitCrt          158ScreenHeight      157ScreenWidth       266SelectFont8x8
+  263SetBlink           264SetCrtBorder      271SetHercMode       206SetVisiblePage
+  268SwitchInColorCard  181TextMode          164VideoSegment      170VirtualSegment
+  171VirtualWidth       161WhichHerc
+;
+;---------------------------------------------------------------------------
+!TOPIC 287 Windows
+!NOINDEX
+TPCRT capabilities for windows:
+
+      252DisposePackedWindow    249DispPackedWindow       250DispPackedWindowAt
+      114FrameArray             140FrameChars             113FrameCharType
+      245FrameWindow            251MapPackedWindowColors  174PackedScreen
+      174PackedWindow           174PackedWindowPtr        248PackWindow
+      254ReadPackedWindow       243RestoreWindow          247RestoreWindowCoordinates
+      242SaveWindow             244SetFrameChars          246StoreWindowCoordinates
+      152WindMax                151WindMin                182Window
+      145WindowCoordinates      253WritePackedWindow

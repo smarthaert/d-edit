@@ -1,0 +1,9 @@
+descript.ion Описание файлов
+make.bat Перекомпилирование проекта (Borland pascal 7.0 + Настройки пути)
+faronov.zip Some units for Pascal by V.V.Faronov:
+f_disk.pas Работа с диском (FAT12,FAT16)
+testdir.exe Тестирование текущего каталога (exe)
+testdir.pas Тестирование текущего каталога (source)
+UNDEL.PAS Исходник исполняемого модуля
+U_LIST.PAS Работа со списком строк
+undel.exe Готовая программа

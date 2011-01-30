@@ -1,0 +1,1147 @@
+;
+;===========================================================================
+!TOPIC 606 TpErrHan
+The TPERRHAN unit provides a facility which allows you to recover from
+almost all runtime errors. It works by tapping into the Turbo Pascal runtime
+error handler. Control is diverted from the normal SYSTEM unit to a routine
+defined by TPERRHAN. This routine classifies errors as recoverable or
+fatal, computes where control should return upon recovery, optionally calls
+a user-defined function, and finally returns to the program or to the SYSTEM
+error handler as required.
+
+      607CanRecover             608ErrorRecovery
+;
+;---------------------------------------------------------------------------
+!TOPIC 607 CanRecover
+!NOINDEX
+var
+  606TpErrHan.CanRecover : Boolean;
+
+True when the error handler is successfully installed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 608 ErrorRecovery
+!NOINDEX
+procedure 606TpErrHan.ErrorRecovery(On : Boolean; UserRoutine : Pointer);
+
+Turn error recovery on and off, and attach to a user error routine. The user
+routine must be global and compiled far and match the following declaration:
+
+  function RecoverError : Boolean;
+  begin
+    {Return True if execution is to continue}
+  end;
+;
+;===========================================================================
+!TOPIC 609 TpExtMem
+The TPEXTMEM unit provides tools to use extended memory for your data
+storage needs. These routines allow you to access extended memory under DOS
+3.x or 4.x without colliding with VDISK.SYS, MicroSoft's RAMDRIVE.SYS, or
+with any other program compatible with either of the two.
+
+      614ExtMemAvail            613ExtMemTotal            616FreeExtMem
+      615GetExtMem              610HugePtr                617MarkExtMem
+      612MoveExtMem             611PtrToHuge              618ReleaseExtMem
+;
+;---------------------------------------------------------------------------
+!TOPIC 610 HugePtr
+!NOINDEX
+type
+  609TpExtMem.HugePtr = Pointer;
+
+A HugePtr holds a 24 bit physical address used to access extended memory. It
+cannot be used interchangeably with a normal pointer. However, it can be
+cast to a LongInt for indexing purposes.
+
+See also: 611PtrToHuge
+;
+;---------------------------------------------------------------------------
+!TOPIC 611 PtrToHuge
+!NOINDEX
+function 609TpExtMem.PtrToHuge(P : Pointer) : HugePtr;
+
+Converts a pointer to a 610huge pointer. The pointer must be in the range $0:$0
+to $FFFF:$000F.
+;
+;---------------------------------------------------------------------------
+!TOPIC 612 MoveExtMem
+!NOINDEX
+procedure 609TpExtMem.MoveExtMem(Src, Dest : 610HugePtr;
+                              WCount : Word);
+
+Move WCount words from Src to Dest. Either or both of Src and Dest may be
+located in extended memory. Note that the count is given in words rather
+than the more common bytes.
+;
+;---------------------------------------------------------------------------
+!TOPIC 613 ExtMemTotal
+!NOINDEX
+function 609TpExtMem.ExtMemTotal : LongInt;
+
+Return total number of bytes of extended memory in the system.
+
+See also: 614ExtMemAvail
+;
+;---------------------------------------------------------------------------
+!TOPIC 614 ExtMemAvail
+!NOINDEX
+function 609TpExtMem.ExtMemAvail : Word;
+
+Return the number of kilobytes of extended memory that is actually free.
+
+See also: 613ExtMemTotal
+;
+;---------------------------------------------------------------------------
+!TOPIC 615 GetExtMem
+!NOINDEX
+function 609TpExtMem.GetExtMem(N : Word) : HugePtr;
+
+Allocate N kilobytes of extended memory. Returns nil if insufficient memory.
+
+See also: 616FreeExtMem
+;
+;---------------------------------------------------------------------------
+!TOPIC 616 FreeExtMem
+!NOINDEX
+function 609TpExtMem.FreeExtMem(P : HugePtr) : Boolean;
+
+Deallocates extended memory which was allocated with GetExtMem. Returns
+false if deallocation failed. The block to deallocate must be the last block
+allocated by your program or any other.
+
+See also: 618ReleaseExtMem
+;
+;---------------------------------------------------------------------------
+!TOPIC 617 MarkExtMem
+!NOINDEX
+procedure 609TpExtMem.MarkExtMem(var P : HugePtr);
+
+Store the location of the next extended memory block in P.
+
+See also: 618ReleaseExtMem
+;
+;---------------------------------------------------------------------------
+!TOPIC 618 ReleaseExtMem
+!NOINDEX
+procedure 609TpExtMem.ReleaseExtMem(P : HugePtr);
+
+Release all extended memory above P. P must have been set by 617MarkExtMem. It
+cannot be a huge pointer returned by GetExtMem.
+;
+;===========================================================================
+!TOPIC 619 TpHelp
+The TPHELP unit offers a powerful, easy method to incorporate help screens
+into your programs. Writing the help text itself is the only major task left
+for you to do. The popup help facility consists of two parts. A unit,
+TPHELP.TPU, is compiled into a program that needs to offer help. In
+addition, a help file compiler, MAKEHELP.EXE, will convert a text file
+containing the desired information to an indexed binary file for use by
+TPHELP itself.
+
+      659Data Structures        660Displaying Help        661Initializing Help
+;
+;---------------------------------------------------------------------------
+!TOPIC 620 MaxPagesPerSection
+!NOINDEX
+const
+  619TpHelp.MaxPagesPerSection = 20;
+
+Maximum number of pages per help topic.
+
+See also: 622MaxTopics
+;
+;---------------------------------------------------------------------------
+!TOPIC 621 MaxXrefsPerSection
+!NOINDEX
+const
+  619TpHelp.MaxXrefsPerSection = 50;
+
+Maximum number of cross-references per help topic.
+;
+;---------------------------------------------------------------------------
+!TOPIC 622 MaxTopics
+!NOINDEX
+const
+  619TpHelp.MaxTopics = 10000;
+
+Maximum number of topics in one help file.
+
+See also: 620MaxPagesPerSection
+;
+;---------------------------------------------------------------------------
+!TOPIC 623 MaxHelpStack
+!NOINDEX
+const
+  619TpHelp.MaxHelpStack = 19;
+
+Maximum number of stacked (previously displayed) topics.
+
+See also: 651ShowPrevHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 624 Attr1Toggle
+!NOINDEX
+const
+  619TpHelp.Attr1Toggle = ^A;
+         Attr2Toggle = ^B;
+         Attr3Toggle = ^C;
+
+Characters that toggle special help colors.
+
+See also: 658HelpColorType  657MAKEHELP
+;
+;---------------------------------------------------------------------------
+!TOPIC 625 IndexMarker
+!NOINDEX
+const
+  619TpHelp.IndexMarker = ^D;
+
+Character that marks a following topic number as a cross-reference.
+
+See also: 626XrefToggle  657MAKEHELP
+;
+;---------------------------------------------------------------------------
+!TOPIC 626 XrefToggle
+!NOINDEX
+const
+  619TpHelp.XrefToggle = ^E;
+
+Character that toggles cross-reference highlighting.
+
+See also: 625IndexMarker  657MAKEHELP
+;
+;---------------------------------------------------------------------------
+!TOPIC 627 HelpKeyMax
+!NOINDEX
+const
+  619TpHelp.HelpKeyMax = 99;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPHELP.
+
+See also: 628HelpKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 628 HelpKeySet
+!NOINDEX
+const
+  619TpHelp.HelpKeySet : array[0..627HelpKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPHELP.
+
+See also: 652AddHelpCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 629 HelpTitle
+!NOINDEX
+const
+  619TpHelp.HelpTitle : string[39] = ' Topics ';
+
+Text displayed centered at the top of the help index window.
+
+See also: 647ShowHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 630 UseHelpFrame
+!NOINDEX
+const
+  619TpHelp.UseHelpFrame : Boolean = True;
+
+True to draw frame around help window.
+
+See also: 647ShowHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 631 HelpMore
+!NOINDEX
+const
+  619TpHelp.HelpMore : Boolean = True;
+
+True to display 'PgUp/PgDn' in the help frame when additional pages are
+available for a given topic.
+
+See also: 634HelpMouseScroll  647ShowHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 632 HideCursor
+!NOINDEX
+const
+  619TpHelp.HideCursor : Boolean = True;
+
+False to leave the hardware cursor on-screen when the help window is active.
+;
+;---------------------------------------------------------------------------
+!TOPIC 633 IndexXrefTopic
+!NOINDEX
+const
+  619TpHelp.IndexXrefTopic : Word = 0;
+
+Topic number which brings up the help index when it is used as a
+cross-reference and selected by the user.
+
+See also: 657MAKEHELP
+;
+;---------------------------------------------------------------------------
+!TOPIC 634 HelpMouseScroll
+!NOINDEX
+const
+  619TpHelp.HelpMouseScroll : Boolean = True;
+
+True to support a mouse scroll bar in the frame of the help window.
+655EnableHelpMouse must also be called.
+
+See also: 631HelpMore
+;
+;---------------------------------------------------------------------------
+!TOPIC 635 HKtype
+!NOINDEX
+type
+  619TpHelp.HKtype = HKSNone..HKSUser3;
+
+Byte values associated with help commands. See TPHELP.PAS or the Turbo
+Professional manual for all the constants associated with this type.
+
+See also: 628HelpKeySet  652AddHelpCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 636 HelpColorArray
+!NOINDEX
+type
+ 619TpHelp.HelpColorArray = array[658HelpColorType] of Byte;
+
+Array of video attributes used to display a help system.
+;
+;---------------------------------------------------------------------------
+!TOPIC 637 HelpHeader
+!NOINDEX
+type
+  619TpHelp.HelpHeader =
+    record
+      ID : LongInt;          {Marks file as help file}
+      HighestTopic : Word;   {Highest topic number}
+      BiggestTopic : Word;   {Size of largest topic in uncompressed bytes}
+      NamedTopics : Word;    {Number of topics in help index}
+      NameSize : Byte;       {Size of each entry in pick table, 0 for none}
+      Width : Byte;          {Width of help window, with frame if any}
+      XlateTable : XlateArray; {Table for decompression}
+    end;
+  HelpHeaderPtr = ^HelpHeader;
+
+Information stored at the start of a help file, and read into memory, to
+specify the configuration of a help system.
+;
+;---------------------------------------------------------------------------
+!TOPIC 638 HelpPtr
+!NOINDEX
+type
+  619TpHelp.HelpDesc =
+    record
+      BufP : CharArrayPtr;   {Points to a buffer to hold largest section}
+      Hdr : 637HelpHeader;      {Copy of header for fast reference}
+      ...
+    end;
+  HelpPtr = ^HelpDesc;
+
+The main user variable to access a help system is the HelpPtr. Calls to
+643OpenHelpFile and 644OpenHelpMem return an initialized HelpPtr variable.
+;
+;---------------------------------------------------------------------------
+!TOPIC 639 HelpKeyPtr
+!NOINDEX
+var
+  619TpHelp.HelpKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 640 HelpCmdNum
+!NOINDEX
+var
+  619TpHelp.HelpCmdNum : 635HKtype;
+
+Last help command entered.
+;
+;---------------------------------------------------------------------------
+!TOPIC 641 HelpOnScreen
+!NOINDEX
+var
+  619TpHelp.HelpOnScreen : Boolean;
+
+True when the help system is currently visible. May be useful to avoid
+reentering the help system from a shared context-sensitive help routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 642 HelpMouseEnabled
+!NOINDEX
+var
+  619TpHelp.HelpMouseEnabled : Boolean;
+
+True when the mouse has been enabled in TPHELP.
+
+See also: 655EnableHelpMouse  656DisableHelpMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 643 OpenHelpFile
+!NOINDEX
+function 619TpHelp.OpenHelpFile(
+           HelpFileName : string;      {Name of help file}
+           XLow, YLow, YHigh : Byte;   {Coordinates of help window}
+           PickCols : Byte;            {Number of columns in help index}
+           Colors : 636HelpColorArray;    {Color set to use}
+           var 638Help : HelpPtr)         {Help variable to initialize}
+           : Word;                     {Status}
+
+Find and open help file, returning 0 and an initialized help descriptor if
+successful, or an error code.
+
+See also: 644OpenHelpMem
+;
+;---------------------------------------------------------------------------
+!TOPIC 644 OpenHelpMem
+!NOINDEX
+function 619TpHelp.OpenHelpMem(
+           HPtr : Pointer;             {Address of bound-in help}
+           XLow, YLow, YHigh : Byte;   {Coordinates of help window}
+           PickCols : Byte;            {Number of columns in help index}
+           Colors : 636HelpColorArray;    {Color set to use}
+           var 638Help : HelpPtr)         {Help variable to initialize}
+           : Word;                     {Status}
+
+Initialize help descriptor for a help structure bound into the code, or
+return an error code.
+
+See also: 643OpenHelpFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 645 CloseHelp
+!NOINDEX
+procedure 619TpHelp.CloseHelp(var Help : HelpPtr);
+
+Close help file and/or deallocate buffer space.
+;
+;---------------------------------------------------------------------------
+!TOPIC 646 SetHelpPos
+!NOINDEX
+procedure 619TpHelp.SetHelpPos(Help : HelpPtr; XLow, YLow, YHigh : Byte);
+
+Change the position and height of a help window. Help must not be visible
+when this is called.
+;
+;---------------------------------------------------------------------------
+!TOPIC 647 ShowHelp
+!NOINDEX
+function 619TpHelp.ShowHelp(Help : HelpPtr; Topic : Word) : Boolean;
+
+Display help screen for specified Topic, returning true if successful.
+
+See also: 651ShowPrevHelp  648FindHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 648 FindHelp
+!NOINDEX
+function 619TpHelp.FindHelp(Help : HelpPtr; Name : string;
+                         MatchFunc : Pointer) : Word;
+
+Return Topic number of help with specified Name, 0 if not found. MatchFunc
+is either nil or a pointer to a routine compiled far and global with the
+following declaration:
+
+  function Matches(TopicName, Name : string) : Boolean;
+  begin
+    {Return True if TopicName and Name are considered to be the same}
+  end;
+
+See also: 647ShowHelp  649ScreenHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 649 ScreenHelp
+!NOINDEX
+function 619TpHelp.ScreenHelp(Help : HelpPtr; XPos, YPos : Byte;
+                           ScanBack : Boolean; MatchFunc : Pointer) : Word;
+
+Return the number of the topic matching screen contents at position
+(XPos,YPos), or 0 if none. If ScanBack is True, TPHELP looks to the left of
+the specified position to find any previous characters on the row. MatchFunc
+is either nil or a pointer to a routine compiled far and global with the
+following declaration:
+
+  function Matches(TopicName, Name : string) : Boolean;
+  begin
+    {Return True if TopicName and Name are considered to be the same}
+  end;
+
+See also: 648FindHelp  647ShowHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 650 PickHelp
+!NOINDEX
+function 619TpHelp.PickHelp(Help : HelpPtr;
+                         XLow, YLow, YHigh, PickCols : Byte) : Word;
+
+Display a pick list of indexed help topics, returning topic number, or 0 for
+none.
+;
+;---------------------------------------------------------------------------
+!TOPIC 651 ShowPrevHelp
+!NOINDEX
+function 619TpHelp.ShowPrevHelp(Help : HelpPtr) : Boolean;
+
+Redisplay the help screen for topic most recently selected.
+
+See also: 647ShowHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 652 AddHelpCommand
+!NOINDEX
+function 619TpHelp.AddHelpCommand(Cmd : 635HKtype; NumKeys : Byte;
+                               Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+
+See also: 628HelpKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 653 DisableHelpIndex
+!NOINDEX
+procedure 619TpHelp.DisableHelpIndex;
+
+Disable display of the help index inside of a help screen.
+
+See also: 654EnableHelpIndex
+;
+;---------------------------------------------------------------------------
+!TOPIC 654 EnableHelpIndex
+!NOINDEX
+procedure 619TpHelp.EnableHelpIndex;
+
+Enable display of the help index inside of a help screen.
+
+See also: 653DisableHelpIndex
+;
+;---------------------------------------------------------------------------
+!TOPIC 655 EnableHelpMouse
+!NOINDEX
+procedure 619TpHelp.EnableHelpMouse;
+
+Enable mouse support in TPHELP.
+
+See also: 656DisableHelpMouse  642HelpMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 656 DisableHelpMouse
+!NOINDEX
+procedure 619TpHelp.DisableHelpMouse;
+
+Disable mouse support in TPHELP.
+
+See also: 655EnableHelpMouse  642HelpMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 657 MAKEHELP
+!NOINDEX
+The information displayed by 619TpHelp starts out as a text file that
+you must write. You put directives in that text file to tell the help
+compiler how to format and interpret it. You then run the help compiler,
+MAKEHELP, to create a formatted, indexed, compressed file that can be read
+by TPHELP.
+
+Directives in the text file are denoted by an exclamation point in the first
+column of the line, immediately followed by the directive name, followed by
+optional modifiers separated by one or more spaces. Here is a list of the
+directives accepted by the help compiler.
+
+  !WIDTH Width
+    Number of columns to be occupied by help window, including frame.
+
+  !TOPIC Number [Name]
+    Start a new topic with index Number and optional title Name.
+
+  !INDEX IndexNumber
+  !NOINDEX
+    Optionally specify position of this item within the topic index.
+
+  !LINE
+    Insert a line break here.
+
+  !PAGE
+    Insert a page break here.
+
+  ;
+    This line is a comment.
+
+  !INCLUDE FileName
+    Read the specified file into the help text at this point.
+
+  !WRAP
+  !NOWRAP
+    Enable or disable word wrapping of help text. Wrap is on by default.
+
+Special control characters provide another method to customize the
+appearance of help displays. With these, you can activate special video
+attributes, or you can specify that certain passages cross-reference other
+help topics.
+
+Three characters control the 658attribute used to display help text:
+
+  ^A  toggles special attribute 1   Colors[SpAtt1]
+  ^B  toggles special attribute 2   Colors[SpAtt2]
+  ^C  toggles special attribute 3   Colors[SpAtt3]
+
+Two characters control cross-references to other topics:
+
+  ^D  precedes a topic index number
+  ^E  toggles the special attribute marking a cross-reference
+
+For example '^D100^EAnother Topic^E' will highlight the text 'Another
+Topic' and will display help topic 100 when the cursor is on the highlight
+and Enter is pressed. Specifying topic 0 in a cross-reference activates a
+special case: the help index will be displayed if this reference is
+selected.
+
+MAKEHELP is run from the DOS command line using the following syntax:
+
+  MAKEHELP HelpTextFile [HelpBinaryFile]
+
+The default extension for HelpTextFile is .TXT. The default name for
+HelpBinaryFile is the same as HelpTextFile with an extension of .HLP.
+;
+;---------------------------------------------------------------------------
+!TOPIC 658 HelpColorType
+!NOINDEX
+type
+  619TpHelp.HelpColorType = (
+    FrAttr,                  {Frame}
+    TeAttr,                  {Normal text}
+    HeAttr,                  {Header and more prompt}
+    XsAttr,                  {Selected cross-reference item}
+    XrAttr,                  {Unselected cross-reference item}
+    SpAtt1,                  {Special attribute #1}
+    SpAtt2,                  {Special attribute #2}
+    SpAtt3);                 {Special attribute #3}
+
+Enumerated type of the video attributes used to display a help system.
+
+See also: 636HelpColorArray  657MAKEHELP
+;
+;---------------------------------------------------------------------------
+!TOPIC 659 Data Structures
+!NOINDEX
+TPHELP declares the following constants, types, and variables for managing
+help systems:
+
+  624Attr1Toggle        624Attr2Toggle       624Attr3Toggle        640HelpCmdNum
+  636HelpColorArray     658HelpColorType     638HelpDesc           637HelpHeader
+  627HelpKeyMax         628HelpKeySet        642HelpMouseEnabled   641HelpOnScreen
+  638HelpPtr            629HelpTitle         635HKtype             625IndexMarker
+  633IndexXrefTopic     623MaxHelpStack      620MaxPagesPerSection 622MaxTopics
+  621MaxXrefsPerSection 626XrefToggle
+;
+;---------------------------------------------------------------------------
+!TOPIC 660 Displaying Help
+!NOINDEX
+TPHELP provides the following routines for choosing a help topic and
+displaying it:
+
+      648FindHelp               650PickHelp               649ScreenHelp
+      647ShowHelp               651ShowPrevHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 661 Initializing Help
+!NOINDEX
+TPHELP offers the following capabilities for building help files and
+initializing the help window:
+
+      652AddHelpCommand         645CloseHelp              653DisableHelpIndex
+      656DisableHelpMouse       654EnableHelpIndex        655EnableHelpMouse
+      639HelpKeyPtr             631HelpMore               634HelpMouseScroll
+      632HideCursor             657MAKEHELP               643OpenHelpFile
+      644OpenHelpMem            646SetHelpPos             630UseHelpFrame
+;
+;===========================================================================
+!TOPIC 662 TpInline
+Among the most powerful of the features introduced in Turbo Pascal 4.0 were
+its "inline procedures." Unlike normal procedures and functions, which
+reside at a fixed location in memory, the entire contents of an inline
+procedure are inserted directly into the object code produced by the
+compiler each time it is referenced.
+!PAGE
+      669CallOldIsr             676ClearFlag              678ExchangeBytes
+      680ExchangeStructs        679ExchangeWords          666FarCall
+      684FillStruct             683FillWord               677FlagIsSet
+      670HiWord                 663JumpRecord             668JumpToOldIsr
+      665LongJump               671LoWord                 682MaxWord
+      681MinWord                667NearCall               674Normalized
+      675SetFlag                664SetJump                672SwapNibble
+      673SwapWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 663 JumpRecord
+!NOINDEX
+type
+  662TpInline.JumpRecord =
+    record
+      SpReg, BpReg : Word;
+      JmpPt : Pointer;
+    end;
+
+Data structure used by 664SetJump and 665LongJump.
+;
+;---------------------------------------------------------------------------
+!TOPIC 664 SetJump
+!NOINDEX
+procedure 662TpInline.SetJump(var JumpDest : JumpRecord);
+
+Save current SP, BP, and a jump destination. 665LongJump will "return" to the
+location immediately following the call to SetJump.
+;
+;---------------------------------------------------------------------------
+!TOPIC 665 LongJump
+!NOINDEX
+procedure 662TpInline.LongJump(var JumpDest : JumpRecord);
+
+Restore SP, BP, and jump to JumpDest.JmpPt, which is the location stored by
+a previous call to 664SetJump.
+;
+;---------------------------------------------------------------------------
+!TOPIC 666 FarCall
+!NOINDEX
+procedure 662TpInline.FarCall(ProcAddr : Pointer);
+
+ProcAddr is the address of a routine to be called far. Can be used to
+implement jump tables if procedures take no parameters.
+
+See also: 667NearCall
+;
+;---------------------------------------------------------------------------
+!TOPIC 667 NearCall
+!NOINDEX
+procedure 662TpInline.NearCall(ProcOfs : Word);
+
+ProcOfs is the offset of a routine to be called NEAR.
+
+See also: 666FarCall
+;
+;---------------------------------------------------------------------------
+!TOPIC 668 JumpToOldIsr
+!NOINDEX
+procedure 662TpInline.JumpToOldIsr(OldIsr : Pointer);
+
+Jump to previous interrupt service routine from an interrupt procedure.
+Takes care of popping saved registers.
+
+See also: 669CallOldIsr
+;
+;---------------------------------------------------------------------------
+!TOPIC 669 CallOldIsr
+!NOINDEX
+procedure 662TpInline.CallOldIsr(OldIsr : Pointer);
+
+Call previous interrupt service routine from an interrupt procedure.
+Destroys BX.
+
+See also: 668JumpToOldIsr
+;
+;---------------------------------------------------------------------------
+!TOPIC 670 HiWord
+!NOINDEX
+function 662TpInline.HiWord(L : LongInt) : Word;
+
+Return high-order word of LongInt L.
+
+See also: 671LoWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 671 LoWord
+!NOINDEX
+function 662TpInline.LoWord(L : LongInt) : Word;
+
+Return low-order word of LongInt L.
+
+See also: 670HiWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 672 SwapNibble
+!NOINDEX
+function 662TpInline.SwapNibble(B : Byte) : Byte;
+
+Swap the high and low nibbles of B. For example, SwapNibble($F0) returns
+$0F.
+;
+;---------------------------------------------------------------------------
+!TOPIC 673 SwapWord
+!NOINDEX
+function 662TpInline.SwapWord(L : LongInt) : LongInt;
+
+Swap low- and high-order words of LongInt L.
+;
+;---------------------------------------------------------------------------
+!TOPIC 674 Normalized
+!NOINDEX
+function 662TpInline.Normalized(P : Pointer) : Pointer;
+
+Return P as a normalized pointer. For example, the normalized version of
+$4000:$0FFF is $40FF:$000F.
+;
+;---------------------------------------------------------------------------
+!TOPIC 675 SetFlag
+!NOINDEX
+procedure 662TpInline.SetFlag(var Flags : Word; FlagMask : Word);
+
+Set the bits specified by FlagMask in Flags.
+
+See also: 676ClearFlag  677FlagIsSet
+;
+;---------------------------------------------------------------------------
+!TOPIC 676 ClearFlag
+!NOINDEX
+procedure 662TpInline.ClearFlag(var Flags : Word; FlagMask : Word);
+
+Clear the bits specified by FlagMask in Flags.
+
+See also: 675SetFlag  677FlagIsSet
+;
+;---------------------------------------------------------------------------
+!TOPIC 677 FlagIsSet
+!NOINDEX
+function 662TpInline.FlagIsSet(Flags, FlagMask : Word) : Boolean;
+
+Returns True if the any of the bits specified by FlagMask are set in Flags.
+
+See also: 675SetFlag  676ClearFlag
+;
+;---------------------------------------------------------------------------
+!TOPIC 678 ExchangeBytes
+!NOINDEX
+procedure 662TpInline.ExchangeBytes(var I, J : Byte);
+
+Exchange bytes I and J. Useful while sorting, where the parameters passed
+for I and J are complicated expressions.
+
+See also: 679ExchangeWords  680ExchangeStructs
+;
+;---------------------------------------------------------------------------
+!TOPIC 679 ExchangeWords
+!NOINDEX
+procedure 662TpInline.ExchangeWords(var I, J : Word);
+
+Exchange words I and J. Useful while sorting, where the parameters passed
+for I and J are complicated expressions.
+
+See also: 678ExchangeBytes  680ExchangeStructs
+;
+;---------------------------------------------------------------------------
+!TOPIC 680 ExchangeStructs
+!NOINDEX
+procedure 662TpInline.ExchangeStructs(var I, J; Size : Word);
+
+Exchange structures I and J. Useful while sorting, where the parameters
+passed for I and J are complicated expressions.
+;
+;---------------------------------------------------------------------------
+!TOPIC 681 MinWord
+!NOINDEX
+function 662TpInline.MinWord(A, B : Word) : Word;
+
+Returns the smaller of A and B.
+
+See also: 682MaxWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 682 MaxWord
+!NOINDEX
+function 662TpInline.MaxWord(A, B : Word) : Word;
+
+Returns the greater of A and B.
+
+See also: 681MinWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 683 FillWord
+!NOINDEX
+procedure 662TpInline.FillWord(var Dest; Count, Filler : Word);
+
+Fill memory starting at Dest with Count instances of Filler.
+
+See also: 684FillStruct
+;
+;---------------------------------------------------------------------------
+!TOPIC 684 FillStruct
+!NOINDEX
+procedure 662TpInline.FillStruct(var Dest; Count : Word;
+                              var Filler; FillerSize : Word);
+
+Fill memory starting at Dest with Count instances of Filler, which is a
+structure of size FillerSize.
+
+See also: 683FillWord
+;
+;===========================================================================
+!TOPIC 685 TpInt
+TPINT's primary purpose is to manage your interrupt service routines (ISR's)
+for you. Not only does it automatically restore the interrupts when your
+program ends, it also provides a number of other routines for stack control.
+
+      701AllocateStack          694ChainInt               702DeallocateStack
+      697EmulateInt             698InitVector             691InterruptsOff
+      690InterruptsOn           687IntRegisters           693IntReturn
+      689ISR_Array              688ISR_Record             686MaxISRs
+      700RestoreAllVectors      699RestoreVector          692SendEOI
+      696SwapStackAndCall       695SwapStackAndCallNear
+;
+;---------------------------------------------------------------------------
+!TOPIC 686 MaxISRs
+!NOINDEX
+const
+  685TpInt.MaxISRs = 20;
+
+The maximum number of interrupt service routines that TPINT can manage
+simultaneously.
+
+See also: 689ISR_Array
+;
+;---------------------------------------------------------------------------
+!TOPIC 687 IntRegisters
+!NOINDEX
+type
+  685TpInt.IntRegisters =
+    record
+      case Byte of
+        1 : (BP, ES, DS, DI, SI, DX, CX, BX, AX, IP, CS, Flags : Word);
+        2 : (Dummy : Dummy5; DL, DH, CL, CH, BL, BH, AL, AH : Byte);
+    end;
+
+Data type that describes the stack frame within an interrupt service
+routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 688 ISR_Record
+!NOINDEX
+type
+  685TpInt.ISR_Record =
+    record
+      IntNum : Byte;         {Interrupt vector number}
+      OrigAddr : Pointer;    {Original vector}
+      NewAddr : Pointer;     {New vector}
+      Captured : Boolean;    {Used for error checking}
+    end;
+
+Information saved by TPINT for each ISR it manages.
+;
+;---------------------------------------------------------------------------
+!TOPIC 689 ISR_Array
+!NOINDEX
+var
+  685TpInt.ISR_Array : array[1..686MaxISRs] of 688ISR_Record;
+
+Information that TPINT uses to manage ISR's.
+;
+;---------------------------------------------------------------------------
+!TOPIC 690 InterruptsOn
+!NOINDEX
+procedure 685TpInt.InterruptsOn;
+
+Turn CPU interrupts on.
+
+See also: 691InterruptsOff
+;
+;---------------------------------------------------------------------------
+!TOPIC 691 InterruptsOff
+!NOINDEX
+procedure 685TpInt.InterruptsOff;
+
+Turn CPU interrupts off.
+
+See also: 690InterruptsOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 692 SendEOI
+!NOINDEX
+procedure 685TpInt.SendEOI;
+
+Send a non-specific End Of Interrupt command to the Programmable Interrupt
+Controller (8259).
+;
+;---------------------------------------------------------------------------
+!TOPIC 693 IntReturn
+!NOINDEX
+procedure 685TpInt.IntReturn(var IntRegs : IntRegisters);
+
+Return from interrupt. Needed only if stack has been changed.
+
+See also: 696SwapStackAndCall  695SwapStackAndCallNear
+;
+;---------------------------------------------------------------------------
+!TOPIC 694 ChainInt
+!NOINDEX
+procedure 685TpInt.ChainInt(var Regs : IntRegisters; JumpAddr : Pointer);
+
+Jump to the previous interrupt owner after restoring registers. Does not
+return. The typical call to ChainInt looks like:
+
+  ChainInt(Regs, 689ISR_Array[MyIsrHandle].OrigAddr);
+
+See also: 697EmulateInt
+;
+;---------------------------------------------------------------------------
+!TOPIC 695 SwapStackAndCallNear
+!NOINDEX
+procedure 685TpInt.SwapStackAndCallNear(Routine : Word; SP : Pointer;
+                                     var Regs : IntRegisters);
+
+Switches to stack designated by SP and calls Routine with Regs as a
+parameter. The Routine must be a NEAR call from the current ISR, and must
+have the following declaration:
+
+  procedure MyRoutine(var Regs : IntRegisters);
+  begin
+    ...
+  end;
+
+See also: 696SwapStackAndCall
+;
+;---------------------------------------------------------------------------
+!TOPIC 696 SwapStackAndCall
+!NOINDEX
+procedure 685TpInt.SwapStackAndCall(Routine, SP : Pointer;
+                                 var Regs : IntRegisters);
+
+Switches to stack designated by SP and calls Routine with Regs as a
+parameter. The Routine must be global and compiled with the far model, and
+must have the following declaration:
+
+  procedure MyRoutine(var Regs : IntRegisters);
+  begin
+    ...
+  end;
+
+See also: 695SwapStackAndCallNear
+;
+;---------------------------------------------------------------------------
+!TOPIC 697 EmulateInt
+!NOINDEX
+procedure 685TpInt.EmulateInt(var Regs : IntRegisters; IntAddr : Pointer);
+
+Makes a call to a previous interrupt service routine. Emulates an interrupt
+by filling the CPU registers with the values in Regs, clearing interrupts,
+pushing the flags, and calling far to IntAddr. The typical call to
+EmulateInt looks like:
+
+  EmulateInt(Regs, 689ISR_Array[MyIsrHandle].OrigAddr);
+
+See also: 694ChainInt
+;
+;---------------------------------------------------------------------------
+!TOPIC 698 InitVector
+!NOINDEX
+function 685TpInt.InitVector(IntNumber, Handle : Byte;
+                          UserRoutine : Pointer) : Boolean;
+
+Sets up an interrupt service routine. Handle is a unique number in the range
+1..MaxISRs. UserRoutine is a pointer to a Turbo Pascal interrupt procedure
+declared as shown below. Returns True unless the Handle number is invalid or
+already in use. If TPINT is being used in combination with TPTSR, handle
+numbers in the range of 1..13 should be avoided since they are used by
+TPTSR.
+
+Standard declaration for a user routine:
+
+  procedure MyIsr(BP : Word); interrupt;
+  var
+    Regs : IntRegisters absolute BP;
+  begin
+    ...
+  end;
+
+See also: 699RestoreVector
+;
+;---------------------------------------------------------------------------
+!TOPIC 699 RestoreVector
+!NOINDEX
+procedure 685TpInt.RestoreVector(Handle : Byte);
+
+Restores an interrupt vector to its original value. TPINT calls this routine
+automatically for each vector it is managing when the program halts.
+
+See also: 700RestoreAllVectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 700 RestoreAllVectors
+!NOINDEX
+procedure 685TpInt.RestoreAllVectors;
+
+Restores all captured interrupt vectors. TPINT calls this routine
+automatically when the program halts.
+
+See also: 699RestoreVector
+;
+;---------------------------------------------------------------------------
+!TOPIC 701 AllocateStack
+!NOINDEX
+function 685TpInt.AllocateStack(var P : Pointer; SizeInBytes : Word) : Boolean;
+
+Allocates a stack of size SizeInBytes. The pointer returned can be passed
+directly to 696SwapStackAndCall or 697SwapStackAndCallNear.
+
+See also: 702DeallocateStack
+;
+;---------------------------------------------------------------------------
+!TOPIC 702 DeallocateStack
+!NOINDEX
+procedure 685TpInt.DeallocateStack(P : Pointer);
+
+Frees a stack allocated by 701AllocateStack.
+;
+;===========================================================================
+!TOPIC 703 TpInt24
+TPINT24 adds a DOS critical error handler to your programs, one that auto-
+matically installs itself when your program starts and uninstalls itself
+when it ends. Although the Turbo Pascal runtime library also contains a
+critical error handler, the method that it uses to return error codes can
+sometimes make it difficult to determine exactly what error occurred, and
+Turbo gives you no easy means of temporarily disabling the error handler.
+For these reasons, you may find the error handler in TPINT24 preferable.
+
+      706Int24Off               705Int24On                704Int24Result
+;
+;---------------------------------------------------------------------------
+!TOPIC 704 Int24Result
+!NOINDEX
+
+function 703TpInt24.Int24Result : Word;
+
+Returns DOS critical error code in high byte, IoResult in low byte. Resets
+both internal status variables. Critical error codes:
+
+  $01  Invalid drive number
+  $02  Drive not ready
+  $03  Unknown command
+  $04  CRC (Cyclical Redundancy Check) error
+  $05  Bad request structure length
+  $06  Seek error
+  $07  Disk format not recognized
+  $08  Sector not found
+  $09  Printer out of paper
+  $0A  Write error
+  $0B  Read error
+  $0C  General failure
+  $0D  Attempt to write to write-protected disk (mapped to $0D from $00)
+;
+;---------------------------------------------------------------------------
+!TOPIC 705 Int24On
+!NOINDEX
+procedure 703TpInt24.Int24On;
+
+Install DOS critical error handler. Using TPINT24 automatically installed
+the error handler, so Int24On is needed only if 706Int24Off was called
+explicitly.
+;
+;---------------------------------------------------------------------------
+!TOPIC 706 Int24Off
+!NOINDEX
+procedure 703TpInt24.Int24Off(RestoreDosHandler : Boolean);
+
+Restore DOS's critical error handler (if RestoreDosHandler is True) or
+Turbo's (if False).
+
+See also: 705Int24On

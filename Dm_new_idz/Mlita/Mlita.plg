@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Mlita - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x419 /fo"Debug/Mlita.res" /d "_DEBUG" /d "_AFXDLL" "C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Mlita.rc"" 
+Creating temporary file "C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSPCF.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Mlita.pdb" /debug /machine:I386 /out:"Debug/Mlita.exe" /pdbtype:sept 
+".\Debug\AdjacencyList.obj"
+".\Debug\GenerationDlg.obj"
+".\Debug\Graph.obj"
+".\Debug\graphctrl.obj"
+".\Debug\GraphList.obj"
+".\Debug\GraphListElement.obj"
+".\Debug\Mlita.obj"
+".\Debug\MlitaDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\Top.obj"
+".\Debug\Mlita.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSPCF.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Linking...
+
+
+
+<h3>Results</h3>
+Mlita.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

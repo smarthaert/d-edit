@@ -1,0 +1,60 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{872340F2-07A3-41D0-A123-BA9832F13549}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="26\Project26.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="22\Project22.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="31\Project31.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="Project26">
+			<MSBuild Projects="26\Project26.dproj"/>
+		</Target>
+		<Target Name="Project26:Clean">
+			<MSBuild Projects="26\Project26.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Project26:Make">
+			<MSBuild Projects="26\Project26.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Project22">
+			<MSBuild Projects="22\Project22.dproj"/>
+		</Target>
+		<Target Name="Project22:Clean">
+			<MSBuild Projects="22\Project22.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Project22:Make">
+			<MSBuild Projects="22\Project22.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Project31">
+			<MSBuild Projects="31\Project31.dproj"/>
+		</Target>
+		<Target Name="Project31:Clean">
+			<MSBuild Projects="31\Project31.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Project31:Make">
+			<MSBuild Projects="31\Project31.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="Project26;Project22;Project31"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="Project26:Clean;Project22:Clean;Project31:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="Project26:Make;Project22:Make;Project31:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

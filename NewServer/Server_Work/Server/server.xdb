@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+  <xs:element name="Server" type="ServerType"/>
+  <xs:complexType name="ServerType"><xs:annotation>
+      <xs:appinfo xdb:docElement="Server"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="CONTEST" type="CONTESTType"/>
+      <xs:element name="TESTERS" type="TESTERSType"/>
+      <xs:element name="PATHS" type="PATHSType"/>
+      <xs:element name="COMPILERS" type="COMPILERSType"/>
+      <xs:element name="USERS" type="USERSType"/>
+      <xs:element name="PROBLEMS" type="PROBLEMSType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CONTESTType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Place" type="xs:string"/>
+      <xs:element name="Data" type="xs:string"/>
+      <xs:element name="Rules" type="xs:integer"/>
+      <xs:element name="Start" type="xs:string"/>
+      <xs:element name="End" type="xs:string"/>
+      <xs:element name="Length" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TESTERSType">
+    <xs:sequence>
+      <xs:element name="TESTER" type="TESTERType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TESTERType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="Path" type="xs:string"/>
+      <xs:element name="Queue" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PATHSType">
+    <xs:sequence>
+      <xs:element name="Queue" type="xs:string"/>
+      <xs:element name="QueueNumber" type="xs:string"/>
+      <xs:element name="Arhive" type="xs:string"/>
+      <xs:element name="Results" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="COMPILERSType">
+    <xs:sequence>
+      <xs:element name="Compilator" type="CompilatorType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CompilatorType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="FileExt" type="xs:string"/>
+      <xs:element name="Program" type="xs:string"/>
+      <xs:element name="CmdLine" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="USERSType">
+    <xs:sequence>
+      <xs:element name="USER" type="USERType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="USERType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Dir_Path" type="xs:string"/>
+      <xs:element name="Disqualificated" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROBLEMSType">
+    <xs:sequence>
+      <xs:element name="PROBLEM" type="PROBLEMType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROBLEMType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Litera" type="xs:string"/>
+      <xs:element name="Tests" type="xs:integer"/>
+      <xs:element name="Status" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

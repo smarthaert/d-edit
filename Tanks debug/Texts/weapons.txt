@@ -1,0 +1,92 @@
+; Описание типов оружия для танков
+
+Weapon Enemy 
+Damage 50
+Speed 240
+FireDelay 900
+Sprite Fire1
+
+Weapon Devastator 
+Damage 100
+Speed 160
+FireDelay 600
+Sprite FlameFire
+;ExplosionBall
+DoubleEarthDamage
+
+Weapon HeavyDevastator
+Damage 250
+Speed 900
+FireDelay 50
+Sprite RocketFire@
+
+Weapon Mine
+Damage 400
+Speed 20
+FireDelay 100
+Sprite Fire1
+
+Weapon BouncyMine
+Damage 400
+Speed 70
+FireDelay 300
+Sprite Fire1
+
+Weapon Laser
+Damage 10
+Speed 700
+FireDelay 30
+Sprite RocketFire@
+
+Weapon Bomb
+Damage 1000
+Speed 600
+FireDelay 1000
+Sprite RocketFire@
+
+Weapon Chaingun 
+Damage 2
+Speed 200
+FireDelay 100
+Sprite Fire1
+
+Weapon Snarad1  ; Имя оружия
+Damage 30       ; Разрушительная сила одного снаряда
+Speed 100         ; Скорость полета
+FireDelay 400   ; Скорострельность
+Sprite Fire1
+
+Weapon Snarad2  ; Имя оружия
+Damage 200      ; Разрушительная сила одного снаряда
+Speed 50        ; Скорость полета
+FireDelay 200    ; Скорострельность
+Sprite RocketFire@
+
+Weapon OneBigRocket
+Damage 50
+Speed 300
+FireDelay 1000
+Sprite RocketFire@
+ExplosionBall
+
+Weapon DuelSnarad
+Damage 100
+Speed 220
+FireDelay 500
+Sprite Fire1
+
+Weapon DuelSnaradUpg
+Damage 100
+Speed 550
+FireDelay 350
+Sprite GreenFire
+DoubleEarthDamage
+
+Weapon DuelSnarad2Upg
+Damage 100
+Speed 550
+FireDelay 350
+Sprite RocketFire@
+ExplosionBall
+DoubleEarthDamage
+

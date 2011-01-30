@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+  <xs:element name="Config" type="ConfigType"/>
+  <xs:complexType name="ConfigType"><xs:annotation>
+      <xs:appinfo xdb:docElement="Config"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="Problems" type="ProblemsType"/>
+      <xs:element name="Compilers" type="CompilersType"/>
+      <xs:element name="Paths" type="PathsType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProblemsType">
+    <xs:sequence>
+      <xs:element name="Problem" type="ProblemType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProblemType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:integer"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Litera" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CompilersType">
+    <xs:sequence>
+      <xs:element name="Compilator" type="CompilatorType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CompilatorType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Mask" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PathsType">
+    <xs:sequence>
+      <xs:element name="Queue" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,14 @@
+DimH|64
+DimW|64
+DXWCustomNavigator.Fk|0,0732421875
+DXWCustomNavigator.FWidth|150
+DXWCustomNavigator.FHeight|150
+TmpSurface.Width|192
+TmpSurface.Height|192
+DimH|64
+DimW|64
+DXWCustomNavigator.Fk|0,0732421875
+DXWCustomNavigator.FWidth|150
+DXWCustomNavigator.FHeight|150
+TmpSurface.Width|192
+TmpSurface.Height|192

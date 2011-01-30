@@ -1,0 +1,1157 @@
+            Late News on Turbo Professional Version 5.21
+            --------------------------------------------
+
+This file describes changes, additions, and clarifications to Turbo
+Professional that do not appear in the printed documentation. Please
+print and read this file prior to using Turbo Professional, and save
+it for future reference. It includes the following sections, which are
+organized according to the unit/utility to which they apply:
+
+     1. Compiler version support
+     2. Installation notes
+     3. TP8087
+     4. TPCRT
+     5. TPDATE
+     6. TPDIR
+     7. TPDOS
+     8. TPEDIT
+     9. TPENHKBD
+    10. TPENTRY
+    11. TPHELP
+    12. TPINLINE
+    13. TPINT
+    14. TPINT24
+    15. TPMACED
+    16. TPMACRO
+    17. TPMEMO (new unit)
+    18. TPMENU
+    19. TPMOUSE
+    20. TPPICK
+    21. TPSORT
+    22. TPTSR
+    23. TPWINDOW
+    24. Miscellaneous changes to the manual
+
+Subscribers to TurboPower's Fast Update Plan may wish to read the file
+FASTUPD.* (where * is the most recent version number, e.g.,
+FASTUPD.520), which summarizes the changes made during the most recent
+version update.
+
+You'll find a small utility named PRINTDOC.EXE on the DEMO disk. It
+may be used to print out this READ.ME file and other text format files
+with a left margin, pagination, and headers. Type PRINTDOC with no
+parameters to get a list of options.
+
+
+1. Compiler version support
+=====================================================================
+As of version 5.20, Turbo Professional can be used with any of the
+following versions of Turbo Pascal:
+
+   Turbo Pascal 4.0
+   Turbo Pascal 5.0
+   Turbo Pascal 5.5
+   Turbo Pascal 6.0
+   Turbo Pascal 7.0
+   Borland Pascal 7.0
+
+When using Borland Pascal 7.0, Turbo Professional can be compiled for
+the real mode or DOS protected mode targets.
+
+The Turbo Professional units compensate internally for different
+compiler versions and target environments by the use of conditionally
+defined code. Conditional logic and defines in the TPDEFINE.INC file
+are used to get the appropriate behavior. If you have upgraded to this
+version of Turbo Professional from an earlier version, be certain that
+you are using the most recent version of TPDEFINE.INC, or you will run
+into compilation problems.
+
+To support DOS protected mode operation a new unit, DPMI.PAS, has been
+added to the library. This unit provides low level access to the DOS
+Protected Mode Interface routines provided by the extender's DPMI
+server. The routines in this unit are not documented here, but you are
+welcome to use them with the assistance of a DPMI specification. For
+more information, refer to the book "Extending DOS" by Ray Duncan et
+al, or the DPMI spec available from Intel or CompuServe.
+
+Some units of Turbo Professional cannot be used in protected mode. You
+will receive a compiler error message if you attempt to compile them
+for a protected mode target. The units are:
+
+  TPTSR      (TSR engine)
+  TPEARRAY   (EMS large arrays)
+  TPEXTMEM   (raw extended memory access)
+  TPEMS      (EMS access)
+
+We trust that the reasons for these restrictions are obvious.
+
+There are a few additional restrictions while using other units in
+protected mode and these are discussed in the appropriate sections
+that follow. Search for "Protected mode restriction" to find all of
+them.
+
+
+2. Installation notes
+=====================================================================
+As of version 5.07, Turbo Professional is shipped on five disks rather
+than four. The fifth disk, labelled BONUS, contains a new online
+reference guide, as well as the BONUS subdirectory that was previously
+found on the SRC3 disk. See GUIDE.DOC on the BONUS disk for details
+concerning the online reference guide.
+
+In order to accommodate changes in the library over time, we have had
+to rearrange the files on the distribution disks. The installation
+program accounts for all these changes, however.
+
+INSTALL now provides the capability to install the compilation defines
+in TPDEFINE.INC. INSTALL provides a menu box where you can specify the
+desired settings. Due to the number of choices of compilers and target
+compilation modes, INSTALL no longer compiles the Turbo Professional
+source code for you. Use the supplied TPRO.MAK make file or the
+compiler's built-in make to build the units.
+
+
+3. TP8087
+=====================================================================
+We have added three new routines to TP8087: Reinit8087, which
+reinitializes an 80x87 chip; ReinitEmulator, which reinitializes Turbo
+Pascal's floating point emulator; and UseEmulator, which determines
+whether or not the floating point emulator is being used. The main
+purpose for adding these routines is to allow both the 80x87 chip and
+the floating point emulator to be used in interrupt service routines
+and TPTSR-created popups.
+
+The most important thing to keep in mind in these situations is that
+ReinitEmulator should be called only after you have switched to an
+alternate stack. (In a popup, the stack switch would occur
+automatically; in an interrupt service routine, you would need to use
+SwapStackAndCall or SwapStackAndCallNear.) What ReinitEmulator does is
+to reinitialize the 230-byte data area starting at SSeg:0 that is used
+by the emulator, something that *must* be done before you can execute
+any arithmetic instructions using the emulator. Obviously, your
+alternate stack must be at least 230 bytes larger than would otherwise
+be necessary, in order to make room for the emulator's data.
+
+For an example of how to use these routines, see the sample program
+TESTEMU.PAS, which can be found in TESTEMU.LZH in the BONUS
+subdirectory of the BONUS disk.
+
+Note that TPTSR-created popups need to reinitialize the emulator only
+if 1) there are two or more popups in a TSR and one can interrupt the
+other, or 2) the popup is part of a non-resident program. In the more
+typical case--a TSR with a single popup that uses 8087 reals--all that
+is necessary is to use Save8087 and Restore8087 to save/restore the
+state of the math chip, as indicated in the manual, and Reinit8087.
+
+Declaration
+  procedure Reinit8087;
+Purpose
+  Reinitialize the 80x87 chip.
+Comments
+  This routine reinitializes the 80x87 chip. It should be called just
+  after a call to Save8087.
+
+Declaration
+  procedure ReinitEmulator;
+Purpose
+  Reinitialize the emulator.
+Comments
+  This routine reinitializes the floating point emulator. It should be
+  called only if UseEmulator returns True. Note that ReinitEmulator is
+  enabled only if TP8087 was compiled with Turbo Pascal 5.0 or higher.
+
+Declaration
+  function UseEmulator : Boolean;
+Purpose
+  Return True if the floating point emulator is being used.
+Comments
+  This routine returns True if the floating point emulator is present
+  *and* emulation is enabled. The most common use for UseEmulator is
+  to determine if ReinitEmulator should be used rather than
+  Reinit8087. Note that UseEmulator is enabled only if TP8087 was
+  compiled with Turbo Pascal 5.0 or higher.
+Example
+  var
+    SB : SaveBuffer8087;
+  begin
+    if UseEmulator then
+      ReinitEmulator          {reinitialize emulator}
+    else begin
+      Save8087(SB);           {save 80x87 registers}
+      Reinit8087;             {reinitialize 80x87 chip}
+    end;
+    ...
+    if not UseEmulator then
+      Restore8087(SB);        {restore 80x87 registers}
+  end;
+
+  A typical series of statements at the beginning and end of a popup
+  routine. See TESTEMU.PAS for a more complete example.
+
+
+4. TPCRT
+=====================================================================
+A UseCrt define is now available in TPDEFINE.INC. When enabled (it is
+off by default), UseCrt allows the TPCRT unit to coexist peacefully
+with the CRT unit in the same program. Version 5.21 of TPCRT
+reinstates checking of CRT/TPCRT conflicts in protected mode. (This
+check was temporarily removed in version 5.20.)
+
+Protected mode restriction: Creating a PackedWindow via the PackWindow
+function in TPCRT is guaranteed to fragment the heap in protected
+mode, since it is not practical to resize a suballocator heap block.
+
+The following routines, types, and variables have been added to TPCRT:
+
+Declarations
+
+type
+  HercCardType = (HercNone, HercPlain, HercPlus, HercInColor);
+var
+  WhichHerc : HercCardType;
+
+This global variable indicates the type of Hercules graphics card that
+is installed and active, if any. It is initialized when the program
+begins, and it is reinitialized each time that ReinitCrt is called.
+WhichHerc will be set to HercNone if a Hercules card is not installed
+or not active. HercPlain indicates a standard Hercules Graphics Card.
+HercPlus indicates a Hercules Graphics Card Plus (with RamFont
+capabilities). HercInColor indicates a Hercules InColor Card.
+
+Declaration
+  procedure SwitchInColorCard(ColorOn : Boolean);
+Purpose
+  Activate or deactivate colors on a Hercules InColor card.
+Comments
+  This routine activates or deactivates CGA emulation on a Hercules
+  InColor Card. It should be called only if the global variable
+  WhichHerc is set to HercInColor.
+
+  Note that this routine is called automatically by the TPCRT
+  initialization code in order to activate CGA emulation.
+  Consequently, all you need to do to support the InColor card in your
+  programs is to check the value of WhichHerc when selecting the
+  colors you want to display text in. If its value is HercInColor,
+  then you should select the same colors that you would use on a CGA
+  or other color card, even though the current video mode is 7. For an
+  example of how to add InColor card support to your programs, look at
+  the source code for any of the screen-oriented demonstration
+  programs.
+
+  Getting back to our subject proper, SwitchInColorCard needs to be
+  called only if you wish to deactivate CGA emulation, or if you need
+  to reenable it after executing another program (for example).
+
+Declaration
+  procedure WhereXYdirect(var X, Y : Byte);
+Purpose
+  Read the current position of the cursor directly from the CRT
+  controller.
+Comments
+  Unlike other routines in TPCRT that read the position of the cursor,
+  this one reads the cursor position directly from the 6845 CRT
+  controller using Port instructions, bypassing the BIOS. Obviously,
+  this makes WhereXYdirect extremely hardware dependent, but it also
+  allows you to read the cursor position accurately in cases where
+  routines fail. The most common application for WhereXYdirect is in
+  TSR's, which are sometimes asked to pop up over applications that do
+  not use the BIOS to position the cursor. The best known example of
+  such a program is Lotus 1-2-3, but there are many others.
+
+
+5. TPDATE
+=====================================================================
+IMPORTANT NOTE: In versions of TPDATE prior to 5.09, there was a bug
+in the code used to calculate Julian dates when the conditional
+compilation directive FourByteDates was NOT defined (it is defined by
+default). As a result of the bug, any word-sized date greater than or
+equal to 02/29/2000 (2000 is a leap year) was off by one. Put another
+way, the formulas used to turn day-month-year into a serial (Julian)
+date returned the same value for both 02/29/2000 and 03/01/2000.
+
+The bug has been fixed in 5.09, of course, but it has implications for
+any existing database that contains word-sized dates >= 02/29/2000. If
+you are one of the few people whose applications fall into that
+category, you'll need to write a little utility that will read each
+record in your database, execute the following statement for each date
+variable, then write the record back to disk:
+
+      if DateVar >= 36583 then begin
+        Inc(DateVar);
+        {... write the record back to disk ...}
+      end;
+
+36583 is the value that was being calculated for both 2/29/2000 and
+3/1/2000. The only thing that this will not fix are date variables
+that were supposed to contain 2/29/2000 to begin with. If feasible,
+you may want to treat 36583 as a special case, and ask the user to
+confirm whether a particular date should be 2/29/2000 or 3/1/2000. If
+it is supposed to be 2/29/2000, the date variable should not be
+incremented. Keep in mind that such a utility should be run before
+adding any new records to the database using a program written with
+TPDATE 5.09 or higher. The simple "if DateVar >= 36583" test will
+prove unreliable if the database contains date values calculated both
+before and after the bug was fixed.
+
+The following routines, types, constants, and variables have been
+added to TPDATE:
+
+const
+  {$IFDEF FourByteDates}
+    Date1980 = $00021E28;    {= 01/01/1980}
+    Date2000 = $00023AB1;    {= 01/01/2000}
+  {$ELSE}
+    Date1980 = $7223;        {= 01/01/1980}
+    Date2000 = $8EAC;        {= 01/01/2000}
+  {$ENDIF}
+
+  Date1980 might be used if you need to check to see that the system
+  clock is set properly: 'if Today = Date1980 then {clock not set}'.
+  Date2000 might be used as the upper limit for a date field in an
+  entry screen.
+
+const
+  Threshold2000 : Integer = 1900;
+
+  This constant determines how TPDATE interprets the year portion of a
+  date like 01/01/40. If Threshold2000 = 1900 {..1940}, the year is
+  assumed to be 1940. If Threshold2000 = 1941 {..2000}, the year is
+  assumed to be 2040. More generally, Threshold2000 specifies the year
+  at which TPDATE stops assuming a century of 2000 when the year is in
+  the range 00..99 and starts assuming 1900. With the default value of
+  1900, 1900 is always assumed. With a value of 2000, 2000 would
+  always be assumed.
+
+const
+  SecondsInHour = 3600;      {number of seconds in an hour}
+  SecondsInMinute = 60;      {number of seconds in a minute}
+  HoursInDay = 24;           {number of hours in a day}
+  MinutesInHour = 60;        {number of minutes in an hour}
+
+  These constants complement SecondsInDay.
+
+var
+  DefaultYear : Integer;
+  DefaultMonth : Byte;
+
+  These variables are initialized when a program begins based on the
+  current date. They are used by DateStringToDMY and DateStringToDate
+  when a partial date is given. For example, if the date string
+  contains '12/01', the picture mask is 'mm/dd', and DefaultYear is
+  1989, then the date would be interpreted as 12/01/1989.
+
+Declaration
+  function RoundToNearestHour(T : Time; Truncate : Boolean) : Time;
+Purpose
+  Round T to the nearest hour, or Truncate minutes and seconds from T.
+Comments
+  This routine does one of two things, depending on the value of
+  Truncate. If Truncate is True, it simply sets the minutes and
+  seconds in T to 0 and returns the value (e.g., 4:01:02 becomes
+  4:00:00). If Truncate is False, it rounds the time to the nearest
+  hour (e.g., 4:30:00 becomes 5:00:00). T is assumed to be a valid
+  Time variable.
+
+Declaration
+  function RoundToNearestMinute(T : Time; Truncate : Boolean) : Time;
+Purpose
+  Round T to the nearest minute, or Truncate seconds from T.
+Comments
+  This routine does one of two things, depending on the value of
+  Truncate. If Truncate is True, it simply sets the seconds in T to 0
+  and returns the value (e.g., 4:01:02 becomes 4:01:00). If Truncate
+  is False, it rounds the time to the nearest minute (e.g., 4:00:30
+  becomes 4:01:00). T is assumed to be a valid Time variable.
+
+Declaration
+  procedure IncDateTime(var DT1, DT2 : DateTimeRec;
+                        Days : Integer; Secs : LongInt);
+Purpose
+  Increment (or decrement) DT1 by the specified number of days and
+  seconds and put the result in DT2.
+Comments
+  Given a valid DateTimeRec, DT1, this routine adjusts its date and
+  time by the specified number of Days and seconds, then stores the
+  result in DT2. (DT1 is unchanged.)
+Examples
+  var
+    StartTime, StopTime : DateTimeRec;
+  ...
+    IncDateTime(StartTime, StopTime, 0, 8*SecondsInHour);
+
+  StopTime will have the date and time 8 hours from StartTime.
+
+  IncDateTime(StartTime, StartTime, -7, 0);
+
+  StartTime will have the date and time one week ago.
+
+
+6. TPDIR
+=====================================================================
+GetFileName determines the window width to use based on the number of
+columns of filenames, the filename format, and the search mask
+displayed at the top of the window. It picks the wider of the search
+mask and the filenames in an attempt to show everything. There is a
+catch, however: the search mask it uses to choose the width is
+identical to the one you pass to GetFileName. Later, GetFileName
+expands the search mask to include the complete pathname (drive and
+directory as well as wildcards) and it displays this complete pathname
+as the window title. If, for example, you've passed '*.*' for the
+search mask, you're in the directory 'c:\pascal\test', and you're
+using only one column of filenames, the search mask will be truncated
+when it is displayed. To avoid this problem, expand the search mask to
+a complete pathname before calling GetFileName.
+
+A new global typed constant, ReturnCompletePath, has been added. In
+the default True state, GetFileName returns a fully instantiated path
+name in all cases, even if the specified file is in the current
+directory. When ReturnCompletePath is set False, GetFileName returns a
+relative path name. However, as soon as the user navigates to other
+subdirectories with the TPDIR menus, GetFileName reverts to returning
+a complete path name. This behavior is required to keep the relative
+path name from growing longer than 79 characters after an extended
+navigation session.
+
+TPDIR has one new routine:
+
+Declaration
+  function ChangeDirectory(Mask : string;
+                           XLow, YLow, YHigh, PickCols : Byte;
+                           Colors : PickColorArray) : Word;
+Purpose
+  Change to a new drive or directory.
+Comments
+  This routine provides a convenient method for the user of a program
+  to switch to a different drive or directory.
+
+  If Mask is an empty string or contains wild cards, ChangeDirectory
+  will pop up a list of all the subdirectories within the specified
+  path. Whenever the user presses <Enter> to select one of those
+  directories, ChangeDirectory changes the current directory to match
+  the selection, and displays a list of all the subdirectories there.
+  When the user finally presses <Esc>, the current directory will be
+  set to the last selected directory.
+
+  If Mask does not contain wildcards, ChangeDirectory simply changes
+  to the specified directory and returns without displaying a window.
+
+  The remaining parameters to ChangeDirectory have the same meaning as
+  those passed to TPDIR's GetFileName routine.
+
+  ChangeDirectory returns a status word. Its value is zero for
+  success, and will typically hold a Turbo Pascal runtime error code
+  for failure. There are two exceptions. ChangeDirectory returns the
+  following two special error codes for consistency with GetFileName:
+
+      4 = Insufficient memory
+      5 = Won't fit on screen
+
+  The most common runtime error codes will be
+
+      3 = Path not found (non-existent subdirectory)
+     15 = Invalid drive
+
+
+7. TPDOS
+=====================================================================
+The FileHandlesOpen and FileHandlesLeft routines have been rewritten
+to allow them to work properly in cases where the file handle table
+has been extended to allow more than 20 files to be open at once.
+Hence, both routines are now compatible with EXTEND.LZH (on the BONUS
+disk) and the ExtendHandles routine in B-Tree Filer's FILER unit.
+
+ReadDiskSectors and WriteDiskSectors have been modified to support DOS
+3.31 (introduced by Compaq to support volumes larger than 32
+megabytes) and higher. In order to do so, we have had to change the
+second parameter to each routine from a Word to a LongInt, to allow
+sector numbers larger than 65,535. Hence, the declarations for the
+routines are now as follows:
+
+function ReadDiskSectors(Drive : Word; FirstSect : Longint;
+                         NumSects : Word; var Buf) : Boolean;
+
+function WriteDiskSectors(Drive : Word; FirstSect : Longint;
+                          NumSects : Word; var Buf) : Boolean;
+
+Please note that in order for these routines to work properly under
+DOS 3.31 or higher, you should be sure to call GetDiskInfo beforehand.
+
+Protected mode restriction: ReadDiskSectors and WriteDiskSectors are
+not supported in DOS protected mode due to problems in some DPMI
+server software.
+
+We have also added one new type and two new routines:
+
+type
+  DiskClass = (
+    Floppy360, Floppy720, Floppy12, Floppy144, OtherFloppy, Bernoulli,
+    HardDisk, RamDisk, SubstDrive, UnknownDisk, InvalidDrive,
+    NovellDrive, CDRomDisk);
+
+  This type defines the disk types that can be identified by
+  GetDiskClass, as well as several types indicating that a particular
+  error occurred. The meaning of each value is described briefly
+  below:
+
+    Floppy360     A 360K, 5 1/4 floppy disk
+    Floppy720     A 720K, 3 1/2 floppy disk
+    Floppy12      A 1.2 meg, 5 1/4 floppy disk
+    Floppy144     A 1.44 meg, 3 1/2 floppy disk
+    OtherFloppy   Another kind of floppy disk (e.g. a single-sided
+                  disk)
+    Bernoulli     A Bernoulli drive
+    HardDisk      Any hard disk
+    RamDisk       A RAM disk created with VDISK.SYS, RAMDRIVE.SYS, ...
+    SubstDrive    A logical drive created by SUBST or ASSIGN
+    UnknownDisk   Indicates that the drive could not be classified
+    InvalidDrive  Indicates that the drive does not exist or isn't
+                  ready
+    NovellDrive   A logical drive located on a Novell server
+    CDRomDisk     A CD-ROM drive
+
+Note that the NovellDrive identifier was added in version 5.12 and
+CDRomDisk was added in version 5.20.
+
+Declaration
+  function GetDiskClass(Drive : Char; var SubstDriveChar : Char)
+    : DiskClass;
+Purpose
+  Return the disk class for the drive with the specified letter.
+Comments
+  Given a drive letter ('A'..'Z'), this routine returns a value
+  indicating what kind of disk is installed in the specified drive.
+  The possible return values are described in the documentation for
+  DiskClass.
+
+  There are two special cases that you should be aware of. First, the
+  DOS ASSIGN program allows you to treat one existing drive as
+  another. For example
+
+     ASSIGN B=C
+
+  would cause all disk I/O pertaining to drive B to be routed to drive
+  C. Similarly, the DOS SUBST program allows you to create a new
+  logical drive from an existing drive or directory. For example,
+
+     SUBST H: C:\TURBO
+
+  would allow you to refer to the directory "C:\TURBO" as drive H.
+
+  GetDiskClass is able to recognize both of these situations (though
+  it cannot distinguish between them). When it does, it will return
+  'SubstDrive' as its function result, and it will pass back the
+  letter of the actual drive being used for the specified Drive in
+  SubstDriveChar. In the case of the second example above (involving
+  SUBST), SubstDriveChar would be set to 'C' if the drive parameter
+  were 'H'. Note that SubstDriveChar will always be equal to Drive if
+  the function result is something other than SubstDrive.
+
+  Limitations: GetDiskClass cannot recognize the type of a floppy
+  drive, only the type of the disk that is in it (if any). For
+  example, a 1.2 meg floppy drive will be classified as Floppy360 if
+  it has a 360K disk in it. Also, GetDiskClass does not identify
+  several rarely-used floppy disk types (single-sided floppies, for
+  example).
+
+Declaration
+  procedure SetRawMode(var F : Text; On : Boolean);
+Purpose
+  Set "raw" mode on or off for the specified text file (must be a
+  device).
+Comments
+  This routine allows you to change the mode of a character device
+  (standard input, standard output, standard printer) from "cooked" to
+  "raw" and back again. In cooked mode, DOS expands tabs and
+  interprets control characters such as ^S and ^C when reading from or
+  writing to a character device. In raw mode, all characters are
+  treated as data.
+
+  The F parameter passed to SetRawMode must be an open text file
+  associated with a character device. If F is not a device, it does
+  nothing. I/O errors are reported in Dos.DosError.
+
+  Probably the most common use for this routine is to put the standard
+  printer device into raw mode. This is often necessary in programs
+  that need to pass control character sequences to the printer.
+  Another common use for SetRawMode is to speed up I/O operations
+  involving the standard input or standard output devices. See
+  BSORT.PAS for an example.
+Example
+  uses Printer;
+  ...
+  begin
+    SetRawMode(Lst, True);
+    ...
+    SetRawMode(Lst, False);
+  end.
+
+  Put the printer device in raw mode at beginning of program, and
+  restore cooked mode at the end. In most cases, an exit handler
+  should also be installed, as is done in BSORT, that will restore
+  cooked mode even if the program ends prematurely.
+
+
+8. TPEDIT
+=====================================================================
+The typed constant EditButtonCodes has been changed so that pressing
+both mouse buttons will have the same effect as pressing the <F1> key.
+
+
+9. TPENHKBD
+=====================================================================
+On some machines that have a newer enhanced keyboard BIOS but no
+enhanced keyboard per se, many of the keys promised by TPENHKBD were
+not produced prior to version 5.10. Specifically, any key whose
+scanword equals or exceeds $8500 was ignored.
+
+This is apparently a "feature" of the enhanced keyboard BIOS, where
+INT $16 actually filters keys that it finds in the keyboard buffer
+when the non-enhanced calls are made (AH=0 or AH=1). Fixing it
+requires fooling the BIOS by making the enhanced BIOS calls (AH=$10 or
+AH=$11) even though no enhanced keyboard is actually installed. A new
+interfaced variable
+
+  FiltersEnhanced : Boolean;
+
+is set to True by TPENHKBD if the BIOS exhibits the filtering
+behavior. Our INT $16 handler takes account of the filtering when
+necessary by using the enhanced calls. Note that the test used by
+TPENHKBD to detect the filtering behavior has one side effect: it
+clears the keyboard buffer when the program is initialized.
+
+TPENHKBD has one new routine:
+
+Declaration
+  procedure InitKbdVectors;
+Purpose
+  Save and setup interrupt vectors.
+Comments
+  This routine is intended to be used only in conjunction with
+  RestoreKbdVectors. It is called automatically by TPENHKBD's
+  initialization code, and it must not be called again unless
+  RestoreKbdVectors has been called first. Calling InitKbdVectors
+  without calling RestoreKbdVectors beforehand will result in a system
+  crash the next time that a key is pressed.
+
+  InitKbdVectors is interfaced for one purpose only: to allow you to
+  temporarily restore the interrupt vectors grabbed by TPENHKBD (by
+  calling RestoreKbdVectors) and later reactivate its interrupt
+  handlers.
+
+
+10. TPENTRY
+=====================================================================
+Numerous enhancements have made to TPENTRY since the manual was
+printed. For a complete discussion of these changes, see the file
+TPENTRY.DOC, which is stored in TPSRC1.LZH on the SRC1 disk. PLEASE
+READ THIS FILE BEFORE USING TPENTRY. The DEMOSRC.LZH archive on the
+SRC3 disk also contains a tiny program, BEST.PAS (Big Entry Screen
+Test), which demonstrates some of the new features.
+
+Equally important, TPENTRY.DOC also contains an overview of the data
+entry system implemented in TPENTRY. This overview should be of
+interest even to those already familiar with the system, and it is
+essential reading for anyone who isn't.
+
+
+11. TPHELP
+=====================================================================
+The help compiler MAKEHELP now supports include files, thus making the
+development of large help files easier. The new directive !INCLUDE
+specifies that an include file is to be read:
+
+    !INCLUDE IncludeFileName
+
+MAKEHELP is configured to allow only one level of include file
+nesting. Nesting can easily be increased by changing a constant in the
+MAKEHELP.PAS source code.
+
+MAKEHELP supports two more new directives:
+
+    !WRAP
+    !NOWRAP
+
+!NOWRAP disables the word wrapping that MAKEHELP normally performs.
+Topic help lines are transferred directly from the input text file to
+the binary help file when wrapping is off.
+
+TPHELP has a small new feature which may be very useful in some
+situations. If in a help cross-reference you specify topic number 0,
+then when the user selects this cross-reference, the help index will
+appear. If your users won't think to press <F1> a second time while
+within a help window, this feature will provide the needed reminder.
+Within your help text, you could place the following:
+
+     ^D0^EHelp Index^E
+
+(where the ^D and ^E should be replaced by real control characters.)
+When the user positions the highlight over Help Index and presses
+<Enter>, the help index will appear.
+
+
+12. TPINLINE
+=====================================================================
+TPINLINE has one new routine:
+
+Declaration
+  function SwapNibble(B : Byte) : Byte;
+Purpose
+  This routine swaps the high and low nibbles of B and returns them as
+  the function result. For example, 'SwapNibble($F0)' would return
+  $0F.
+
+
+13. TPINT
+=====================================================================
+The behavior of SwapStackAndCall, SwapStackAndCallNear, and EmulateInt
+has been changed slightly. In versions prior to 5.03, these routines
+modified the state of the interrupts flag, forcing interrupts on at
+certain points and forcing them off at others. All three routines have
+been changed so that the state of the flags is generally maintained
+from beginning to end, although interrupts are always turned off in
+EmulateInt prior to calling the routine pointed to by the IntAddr
+parameter.
+
+
+14. TPINT24
+=====================================================================
+Protected mode restriction: when compiled in protected mode, the
+TPINT24 unit simply uses Borland Pascal's int $24 handler rather than
+installing its own. The Int24Result function calls IoResult and maps
+the error codes it returns to the values normally returned by
+Int24Result. TPINT24 is considered to be an obsolete unit and should
+not be used by new programs.
+
+
+15. TPMACED
+=====================================================================
+A new global variable, MacEdKeypressedPtr, has been added to
+complement MacEdKeyPtr. MacEdKeypressedPtr points to a function of the
+form
+
+  {$F+}
+  function MyKeyPressed : Boolean;
+  begin
+    {return True if a key has been pressed, otherwise false}
+  end;
+  {$F-}
+
+By default the pointer is set to '@TpCrt.KeyPressed'.
+
+Although it is generally safe to perform background tasks within the
+routine pointed to by MacEdKeypressedPtr, the routine must give up
+control as soon as a key has been pressed *or* the keyboard flags
+change. (The status of the keyboard flags can be obtained by calling
+the KbdFlags function in TPCRT.)
+
+
+16. TPMACRO
+=====================================================================
+Protected mode restriction: any program using this unit in protected
+mode must use the CRT or TPCRT units or macro keys will never be
+played back. When CRT/TPCRT is *not* used, keyboard input is obtained
+by making a DOS int $21 call. In this situation, the protected mode
+int $16 handler installed by TPMACRO never receives control.
+
+Three new routines were added to TPMACRO:
+
+Declaration
+  procedure StringToMacro(S : string;
+                          MRP : MacroRecPtr;
+                          MaxKeys : Word);
+Purpose
+  Convert the string S to a macro stored in MRP.
+Comments
+  StringToMacro converts each character of S to the corresponding
+  macro key and stores it in the macro pointed to be MRP. MaxKeys
+  specifies the maximum number of keys that MRP can hold.
+
+Declaration
+  procedure StringToScrapMacro(S : string);
+Purpose
+  Convert the string S to a macro stored in ScrapMacro.
+Comments
+  StringToScrapMacro calls StringToMacro, passing it the address and
+  size of the global variable ScrapMacro.
+
+Declaration
+  procedure SetWaitCount(Count : Byte);
+Purpose
+  Set a wait count that is used between each character of a macro.
+Comments
+  Sets the number of times a KeyPressed function will receive a False
+  response between characters of a macro. The default is 0, so
+  KeyPressed will return True every time, until the macro is fully
+  played back. Use a larger value when playing back macros over a
+  program that seems to "eat" the keys.
+
+
+17. TPMEMO (new unit)
+=====================================================================
+We have added an important new unit called TPMEMO. This unit provides
+a simple text editor that can be used for editing memo fields in
+database records or for editing text files. To demonstrate the use of
+TPMEMO, we have also added a new sample program, MEMO.PAS (a text file
+editor), and modified ENTRY to include an example of a memo field.
+Complete documentation for TPMEMO can be found in TPMEMO.DOC, which is
+installed whenever you install the TPMEMO unit.
+
+
+18. TPMENU
+=====================================================================
+The SetMenuMode and MenuMode routines now select the shadow mode for
+shadowed menus based on the current value of TPWINDOW.ShadowMode.
+
+The following global typed constant has been added.
+
+const
+  MenuItemProc : Pointer = nil;
+
+If this pointer is not nil, it must point to a procedure compiled
+under the FAR model with the following declaration:
+
+  procedure MyMenuItemProc(MKey : MenuKey);
+
+This procedure is then called whenever the current item is changed
+(while MenuChoice or SelectMenuItem is active). By using the menu key
+for identification, the user routine can perform activities such as
+updating help or status information.
+
+Notice the distinction between the user-supplied DisplayFunc and
+MenuItemProc routines. DisplayFunc is called for each and every item,
+current or not, each time it is displayed. MenuItemProc is called
+immediately after the current item of the current submenu is
+displayed.
+
+The declaration for MenuItemProc does not provide information on which
+menu system is active. If an application contains more than one menu
+system, MenuItemProc should be changed prior to calling MenuChoice for
+each system.
+
+Another new typed constant:
+
+const
+  AllowPendingSubmenus: Boolean = False;
+
+When this typed constant is True, the MenuChoice routine "remembers"
+whether to display submenus when the highlight bar is moved from item
+to item. The easiest way to describe this behavior is to use an
+example. Suppose a menu system starts with horizontal submenu that
+contains the items A, B, and C. Also suppose that items A and C each
+have vertical submenus containing some number of items, but that B has
+no submenu. After MenuChoice is called, assume that the user presses
+<Enter> while the highlight bar is over item A, making the vertical
+submenu appear. If the user presses the right arrow key once, the
+highlight bar moves to item B and the submenu disappears because B has
+no submenu. If the right arrow key is pressed once more, the effect of
+AllowPendingSubmenus becomes apparent. When it has the default value
+of False, C's submenu is not automatically displayed. When it is True,
+MenuChoice knows that a submenu was visible previously and
+automatically displays C's submenu.
+
+Another new typed constant:
+
+const
+  SelectOnFirstMouseClick : Boolean = True;
+
+When mouse support is enabled and this constant is True, TPMENU will
+select each menu item as soon as the mouse cursor is positioned over
+that item and the left button is pressed. When the constant is False,
+TPMENU will only reposition the menu highlight bar when the mouse
+button is pressed once. The mouse button must be pressed a second time
+while the mouse cursor is over an already highlighted item in order
+for selection to occur.
+
+The following function is new:
+
+Declaration
+  function GetCurrentMenuKey(Mnu : Menu) : MenuKey;
+Purpose
+  Return the key of the currently selected item.
+Comments
+  If the menu is inactive or not visible, GetCurrentMenuKey returns
+  MaxLongInt. Otherwise it returns the key value for the currently
+  selected item.
+
+
+19. TPMOUSE
+=====================================================================
+The HideMouse and ShowMouse routines have been modified to do nothing
+if MouseInstalled is False. This eliminates the need to check
+MouseInstalled before calling them.
+
+
+20. TPPICK
+=====================================================================
+As of version 5.21, the number of PKSUser constants in TPPICK has been
+increase to 10. New constants added were PKSUser4 through PKSUser9.
+
+As of version 5.21, a new boolean typed constant, PickMouseWindow,
+controls whether the mouse window is restricted to the area of the
+pick list. When this option is True, as it is by default, the mouse
+cannot be moved outside of the pick list while the list is on-screen.
+If the option is set to False, the mouse can be moved around the
+entire screen.
+
+Two major new capabilities have been added to TPPICK. First, TPPICK
+can now display items using any of three different orientations. We
+refer to the orientations as PickVertical, PickHorizontal, and
+PickSnaking. The following diagrams show how the three orientations
+might appear for a 3-row, 3-column list containing the letters A-K.
+
+      PickVertical       PickHorizontal        PickSnaking
+       A   E   I          A   B   C             A   D   G
+       B   F   J          D   E   F             B   E   H
+       C   G   K          G   H   I             C   F   I
+
+PickVertical acts the same as previous versions of TPPICK. Its main
+disadvantage is that the visible sequence is discontinuous when all
+the items won't fit in the pick window (e.g., the letters D and H
+aren't visible in the example). Both PickHorizontal and PickSnaking
+avoid this problem. All of the routines support vertical scrolling. In
+the one-dimensional case (PickMatrix = 1), all orientations act the
+same.
+
+The new orientations are disabled by default, in order to avoid
+breaking existing programs. To use the new orientations, you must
+follow these steps:
+
+  1. Edit TPDEFINE.INC, activate the conditional define
+  EnablePickOrientations, and recompile TPPICK.PAS.
+
+  2. Before you call any other routines from TPPICK, call one of the
+  following routines which set the orientation:
+
+    procedure SetVerticalPick;
+    procedure SetHorizontalPick;
+    procedure SetSnakingPick;
+      {-Select a pick orientation}
+
+  By requiring you to call one of these routines rather than set a
+  typed constant we avoid linking in the code from all of the
+  orientations. Be warned that if you forget to call one of these
+  routines, all the other TPPICK procedures and functions will just
+  exit with an error.
+
+IMPORTANT: Please keep in mind that activating EnablePickOrientations
+indirectly affects two other units as well: TPDIR and TPHELP. Both of
+these units use TPPICK (to display directory lists and help indexes,
+respectively), so if you are using one of them you will need to call
+one of the three routines named above, even if your program does not
+explicitly use TPPICK.
+
+Note that it is possible to use more than one orientation in a given
+program. Just call one of the three routines prior to calling
+PickWindow, FillPickWindow, or PickBar. A new function is provided to
+determine which orientation is currently active:
+
+  function PickOrientation : PickOrientType;
+    {-Return the current pick orientation}
+
+PickOrientType is an enumerated type containing the orientations
+already mentioned, plus one additional value -- PickOrientNone --
+which will be returned if no orientation has been selected.
+
+TPPICK is reentrant, so you can safely change orientations for one
+pick window while another one is already on-screen.
+
+While adding this new capability, we were forced to change the meaning
+of the Row parameter passed to FillPickWindow and PickBar. This
+parameter is now named FirstChoice instead, and it specifies the item
+number which appears in the upper left hand corner of the window.
+Generally, this change won't affect existing programs.
+
+The other new capability allows pick lists with disabled items, i.e.,
+items that the user cannot highlight or select. Such items are useful
+for providing subtitles or white space within a pick list. In order to
+use this capability, you must take several steps.
+
+  1. Edit TPDEFINE.INC, activate the conditional define
+  PickItemDisable, and recompile TPPICK.PAS.
+
+  2. Add an extra video attribute to each PickColorArray, which is now
+  defined as follows:
+
+    PickColorType =
+    (WindowAttr,                    {normal unselected items}
+     FrameAttr,                     {window frame}
+     HeaderAttr,                    {window header}
+     SelectAttr,                    {normal selected item}
+     AltNormal,                     {alternate unselected items}
+     AltHigh                        {alternate selected item}
+     {$IFDEF PickItemDisable}
+     ,
+     UnpickableAttr                 {Color for unpickable item}
+     {$ENDIF}
+     );
+    PickColorArray = array[PickColorType] of Byte;
+
+  3. In your TPPICK string function, set the TPPICK variable Pickable
+  to False whenever it is processing an item that you want to disable.
+  TPPICK automatically reinitializes Pickable to True for each item,
+  so you only need to set it False for disabled items.
+
+Several other minor options have been added to TPPICK.
+
+A new global typed constant, PickSrchStat, has been added to control
+display of the incremental search string in the lower window frame.
+PickSrchStat defaults to True. In this case the current search string
+appears at the lower left edge of the frame. Otherwise, the search
+string is not displayed.
+
+A new global typed constant, PickAlterPageRow, affects the behavior of
+<PgUp> and <PgDn> when the pick list contains more entries than will
+fit in one window. The default state of PickAlterPageRow is True. When
+it is set to False, TPPICK does not change the window-relative row of
+the highlight bar when <PgUp> or <PgDn> cause the items to scroll
+under it, until the first or last page is reached. This behavior is
+useful when the pick list organization assumes fixed page break
+positions. When PickAlterPageRow is True, pressing <PgDn> always moves
+the highlight bar to the last row of the window, and <PgUp> moves it
+to the first row.
+
+A new global typed constant, PickMousePage, affects TPPICK's behavior
+when the left mouse button is pressed while the mouse cursor is in the
+upper left or lower right corner of the pick window. The default state
+of PickMousePage is False. In this case, clicking the mouse makes the
+pick window act just as if an Up or Down arrow key was pressed. When
+PickMousePage is True, clicking makes the pick window act like PgUp or
+PgDn was pressed.
+
+
+21. TPSORT
+=====================================================================
+The FastDispose option for TPSORT does not work reliably with Turbo
+Pascal 6 or 7, nor is it feasible to make it work. For this reason,
+the option is automatically disabled under Turbo Pascal 6 and 7,
+regardless of the setting in TPDEFINE.INC.
+
+
+22. TPTSR
+=====================================================================
+A hotkey may now be an individual key, such as <F1> or <SysReq>. To
+specify a one-key hotkey, set the high byte of the hotkey code to 0.
+For example, the hotkey code for <SysReq> would be $0054.
+
+Although the manual does not mention this fact, it is imperative that
+TPMACRO appear *after* TPTSR in the USES list for a program using both
+units:
+
+  uses ..., TPINT, TPTSR, TPMACRO, ...;
+
+This is because TPINT restores captured interrupt vectors in reverse
+order based on their handle numbers (12, 11, ..., 1), *not* on the
+order in which the vectors were first captured. Normally this doesn't
+matter, because most programs capture a particular vector only once.
+But in cases where the same vector is captured twice--TPMACRO and
+TPTSR both grab interrupt $16--TPINT imposes an undocumented
+requirement that the vectors be captured in handle number order (TPTSR
+uses handle 7 for interrupt $16, TPMACRO uses handle 12).
+
+
+23. TPWINDOW
+=====================================================================
+The following routines, types, and variables have been added to
+TPWINDOW:
+
+Declarations
+
+type
+  ShadowType = (SmallShadow, BigShadow);
+
+Defines how TPWINDOW draws shadows around windows. BigShadow creates a
+see-through shadow, one character high and two characters wide.
+SmallShadow creates an opaque shadow, one-half character high and one
+character wide.
+
+const
+  ShadowMode : ShadowType = BigShadow;
+
+Specifies the kind of shadow to use, when shadows are enabled. This
+value is evaluated during a call to MakeWindow and stored within each
+window record thereafter.
+
+Declaration
+  procedure KillWindow(var W : WindowPtr);
+Purpose
+  Erase and dispose of window no matter where it is.
+Comments
+  If the window W is active, KillWindow finds it in the window stack,
+  erases it, and disposes of it. If W isn't active, KillWindow just
+  disposes of it. The pointer W is set to nil after the call.
+
+  Since KillWindow may call SetTopWindow, it is important that the
+  SaveWindow flag be set True for any windows that may be involved.
+
+Declaration
+  procedure KillTiledWindow(var W : WindowPtr);
+Purpose
+  Erase and dispose of tiled window no matter where it is.
+Comments
+  If the window W is active, KillTiledWindow finds it in the window
+  stack, erases it, and disposes of it. If W isn't active,
+  KillTiledWindow just disposes of it. The pointer W is set to nil
+  after the call.
+
+  This call is valid only for a tiled window system. If there is any
+  overlap between active windows, the screen will be corrupted after
+  calling KillTiledwindow. Use KillWindow for overlapping windows.
+
+
+24. Miscellaneous changes to the manual
+=====================================================================
+- 2-23: The second line of the example should read
+  FastFlush('Hello world!', 1, $F);
+- 2-29: The first line of the first example for FlexWrite should
+  read: const FAttrs : FlexAttrs = ($7, $F, $E, $70);
+- 2-43, 2-60: In the examples for ReadAttribute and WriteAttribute,
+  the line
+    S[I] := Swap(S[I]) and $7F;
+  should read
+    Byte(S[I]) := SwapNibble(Byte(S[I])) and $7F;
+- 2-54: In the example for SetCrtBorder, the last line should read
+     SetCrtBorder(Blue shl 4);
+  The parameter expected is, in other words, a regular video
+  attribute (Blue shl 4 = $10), and not simply a color in the range
+  Black..White.
+- 2-58: The string passed to StuffString should be no longer than 15
+  characters, not 16.
+- 2-85: In the second paragraph under Comments, the last sentence
+  should read "If it won't,...".
+- 2-156: The declaration for HKtype should read
+    HKtype = HKSNone..HKSUser3;
+- 2-238: It should be pointed out that a virtual screen created with
+  TPSCREEN cannot be larger than 64K. More specifically, when
+  calling AllocateScreen, '(Rows * Cols) * 2' must be less than
+  65521. If it isn't, AllocateScreen will return False.
+- 3-48: In the example for ClearEntryWindow, the call to
+  SetEntryWindow should read:
+    SetEntryWindow(ESR, 1, 5, 80, 20, False, TextAttr, TextAttr);
+- 4-2: In the second paragraph, "Int2Str" should be "Long2Str".
+- 4-26: In the third line
+- 4-32: In the third line of the Example, "RealToStr" should be
+  "Real2Str".
+- 5-5: In the Note for DosVersion, the second sentence should read
+  "Unfortunately, it returns the major version in the low byte and
+  the minor version in the high byte--just the opposite of what this
+  routine returns."
+- 5-10: The description of ExistOnPath is a bit misleading. It will
+  not return a full pathname if the file is found in the current
+  directory *or* if the FName parameter specifies a directory. If
+  you need a full pathname, you should call TPString.FullPathname
+  after calling ExistOnPath.
+- 6-17: The compiler directive preceding MyProc is wrong. The
+  example should read:
+    {$F-} {<---- NEAR call}
+    procedure MyProc(var Regs : IntRegisters);
+- 8-17: The first line of the example for ExtMemTotal should read
+    WriteLn(LongInt(ExtMemAvail)*1024, ...
+  Without the typecast to a longint, the value reported will be
+  incorrect if there is more than 64K of extended memory available.
+- 10-15: In the second paragraph under Comments, the first sentence
+  should read "A is a large array previously initialized by TPRARRAY
+  calls" (not TPVARRAY).
+- 10-30: The first example should read
+     LoadA(A, 'STATS.ARR', MaxAvail div 2);
+  (as opposed to "MemAvail div 2").
+

@@ -1,0 +1,1598 @@
+;
+;===========================================================================
+!TOPIC 707 TpMacEd
+TPMACED implements a full-featured macro editor that works with the data
+structures defined in TPMACRO. This specialized editor allows you to easily
+insert, delete, and change the keys in a macro, which are represented as
+strings of one or more characters. The Escape key, for example, is displayed
+as "<Esc>", and the Enter key as "<Enter>", so you don't need to know
+anything about scan codes in order to use it.
+
+      713EditKeys               712MacEdHelpPtr           710MacEdKeypressedPtr
+      709MacEdKeyPtr            711NonMacroKey            708TempMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 708 TempMacro
+!NOINDEX
+var
+  708TpMacEd.TempMacro : 721MacroRec;
+
+Temporary macro used for editing. Note that this is a fairly large variable,
+2004 bytes using the default settings in TPMACRO. Since this variable is
+used only while editing, you may use it as a scrap macro in most situations.
+
+See also: 713EditKeys
+;
+;---------------------------------------------------------------------------
+!TOPIC 709 MacEdKeyPtr
+!NOINDEX
+var
+  708TpMacEd.MacEdKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 710 MacEdKeypressedPtr
+!NOINDEX
+var
+  708TpMacEd.MacEdKeypressedPtr : Pointer;
+
+Pointer to a routine to determine whether a key has been pressed. The
+routine must match the declaration of 195TpCrt.Keypressed and it must be
+declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 711 NonMacroKey
+!NOINDEX
+const
+  708TpMacEd.NonMacroKey = $FFFF;
+
+If this value is passed to 713EditKeys in the Key parameter, no key string is
+displayed in the frame of the edit window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 712 MacEdHelpPtr
+!NOINDEX
+const
+  708TpMacEd.MacEdHelpPtr : Pointer = nil;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 713 EditKeys
+!NOINDEX
+function 708TpMacEd.EditKeys(Key : Word; var Macro : 721MacroRec;
+                          MinCol, MinRow, MaxCol, MaxRow,
+                          Dim, Bright : Byte;
+                          var Modified : Boolean) : MacroRecPtr;
+
+Edit a macro. Key specifies the scan word associated with the macro, and a
+string representation of this key will be displayed in the upper border of
+the edit window unless the special value 711NonMacroKey is passed. Macro
+specifies the initial value of the macro to be edited, but this variable is
+never modified. Instead EditKeys makes a copy of the macro and returns a
+pointer to the edited copy. Modified is set True if the macro was actually
+changed.
+
+MinCol, MinRow, MaxCol, MaxRow specify the window in which editing will
+occur. Dim and Bright are the video attributes used to draw the window
+border and the keys.
+;
+;===========================================================================
+!TOPIC 714 TpMacro
+The TPMACRO unit contains all the low-level routines you should need to add
+keyboard macros to your applications. The term keyboard macros refers to a
+facility that allows you to make a single keystroke do the work of many. You
+can define macros, assign names to them, record them, play them back, save
+them to a file for future use, and retrieve them when they're needed again.
+
+      754Data Structures        755Macro Control
+;
+;---------------------------------------------------------------------------
+!TOPIC 715 MaxMacros
+!NOINDEX
+const
+  714TpMacro.MaxMacros = 100;
+
+The maximum number of macros that TPMACRO can manage at once.
+
+See also: 725MacroPointers  726MacroNames  727DefinedKeys
+;
+;---------------------------------------------------------------------------
+!TOPIC 716 MaxKeysInMacro
+!NOINDEX
+const
+  714TpMacro.MaxKeysInMacro = 1000;
+
+The maximum number of keystrokes in one macro. An extended key, such as
+F1, counts as one keystroke.
+;
+;---------------------------------------------------------------------------
+!TOPIC 717 EndOfMacro
+!NOINDEX
+const
+  714TpMacro.EndOfMacro = $FFFF;
+
+Marker value stored at the end of each macro informs the TPMACRO interrupt
+handler that the macro is complete.
+;
+;---------------------------------------------------------------------------
+!TOPIC 718 Int16Handle
+!NOINDEX
+const
+  714TpMacro.Int16Handle = 12;
+
+TPINT handle number assigned to TPMACRO's interrupt $16 handler.
+;
+;---------------------------------------------------------------------------
+!TOPIC 719 PlaybackDelay
+!NOINDEX
+const
+  714TpMacro.PlaybackDelay : Word = 0;
+
+Milliseconds to delay per keystroke during playback. Increasing this may
+allow TPMACRO to playback macros successfully within ill-behaved
+applications.
+;
+;---------------------------------------------------------------------------
+!TOPIC 720 MacroFileID
+!NOINDEX
+const
+  714TpMacro.MacroFileID : LongInt = $04001087;
+
+Macro file identification code. This value is stored at the beginning of any
+TPMACRO macro file to allow testing its validity.
+
+See also: 737ReadMacroFile  738WriteMacroFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 721 MacroRec
+!NOINDEX
+type
+  714TpMacro.MacroRec =
+    record
+      NumKeys : Word;        {number of keys except the last}
+      KeyArray : array[1..716MaxKeysInMacro] of Word;
+      Overflow : Word;       {may be needed to mark end of macro}
+    end;
+  MacroRecPtr = ^MacroRec;
+
+Data structures used to manage one macro. The KeyArray is always terminated
+with the 717EndOfMacro constant.
+;
+;---------------------------------------------------------------------------
+!TOPIC 722 MacrosAreOn
+!NOINDEX
+var
+  714TpMacro.MacrosAreOn : Boolean;
+
+Set to true when macro processing is enabled.
+
+See also: 740MacrosOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 723 MacroRecording
+!NOINDEX
+var
+  714TpMacro.MacroRecording : Boolean;
+
+Set to True when macro recording is in progress.
+
+See also: 742MacroRecordingOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 724 MacroInProgress
+!NOINDEX
+var
+  714TpMacro.MacroInProgress : Boolean;
+
+Set to True while a macro is being played back.
+
+See also: 744StartMacro  745StartMacroByKey
+;
+;---------------------------------------------------------------------------
+!TOPIC 725 MacroPointers
+!NOINDEX
+var
+  714TpMacro.MacroPointers : array[1..715MaxMacros] of Pointer;
+
+Pointers to defined 721MacroRec's.
+;
+;---------------------------------------------------------------------------
+!TOPIC 726 MacroNames
+!NOINDEX
+var
+  714TpMacro.MacroNames : array[1..715MaxMacros] of Pointer;
+
+Pointers to macro names, which are just strings used to annotate each
+macro.
+;
+;---------------------------------------------------------------------------
+!TOPIC 727 DefinedKeys
+!NOINDEX
+var
+  714TpMacro.DefinedKeys : array[1..715MaxMacros] of Word;
+
+Keystrokes used to activate playback of each defined macro.
+;
+;---------------------------------------------------------------------------
+!TOPIC 728 ScrapMacro
+!NOINDEX
+var
+  714TpMacro.ScrapMacro : 721MacroRec;
+
+Buffer used when recording and reading macros.
+
+See also: 742MacroRecordingOn  737ReadMacroFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 729 ScrapMacroKey
+!NOINDEX
+var
+  714TpMacro.ScrapMacroKey : Word;
+
+Temporary variable used when recording and reading macros.
+
+See also: 728ScrapMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 730 ScrapMacroName
+!NOINDEX
+var
+  714TpMacro.ScrapMacroName : string;
+
+Temporary variable used when recording and reading macros.
+
+See also: 728ScrapMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 731 DefineMacro
+!NOINDEX
+function 714TpMacro.DefineMacro(Key : Word; var Macro) : Boolean;
+
+Define a new macro or delete an existing one. The Macro parameter must be a
+static variable or one previously allocated on the heap. Key specifies the
+keystroke which will start playback of the macro.
+
+See also: 734AllocateMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 732 MacroAddress
+!NOINDEX
+function 714TpMacro.MacroAddress(Key : Word) : Pointer;
+
+Returns a pointer to the macro for Key, or nil if key is not defined.
+
+See also: 747FindMacroIndex
+;
+;---------------------------------------------------------------------------
+!TOPIC 733 MacroCount
+!NOINDEX
+function 714TpMacro.MacroCount : Word;
+
+Returns the number of macros that have been defined.
+;
+;---------------------------------------------------------------------------
+!TOPIC 734 AllocateMacro
+!NOINDEX
+function 714TpMacro.AllocateMacro(Key : Word; var Macro;
+                              var Name : string) : Byte;
+
+Allocates a macro on the heap, and returns one of the following values:
+
+     0 : Macro allocated
+     1 : Macro table full
+     2 : Out of heap space
+     3 : Macro was blank
+
+See also: 731DefineMacro  735DeallocateMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 735 DeallocateMacro
+!NOINDEX
+function 714TpMacro.DeallocateMacro(Key : Word) : Boolean;
+
+If the macro exists, this routine erases it and deallocates its memory.
+Returns False if the macro was not found.
+;
+;---------------------------------------------------------------------------
+!TOPIC 736 AssignMacroName
+!NOINDEX
+function 714TpMacro.AssignMacroName(Key : Word; var Name : string)
+                                : Boolean;
+
+Assign a Name to a macro, deleting the existing name assigned to the macro,
+if any. Returns false if insufficient memory exists or macro not found.
+
+See also: 726MacroNames
+;
+;---------------------------------------------------------------------------
+!TOPIC 737 ReadMacroFile
+!NOINDEX
+function 714TpMacro.ReadMacroFile(FName : string; Merge : Boolean) : Byte;
+
+Read a macro file. If Merge is false, any existing macros are deleted before
+the file is read. Returns one of the following values:
+
+       0 : Success
+     $FE : Out of heap space
+     $FF : Not a valid macro file
+    else : IoResult
+
+See also: 738WriteMacroFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 738 WriteMacroFile
+!NOINDEX
+function 714TpMacro.WriteMacroFile(FName : string) : Byte;
+
+Write a macro file. Returns 0 if successful, else IoResult.
+
+See also: 737ReadMacroFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 739 ClearMacros
+!NOINDEX
+procedure 714TpMacro.ClearMacros;
+
+Deallocates and clears current macros.
+
+See also: 735DeallocateMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 740 MacrosOn
+!NOINDEX
+procedure 714TpMacro.MacrosOn;
+
+Enables macro processing.
+
+See also: 741MacrosOff
+;
+;---------------------------------------------------------------------------
+!TOPIC 741 MacrosOff
+!NOINDEX
+procedure 714TpMacro.MacrosOff;
+
+Disables macro processing.
+
+See also: 740MacrosOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 742 MacroRecordingOn
+!NOINDEX
+procedure 714TpMacro.MacroRecordingOn;
+
+Starts macro recording (into the 728ScrapMacro).
+
+See also: 743MacroRecordingOff
+;
+;---------------------------------------------------------------------------
+!TOPIC 743 MacroRecordingOff
+!NOINDEX
+procedure 714TpMacro.MacroRecordingOff;
+
+Turns macro recording off.
+
+See also: 742MacroRecordingOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 744 StartMacro
+!NOINDEX
+procedure 714TpMacro.StartMacro(Macro : Pointer);
+
+Starts execution of the specified macro. If a macro is already in progress
+it will immediately be replaced by the macro passed.
+
+See also: 745StartMacroByKey  740MacrosOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 745 StartMacroByKey
+!NOINDEX
+procedure 714TpMacro.StartMacroByKey(Key : Word);
+
+Starts execution of the macro attached to key, if any. If a macro is already
+in progress it will immediately be replaced by the macro passed.
+
+See also: 744StartMacro  740MacrosOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 746 RemoveMacros
+!NOINDEX
+procedure 714TpMacro.RemoveMacros;
+
+Restores all interrupt vectors associated with macros.
+
+See also: 748InitMacros
+;
+;---------------------------------------------------------------------------
+!TOPIC 747 FindMacroIndex
+!NOINDEX
+function 714TpMacro.FindMacroIndex(Key : Word) : Word;
+
+Find the array index for the macro assigned to Key. Returns 0 if not found.
+
+See also: 732MacroAddress
+;
+;---------------------------------------------------------------------------
+!TOPIC 748 InitMacros
+!NOINDEX
+function 714TpMacro.InitMacros : Boolean;
+
+Initializes macros. After this routine is called, no macros will be defined
+and both macro processing and macro recording will be turned off. Returns
+false if interrupt $16 cannot be taken over. This routine is called
+automatically by the initialization block of TPMACRO.
+
+See also: 746RemoveMacros
+;
+;---------------------------------------------------------------------------
+!TOPIC 749 CharToMacro
+!NOINDEX
+function 714TpMacro.CharToMacro(MacroChar : Char) : Word;
+
+Converts any ASCII character to a scan code/character representation usable
+in a macro.
+
+See also: 750KeyToString
+;
+;---------------------------------------------------------------------------
+!TOPIC 750 KeyToString
+!NOINDEX
+procedure 714TpMacro.KeyToString(Key : Word; var S : string;
+                              var Special : Boolean);
+
+Returns a string, S, representing a Key. Special is set to False if a simple
+character is being returned, True for an extended keystroke or control
+character.
+
+See also: 749CharToMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 751 StringToMacro
+!NOINDEX
+procedure 714TpMacro.StringToMacro(S : string; MRP : MacroRecPtr;
+                                MaxKeys : Word);
+
+Converts a string S into a macro stored in the MRP^. MaxKeys specifies the
+maximum number of keys that can be stored in the macro.
+
+See also: 0752StringToScrapMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 752 StringToScrapMacro
+!NOINDEX
+procedure 714TpMacro.StringToScrapMacro(S : string);
+
+Converts a string S into a macro and stores it in the global macro ScrapMacro.
+
+See also: 0751StringToMacro
+;
+;---------------------------------------------------------------------------
+!TOPIC 753 SetWaitCount
+!NOINDEX
+procedure 714TpMacro.SetWaitCount(Count : Byte);
+
+Sets the number of times a KeyPressed function will receive a False response
+between characters of a macro. The default is 0, so KeyPressed will return
+True every time, until the macro is fully played back. Use a larger value
+when playing back macros over a program that seems to "eat" the keys.
+;
+;---------------------------------------------------------------------------
+!TOPIC 754 Data Structures
+!NOINDEX
+TPMACRO provides the following constants, types, and variables for
+managing macros:
+
+      727DefinedKeys            717EndOfMacro             718Int16Handle
+      720MacroFileID            724MacroInProgress        726MacroNames
+      725MacroPointers          721MacroRec               723MacroRecording
+      721MacroRecPtr            722MacrosAreOn            716MaxKeysInMacro
+      715MaxMacros              719PlaybackDelay          728ScrapMacro
+      729ScrapMacroKey          730ScrapMacroName
+;
+;---------------------------------------------------------------------------
+!TOPIC 755 Macro Control
+!NOINDEX
+TPMACRO provides the following procedures and functions for defining,
+starting, and stopping macros:
+      734AllocateMacro          736AssignMacroName        749CharToMacro
+      739ClearMacros            735DeallocateMacro        731DefineMacro
+      747FindMacroIndex         748InitMacros             750KeyToString
+      732MacroAddress           733MacroCount             743MacroRecordingOff
+      742MacroRecordingOn       741MacrosOff              740MacrosOn
+      737ReadMacroFile          746RemoveMacros           744StartMacro
+      0753SetWaitCount           745StartMacroByKey        0751StringToMacro
+      0752StringToScrapMacro     738WriteMacroFile
+;
+;===========================================================================
+!TOPIC 756 TpMemChk
+TPMEMCHK is a small unit used by many other Turbo Professional routines. It
+exports only two routines, which allocate and deallocate heap space with
+error checking. These routines work with Turbo Pascal's HeapError facility.
+If your program expects to control heap errors itself, you may need to
+modify TPMEMCHK.
+
+      757GetMemCheck            758FreeMemCheck
+;
+;---------------------------------------------------------------------------
+!TOPIC 757 GetMemCheck
+!NOINDEX
+function 756TpMemChk.GetMemCheck(var P; Bytes : Word) : Boolean;
+
+Allocate heap space, returning true if successful.
+
+See also: 758FreeMemCheck
+;
+;---------------------------------------------------------------------------
+!TOPIC 758 FreeMemCheck
+!NOINDEX
+procedure 756TpMemChk.FreeMemCheck(var P; Bytes : Word);
+
+Deallocate heap space if P is not already nil. Set P to nil on return.
+
+See also: 757GetMemCheck
+;
+;===========================================================================
+!TOPIC 759 TpMemo
+TPMEMO is a unit containing a simple text editor. We envision two primary
+uses for TPMEMO: in conjunction with TPENTRY for editing 'memo fields' in
+database records; or, for editing text files. In this respect and others,
+TPMEMO is quite similar to Borland's Binary Editor (BINED), part of the
+Turbo Pascal Editor Toolbox. But there is one important feature in TPMEMO
+that is lacking in the Binary Editor: word wrap.
+
+      790Data Structures        791Memo Control Routines
+;
+;---------------------------------------------------------------------------
+!TOPIC 760 MaxLineLength
+!NOINDEX
+const
+  759TpMemo.MaxLineLength : Byte = 127;
+
+The longest length allowed for a line in the memo editor. Cannot be larger
+than 127, but may be smaller.
+;
+;---------------------------------------------------------------------------
+!TOPIC 761 Memo Errors
+!NOINDEX
+The following codes may be passed to the 759TpMemo error routine:
+
+const
+  tmBufferFull    = 1;       {edit buffer is full}
+  tmLineTooLong   = 2;       {line too long, CRLF inserted}
+  tmTooManyLines  = 3;       {max line limit would be exceeded}
+  tmOverLineLimit = 4;       {max line limit already exceeded}
+
+See also: 772MemoErrorPtr 782MemoError
+;
+;---------------------------------------------------------------------------
+!TOPIC 762 IndentStartsParagraph
+!NOINDEX
+const
+  759TpMemo.IndentStartsParagraph : Boolean = False;
+
+If True, reformatting routine treats blank space at start of line as
+signalling the start of a new paragraph.
+;
+;---------------------------------------------------------------------------
+!TOPIC 763 DeleteJoinsLines
+!NOINDEX
+const
+  759TpMemo.DeleteJoinsLines : Boolean = False;
+
+If True, pressing Del when beyond the end of the current line will pull up
+the following line, just as CtrlT does.
+;
+;---------------------------------------------------------------------------
+!TOPIC 764 AllowTruncation
+!NOINDEX
+const
+  759TpMemo.AllowTruncation : Boolean = True;
+
+If True, TPMEMO will read files partially, truncating them to fit into the
+edit buffer.
+
+See also: 786ReadMemoFile
+;
+;---------------------------------------------------------------------------
+!TOPIC 765 EMtype
+!NOINDEX
+type
+  759TpMemo.EMtype = EMnone..EMuser19;
+
+Byte values associated with editor commands. See TPMEMO.PAS for all the
+constants associated with this type.
+
+See also: 789MemoKeySet  783AddMemoCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 766 EMbuffer
+!NOINDEX
+type
+  759TpMemo.EMbuffer = array[1..65521] of Char;
+
+Data structure for the largest edit buffer that TPMEMO can manage.
+;
+;---------------------------------------------------------------------------
+!TOPIC 767 EMcontrolBlock
+!NOINDEX
+type
+  759TpMemo.EMcontrolBlock =
+    record
+      UserData : Pointer;    {reserved for user (ID number perhaps)}
+      XL, YL, XH, YH : Byte; {coordinates for edit window}
+      BufPtr : ^766EMbuffer;    {pointer to text buffer}
+      BufSize : Word;        {size of buffer}
+      MaxLines : Integer;    {maximum number of lines}
+      ...
+     end;
+
+Data structure used to manage one edit buffer. The UserData field is
+available for any use by an application.
+
+See also: 779InitControlBlock
+;
+;---------------------------------------------------------------------------
+!TOPIC 768 MemoStatusType
+!NOINDEX
+type
+  759TpMemo.MemoStatusType = (
+    mstOK, mstNotFound, mstInvalidName, mstReadError, mstTooLarge,
+    mstTruncated, mstCreationError, mstWriteError, mstCloseError);
+
+Enumerated type describing the possible outcomes of a call to 786ReadMemoFile
+or 787SaveMemoFile.
+;
+;---------------------------------------------------------------------------
+!TOPIC 769 MemoKeyPtr
+!NOINDEX
+const
+  759TpMemo.MemoKeyPtr : Pointer = nil;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 770 MemoHelpPtr
+!NOINDEX
+const
+  759TpMemo.MemoHelpPtr : Pointer = nil;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 771 MemoStatusPtr
+!NOINDEX
+const
+  759TpMemo.MemoStatusPtr : Pointer = nil;
+
+Pointer to a routine to display an edit status line. The routine must be
+declared far and global and it must match the following declaration:
+
+  procedure StatusRoutine(var EMCB : EMcontrolBlock);
+  begin
+    ...
+  end;
+
+See also: 781MemoStatus
+;
+;---------------------------------------------------------------------------
+!TOPIC 772 MemoErrorPtr
+!NOINDEX
+const
+  759TpMemo.MemoErrorPtr : Pointer = nil;
+
+Pointer to a routine to display edit error messages. The routine must be
+declared far and global and it must match the following declaration:
+
+  procedure ErrorRoutine(var EMCB : EMcontrolBlock; ErrorCode : Word);
+  begin
+    ...
+  end;
+
+See also: 761Memo Errors  782MemoError
+;
+;---------------------------------------------------------------------------
+!TOPIC 773 DisallowedInReadOnlyMode
+!NOINDEX
+const
+  759TpMemo.DisallowedInReadOnlyMode : set of 765EMtype =
+    [EMchar..EMenter, EMrestore, EMback..EMreformatG];
+
+The commands in this set are disallowed in TPMEMO's read-only mode.
+
+See also: 780EditMemo
+;
+;---------------------------------------------------------------------------
+!TOPIC 774 StatusRow
+!NOINDEX
+const
+  759TpMemo.StatusRow : Byte = 2;
+
+Used by the default status routine, 781MemoStatus, this specifies the screen
+row used to display status.
+;
+;---------------------------------------------------------------------------
+!TOPIC 775 StatusAttr
+!NOINDEX
+const
+  759TpMemo.StatusAttr : Byte = $0F;
+
+Used by the default status routine, 781MemoStatus, this specifies the video
+attribute used to display status.
+;
+;---------------------------------------------------------------------------
+!TOPIC 776 ErrorRow
+!NOINDEX
+const
+  759TpMemo.ErrorRow : Byte = 1;
+
+Used by the default error routine, 782MemoError, this specifies the screen row
+used to display error messages.
+;
+;---------------------------------------------------------------------------
+!TOPIC 777 ErrorAttr
+!NOINDEX
+const
+  759TpMemo.ErrorAttr : Byte = $0F;
+
+Used by the default error routine, 782MemoError, this specifies the video
+attribute used to display error messages.
+;
+;---------------------------------------------------------------------------
+!TOPIC 778 MemoMouseEnabled
+!NOINDEX
+const
+  759TpMemo.MemoMouseEnabled : Boolean = False;
+
+True when the mouse has been enabled in TPMEMO.
+
+See also: 784EnableMemoMouse  785DisableMemoMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 779 InitControlBlock
+!NOINDEX
+procedure 759TpMemo.InitControlBlock(
+            var EMCB : 767EMcontrolBlock;       {Control block}
+            XLow, YLow, XHigh, YHigh : Byte; {Window coordinates}
+            TextAttr, CtrlAttr : Byte;       {Video attributes}
+            InsertOn,                        {Insert mode}
+            IndentOn,                        {Autoindent mode}
+            WordWrapOn : Boolean;            {Word wrap mode}
+            TabSize : Byte;                  {Columns per tab}
+            HelpIndex : Word;                {Topic for help}
+            RightMargin : Byte;              {Right margin for word wrap}
+            LineLimit : Integer;             {Maximum lines in memo}
+            BufferSize : Word;               {Size of edit buffer}
+            var Buffer);                     {Buffer to edit in}
+
+Initialize a memo editor control block, EMCB.
+
+See also: 764AllowTruncation  763DeleteJoinsLines 762IndentStartsParagraph
+          760MaxLineLength    772MemoErrorPtr     770MemoHelpPtr
+          769MemoKeyPtr       771MemoStatusPtr
+;
+;---------------------------------------------------------------------------
+!TOPIC 780 EditMemo
+!NOINDEX
+function 759TpMemo.EditMemo(
+           var EMCB : 767EMcontrolBlock;
+           773ReadOnly : Boolean;
+           var CmdList) : 765EMtype;
+
+Edit an initialized buffer. CmdList specifies a list of commands to execute
+initially before reading additional keystrokes from the user. Returns the
+command code used to exit.
+
+See also: 779InitControlBlock
+;
+;---------------------------------------------------------------------------
+!TOPIC 781 MemoStatus
+!NOINDEX
+procedure 759TpMemo.MemoStatus(var EMCB : EMcontrolBlock);
+
+Default routine to display an edit status line.
+
+See also: 771MemoStatusPtr  775StatusAttr  774StatusRow
+;
+;---------------------------------------------------------------------------
+!TOPIC 782 MemoError
+!NOINDEX
+procedure 759TpMemo.MemoError(var EMCB : EMcontrolBlock; ErrorCode : Word);
+
+Default routine to display an edit error message and then wait for a key
+press.
+
+See also: 772MemoErrorPtr  777ErrorAttr  776ErrorRow
+;
+;---------------------------------------------------------------------------
+!TOPIC 783 AddMemoCommand
+!NOINDEX
+function 759TpMemo.AddMemoCommand(Cmd : 765EMtype; NumKeys : Byte;
+                               Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+
+See also: 789MemoKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 784 EnableMemoMouse
+!NOINDEX
+procedure 759TpMemo.EnableMemoMouse;
+
+Enable mouse support in TPMEMO.
+
+See also: 785DisableMemoMouse  778MemoMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 785 DisableMemoMouse
+!NOINDEX
+procedure 759TpMemo.DisableMemoMouse;
+
+Disable mouse support in TPMEMO.
+
+See also: 784EnableMemoMouse  778MemoMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 786 ReadMemoFile
+!NOINDEX
+function 759TpMemo.ReadMemoFile(var Buffer; BufferSize : Word;
+                             FName : string;
+                             var FSize : LongInt) : 768MemoStatusType;
+
+Read a file into a previously allocated Buffer, returning a status code.
+
+See also: 764AllowTruncation
+;
+;---------------------------------------------------------------------------
+!TOPIC 787 SaveMemoFile
+!NOINDEX
+function 759TpMemo.SaveMemoFile(var EMCB : EMcontrolBlock;
+                             FName : string;
+                             MakeBackup : Boolean) : 768MemoStatusType;
+
+Save the the text buffer associated with EMCB to a file. If MakeBackup is
+True, any existing file FName will be renamed to FName.BAK before saving.
+;
+;---------------------------------------------------------------------------
+!TOPIC 788 MemoKeyMax
+!NOINDEX
+const
+  759TpMemo.MemoKeyMax = 250;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPMEMO.
+
+See also: 789MemoKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 789 MemoKeySet
+!NOINDEX
+const
+  759TpMemo.MemoKeySet : array[0..788MemoKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPMEMO.
+
+See also: 783AddMemoCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 790 Data Structures
+!NOINDEX
+TPMEMO provides the following constants, types, and variables for managing
+memos:
+
+      764AllowTruncation        763DeleteJoinsLines       773DisallowedInReadOnlyMode
+      766EMbuffer               767EMcontrolBlock         765EMtype
+      777ErrorAttr              776ErrorRow               762IndentStartsParagraph
+      760MaxLineLength          761Memo Errors            772MemoErrorPtr
+      770MemoHelpPtr            788MemoKeyMax             769MemoKeyPtr
+      789MemoKeySet             778MemoMouseEnabled       768MemoStatusType
+      771MemoStatusPtr          775StatusAttr             774StatusRow
+;
+;---------------------------------------------------------------------------
+!TOPIC 791 Memo Control
+!NOINDEX
+TPMEMO provides the following procedures and functions for managing memos:
+
+      783AddMemoCommand         785DisableMemoMouse       780EditMemo
+      779InitControlBlock       784EnableMemoMouse        782MemoError
+      781MemoStatus             786ReadMemoFile           787SaveMemoFile
+;
+;===========================================================================
+!TOPIC 792 TpMenu
+TPMENU is a collection of routines to reduce the time and drudgery of
+developing sophisticated menu systems. TPMENU easily emulates Lotus and
+Borland menu styles, and lets you define others that fit your fancy. TPMENU
+also provides integral support for the latest techniques: shadowed windows,
+exploding frames, menu hot keys, and selection of items using a mouse.
+
+      854Building Menus         856Getting Choices        857Low-level Access
+      855Menu Data Types        858Menu Libraries         859Menu Properties
+;
+;---------------------------------------------------------------------------
+!TOPIC 793 LotusFrame
+!NOINDEX
+const
+  792TpMenu.LotusFrame = #255#255#255#255#255#255;
+
+When used to specify a frame to 815SubMenu, indicates that no frame will appear.
+
+See also: 794NoFrame
+;
+;---------------------------------------------------------------------------
+!TOPIC 794 NoFrame
+!NOINDEX
+const
+  792TpMenu.NoFrame = LotusFrame;
+
+A synonym for 793LotusFrame, meaning that a submenu will have no frame.
+;
+;---------------------------------------------------------------------------
+!TOPIC 795 NoHelp
+!NOINDEX
+const
+  792TpMenu.NoHelp = 0;
+
+When used to specify a help row to 815SubMenu, indicates that no help will
+appear.
+;
+;---------------------------------------------------------------------------
+!TOPIC 796 HideCursor
+!NOINDEX
+const
+  792TpMenu.HideCursor : Boolean = True;
+
+False to leave hardware cursor visible while menus are displayed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 797 MenuKeyMax
+!NOINDEX
+const
+  792TpMenu.MenuKeyMax = 89;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPMENU.
+
+See also: 798MenuKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 798 MenuKeySet
+!NOINDEX
+const
+  792TpMenu.MenuKeySet : array[0..797MenuKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPMENU.
+
+See also: 833AddMenuCommand  800MKType
+;
+;---------------------------------------------------------------------------
+!TOPIC 799 AllowPendingSubMenus
+!NOINDEX
+const
+  792TpMenu.AllowPendingSubMenus : Boolean = False;
+
+When True, TPMENU remembers that a submenu was pulled down as it traverses
+a parent item that has no submenu.
+;
+;---------------------------------------------------------------------------
+!TOPIC 800 MKType
+!NOINDEX
+type
+  792TpMenu.MKType = MKSNone..MKSUser3;
+
+Byte values associated with menu commands. See TPMENU.IN0 or the Turbo
+Professional manual for all the constants associated with this type.
+
+See also: 833AddMenuCommand  809MenuCmdNum
+;
+;---------------------------------------------------------------------------
+!TOPIC 801 MenuStatusType
+!NOINDEX
+type
+  792TpMenu.MenuStatusType =
+   (MenuSuccess,             {Operation successful}
+    MenuNoMem,               {Insufficient memory}
+    MenuFileNotFound,        {Menu library file not found}
+    MenuNotLibraryFile,      {File is not a library file}
+    MenuIdNotFound,          {Specified library element not found}
+    MenuFileReadError,       {Error while reading menu file}
+    MenuFileWriteError,      {Error while writing menu file}
+    MenuFileCreationError,   {Unable to create library file}
+    MenuFileCorrupt,         {Menu file is corrupt}
+    MenuLibraryFull);        {No room in library index to add a new entry}
+
+Status of a menu operation. A variable of this type is returned by the
+function 812MenuStatus.
+;
+;---------------------------------------------------------------------------
+!TOPIC 802 MenuCharSet
+!NOINDEX
+type
+  792TpMenu.MenuCharSet = set of Char;
+
+A type used to manage the user-defined set of keys that can exit a menu
+system.
+
+See also: 813NewMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 803 MenuKey
+!NOINDEX
+type
+  792TpMenu.MenuKey = LongInt;
+
+A type that defines what each menu selection returns as identification.
+
+See also: 826MenuChoice
+;
+;---------------------------------------------------------------------------
+!TOPIC 804 Orientation
+!NOINDEX
+type
+  792TpMenu.Orientation = (Vertical, Horizontal, NoOrient);
+
+Which direction scrolling proceeds in a given submenu.
+
+See also: 815SubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 805 MenuColorArray
+!NOINDEX
+type
+  792TpMenu.MenuColorType =
+   (FrameColor,              {Color used for menu frames}
+    HeaderColor,             {Color used for header string within frame}
+    BodyColor,               {Color used for body of menu}
+    SelectColor,             {Color used for the selected item}
+    HiliteColor,             {Color used for each item's pick character}
+    HelpColor                {Color used for help row, if any}
+    DisabledColor,           {Color used for temporarily disabled items}
+    ShadowColor);            {Color used for menu shadows}
+  MenuColorArray = array[MenuColorType] of Byte;
+
+The video attributes associated with a menu system.
+;
+;---------------------------------------------------------------------------
+!TOPIC 806 Menu
+!NOINDEX
+type
+  792TpMenu.MenuRec =
+    record
+      Root : SubMenuP;       {Root of menu}
+      Active : SubMenuP;     {Currently active submenu}
+      Stack : MenuStackP;    {Points to stack of active menus}
+      UserFunc : Pointer;    {Points to user-supplied function}
+      SelectKeys : MenuCharSet; {User-defined keys to perform selection}
+      Visible : Boolean;     {True when menus are onscreen}
+      SubPending : Boolean;  {True when submenu will pop down automatically}
+    end;
+  Menu = ^MenuRec;
+
+The fundamental data type used to manage menu systems.
+;
+;---------------------------------------------------------------------------
+!TOPIC 807 MenuGetKeyPtr
+!NOINDEX
+var
+  792TpMenu.MenuGetKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 808 MenuHelpPtr
+!NOINDEX
+var
+  792TpMenu.MenuHelpPtr : Pointer;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 809 MenuCmdNum
+!NOINDEX
+var
+  792TpMenu.MenuCmdNum : 800MKType;
+
+Last menu command entered.
+;
+;---------------------------------------------------------------------------
+!TOPIC 810 MenuMouseEnabled
+!NOINDEX
+var
+  792TpMenu.MenuMouseEnabled : Boolean;
+
+True when the mouse has been enabled in TPMENU.
+
+See also: 840EnableMenuMouse  841DisableMenuMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 811 CheckMenuStatus
+!NOINDEX
+procedure 792TpMenu.CheckMenuStatus(Mstatus : 801MenuStatusType);
+
+Check menu status, report and halt on any error. The parameter Mstatus can
+be obtained by a call to the function 812MenuStatus.
+;
+;---------------------------------------------------------------------------
+!TOPIC 812 MenuStatus
+!NOINDEX
+function 792TpMenu.MenuStatus : 801MenuStatusType;
+
+Return status of the previous menu operation.
+;
+;---------------------------------------------------------------------------
+!TOPIC 813 NewMenu
+!NOINDEX
+function 792TpMenu.NewMenu(SelectKeys : 802MenuCharSet;
+                        UserFunc : Pointer) : 806Menu;
+
+Initialize a new menu system by returning a pointer to a new menu, or nil if
+error. SelectKeys is a set of characters that when pressed will cause the
+menu system to exit immediately. If UserFunc is not nil, it must point to a
+routine declared both far and global, and matching the following
+declaration:
+
+  function DisplayFunc(S : string; K : 803MenuKey) : string;
+  begin
+    ...
+  end;
+
+This routine may be used to customize the appearance of each menu item.
+
+See also: 824DisposeMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 814 SetMenuSelectKeys
+!NOINDEX
+procedure 792TpMenu.SetMenuSelectKeys(Mnu : Menu;
+                                   Skeys : 802MenuCharSet);
+
+Change the select key set of existing menu system.
+
+See also: 813NewMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 815 SubMenu
+!NOINDEX
+procedure 792TpMenu.SubMenu(
+            XLP, YLP : Byte;          {Coordinates of submenu}
+            YhelpP : Byte;            {Row for help line, if any}
+            OrientP : 804Orientation;    {Orientation of submenu}
+            FrameP : 114FrameArray;      {Frame type for submenu}
+            ColorsP : 805MenuColorArray; {Color set}
+            HeaderStr : string);      {String to appear in header}
+
+Add a submenu to the current item of a menu system.
+
+See also: 794NoFrame  795NoHelp
+;
+;---------------------------------------------------------------------------
+!TOPIC 816 PopSubLevel
+!NOINDEX
+procedure 792TpMenu.PopSubLevel;
+
+Pop active menu from top of menu stack, in order to indicate that a submenu
+has been completely defined.
+
+See also: 815SubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 817 MenuItem
+!NOINDEX
+procedure 792TpMenu.MenuItem(
+            NameStr : string;   {Name of item}
+            DisplayPosP : Byte; {Offset to start of item}
+            SelectPosP : Byte;  {Position within NameStr to highlight}
+            KeyP : 803MenuKey;     {Key to return when item is selected}
+            HelpStr : string);  {Help string for item}
+
+Add an item to the current submenu. Name space is allocated on heap.
+
+See also: 821MenuItemPtr
+;
+;---------------------------------------------------------------------------
+!TOPIC 818 MenuWidth
+!NOINDEX
+procedure 792TpMenu.MenuWidth(Width : Byte);
+
+Set width of the submenu currently being built.
+
+See also: 819MenuHeight
+;
+;---------------------------------------------------------------------------
+!TOPIC 819 MenuHeight
+!NOINDEX
+procedure 792TpMenu.MenuHeight(Height : Byte);
+
+Set height of the submenu currently being built.
+
+See also: 818MenuWidth
+;
+;---------------------------------------------------------------------------
+!TOPIC 820 MenuMode
+!NOINDEX
+procedure 792TpMenu.MenuMode(Explode, Shadow, Noise : Boolean);
+
+Set mode of the submenu currently being built. Mode determines whether the
+submenu explodes onto the screen, whether it is shadowed, and whether the
+explosion is accompanied by sound effects.
+
+See also: 823SetMenuDelay
+;
+;---------------------------------------------------------------------------
+!TOPIC 821 MenuItemPtr
+!NOINDEX
+procedure 792TpMenu.MenuItemPtr(
+            NamePtr : Pointer;  {Pointer to name of item}
+            DisplayPosP : Byte; {Offset to start of item}
+            SelectPosP : Byte;  {Position within NameStr to highlight}
+            KeyP : 803MenuKey;     {Key to return when item is selected}
+            HelpPtr : Pointer); {Pointer to help for item}
+
+Add an item to the current submenu of. Name space is NOT allocated on heap.
+
+See also: 817MenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 822 SetMenuMode
+!NOINDEX
+procedure 792TpMenu.SetMenuMode(Mnu : Menu;
+                             Explode, Shadow, Noise : Boolean);
+
+Change display mode of an entire menu system.
+
+See also: 820MenuMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 823 SetMenuDelay
+!NOINDEX
+procedure 792TpMenu.SetMenuDelay(Mnu : Menu; ExpDelay : Word);
+
+Change explosion delay for entire menu system.
+
+See also: 822SetMenuMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 824 DisposeMenu
+!NOINDEX
+procedure 792TpMenu.DisposeMenu(Mnu : Menu);
+
+Dispose of heap space for entire menu system.
+
+See also: 827EraseMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 825 ResetMenu
+!NOINDEX
+procedure 792TpMenu.ResetMenu(Mnu : Menu);
+
+Set selections of all submenus to the first item.
+
+See also: 831SelectMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 826 MenuChoice
+!NOINDEX
+function 792TpMenu.MenuChoice(Mnu : Menu; var SelectKey : Char)
+                           : 803MenuKey;
+
+Display menu system, let user browse it, return MenuKey of selected item and
+keystroke used to select it. Leaves menu visible on screen.
+
+See also: 837GetCurrentMenuKey  831SelectMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 827 EraseMenu
+!NOINDEX
+procedure 792TpMenu.EraseMenu(Mnu : Menu; ResetSelections : Boolean);
+
+Erase active menus from the screen, reset selections to first item of each
+submenu if desired.
+
+See also: 829EraseMenuOntoStack  828EraseCurrentSubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 828 EraseCurrentSubMenu
+!NOINDEX
+procedure 792TpMenu.EraseCurrentSubMenu(Mnu : Menu);
+
+Erase just the currently displayed submenu.
+
+See also: 827EraseMenu  829EraseMenuOntoStack
+;
+;---------------------------------------------------------------------------
+!TOPIC 829 EraseMenuOntoStack
+!NOINDEX
+procedure 792TpMenu.EraseMenuOntoStack(Mnu : Menu;
+                                    var TStack : MenuStackP);
+
+Erase a menu system, saving the path of current selection on a stack.
+Redisplay the menu system using 830DrawMenuFromStack.
+;
+;---------------------------------------------------------------------------
+!TOPIC 830 DrawMenuFromStack
+!NOINDEX
+procedure 792TpMenu.DrawMenuFromStack(Mnu : Menu;
+                                   var TStack : MenuStackP);
+
+Draw a menu system using a stack of items previously saved by
+829EraseMenuOntoStack.
+;
+;---------------------------------------------------------------------------
+!TOPIC 831 SelectMenuItem
+!NOINDEX
+procedure 792TpMenu.SelectMenuItem(Mnu : Menu; MKey : MenuKey);
+
+Visibly update the menu system to select item MKey.
+;
+;---------------------------------------------------------------------------
+!TOPIC 832 RedrawMenu
+!NOINDEX
+procedure 792TpMenu.RedrawMenu(Mnu : Menu);
+
+Erase and redraw the entire menu system, including all active submenus.
+
+See also: 839DisableMenuItem  838EnableMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 833 AddMenuCommand
+!NOINDEX
+function 792TpMenu.AddMenuCommand(Cmd : 800MKType; NumKeys : Byte;
+                               Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+
+See also: 798MenuKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 834 GetMenuItemName
+!NOINDEX
+function 792TpMenu.GetMenuItemName(Mnu : Menu; MKey : 803MenuKey;
+                                var Name : string) : Boolean;
+
+Return the string describing the specified menu item. The function value is
+True if the item exists and False if it does not.
+
+See also: 835SetMenuItemName
+;
+;---------------------------------------------------------------------------
+!TOPIC 835 SetMenuItemName
+!NOINDEX
+function 792TpMenu.SetMenuItemName(Mnu : Menu; MKey : 803MenuKey;
+                                NewName : string) : Boolean;
+
+Change the string describing the specified menu item to the new string. The
+new string is forced to be the same length as the old, either by truncation
+or by padding with blanks. Returns False if the item is not found.
+
+See also: 834GetMenuItemName
+;
+;---------------------------------------------------------------------------
+!TOPIC 836 FindMenuItem
+!NOINDEX
+function 792TpMenu.FindMenuItem(Mnu : Menu; MKey : MenuKey;
+                             var Item : ItemP) : Boolean;
+
+Search for item MKey, returning True and pointer to item if found.
+;
+;---------------------------------------------------------------------------
+!TOPIC 837 GetCurrentMenuKey
+!NOINDEX
+function 792TpMenu.GetCurrentMenuKey(Mnu : Menu) : MenuKey;
+
+Return the key of the currently selected item.
+;
+;---------------------------------------------------------------------------
+!TOPIC 838 EnableMenuItem
+!NOINDEX
+procedure 792TpMenu.EnableMenuItem(Mnu : Menu; MKey : MenuKey);
+
+Allow the user to select the specified menu item, i.e., unprotect it.
+
+See also: 839DisableMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 839 DisableMenuItem
+!NOINDEX
+procedure 792TpMenu.DisableMenuItem(Mnu : Menu; MKey : MenuKey);
+
+Prevent the user from selecting the specified item, i.e., protect it.
+
+See also: 838EnableMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 840 EnableMenuMouse
+!NOINDEX
+procedure 792TpMenu.EnableMenuMouse;
+
+Enable mouse control of menus.
+
+See also: 841DisableMenuMouse  810MenuMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 841 DisableMenuMouse
+!NOINDEX
+procedure 792TpMenu.DisableMenuMouse;
+
+Disable mouse control of menus.
+
+See also: 840EnableMenuMouse  810MenuMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 842 WriteMenuLib
+!NOINDEX
+procedure 792TpMenu.WriteMenuLib(Mnu : Menu; Fname : string; ID : string);
+
+Write a menu system to a library contained in file Fname, giving it the
+identifier ID.
+
+See also: 843ReadMenuLib  812MenuStatus
+;
+;---------------------------------------------------------------------------
+!TOPIC 843 ReadMenuLib
+!NOINDEX
+function 792TpMenu.ReadMenuLib(Fname : string; ID : string;
+                            UserFunc : Pointer) : Menu;
+
+Read a menu system from a menu library contained in file Fname with the
+identifier ID.
+
+See also: 842WriteMenuLib  812MenuStatus
+;
+;---------------------------------------------------------------------------
+!TOPIC 844 PackMenuLib
+!NOINDEX
+procedure 792TpMenu.PackMenuLib(Iname, Oname : string);
+
+Remove obsolete entries from menu library Iname, creating Oname, which must
+be a different file.
+;
+;---------------------------------------------------------------------------
+!TOPIC 845 ClearWindow
+!NOINDEX
+procedure 792TpMenu.ClearWindow(XL, YL, XH, YH, Attr : Byte);
+
+Clear a region of the screen using the specified video attribute.
+;
+;---------------------------------------------------------------------------
+!TOPIC 846 DrawFrame
+!NOINDEX
+procedure 792TpMenu.DrawFrame(XL, YL, XH, YH, Attr : Byte;
+                           Frame : FrameArray);
+
+Draw a frame around a region of the screen.
+;
+;---------------------------------------------------------------------------
+!TOPIC 847 PushSubMenu
+!NOINDEX
+procedure 792TpMenu.PushSubMenu(Mnu : Menu; SubMnu : SubMenuP);
+
+Push submenu onto active stack of the menu system.
+
+See also: 848PopSubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 848 PopSubMenu
+!NOINDEX
+procedure 792TpMenu.PopSubMenu(Mnu : Menu);
+
+Pop submenu from active stack of the menu system.
+
+See also: 847PushSubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 849 DisposeSubMenu
+!NOINDEX
+procedure 792TpMenu.DisposeSubMenu(var SubMnu : SubMenuP);
+
+Deallocate heap space of submenu and its children.
+
+See also: 824DisposeMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 850 DrawItem
+!NOINDEX
+procedure 792TpMenu.DrawItem(SubMnu : SubMenuP; Item : ItemP;
+                          813UserFunc : Pointer);
+
+Draw one item in a submenu.
+;
+;---------------------------------------------------------------------------
+!TOPIC 851 DrawSubMenu
+!NOINDEX
+procedure 792TpMenu.DrawSubMenu(SubMnu : SubMenuP;
+                             813UserFunc : Pointer);
+
+Draw a specified submenu.
+;
+;---------------------------------------------------------------------------
+!TOPIC 852 EraseSubMenu
+!NOINDEX
+procedure 792TpMenu.EraseSubMenu(SubMnu : SubMenuP);
+
+Erase a specified submenu.
+
+See also: 828EraseCurrentSubMenu  827EraseMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 853 MenuItemProc
+!NOINDEX
+const
+  792TpMenu.MenuItemProc : Pointer = nil;
+
+If not nil, points to a routine called each time the menu select bar moves.
+The routine must be declared far and global, and must match the following
+declaration:
+
+  procedure MarkMenuItem(Key : MenuKey);
+  begin
+    ...
+  end;
+;
+;---------------------------------------------------------------------------
+!TOPIC 854 Building Menus
+!NOINDEX
+TPMENU provides the following routines to build and dispose of menu systems
+dynamically:
+
+      824DisposeMenu            817MenuItem               821MenuItemPtr
+      813NewMenu                816PopSubLevel            815SubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 855 Menu Data Types
+!NOINDEX
+TPMENU interfaces the following constants, types, and variables for
+managing menu systems:
+
+      793LotusFrame             806Menu                   802MenuCharSet
+      809MenuCmdNum             805MenuColorArray         805MenuColorType
+      807MenuGetKeyPtr          808MenuHelpPtr            803MenuKey
+      797MenuKeyMax             798MenuKeySet             810MenuMouseEnabled
+      806MenuRec                801MenuStatusType         800MKType
+      794NoFrame                795NoHelp                 804Orientation
+;
+;---------------------------------------------------------------------------
+!TOPIC 856 Getting Choices
+!NOINDEX
+TPMENU provides the following routines for displaying and erasing menus, and
+getting menu choices from the user:
+
+      811CheckMenuStatus        830DrawMenuFromStack      828EraseCurrentSubMenu
+      827EraseMenu              829EraseMenuOntoStack     837GetCurrentMenuKey
+      826MenuChoice             812MenuStatus             832RedrawMenu
+      825ResetMenu              831SelectMenuItem
+;
+;---------------------------------------------------------------------------
+!TOPIC 857 Low-level Access
+!NOINDEX
+TPMENU interfaces the following routines which, although for the primary use
+of MAKEMENU, may be helpful in advanced applications.
+
+      845ClearWindow            849DisposeSubMenu         846DrawFrame
+      850DrawItem               851DrawSubMenu            852EraseSubMenu
+      836FindMenuItem           848PopSubMenu             847PushSubMenu
+;
+;---------------------------------------------------------------------------
+!TOPIC 858 Menu Libraries
+!NOINDEX
+TPMENU provides the following routines for storing menu systems in library
+files:
+
+      844PackMenuLib            843ReadMenuLib            842WriteMenuLib
+;
+;---------------------------------------------------------------------------
+!TOPIC 859 Menu Properties
+!NOINDEX
+TPMENU provides the following routines and variables for controlling the
+properties of menu systems:
+
+      833AddMenuCommand         799AllowPendingSubMenus   839DisableMenuItem
+      841DisableMenuMouse       838EnableMenuItem         840EnableMenuMouse
+      834GetMenuItemName        796HideCursor             819MenuHeight
+      853MenuItemProc           820MenuMode               818MenuWidth
+      823SetMenuDelay           835SetMenuItemName        822SetMenuMode
+      814SetMenuSelectKeys

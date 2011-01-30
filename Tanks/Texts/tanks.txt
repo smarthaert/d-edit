@@ -1,0 +1,88 @@
+; Описание типов танков
+
+Tank Tiger          ; Танк типа 1
+MaxHits 5
+Armor 50
+Weapon1 Snarad1
+Upgrade Tiger2 
+Speed 300
+FireDelay 5000
+
+Tank Tiger2
+MaxHits 340
+Armor 70
+Weapons
+
+Tank Player
+MaxHits 100
+Armor 30
+Weapon1 DuelSnarad
+Speed 250
+Upgrade Player1U
+
+Tank Player2
+MaxHits 100
+Armor 30
+Weapon1 DuelSnarad
+Speed 250
+Upgrade Player21U
+
+Tank Player1U
+MaxHits 150
+Armor 30
+Weapon1 DuelSnaradUpg
+Speed 250
+Upgrade Player2U
+
+Tank Player21U
+MaxHits 150
+Armor 30
+Weapon1 DuelSnaradUpg
+Speed 250
+Upgrade Player22U
+
+Tank Player2U
+MaxHits 230
+Armor 30
+Weapon1 DuelSnarad2Upg
+Speed 250
+
+Tank Player22U
+MaxHits 230
+Armor 30
+Weapon1 DuelSnarad2Upg
+Speed 250
+
+Tank Enemy
+MaxHits 50
+Armor 70
+Weapon1 Enemy
+FireDelay 250
+Speed 100
+RndPart 25
+
+Tank FatEnemy
+MaxHits 250
+Armor 70
+Weapon1 Devastator
+FireDelay 150
+Speed 25
+RndPart 25
+
+Tank Jeep
+MaxHits 30
+Speed 150
+Weapon1 OneBigRocket
+RndPart 20
+
+Tank Machinegun
+MaxHits 100
+Speed 50
+Weapon1 Machinegun
+RndPart 20
+
+Tank Bigcannon
+MaxHits 100
+Speed 80
+Weapon1 Bigcannon
+RndPart 20

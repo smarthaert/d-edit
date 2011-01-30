@@ -1,0 +1,1554 @@
+;
+;===========================================================================
+!TOPIC 1023 TpSort
+TPSORT provides a sort routine that is fast and easy to use. With it, you
+can sort up to 65,535 data elements of any type. All elements must fit into
+normal memory, however, since paging to disk is not supported. The TPSORT
+unit is quite compact, using less than 2000 bytes of code space. It
+implements a non-recursive quicksort that also minimizes use of stack space.
+
+      1026ElementsSorted         1028GetElement             1024MaxElements
+      1027PutElement             1029Sort                   1025SortStatus
+;
+;---------------------------------------------------------------------------
+!TOPIC 1024 MaxElements
+!NOINDEX
+const
+  1023TpSort.MaxElements = 65535;
+
+Absolute maximum number of elements that can be sorted.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1025 SortStatus
+!NOINDEX
+type
+  1023TpSort.SortStatus =
+    (SortSuccess,          {Successful sort}
+     SortOutOfMemory,      {Insufficient memory}
+     SortTooManyElements); {Attempt to sort more elements than requested}
+
+Enumerated type describing the possible outcomes of a sort.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1026 ElementsSorted
+!NOINDEX
+var
+  1023TpSort.ElementsSorted : Word;
+
+Contains the actual number of elements sorted after a 1029sort is complete.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1027 PutElement
+!NOINDEX
+function 1023TpSort.PutElement(var X) : Boolean;
+
+Put a sort element into the sort array. To be called within the
+"GetElements" user routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1028 GetElement
+!NOINDEX
+function 1023TpSort.GetElement(var X) : Boolean;
+
+Get next element from the sorted array. To be called within the
+"PutElements" user routine.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1029 Sort
+!NOINDEX
+function 1023TpSort.Sort(
+           Elements : Word;       {Maximum number of elements to sort}
+           ElementSize : Word;    {Size of each element, 0 for strings}
+           GetElements : Pointer; {Function to load elements}
+           LessFunc : Pointer;    {Function to compare two elements}
+           PutElements : Pointer  {Function to return sorted elements}
+           ) : 1025SortStatus;        {Status of sort}
+
+Sort a group of elements. The three pointers must point to user-supplied
+routines which have been compiled far and global, and which match the
+following declarations:
+
+  procedure GetElements;
+  procedure PutElements;
+  function Less(var X, Y) : Boolean;
+
+See also: 1028GetElement  1027PutElement
+;
+;===========================================================================
+!TOPIC 1030 TpStrdev
+The tiny TPSTRDEV unit serves a single function: it allows you to use the
+power of the Write statement to create formatted strings, without sending
+the output to a file. This ability is particularly useful if you are using
+the FastWrite routine in TPCRT, which won't accept a number as a parameter,
+and won't pad strings with blanks.
+
+      1032ReadStr                1033ReturnStr              1031TPStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 1031 TPStr
+!NOINDEX
+var
+  1030TpStrDev.TPStr : Text;
+
+Text file used to manage TPSTRDEV device driver. Automatically opened in
+TPSTRDEV's initialization block. Strings are formatted using TPStr by
+statements like
+
+   Write(TPStr, ANumber:4);
+   Write(TPStr, AReal:10:4);
+   Write(TPStr, AString:13);
+;
+;---------------------------------------------------------------------------
+!TOPIC 1032 ReadStr
+!NOINDEX
+procedure 1030TpStrDev.ReadStr(var S : string);
+
+'Read' a string into S from the TPSTRDEV string buffer and clear the string
+buffer.
+
+See also: 1033ReturnStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 1033 ReturnStr
+!NOINDEX
+function 1030TpStrDev.ReturnStr : string;
+
+Return the contents of the TPSTRDEV string buffer and clear the string
+buffer.
+
+See also: 1032ReadStr
+;
+;===========================================================================
+!TOPIC 1034 TpString
+The TPSTRING unit consists primarily of general purpose string manipulation
+routines. Also notable is a complete set of routines for massaging DOS file
+and path names, which allow you to add and remove extensions and path
+identifiers, and clean up filenames with extraneous characters. TPSTRING
+also includes routines to search large arrays for the location of a
+specified string. One of the most flexible routines in the unit is Form,
+which allows flexible formatting of real numbers.
+
+      1101DOS Pathnames          1102Dynamic Allocation     1103General Purpose
+      1104Numeric Conversion     1105Searching/Comparison
+;
+;---------------------------------------------------------------------------
+!TOPIC 1035 CharSet
+!NOINDEX
+type
+  1034TpString.CharSet = set of Char;
+
+General data type for sets of Char.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1036 CompareType
+!NOINDEX
+type
+  1034TpString.CompareType = (Less, Equal, Greater);
+
+Enumerated type for values returned by string comparison functions.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1037 BTable
+!NOINDEX
+type
+  1034TpString.BTable = array[0..255] of Byte;
+
+Data type used to hold search links for Boyer-Moore searching.
+
+See also: 1084BMMakeTable
+;
+;---------------------------------------------------------------------------
+!TOPIC 1038 LetterValues
+!NOINDEX
+const
+  1034TpString.LetterValues : array['A'..'Z'] of Byte = (...);
+
+Constant used by 1089CompareLetterSets for estimating word similarity.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1039 MoneySign
+!NOINDEX
+const
+  1034TpString.MoneySign : Char = '$';
+
+Character used by 1057Form for floating dollar sign.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1040 CommaForPeriod
+!NOINDEX
+const
+  1034TpString.CommaForPeriod : Boolean = False;
+
+If True, then replace '.' with ',' in 1057Form output strings.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1041 HexB
+!NOINDEX
+function 1034TpString.HexB(B : Byte) : string;
+
+Return two character hex string for Byte.
+
+See also: 1042HexW  1043HexL
+;
+;---------------------------------------------------------------------------
+!TOPIC 1042 HexW
+!NOINDEX
+function 1034TpString.HexW(W : Word) : string;
+
+Return four character hex string for Word.
+
+See also: 1041HexB  1043HexL
+;
+;---------------------------------------------------------------------------
+!TOPIC 1043 HexL
+!NOINDEX
+function 1034TpString.HexL(L : LongInt) : string;
+
+Return eight character hex string for LongInt.
+
+See also: 1041HexB  1042HexW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1044 HexPtr
+!NOINDEX
+function 1034TpString.HexPtr(P : Pointer) : string;
+
+Return nine character (ssss:oooo) hex string for Pointer.
+
+See also: 1043HexL
+;
+;---------------------------------------------------------------------------
+!TOPIC 1045 BinaryB
+!NOINDEX
+function 1034TpString.BinaryB(B : Byte) : string;
+
+Return eight character binary string for Byte.
+
+See also: 1047BinaryL  1046BinaryW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1046 BinaryW
+!NOINDEX
+function 1034TpString.BinaryW(W : Word) : string;
+
+Return sixteen character binary string for Word.
+
+See also: 1045BinaryB  1047BinaryL
+;
+;---------------------------------------------------------------------------
+!TOPIC 1047 BinaryL
+!NOINDEX
+function 1034TpString.BinaryL(L : LongInt) : string;
+
+Return 32 character binary string for LongInt.
+
+See also: 1045BinaryB  1046BinaryW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1048 OctalB
+!NOINDEX
+function 1034TpString.OctalB(B : Byte) : string;
+
+Return two character octal string for Byte.
+
+See also: 1050OctalL  1049OctalW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1049 OctalW
+!NOINDEX
+function 1034TpString.OctalW(W : Word) : string;
+
+Return six character octal string for Word.
+
+See also: 1048OctalB  1050OctalL
+;
+;---------------------------------------------------------------------------
+!TOPIC 1050 OctalL
+!NOINDEX
+function 1034TpString.OctalL(L : LongInt) : string;
+
+Return eleven character octal string for LongInt.
+
+See also: 1048OctalB  1049OctalW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1051 Str2Int
+!NOINDEX
+function 1034TpString.Str2Int(S : string; var I : Integer) : Boolean;
+
+Convert a string to an Integer, returning True if successful.
+
+See also: 1053Str2Long  1054Str2Real  1052Str2Word
+;
+;---------------------------------------------------------------------------
+!TOPIC 1052 Str2Word
+!NOINDEX
+function 1034TpString.Str2Word(S : string; var I : Word) : Boolean;
+
+Convert a string to a Word, returning True if successful.
+
+See also: 1051Str2Int  1053Str2Long  1054Str2Real
+;
+;---------------------------------------------------------------------------
+!TOPIC 1053 Str2Long
+!NOINDEX
+function 1034TpString.Str2Long(S : string; var I : LongInt) : Boolean;
+
+Convert a string to a LongInt, returning True if successful.
+
+See also: 1051Str2Int  1054Str2Real  1052Str2Word
+;
+;---------------------------------------------------------------------------
+!TOPIC 1054 Str2Real
+!NOINDEX
+function 1034TpString.Str2Real(S : string; var R : Float) : Boolean;
+
+Convert a string to a Float, returning True if successful. (A Float is
+either a Real or an Extended, depending on the $N+ compiler directive.)
+
+See also: 1051Str2Int  1053Str2Long  1052Str2Word
+;
+;---------------------------------------------------------------------------
+!TOPIC 1055 Long2Str
+!NOINDEX
+function 1034TpString.Long2Str(L : LongInt) : string;
+
+Convert a LongInt/Word/Integer/Byte/Shortint to a string.
+
+See also: 1056Real2Str
+;
+;---------------------------------------------------------------------------
+!TOPIC 1056 Real2Str
+!NOINDEX
+function 1034TpString.Real2Str(R : Float; Width, Places : Byte) : string;
+
+Convert a Float to a string. (A Float is either a Real or an Extended,
+depending on the $N+ compiler directive.)
+
+See also: 1055Long2Str
+;
+;---------------------------------------------------------------------------
+!TOPIC 1057 Form
+!NOINDEX
+function 1034TpString.Form(Mask : string; R : Float) : string;
+
+Returns a formatted string with digits from R merged into the Mask. The
+following is a brief summary of the characters that have special meaning
+within the picture Mask.
+
+ #   A digit position, blank if not available. Implies floating minus sign.
+ *   A digit position, filled with asterisk if not available.
+ @   A digit position, fill with zero if not available.
+ $   A digit position, activating a floating dollar sign.
+ -   A sign position, needed if * or @ digits are used exclusively.
+ +   A sign position, shows '+' for positive numbers as well.
+ ,   A decimal comma or a separator comma.
+ .   A decimal period or a separator period.
+
+See also: 1056Real2Str
+;
+;---------------------------------------------------------------------------
+!TOPIC 1058 UpCaseMac
+!NOINDEX
+function 1034TpString.UpCaseMac(Ch : Char) : Char;
+
+Uppercase character macro; no international character support.
+
+See also: 1060Upcase
+;
+;---------------------------------------------------------------------------
+!TOPIC 1059 LoCaseMac
+!NOINDEX
+function 1034TpString.LoCaseMac(Ch : Char) : Char;
+
+Lowercase character macro; no international character support.
+
+See also: 1062LoCase
+;
+;---------------------------------------------------------------------------
+!TOPIC 1060 Upcase
+!NOINDEX
+function 1034TpString.Upcase(Ch : Char) : Char;
+
+Return uppercase of Ch, with international character support.
+
+See also: 1058UpCaseMac
+;
+;---------------------------------------------------------------------------
+!TOPIC 1061 StUpcase
+!NOINDEX
+function 1034TpString.StUpcase(S : string) : string;
+
+Convert lower case letters in string to uppercase, with international
+character support.
+
+See also: 1060Upcase
+;
+;---------------------------------------------------------------------------
+!TOPIC 1062 LoCase
+!NOINDEX
+function 1034TpString.LoCase(Ch : Char) : Char;
+
+Return lowercase of Ch, with international character support.
+
+See also: 1059LoCaseMac
+;
+;---------------------------------------------------------------------------
+!TOPIC 1063 StLocase
+!NOINDEX
+function 1034TpString.StLocase(S : string) : string;
+
+Convert upper case letters in string to lowercase, with international
+character support.
+
+See also: 1062LoCase
+;
+;---------------------------------------------------------------------------
+!TOPIC 1064 CharStr
+!NOINDEX
+function 1034TpString.CharStr(Ch : Char; Len : Byte) : string;
+
+Return a string of length Len filled with character Ch.
+
+See also: 1065PadCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 1065 PadCh
+!NOINDEX
+function 1034TpString.PadCh(S : string; Ch : Char; Len : Byte) : string;
+
+Return string S padded on the right to length Len with Ch.
+
+See also: 1066Pad
+;
+;---------------------------------------------------------------------------
+!TOPIC 1066 Pad
+!NOINDEX
+function 1034TpString.Pad(S : string; Len : Byte) : string;
+
+Return string S padded on the right to length Len with blanks.
+
+See also: 1065PadCh  1068LeftPad
+;
+;---------------------------------------------------------------------------
+!TOPIC 1067 LeftPadCh
+!NOINDEX
+function 1034TpString.LeftPadCh(S : string; Ch : Char; Len : Byte) : string;
+
+Return string S padded on the left to length Len with Ch.
+
+See also: 1068LeftPad  1065PadCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 1068 LeftPad
+!NOINDEX
+function 1034TpString.LeftPad(S : string; Len : Byte) : string;
+
+Return string S padded on the left to length Len with blanks.
+
+See also: 1067LeftPadCh  1066Pad
+;
+;---------------------------------------------------------------------------
+!TOPIC 1069 TrimLead
+!NOINDEX
+function 1034TpString.TrimLead(S : string) : string;
+
+Return string S with leading white space (blanks or less) removed.
+
+See also: 1071Trim  1070TrimTrail
+;
+;---------------------------------------------------------------------------
+!TOPIC 1070 TrimTrail
+!NOINDEX
+function 1034TpString.TrimTrail(S : string) : string;
+
+Return string S with trailing white space (blanks or less) removed.
+
+See also: 1071Trim  1069TrimLead
+;
+;---------------------------------------------------------------------------
+!TOPIC 1071 Trim
+!NOINDEX
+function 1034TpString.Trim(S : string) : string;
+
+Return string S with leading and trailing white space (blanks or less)
+removed.
+
+See also: 1069TrimLead  1070TrimTrail
+;
+;---------------------------------------------------------------------------
+!TOPIC 1072 CenterCh
+!NOINDEX
+function 1034TpString.CenterCh(S : string; Ch : Char; Width : Byte) : string;
+
+Return string S centered in a string of Ch with specified width.
+
+See also: 1073Center
+;
+;---------------------------------------------------------------------------
+!TOPIC 1073 Center
+!NOINDEX
+function 1034TpString.Center(S : string; Width : Byte) : string;
+
+Return string S centered in a string of blanks with specified width.
+
+See also: 1072CenterCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 1074 Entab
+!NOINDEX
+function 1034TpString.Entab(S : string; TabSize : Byte) : string;
+
+Convert blanks in string S to tabs on spacing TabSize.
+
+See also: 1075Detab
+;
+;---------------------------------------------------------------------------
+!TOPIC 1075 Detab
+!NOINDEX
+function 1034TpString.Detab(S : string; TabSize : Byte) : string;
+
+Expand tabs in string S to blanks on spacing TabSize.
+
+See also: 1074Entab
+;
+;---------------------------------------------------------------------------
+!TOPIC 1076 WordCount
+!NOINDEX
+function 1034TpString.WordCount(S : string; WordDelims : CharSet) : Byte;
+
+Given a set of word delimiters, return number of words in S.
+
+See also: 1077ExtractWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 1077 ExtractWord
+!NOINDEX
+function 1034TpString.ExtractWord(N : Byte; S : string;
+                              WordDelims : CharSet) : string;
+
+Given a set of word delimiters, return the N'th word in S.
+
+See also: 1076WordCount
+;
+;---------------------------------------------------------------------------
+!TOPIC 1078 WordWrap
+!NOINDEX
+procedure 1034TpString.WordWrap(InSt : string; var OutSt, Overlap : string;
+                            Margin : Byte; PadToMargin : Boolean);
+
+Wrap InSt at Margin, storing the result in OutSt and the remainder in
+Overlap.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1079 CompString
+!NOINDEX
+function 1034TpString.CompString(S1, S2 : string) : 1036CompareType;
+
+Return Less, Equal, or Greater depending on whether S1<S2, S1=S2, or S1>S2.
+
+See also: 1080CompUCString
+;
+;---------------------------------------------------------------------------
+!TOPIC 1080 CompUCString
+!NOINDEX
+function 1034TpString.CompUCString(S1, S2 : string) : 1036CompareType;
+
+Compare two strings without regard to case, returning Less, Equal, or
+Greater.
+
+See also: 1079CompString
+;
+;---------------------------------------------------------------------------
+!TOPIC 1081 CompStruct
+!NOINDEX
+function 1034TpString.CompStruct(var S1, S2;
+                             Size : Word) : 1036CompareType;
+
+Compare (byte-by-byte) two structures of a given size, returning Less,
+Equal, or Greater.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1082 Search
+!NOINDEX
+function 1034TpString.Search(var Buffer; BufLength : Word;
+                         var Match; MatLength : Word) : Word;
+
+Search through Buffer for Match. BufLength is length of range to search.
+MatLength is length of string to match. Returns number of bytes searched to
+find Match, $FFFF if not found.
+
+See also: 1083SearchUC  1085BMSearch
+;
+;---------------------------------------------------------------------------
+!TOPIC 1083 SearchUC
+!NOINDEX
+function 1034TpString.SearchUC(var Buffer; BufLength : Word;
+                           var Match; MatLength : Word) : Word;
+
+Search through Buffer for Match, without regard to case. BufLength is length
+of range to search. MatLength is length of string to match. Returns number
+of bytes searched to find Match, $FFFF if not found.
+
+See also: 1082Search  1086BMSearchUC
+;
+;---------------------------------------------------------------------------
+!TOPIC 1084 BMMakeTable
+!NOINDEX
+procedure 1034TpString.BMMakeTable(MatchString : string;
+                               var BT : 1037BTable);
+
+Build Boyer-Moore link table for use with 1085BMSearch.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1085 BMSearch
+!NOINDEX
+function 1034TpString.BMSearch(var Buffer; BufLength : Word;
+                           BT : 1037BTable; MatchString : string) : Word;
+
+Search Buffer for MatchString. BufLength is length of range to search.
+Returns number of bytes searched to find MatchString, $FFFF if not found.
+BTable must first be initialized by calling 1084BMMakeTable.
+
+See also: 1086BMSearchUC  1082Search
+;
+;---------------------------------------------------------------------------
+!TOPIC 1086 BMSearchUC
+!NOINDEX
+function 1034TpString.BMSearchUC(var Buffer; BufLength : Word;
+                             BT : 1037BTable; MatchString : string) : Word;
+
+Search Buffer for MatchString without regard to case. BufLength is length of
+range to search. Returns number of bytes searched to find MatchString, $FFFF
+if not found. BTable must first be initialized by calling 1084BMMakeTable.
+
+See also: 1085BMSearch  1083SearchUC
+;
+;---------------------------------------------------------------------------
+!TOPIC 1087 Soundex
+!NOINDEX
+function 1034TpString.Soundex(S : string) : string;
+
+Return 4 character soundex of input string. Comparing two soundex strings
+yields a match when the original input strings sound alike.
+
+See also: 1089CompareLetterSets
+;
+;---------------------------------------------------------------------------
+!TOPIC 1088 MakeLetterSet
+!NOINDEX
+function 1034TpString.MakeLetterSet(S : string) : LongInt;
+
+Return a bit-mapped LongInt storing the individual letters contained in S.
+Calling 1089CompareLetterSets with letter sets generated from two strings yields
+a number proportional to how similar the strings are.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1089 CompareLetterSets
+!NOINDEX
+function 1034TpString.CompareLetterSets(Set1, Set2 : LongInt) : Word;
+
+Return the sum of the values of the letters common to Set1 and Set2.
+
+See also: 1088MakeLetterSet  1087Soundex
+;
+;---------------------------------------------------------------------------
+!TOPIC 1090 StringToHeap
+!NOINDEX
+function 1034TpString.StringToHeap(S : string) : Pointer;
+
+Allocate just enough heap space to hold string S and return a pointer to it.
+
+See also: 1092DisposeString  1091StringFromHeap
+;
+;---------------------------------------------------------------------------
+!TOPIC 1091 StringFromHeap
+!NOINDEX
+function 1034TpString.StringFromHeap(P : Pointer) : string;
+
+Return the string stored at P^. If P is nil, the empty string is returned.
+
+See also: 1090StringToHeap
+;
+;---------------------------------------------------------------------------
+!TOPIC 1092 DisposeString
+!NOINDEX
+procedure 1034TpString.DisposeString(P : Pointer);
+
+Deallocate space for the string stored at P^.
+
+See also: 1090StringToHeap
+;
+;---------------------------------------------------------------------------
+!TOPIC 1093 DefaultExtension
+!NOINDEX
+function 1034TpString.DefaultExtension(Name, Ext : string) : string;
+
+Add the extension Ext to the filename Name if it doesn't already have an
+extension.
+
+See also: 1094ForceExtension
+;
+;---------------------------------------------------------------------------
+!TOPIC 1094 ForceExtension
+!NOINDEX
+function 1034TpString.ForceExtension(Name, Ext : string) : string;
+
+Force the extension Ext onto the filename Name, even if it already has an
+extension.
+
+See also: 1093DefaultExtension
+;
+;---------------------------------------------------------------------------
+!TOPIC 1095 JustFilename
+!NOINDEX
+function 1034TpString.JustFilename(PathName : string) : string;
+
+Return just the filename and extension of a pathname (no drive or
+directory).
+
+See also: 1097JustPathname  1096JustExtension
+;
+;---------------------------------------------------------------------------
+!TOPIC 1096 JustExtension
+!NOINDEX
+function 1034TpString.JustExtension(Name : string) : string;
+
+Return just the extension of a pathname.
+
+See also: 1095JustFilename
+;
+;---------------------------------------------------------------------------
+!TOPIC 1097 JustPathname
+!NOINDEX
+function 1034TpString.JustPathname(PathName : string) : string;
+
+Return just the drive:directory portion of a pathname.
+
+See also: 1095JustFilename
+;
+;---------------------------------------------------------------------------
+!TOPIC 1098 AddBackSlash
+!NOINDEX
+function 1034TpString.AddBackSlash(DirName : string) : string;
+
+Add a backslash to a directory name to form a lead-in path.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1099 CleanPathName
+!NOINDEX
+function 1034TpString.CleanPathName(PathName : string) : string;
+
+Return a pathname cleaned up as DOS will do it: no filenames longer than
+eight characters, no extensions longer than three characters.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1100 FullPathName
+!NOINDEX
+function 1034TpString.FullPathName(FName : string) : string;
+
+Given file FName (known to exist), return a full pathname.
+
+See also: 364TpPick.CompleteFileName
+;
+;---------------------------------------------------------------------------
+!TOPIC 1101 DOS Pathnames
+!NOINDEX
+TPSTRING provides the following routines for manipulating DOS pathname
+strings:
+
+      1098AddBackSlash           1099CleanPathName          1093DefaultExtension
+      1094ForceExtension         1100FullPathName           1096JustExtension
+      1095JustFilename           1097JustPathname
+;
+;---------------------------------------------------------------------------
+!TOPIC 1102 Dynamic Allocation
+!NOINDEX
+TPSTRING provides the following routines for managing strings dynamically
+allocated on the heap:
+
+      1092DisposeString         1091StringFromHeap          1090StringToHeap
+;
+;---------------------------------------------------------------------------
+!TOPIC 1103 General Purpose
+!NOINDEX
+TPSTRING provides the following general purpose string manipulation
+routines:
+
+  1073Center            1072CenterCh          1064CharStr           1035CharSet
+  1075Detab             1074Entab             1077ExtractWord       1068LeftPad
+  1067LeftPadCh         1062LoCase            1059LoCaseMac         1066Pad
+  1065PadCh             1063StLocase          1061StUpcase          1071Trim
+  1069TrimLead          1070TrimTrail         1060Upcase            1058UpCaseMac
+  1076WordCount         1078WordWrap
+;
+;---------------------------------------------------------------------------
+!TOPIC 1104 Numeric Conversion
+!NOINDEX
+TPSTRING provides the following routines for converting numbers to and from
+strings:
+
+      1045BinaryB                1047BinaryL                1046BinaryW
+      1040CommaForPeriod         1057Form                   1041HexB
+      1043HexL                   1044HexPtr                 1042HexW
+      1055Long2Str               1039MoneySign              1048OctalB
+      1050OctalL                 1049OctalW                 1056Real2Str
+      1051Str2Int                1053Str2Long               1054Str2Real
+      1052Str2Word
+;
+;---------------------------------------------------------------------------
+!TOPIC 1105 Searching/Comparison
+!NOINDEX
+TPSTRING provides the following routines for comparing strings and searching
+for them:
+
+      1084BMMakeTable            1085BMSearch               1086BMSearchUC
+      1037BTable                 1089CompareLetterSets      1036CompareType
+      1079CompString             1081CompStruct             1080CompUCString
+      1038LetterValues           1088MakeLetterSet          1082Search
+      1083SearchUC               1087Soundex
+;
+;===========================================================================
+!TOPIC 1106 TpTsr
+TPTSR lets you write memory-resident programs that are compact and reliable.
+These TSR's won't pop up in the middle of DOS if you don't want them to;
+won't destroy the interrupted program's stack; can pop up on virtually any
+combination of keystrokes you might want; won't load themselves twice; won't
+abort due to DOS critical errors; and can easily be unloaded from memory if
+it's safe to do so.
+!PAGE
+      1120ChangeHotKey           1118DefinePop              1116DefinePopProc
+      1119DeletePop              1117DeletePopProc          1125DisableTSR
+      1130DosBusyFlag            1131DosCriticalFlag        1107IfcPtr
+      1107IfcRecord              1123InitPops               1126InstallModule
+      1124Int24Result            1110Interrupt Handles      1108MaxPopups
+      1129ModuleInstalled        1128ModulePtrByName        1112ParagraphsToKeep
+      1115PopupsOff              1114PopupsOn               1111ReleaseEms
+      1122RemovePops             1121SetPopTicker           1109SideKickLoaded
+      1113TerminateAndStayResident 1127UninstallModule
+;
+;---------------------------------------------------------------------------
+!TOPIC 1107 IfcPtr
+!NOINDEX
+type
+  1106TpTsr.IfcRecord =
+    record                   {** don't change order **}
+      NamePtr : ^string;
+      Version : Word;
+      CmdEntryPtr : Pointer;
+      PrevIfc,
+      NextIfc : IfcPtr;
+    end;
+  IfcPtr = ^IfcRecord;
+
+Record type used by TPTSR to detect previous installation of a TSR, and to
+allow communication between TSR's.
+
+See also: 1126InstallModule
+;
+;---------------------------------------------------------------------------
+!TOPIC 1108 MaxPopusp
+!NOINDEX
+const
+  1106TpTsr.MaxPopups = 8;
+
+Maximum number of popup routines in one TSR.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1109 SideKickLoaded
+!NOINDEX
+const
+  1106TpTsr.SideKickLoaded : Boolean = False;
+
+Set to True when SideKick is loaded.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1110 Interrupt Handles
+!NOINDEX
+const
+  1106TpTsr.Int5Handle = 1;
+        Int8Handle = 2;
+        Int9Handle = 3;
+        Int10Handle = 4;
+        Int13Handle = 5;
+        Int14Handle = 6;
+        Int16Handle = 7;
+        Int17Handle = 8;
+        Int25Handle = 9;
+        Int26Handle = 10;
+        Int28Handle = 11;
+        Int33Handle = 13;
+
+TPINT interrupt service routine handles used by TPTSR's interrupt handlers.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1111 ReleaseEms
+!NOINDEX
+const
+  1106TpTsr.ReleaseEms : Boolean = False;
+
+Overlaid TSR's that use EMS memory to store the overlay file should set this
+constant to True before calling 1125DisableTSR.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1112 ParagraphsToKeep
+!NOINDEX
+function 1106TpTsr.ParagraphsToKeep : Word;
+
+Return number of paragraphs currently used for code, data, stack, and heap.
+Used in combination with 1113TerminateAndStayResident.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1113 TerminateAndStayResident
+!NOINDEX
+function 1106TpTsr.TerminateAndStayResident(ParasToKeep : Word;
+                                        ExitCode : Byte) : Boolean;
+
+Terminate and stay resident, freeing up all our memory except ParasToKeep.
+Returns False if unable to go resident. Otherwise, doesn't return at all.
+
+See also: 1125DisableTSR  1109SideKickLoaded
+;
+;---------------------------------------------------------------------------
+!TOPIC 1114 PopupsOn
+!NOINDEX
+procedure 1106TpTsr.PopupsOn;
+
+Allow popups to occur.
+
+See also: 1115PopupsOff
+;
+;---------------------------------------------------------------------------
+!TOPIC 1115 PopupsOff
+!NOINDEX
+procedure 1106TpTsr.PopupsOff;
+
+Disallow popups.
+
+See also: 1114PopupsOn
+;
+;---------------------------------------------------------------------------
+!TOPIC 1116 DefinePopProc
+!NOINDEX
+function 1106TpTsr.DefinePopProc(var Handle : Byte;
+                             Routine, StackPtr : Pointer) : Boolean;
+
+Define a routine that can be triggered by calling 1121SetPopTicker. Returns
+False if no more Popup handles are available. The Routine must be compiled
+global and far, and must match the following declaration:
+
+  procedure PopupShell(Regs : Registers);
+  begin
+    ...
+  end;
+
+See also: 1117DeletePopProc  1118DefinePop
+;
+;---------------------------------------------------------------------------
+!TOPIC 1117 DeletePopProc
+!NOINDEX
+procedure 1106TpTsr.DeletePopProc(Handle : Byte);
+
+Undefine a popup routine defined with DefinePopProc. Its handle may then be
+used for other popups.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1118 DefinePop
+!NOINDEX
+function 1106TpTsr.DefinePop(HotKey : Word; Routine, StackPtr : Pointer;
+                         DosWait : Boolean) : Boolean;
+
+Define a popup routine associated with a particular hotkey. Returns False if
+no more Popup handles are available. The Routine must be compiled global and
+far, and must match the following declaration:
+
+  procedure PopupShell(Regs : Registers);
+  begin
+    ...
+  end;
+
+See also: 1116DefinePopProc
+;
+;---------------------------------------------------------------------------
+!TOPIC 1119 DeletePop
+!NOINDEX
+procedure 1106TpTsr.DeletePop(HotKey : Word);
+
+Undefine the popup routine associated with HotKey. Its handle may then be
+used for other popups.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1120 ChangeHotKey
+!NOINDEX
+function 1106TpTsr.ChangeHotKey(OldHotKey, NewHotKey : Word) : Boolean;
+
+Change a popup's hotkey from OldHotKey to NewHotKey. Returns False if no
+matching popup is found, or if the new hot key conflicts with another popup.
+
+See also: 1118DefinePop
+;
+;---------------------------------------------------------------------------
+!TOPIC 1121 SetPopTicker
+!NOINDEX
+procedure 1106TpTsr.SetPopTicker(Handle : Byte; TimeOut : Word);
+
+Set the pop ticker for the indicated popup, clears interrupts, then
+returns. No range checking is performed. The popup routine will attempt to
+popup for the next TimeOut clock ticks.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1122 RemovePops
+!NOINDEX
+procedure 1106TpTsr.RemovePops;
+
+Remove all popup routines from the system and release all associated
+interrupt vectors.
+
+See also: 1123InitPops
+;
+;---------------------------------------------------------------------------
+!TOPIC 1123 InitPops
+!NOINDEX
+procedure 1106TpTsr.InitPops;
+
+Initialize TPTSR interrupts and data structures. Called automatically in the
+TPTSR initialization block.
+
+See also: 1122RemovePops
+;
+;---------------------------------------------------------------------------
+!TOPIC 1124 Int24Result
+!NOINDEX
+function 1106TpTsr.Int24Result : Word;
+
+Returns the latest result from the critical error handler installed when a
+popup pops up. The high byte contains DOS critical error information, and
+the low byte the Turbo Pascal IoResult.
+
+See also: 704TpInt24.Int24Result
+;
+;---------------------------------------------------------------------------
+!TOPIC 1125 DisableTSR
+!NOINDEX
+function 1106TpTsr.DisableTSR : Boolean;
+
+Disable a running TSR by restoring interrupt vectors and releasing memory.
+This does not halt the program. Returns false if it's not safe to disable.
+
+See also: 1111ReleaseEms
+;
+;---------------------------------------------------------------------------
+!TOPIC 1126 InstallModule
+!NOINDEX
+procedure 1106TpTsr.InstallModule(var ModuleName : string;
+                              CmdEntryRoutine : Pointer);
+
+Install this program as a resident module that can be located and accessed
+by other programs.
+
+See also: 1129ModuleInstalled  1127UninstallModule
+;
+;---------------------------------------------------------------------------
+!TOPIC 1127 UninstallModule
+!NOINDEX
+procedure 1106TpTsr.UninstallModule;
+
+Removes a TSR from the linked list of installed modules.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1128 ModulePtrByName
+!NOINDEX
+function 1106TpTsr.ModulePtrByName(var ModuleName : string) : IfcPtr;
+
+Return a pointer to the 1107IfcRecord for the module named ModuleName, or nil if
+no such module is found.
+
+See also: 1129ModuleInstalled
+;
+;---------------------------------------------------------------------------
+!TOPIC 1129 ModuleInstalled
+!NOINDEX
+function 1106TpTsr.ModuleInstalled(var ModuleName : string) : Boolean;
+
+Return True if the TSR with the name ModuleName is installed.
+
+See also: 1128ModulePtrByName
+;
+;---------------------------------------------------------------------------
+!TOPIC 1130 DosBusyFlag
+!NOINDEX
+function 1106TpTsr.DosBusyFlag : Byte;
+
+Return the current value of DOS busy flag. This flag is 0 if DOS is not
+active, 1 or greater is DOS is active.
+
+See also: 1131DosCriticalFlag
+;
+;---------------------------------------------------------------------------
+!TOPIC 1131 DosCriticalFlag
+!NOINDEX
+function 1106TpTsr.DosCriticalFlag : Byte;
+
+Return current value of DOS critical flag. This flag is non-zero if DOS is
+servicing a critical error.
+
+See also: 1130DosBusyFlag
+;
+;===========================================================================
+!TOPIC 1132 TpWindow
+TPWINDOW manages any number of text windows displayed on the default video
+page of the physical screen. It also implements virtual screens which can be
+larger than the physical screen, up to 64K bytes of storage each. It
+supports stacked or tiled windows with frames and shadows, and has options
+for exploding windows.
+
+      1173Windows                1174Data Structures        1175Virtual Screens
+;
+;---------------------------------------------------------------------------
+!TOPIC 1133 ShadowType
+!NOINDEX
+type
+  1132TpWindow.ShadowType = (SmallShadow, BigShadow);
+
+Enumerated type describing the kinds of shadows that windows can have.
+SmallShadows are opaque while BigShadows are transparent.
+
+See also: 1134Shadow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1134 Shadow
+!NOINDEX
+const
+  1132TpWindow.Shadow : Boolean = False;
+
+Set Shadow to True prior to calling 1145MakeWindow in order to make shadowed
+windows.
+
+See also: 1135ShadowMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 1135 ShadowMode
+!NOINDEX
+const
+  1132TpWindow.ShadowMode : 1133ShadowType = BigShadow;
+
+Set ShadowMode to desired kind of shadow prior to calling 1145MakeWindow.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1136 ShadowAttr
+!NOINDEX
+const
+  1132TpWindow.ShadowAttr : Byte = $07;
+
+Set ShadowAttr to the video attribute for shadows prior to calling
+1145MakeWindow.
+
+See also: 1135ShadowMode
+;
+;---------------------------------------------------------------------------
+!TOPIC 1137 Explode
+!NOINDEX
+const
+  1132TpWindow.Explode : Boolean = False;
+
+Set Explode to True prior to calling 1145MakeWindow in order to make window
+explode.
+
+See also: 1138ExplodeDelay  1139SoundFlagW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1138 ExplodeDelay
+!NOINDEX
+const
+  1132TpWindow.ExplodeDelay : Word = 15;
+
+Set milliseconds per stage of explosion prior to calling 1145MakeWindow.
+
+See also: 1137Explode
+;
+;---------------------------------------------------------------------------
+!TOPIC 1139 SoundFlagW
+!NOINDEX
+const
+  1132TpWindow.SoundFlagW : Boolean = True;
+
+Set True prior to calling 1145MakeWindow to make sound during explosions.
+
+See also: 1137Explode
+;
+;---------------------------------------------------------------------------
+!TOPIC 1140 WindowPtr
+!NOINDEX
+type
+  1132TpWindow.WindowPtr = Pointer;
+
+Generic data type for a window.
+
+See also: 1141WindowP
+;
+;---------------------------------------------------------------------------
+!TOPIC 1141 WindowP
+!NOINDEX
+type
+  1132TpWindow.WindowP = ^1142WindowRec;
+
+Detailed type of a window. Use to typecast 1140WindowPtr variables when access
+to internal fields is required.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1142 WindowRec
+!NOINDEX
+type
+  1132TpWindow.WindowRec =
+    record
+      ...
+      XL, YL : Byte;         {Turbo window coordinates, no frame included}
+      XH, YH : Byte;
+      ...
+    end;
+
+Data structure used by TPWINDOW to manage text windows.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1143 VScreen
+!NOINDEX
+type
+  1132TpWindow.VScreen =
+    record
+      VRows : Word;          {Rows in the screen}
+      VCols : Word;          {Columns in the screen}
+      VSeg : Word;           {Segment where it's located}
+      VEnd : Word;           {One past last valid offset in segment}
+      VPtr : BufP;           {Allocated buffer}
+    end;
+
+Data structure used by TPWINDOW to manage virtual screens.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1144 CurrentWindow
+!NOINDEX
+var
+  1132TpWindow.CurrentWindow : 1140WindowPtr;
+
+Pointer to the currently active window.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1145 MakeWindow
+!NOINDEX
+function 1132TpWindow.MakeWindow
+  (var W : WindowPtr;       {Window identifier returned}
+   XLow, YLow : Byte;       {Window coordinates, including frame if any}
+   XHigh, YHigh : Byte;     {Window coordinates, including frame if any}
+   DrawFrame : Boolean;     {True to draw a frame around window}
+   ClearWindow : Boolean;   {True to clear window when displayed}
+   SaveWindow : Boolean;    {True to save window contents when erased}
+   WindowAttr : Byte;       {Video attribute for body of window}
+   FrameAttr : Byte;        {Video attribute for frame}
+   HeaderAttr : Byte;       {Video attribute for header}
+   Header : string          {Title for window}
+   ) : Boolean;             {Returns True if successful}
+
+Allocate and initialize, but do not display, a new window. Be sure to set
+the typed constants describing auxiliary properties of the window prior to
+calling this routine.
+
+See also: 1137Explode     1138ExplodeDelay  1134Shadow
+          1136ShadowAttr  1135ShadowMode    1139SoundFlagW
+;
+;---------------------------------------------------------------------------
+!TOPIC 1146 DisplayWindow
+!NOINDEX
+function 1132TpWindow.DisplayWindow(W : WindowPtr) : Boolean;
+
+Display the specified window, returning True if successful. May return False
+if window is already visible, if insufficient heap space is available, or if
+W is not a valid window.
+
+See also: 1155SetTopWindow  1147EraseTopWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1147 EraseTopWindow
+!NOINDEX
+function 1132TpWindow.EraseTopWindow : WindowPtr;
+
+Erase the most recently displayed window, returning a pointer to it.
+
+See also: 1148DisposeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1148 DisposeWindow
+!NOINDEX
+procedure 1132TpWindow.DisposeWindow(W : WindowPtr);
+
+Deallocate heap space for specified window. Window should be erased before
+calling this routine.
+
+See also: 1147EraseTopWindow  1149KillWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1149 KillWindow
+!NOINDEX
+procedure 1132TpWindow.KillWindow(var W : WindowPtr);
+
+Erase and dispose of window even if it's not on top of the window stack.
+
+See also: 1147EraseTopWindow  1148DisposeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1150 KillTiledWindow
+!NOINDEX
+procedure 1132TpWindow.KillTiledWindow(var W : WindowPtr);
+
+Erase and dispose of a tiled window.
+
+See also: 1147EraseTopWindow  1148DisposeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1151 WindowIsActive
+!NOINDEX
+function 1132TpWindow.WindowIsActive(W : WindowPtr) : Boolean;
+
+Return true if specified window is currently active.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1152 ScrollWindow
+!NOINDEX
+procedure 1132TpWindow.ScrollWindow(Up : Boolean; Lines : Byte);
+
+Scroll contents of current window Up or down the designated number of Lines.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1153 MoveWindow
+!NOINDEX
+function 1132TpWindow.MoveWindow(XDelta, YDelta : Integer) : Boolean;
+
+Move current window by specified distance. Positive means right or down. May
+return False if insufficient heap space exists or if the movement leads to
+invalid window coordinates.
+
+See also: 1154ResizeWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1154 ResizeWindow
+!NOINDEX
+function 1132TpWindow.ResizeWindow(XDelta, YDelta : Integer;
+                               Fill : Char) : Boolean;
+
+Resize right and/or lower edges of window. Positive means right or down. May
+return False if insufficient heap space exists or if the sizing leads to
+invalid window coordinates.
+
+See also: 1153MoveWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1155 SetTopWindow
+!NOINDEX
+function 1132TpWindow.SetTopWindow(W : WindowPtr) : Boolean;
+
+Pull an already active, stacked window to the top of the window stack.
+
+See also: 1156SetTopTiledWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1156 SetTopTiledWindow
+!NOINDEX
+function 1132TpWindow.SetTopTiledWindow(W : WindowPtr) : Boolean;
+
+Make an already active, tiled window the current one. (Repositions cursor,
+resets window coordinates, and sets default video attributes.)
+
+See also: 1155SetTopWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1157 ActivateWindow
+!NOINDEX
+function 1132TpWindow.ActivateWindow(W : WindowPtr) : Boolean;
+
+Display or reselect a stacked window.
+
+See also: 1146DisplayWindow  1155SetTopWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1158 ActivateTiledWindow
+!NOINDEX
+function 1132TpWindow.ActivateTiledWindow(W : WindowPtr) : Boolean;
+
+Display or reselect a tiled window.
+
+See also: 1146DisplayWindow  1156SetTopTiledWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1159 SetInactiveFrame
+!NOINDEX
+procedure 1132TpWindow.SetInactiveFrame(W : WindowPtr;
+                                    Fr : 114FrameArray;
+                                    FrameAttr : Byte;
+                                    HeaderAttr : Byte);
+
+Set a specified frame type and attribute for deselected windows.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1160 FastWriteClip
+!NOINDEX
+procedure 1132TpWindow.FastWriteClip(S : string; Row, Col, Attr : Byte);
+
+Write the string S in the active window, using window-relative coordinates,
+clipping if needed at right edge.
+
+See also: 222FastWriteWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1161 FastWriteStack
+!NOINDEX
+procedure 1132TpWindow.FastWriteStack(W : WindowPtr;
+                                  S : string; Row, Col, Attr : Byte);
+
+Write to specified window, even if it's hidden under a stack.
+
+See also: 222FastWriteWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1162 MakeVScreen
+!NOINDEX
+function 1132TpWindow.MakeVScreen(var V : VScreen;
+                              Rows, Cols : Word) : Boolean;
+
+Allocate a virtual screen of specified size, returning True if successful.
+
+See also: 1163DisposeVScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1163 DisposeVScreen
+!NOINDEX
+procedure 1132TpWindow.DisposeVScreen(var V : VScreen);
+
+Deallocate space for virtual screen.
+
+See also: 1162MakeVScreen
+;         z
+;---------------------------------------------------------------------------
+!TOPIC 1164 ClearVScreen
+!NOINDEX
+procedure 1132TpWindow.ClearVScreen(V : VScreen; Attr : Byte; Fill : Char);
+
+Clear a virtual screen with specified video attribute and character.
+;
+;---------------------------------------------------------------------------
+!TOPIC 1165 WriteVScreen
+!NOINDEX
+procedure 1132TpWindow.WriteVScreen(V : VScreen; S : string; Row, Col : Word;
+                                Attr : Byte);
+
+Write the string S to the specified virtual screen using video attribute
+Attr.
+
+See also: 1167ActivateVScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1166 ReadVScreen
+!NOINDEX
+procedure 1132TpWindow.ReadVScreen(V : VScreen; Number : Byte;
+                               Row, Col : Word; var S : string);
+
+Read Number characters into the string S from the virtual screen starting at
+Row,Col.
+
+See also: 1167ActivateVScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1167 ActivateVScreen
+!NOINDEX
+procedure 1132TpWindow.ActivateVScreen(V : VScreen);
+
+Switch fastwriting to the specified virtual screen. After calling
+ActivateVScreen, the following routines will write to the virtual screen:
+
+  221FastWrite  223FastText       225FastVert         227FastFill
+  231FastRead   233ReadAttribute  237ChangeAttribute  240FlexWrite
+  245FrameWindow
+!PAGE
+
+Do not attempt to use the following calls to write to the virtual screen:
+     Write             WriteLn
+     FastWriteWindow   FastTextWindow  FastVertWindow   FastFillWindow
+     FastCenter        FastFlush       FastReadWindow   ReadAttributeWindow
+     ChangeAttributeWindow             FlexWriteWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1168 DeactivateVScreen
+!NOINDEX
+procedure 1132TpWindow.DeactivateVScreen;
+
+Restore fastwriting to the physical screen.
+
+See also: 1167ActivateVScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1169 MoveVScreenToWindow
+!NOINDEX
+procedure 1132TpWindow.MoveVScreenToWindow(V : VScreen; Row, Col : Word);
+
+Copy contents of virtual screen starting at Row,Col to current window.
+
+See also: 1170MoveWindowToVScreen
+;
+;---------------------------------------------------------------------------
+!TOPIC 1170 MoveWindowToVScreen
+!NOINDEX
+procedure 1132TpWindow.MoveWindowToVScreen(V : VScreen; Row, Col : Word);
+
+Copy contents of current window to virtual screen starting at Row,Col.
+
+See also: 1169MoveVScreenToWindow
+;
+;---------------------------------------------------------------------------
+!TOPIC 1171 VScreenRows
+!NOINDEX
+function 1132TpWindow.VScreenRows(V : VScreen) : Word;
+
+Return number of rows in virtual screen.
+
+See also: 1172VScreenCols
+;
+;---------------------------------------------------------------------------
+!TOPIC 1172 VScreenCols
+!NOINDEX
+function 1132TpWindow.VScreenCols(V : VScreen) : Word;
+
+Return number of columns in virtual screen.
+
+See also: 1171VScreenRows
+;
+;---------------------------------------------------------------------------
+!TOPIC 1173 Windows
+!NOINDEX
+TPWINDOW provides the following routines for initializing, displaying, and
+controlling windows:
+
+      1158ActivateTiledWindow    1157ActivateWindow         1146DisplayWindow
+      1148DisposeWindow          1147EraseTopWindow         1160FastWriteClip
+      1161FastWriteStack         1150KillTiledWindow        1149KillWindow
+      1145MakeWindow             1153MoveWindow             1154ResizeWindow
+      1152ScrollWindow           1159SetInactiveFrame       1156SetTopTiledWindow
+      1155SetTopWindow           1151WindowIsActive
+;
+;---------------------------------------------------------------------------
+!TOPIC 1174 Data Structures
+!NOINDEX
+TPWINDOW defines the following constants, types, and variables for managing
+text windows:
+
+      1144CurrentWindow         1137Explode                 1138ExplodeDelay
+      1134Shadow                1136ShadowAttr              1135ShadowMode
+      1133ShadowType            1139SoundFlagW              1143VScreen
+      1141WindowP               1140WindowPtr               1142WindowRec
+;
+;---------------------------------------------------------------------------
+!TOPIC 1175 Virtual Screens
+!NOINDEX
+TPWINDOW provides the following routines for managing virtual screens:
+
+      1167ActivateVScreen        1164ClearVScreen           1168DeactivateVScreen
+      1163DisposeVScreen         1162MakeVScreen            1169MoveVScreenToWindow
+      1170MoveWindowToVScreen    1166ReadVScreen            1172VScreenCols
+      1171VScreenRows            1165WriteVScreen

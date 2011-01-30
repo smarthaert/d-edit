@@ -1,0 +1,451 @@
+Unit _Unit_;
+
+Interface
+
+{$I+}
+
+ Uses DOS,CRT,Tools;
+
+{ ---=== Строка времени ===--- }
+ Const CurHour   : Word = 0;
+       CurMinute : Word = 0;
+       CurSecond : Word = 0;
+       CurSec100 : Word = 0;
+       Time      : Word = 10;
+
+{ ---=== Строка времени ===--- }
+ Function CurTimeStr:String;
+
+{ ---=== О программе ===--- }
+ Procedure About;
+
+{ ---=== Вывод информации ===--- }
+ Procedure ShowInfo;
+
+{ ---=== Вывод строки на экран ===--- }
+ Const NS = #13#10;
+
+ Procedure OutText( Color:Byte; S:String );
+
+{ ---=== Имена каталогов ===--- }
+ Var SoftwareDir,NewDir,PupilDir,ResultsDir,TestDir:String;
+
+{ ---=== Имена файлов ===--- }
+ Var InFile,OutFile:String;
+
+{ ---=== Ввод/вывод с файлами или с переопределением ввода/вывода ===--- }
+ Const InOutFiles : Boolean = True; { True - С файлами }
+
+{ ---=== Чтение файла инициализации ===--- }
+ Procedure ReadIniFile( FileName:String; ShowFlag:Boolean );
+
+{ ---=== Дописывание к текстовому файлу другого файла ===--- }
+ Procedure CopyTextToText( Var BigText:Text; FileName:String );
+
+{ ---=== Упакованный текстовой файл ===--- }
+ Type
+   TTextPack = Object
+     Name  : String;
+     Data  : Text;
+     First : Boolean;
+     Constructor New( _Name_:String );
+     Procedure AddFile( FileName:String );
+     Constructor Open( _Name_:String );
+     Procedure WriteFile( FileName:String );
+     Function EndOfFile:Boolean;
+     Destructor Close;
+   End;
+
+{ ---=== Создание правильных ответов ===--- }
+ Procedure GenerateAnswers;
+
+{ ---=== ID Задачи ===--- }
+ Var TaskID : String[4];
+
+{ ---=== ID Пользователя ===--- }
+ Var UserID : String[4];
+
+{ ---=== Пройдено тестов ===--- }
+ Var TestsNum : Integer;
+
+{ ---=== Запуск программы ===--- }
+ Procedure ExecuteProg( Prg:String );
+
+{ ---=== Тестируем программу ===--- }
+ Procedure TestSource;
+
+{ ---=== Записываем результаты ===--- }
+ Procedure WriteResults;
+
+{ ---=== Опрос сервера ===--- }
+ Procedure ListenTasks;
+
+{ ---=== Check ===--- }
+ Procedure Check;
+
+Implementation
+
+{ ---=== Строка времени ===--- }
+ Function CurTimeStr:String;
+   Begin
+     GetTime(CurHour,CurMinute,CurSecond,CurSec100);
+     CurTimeStr := AddNumStr(CurHour,'0',2)+':'+
+                   AddNumStr(CurMinute,'0',2)+':'+
+                   AddNumStr(CurSecond,'0',2);
+   End;
+
+{ ---=== Вывод строки на экран ===--- }
+ Procedure OutText( Color:Byte; S:String );
+   Begin
+     TextColor(Color);
+     Write(S);
+   End;
+
+{ ---=== О программе ===--- }
+ Procedure About;
+   Begin
+     Writeln;
+     TextColor(15); Writeln('---=== Super Contest Judge 2000 ===---');
+     TextColor(11); Writeln('  (c) Polina International Software');
+     TextColor(09); Writeln('             Build 001');
+     Writeln;
+     TextColor(13); Writeln('           StDen@Mail.Ru');
+     Writeln;
+   End;
+
+{ ---=== Вывод информации ===--- }
+ Procedure ShowInfo;
+   Begin
+     OutText(11,'[!]: Каталог приема : '+NewDir+NS);
+     OutText(11,'[!]: Каталог тестов : '+TestDir+NS);
+     OutText(11,'[!]: Каталог пользователей : '+PupilDir+NS);
+     OutText(11,'[!]: Каталог результатов : '+ResultsDir+NS);
+     If InOutFiles then
+       Begin
+         OutText(11,'[!]: Входной файл : '+InFile+NS);
+         OutText(11,'[!]: Выходной файл : '+OutFile+NS);
+       End
+     Else
+       Begin
+         OutText(11,'[!]: Входной файл : Клавиатура'+NS);
+         OutText(11,'[!]: Выходной файл : Дисплей'+NS);
+       End;
+     OutText(11,'[!]: Время после которого система отключает задачу (сек) : '+NumStr(Time)+NS);
+   End;
+
+ Procedure __SetTime( S:String );
+   Var Error:Integer;
+   Begin
+     Val(S,Time,Error);
+     If Error<>0 then OutText(12,'Неправильный формат времени'+NS);
+   End;
+
+{ ---=== Исполнение команды ===--- }
+ Procedure Command( CmdStr:String; ShowFlag:Boolean );
+   Var P,I:Byte; S,Cmd,Prm:String;
+   Begin
+     S:=CmdStr;
+     If S='' then Exit;
+     If S[1]='#' then Exit;
+     While S[Length(S)]=' ' do S:=Copy(S,1,Length(S)-1);
+     If ShowFlag then OutText(13,'[Command]: '+S+NS);
+    { ---=== Выделение команды и параметров ===--- }
+     P:=Pos(' ',S);
+     If P<>0 then
+       Begin Cmd:=Copy(S,1,P-1); Prm:=Copy(S,P+1,Length(S)-P); End
+     Else
+       Begin Cmd:=S; Prm:=''; End;
+     For I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
+     While (((Prm[1]=' ') Or (Prm[1]='=')) And (Length(Prm)>0)) do
+       Prm:=Copy(Prm,2,Length(Prm)-1);
+    { ---=== Обработка команд ===--- }
+     If Cmd = 'NEWDIR'     then NewDir     := Prm Else
+     If Cmd = 'TESTDIR'    then TestDir    := Prm Else
+     If Cmd = 'PUPILDIR'   then PupilDir   := Prm Else
+     If Cmd = 'RESULTSDIR' then ResultsDir := Prm Else
+     If Cmd = 'INFILE'     then InFile     := Prm Else
+     If Cmd = 'OUTFILE'    then OutFile    := Prm Else
+     If Cmd = 'TIME'       then __SetTime(Prm) Else
+    { Неверная команда }
+     OutText(12,'[Error]: Неверная команда !'+NS);
+   End;
+
+{ ---=== Чтение файла инициализации ===--- }
+Procedure ReadIniFile( FileName:String; ShowFlag:Boolean );
+  Var T:Text; TempStr:String;
+  Begin
+    OutText(15,'[*] Читаю файл инициализации '+FileName+' [*]'+NS);
+    Assign(T,FileName);
+    Reset(T);
+    If IOResult<>0 then
+      Begin OutText(12,'[Error]: Не могу открыть '+FileName+NS); Exit; End;
+    Repeat
+      Readln(T,TempStr);
+      Command(TempStr,ShowFlag);
+    Until EOF(T);
+    Close(T);
+    If ((InFile[1] = '!') Or (OutFile[1] = '!')) then
+      InOutFiles := False;
+  End;
+
+{ ---=== Дописывание к текстовому файлу другого файла ===--- }
+ Procedure CopyTextToText( Var BigText:Text; FileName:String );
+   Var T:Text; S:String;
+   Begin
+     Assign(T,FileName);
+     Reset(T);
+     Repeat
+       Readln(T,S);
+       Writeln(BigText,S);
+     Until EOF(T);
+     Close(T);
+   End;
+
+{ ---=== Упакованный текстовой файл ===--- }
+
+ Constructor TTextPack.New( _Name_:String );
+   Begin
+     Name:=_Name_;
+     Assign(Data,Name);
+     Rewrite(Data);
+     First:=True;
+   End;
+
+ Procedure TTextPack.AddFile( FileName:String );
+   Var T:Text;
+   Begin
+     If Not First then Writeln(Data,'--------');
+     CopyTextToText(Data,FileName);
+     First:=False;
+   End;
+
+ Constructor TTextPack.Open( _Name_:String );
+   Begin
+     Name:=_Name_;
+     Assign(Data,Name);
+     Reset(Data);
+     First:=True;
+   End;
+
+ Procedure TTextPack.WriteFile( FileName:String );
+   Var T:Text; S:String;
+   Begin
+     Assign(T,FileName);
+     Rewrite(T);
+     Repeat
+       Readln(Data,S);
+       If S[1]='-' then Break;
+       Writeln(T,S);
+     Until EOF(Data);
+     System.Close(T);
+   End;
+
+ Function TTextPack.EndOfFile:Boolean;
+   Begin
+     EndOfFile:=EOF(Data);
+   End;
+
+ Destructor TTextPack.Close;
+   Begin
+     System.Close(Data);
+   End;
+
+{ ---=== Создание правильных ответов ===--- }
+ Procedure GenerateTests( ExeTF,InTF,OutTF:String );
+   Var In_T,Out_T:TTextPack;
+   Begin
+     In_T.Open(InTF);
+     Out_T.New(OutTF);
+     Repeat
+       In_T.WriteFile(InFile);
+       SwapVectors;
+       If InOutFiles then
+         Exec(ExeTF,'')
+       Else
+         Exec(FSearch('COMMAND.COM',GetEnv('PATH')),'/C '+
+           ExeTF+' < '+InFile+' > '+OutFile);
+       SwapVectors;
+       If DosError<>0 then
+         OutText(12,'[!!!] Ошибка запуска #'+NumStr(DosError)+NS);
+       Out_T.AddFile(OutFile);
+     Until In_T.EndOfFile;
+     In_T.Close;
+     Out_T.Close;
+     DelFile(InFile);
+     DelFile(OutFile);
+   End;
+
+ Procedure GenerateAnswers;
+   Var DirInfo:SearchRec; CurDir,S:String;
+   Begin
+     OutText(15,'[*] Создаю правильные ответы [*]'+NS);
+     GetDir(0,CurDir);
+     ChDir(TestDir);
+     If IOResult<>0 then
+       Begin
+         OutText(12,'[!] Invalid Directory : '+TestDir+' [!]');
+         Halt(1);
+       End;
+     FindFirst('*.EXE',AnyFile,DirInfo);
+     While DosError = 0 do
+       Begin
+         S:=DirInfo.Name;
+         GenerateTests(S,Copy(S,1,4)+'.TXT',Copy(S,1,4)+'OUT.TXT');
+         FindNext(DirInfo);
+       End;
+     ChDir(CurDir);
+   End;
+
+{ ---=== Запуск программы ===--- }
+ Procedure ExecuteProg( Prg:String );
+   Var T:Text; _DosError_,_DosExitCode_:Integer;
+   Begin
+     OutText(6,'[*] Записываю лимит времени в TIMER.TXT ...'+NS);
+     Assign(T,'TIMER.TXT');
+     Rewrite(T);
+     Writeln(T,Time*19); { С запасом ! }
+     Close(T);
+     OutText(6,'[*] Запускаю '+ExecUtil+' ...'+NS);
+     SwapVectors;
+     If InOutFiles then
+       Exec(SoftwareDir+'\'+ExecUtil,'')
+     Else
+       Exec(SoftwareDir+'\'+ExecUtil,InFile+' '+OutFile);
+     SwapVectors;
+     TextColor(10);
+     If ((DosExitCode<>0) Or (DosError<>0)) then
+       Begin
+         OutText(12,'[DosExitCode]: '+NumStr(DosExitCode)+NS);
+         Result:=RuntimeError;
+         Exit;
+       End;
+     OutText(6,'[*] Анализирую ответ '+ExecUtil+' ...'+NS);
+     While FSearch('TimerOK.TXT','')='' do
+       Begin
+         OutText(12,'[*] Превышение лимита времени !'+NS);
+         Result:=TimeLimit;
+         Exit;
+       End;
+     Assign(T,'TimerOK.TXT');
+     Reset(T);
+     Readln(T,_DosError_);
+     Readln(T,_DosExitCode_);
+     Erase(T);
+     If ((_DosError_<>0) Or (_DosExitCode_<>0)) then
+       Begin
+         OutText(12,'[DosError]: '+NumStr(_DosError_)+NS);
+         OutText(12,'[DosExitCode]: '+NumStr(_DosExitCode_)+NS);
+         Result:=RuntimeError;
+       End;
+   End;
+
+{ ---=== Тестируем программу ===--- }
+ Procedure TestSource;
+   Var In_T,Out_T:TTextPack;
+   Begin
+     TestsNum:=-1;
+     If Result = NoError then
+       Begin
+         In_T.Open(TestDir+'\'+TaskID+'.TXT');
+         Out_T.Open(TestDir+'\'+TaskID+'OUT.TXT');
+         Repeat
+           Inc(TestsNum);
+           OutText(11,'[*] Тест номер '+NumStr(TestsNum+1)+' [*]'+NS);
+           In_T.WriteFile(InFile);
+           Out_T.WriteFile('STDOUT.TXT');
+           ExecuteProg('TESTPROG.EXE');
+           If Result <> NoError then Break;
+           CompareFiles(OutFile,'STDOUT.TXT');
+           If Result <> NoError then Break;
+         Until In_T.EndOfFile;
+         In_T.Close;
+         Out_T.Close;
+       End;
+     If Result = NoError then Inc(TestsNum);
+   End;
+
+{ ---=== Записываем результаты ===--- }
+ Procedure WriteResults;
+   Var T:Text; Dir:String;
+   Begin
+     OutText(15,'[*] Записываю результат : '+ErrorText(Result)+' [*]'+NS);
+     Assign(T,ResultsDir+'\'+UserID+'.TXT');
+     Rewrite(T);
+     Writeln(T,'<'+UserID+':'+TaskID+'> '+ErrorText(Result));
+     Writeln(T,'Пройдено тестов : ',TestsNum);
+     Writeln(T,'Ошибка в тесте :');
+     CopyTextToText(T,InFile);
+     Writeln(T,'Ответ :');
+     If FSearch(OutFile,'')<>'' then
+       CopyTextToText(T,OutFile)
+     Else
+       Writeln(T,'Нет выходного файла');
+     Writeln(T,'Правильный ответ :');
+     CopyTextToText(T,'STDOUT.TXT');
+     Close(T);
+     GetDir(0,Dir);
+     ChDir(PupilDir);
+     If Not ObjectExist(UserID) then MkDir(UserID);
+     ChDir(UserID);
+     Assign(T,UserID+'.RES');
+     If ObjectExist(UserID+'.RES') then Append(T) Else Rewrite(T);
+     ChDir(Dir);
+     Writeln(T,'---=== '+CurTimeStr+' ===---');
+     CopyTextToText(T,ResultsDir+'\'+UserID+'.TXT');
+     Close(T);
+   End;
+
+{ ---=== Опрос сервера ===--- }
+ Procedure ListenTasks;
+   Var DirInfo:SearchRec; Flag:Boolean;
+   Begin
+     GetDir(0,SoftwareDir);
+     ChDir(NewDir);
+     FindFirst('*.EXE',AnyFile,DirInfo);
+     While DosError = 0 do
+       Begin
+         UserID:=Copy(DirInfo.Name,1,4);
+         TaskID:=Copy(DirInfo.Name,5,4);
+         Result:=NoError;
+         ChDir(TestDir);
+         Flag:=ObjectExist(TaskID+'.EXE');
+         ChDir(NewDir);
+         If Flag then
+           Begin
+             DelTree('TEMP');
+             MkDir('TEMP');
+             CopyBinary(DirInfo.Name,'TEMP\TESTPROG.EXE');
+             ChDir('TEMP');
+             TestSource;
+             WriteResults;
+             ChDir('..');
+             DelTree('TEMP');
+             CopyBinary(DirInfo.Name,PupilDir+'\'+UserID+'\'+DirInfo.Name);
+             DelFile(DirInfo.Name);
+           End;
+         FindNext(DirInfo);
+       End;
+     ChDir(SoftwareDir);
+   End;
+
+{ ---=== Check ===--- }
+Procedure Check;
+  Var CurDir:String; C:Byte;
+  Begin
+    ClrScr;
+    About;
+    OutText(10,'[#] Начало работы '+CurTimeStr+' [#]'+NS);
+    CurDir:=ParamStr(0);
+    For C:=Length(CurDir) downto 1 do
+    If CurDir[C]='\' then Break;
+    If C > 1 then ChDir(Copy(CurDir,1,C));
+    ReadIniFile('CONTEST.INI',False);
+    ShowInfo;
+    GenerateAnswers;
+    OutText(14,'[*] Принимаю задачи от пользователей [*]'+NS);
+    ListenTasks;
+    OutText(10,'[#] Конец работы '+CurTimeStr+' [#]'+NS);
+    TextColor(7); Writeln;
+  End;
+
+End.

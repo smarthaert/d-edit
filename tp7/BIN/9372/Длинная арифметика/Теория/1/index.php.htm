@@ -1,0 +1,544 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<title>Длинная арифметика - решение математики -&gt; Форум на Исходниках.Ру</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<meta content="no-cache" http-equiv="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+<meta name="keywords" content="исходник.ру, исходники.ру">
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://forum.sources.ru/yandex.php?t=72091">
+
+
+
+<style type="text/css">
+html { overflow-x: auto }
+.mstop {
+	BORDER-RIGHT: #000 1px dotted; PADDING-RIGHT: 3px; BORDER-TOP: #000 1px dotted; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #e4eaf2; PADDING-BOTTOM: 3px; MARGIN: 8px auto 0px; BORDER-LEFT: #8394b2 4px solid; COLOR: #000; PADDING-TOP: 3px; BORDER-BOTTOM: 0px
+}
+.msmain {
+	BORDER-RIGHT: #000 1px dotted; PADDING-RIGHT: 4px; BORDER-TOP: 0px; PADDING-LEFT: 4px; BACKGROUND: #fafcfe; PADDING-BOTTOM: 4px; MARGIN: 0px auto 8px; BORDER-LEFT: #8394b2 4px solid; COLOR: #465584; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px dotted
+}
+.gmstop {
+	BORDER-RIGHT: #000 1px dotted; PADDING-RIGHT: 3px; BORDER-TOP: #000 1px dotted; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 10px; BACKGROUND: #faa298; PADDING-BOTTOM: 3px; MARGIN: 8px auto 0px; BORDER-LEFT: #8394b2 4px solid; COLOR: #000; PADDING-TOP: 3px; BORDER-BOTTOM: 0px
+}
+.gmsmain {
+	BORDER-RIGHT: #000 1px dotted; PADDING-RIGHT: 4px; BORDER-TOP: 0px; PADDING-LEFT: 4px; BACKGROUND: #fafcfe; PADDING-BOTTOM: 4px; MARGIN: 0px auto 8px; BORDER-LEFT: #8394b2 4px solid; COLOR: #465584; PADDING-TOP: 4px; BORDER-BOTTOM: #000 1px dotted
+}
+form { display: inline }
+img { vertical-align: middle; border: 0px }
+BODY { font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 11px; color: #000; margin: 0px 10px 0px 10px; background-color: #FFF }
+TABLE, TR, TD { font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 11px; color: #000 }
+a:link, a:active, a:visited { text-decoration: underline; color: #000000 }
+a:hover { color: #CC3333 }
+.spoiler        {
+    FONT-FAMILY: Verdana, Tahoma, Arial, sans-serif;
+    FONT-SIZE: 11px;
+    BORDER: #333333 1px solid;
+    COLOR: #666666;
+    BACKGROUND-COLOR: #666666;
+}
+fieldset.search { padding: 6px; line-height: 150% }
+label { cursor: pointer }
+img.attach { border: 2px outset #EEF2F7; padding: 2px }
+.googleroot { padding: 6px; line-height: 130% }
+.googlechild { padding: 6px; margin-left: 30px; line-height: 130% }
+.googlebottom, .googlebottom a:link, .googlebottom a:visited, .googlebottom a:active { font-size: 11px; color: #3A4F6C }
+.googlish, .googlish a:link, .googlish a:visited, .googlish a:active { font-size: 14px; font-weight: bold; color: #00D }
+.googlepagelinks { font-size: 1.1em; letter-spacing: 1px }
+.googlesmall, .googlesmall a:link, .googlesmall a:active, .googlesmall a:visited { font-size: 10px; color: #434951 }
+li.helprow { padding: 0px; margin: 0px 0px 10px 0px }
+ul#help { padding: 0px 0px 0px 15px }
+option.cat { font-weight: bold }
+option.sub { font-weight: bold; color: #555 }
+.caldate { text-align: right; font-weight: bold; font-size: 11px; color: #777; background-color: #DFE6EF; padding: 4px; margin: 0px }
+.warngood { color: green }
+.warnbad { color: red }
+#padandcenter { margin-left: auto; margin-right: auto; text-align: center; padding: 14px 0px 14px 0px }
+#profilename { font-size: 28px; font-weight: bold }
+#calendarname { font-size: 22px; font-weight: bold }
+#photowrap { padding: 6px }
+#phototitle { font-size: 24px; border-bottom: 1px solid black }
+#photoimg { text-align: center; margin-top: 15px }
+#ucpmenu { line-height: 150%; width: 22%; border: 1px solid #345487; background-color: #F5F9FD }
+#ucpmenu p { padding: 2px 5px 6px 9px; margin: 0px }
+#ucpcontent { background-color: #F5F9FD; border: 1px solid #345487; line-height: 150%; width: auto }
+#ucpcontent p { padding: 10px; margin: 0px }
+#ipsbanner { position: absolute; top: 1px; right: 5% }
+#logostrip { border: 1px solid #345487; background-color: #6EA1E3; padding: 0px; margin: 0px }
+.logo { color: #FFFFFF }
+.logo a:link, .logo a:visited, .logo a:active { text-decoration: none; color: #FFFFFF }
+.logo a:hover { text-decoration: underline; color: #000000 }
+#submenu { border: 1px solid #BCD0ED; background-color: #DFE6EF; font-size: 10px; margin: 3px 0px 3px 0px; color: #3A4F6C; font-weight: bold }
+#submenu a:link, #submenu  a:visited, #submenu a:active { font-weight: bold; font-size: 10px; text-decoration: none; color: #3A4F6C }
+#userlinks { border: 1px solid #C2CFDF; background-color: #F0F5FA }
+#navstrip { font-weight: bold; padding: 6px 0px 6px 0px }
+.activeuserstrip { background-color: #BCD0ED; padding: 6px }
+.pformstrip { background-color: #D1DCEB; color: #3A4F6C; font-weight: bold; padding: 7px; margin-top: 1px }
+.pformleft { background-color: #F5F9FD; padding: 6px; margin-top: 1px; width: 10%; border-top: 1px solid #C2CFDF; border-right: 1px solid #C2CFDF }
+.pformleftw { background-color: #F5F9FD; padding: 6px; margin-top: 1px; width: 40%; border-top: 1px solid #C2CFDF; border-right: 1px solid #C2CFDF }
+.pformright { background-color: #F5F9FD; padding: 6px; margin-top: 1px; border-top: 1px solid #C2CFDF }
+.post1 { background-color: #F8F8FD }
+.post2 { background-color: #E7E9EE }
+.postlinksbar { background-color: #D1DCEB; padding: 7px; margin-top: 1px; font-size: 10px }
+.row1 { background-color: #F5F9FD }
+.row2 { background-color: #DFE6EF }
+.row3 { background-color: #EEF2F7 }
+.row4 { background-color: #E4EAF2 }
+.pinned_topic { background-color: #D1DCEB }
+.darkrow1 { background-color: #6EA1E3 }
+.darkrow2 { background-color: #BCD0ED; color: #3A4F6C }
+.darkrow3 { background-color: #D1DCEB; color: #3A4F6C }
+.hlight { background-color: #DFE6EF }
+.dlight { background-color: #EEF2F7 }
+.titlemedium { font-weight: bold; color: #3A4F6C; background-color: #D1DCEB; padding: 7px; margin: 0px }
+.titlemedium  a:link, .titlemedium  a:visited, .titlemedium  a:active { text-decoration: underline; color: #3A4F6C }
+.maintitle { color: #FFFFFF; background-color: #6EA1E3; vertical-align: middle; font-weight: bold; letter-spacing: 1px; font-size: 12px; padding-top: 8px; padding-bottom: 8px; padding-left: 6px }
+.maintitle a:link, .maintitle  a:visited, .maintitle  a:active { text-decoration: none; color: #FFFFFF }
+.maintitle a:hover { text-decoration: underline }
+.plainborder { border: 1px solid #345487; background-color: #F5F9FD }
+.tableborder { border: 1px solid #345487; background-color: #6EA1E3; padding: 0; margin: 0 }
+.tablefill { border: 1px solid #345487; background-color: #F5F9FD; padding: 6px }
+.tablepad { background-color: #F5F9FD; padding: 6px }
+.tablebasic { width: 100%; padding: 0px 0px 0px 0px; margin: 0px; border: 0px }
+.wrapmini { float: left; line-height: 1.5em; width: 25% }
+.pagelinks { float: left; line-height: 1.2em; width: 35% }
+.desc { font-size: 10px; color: #434951 }
+.edit { font-size: 9px }
+.signature { font-size: 10px; color: #999999; line-height: 150% }
+.postdetails { font-size: 10px }
+.postcolor { font-size: 12px; line-height: 160% }
+.normalname { font-size: 12px; font-weight: bold; color: #003 }
+.normalname a:link, .normalname a:visited, .normalname a:active { font-size: 12px }
+.unreg { font-size: 11px; font-weight: bold; color: #900 }
+.searchlite { font-weight: bold; color: #F00; background-color: #FF0 }
+#QUOTE { font-family: Verdana, Arial; font-size: 11px; color: #465584; background-color: #FAFCFE; border: 1px solid #000; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px;	overflow: auto; }
+#CODE {
+	font-family: Courier New, serif;
+	font-size: 11px;
+	color: #465584;
+	background-color: #FAFCFE;
+	border: 1px solid #000;
+        line-height: 120%;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	padding-left: 2px;
+	overflow: auto;
+}
+TABLE.post_table {
+  background-color: #345487;
+  vertical-align:top;
+}
+TABLE.post_table TD{
+  background-color: #CCC;
+  padding: 3px 3px 3px 3px;
+}
+TABLE.post_table TH{
+  background-color: #9FBCE3;
+  padding: 3px 3px 3px 3px;
+}
+
+
+.copyright { font-family: Verdana, Tahoma, Arial, Sans-Serif; font-size: 9px; line-height: 12px }
+.codebuttons { font-size: 10px; font-family: verdana, helvetica, sans-serif; vertical-align: middle }
+.forminput, .radiobutton, .checkbox { font-size: 11px; font-family: verdana, helvetica, sans-serif; vertical-align: middle }
+.textinput { background-color: #E4EAF2; font-size: 12px; font-family: courier new, serif; vertical-align: middle }
+.thin { padding: 6px 0px 6px 0px; line-height: 140%; margin: 2px 0px 2px 0px; border-top: 1px solid #FFF; border-bottom: 1px solid #FFF }
+.purple { color: purple; font-weight: bold }
+.red { color: red; font-weight: bold }
+.green { color: green; font-weight: bold }
+.blue { color: blue; font-weight: bold }
+.orange { color: #F90; font-weight: bold }
+.voteprefix {color:green}
+.movedprefix {color:red}
+.clubprefix {color:blue}
+.pinnedprefix {}
+.p{table-layout:fixed}
+#CODE,pre{margin:0;
+white-space:-o-pre-wrap;
+white-space:-moz-pre-wrap;
+word-wrap:break-word;
+}
+PRE {
+	MARGIN: 0px; WORD-WRAP: break-word
+}
+
+</style>
+
+
+</head><body>
+<div id="ipbwrapper">
+
+<script language="JavaScript" type="text/javascript">
+var session_id  	= "c32be018d89386e7696dc82f87cd9c27";
+var st 			= "";
+var tpl_q1 		= "Введите номер страницы, к которой хотите перейти.";
+var base_url		= "http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;";
+
+var text_enter_url      = "Введите полный адрес ссылки"; //lang_post: Введите полный адрес ссылки
+var text_enter_url_name = "Введите название сайта"; //lang_post: Введите название сайта
+var text_enter_email	= "Введите электронный адрес"; //lang_post: Введите адрес электронной почты
+var text_enter_email_name = "Введите имя для данного Email"; //lang_post: Введите имя
+var list_prompt         = "Введите пункт списка. Для завершения списка нажмите 'отмена' или оставьте очередное поле пустым"; //lang_post: Введите пункт списка....
+var text_enter_image	= "Введите полный адрес картинки";
+var error_no_url        = "Вы должны ввести адрес"; //lang_post: Вы должны ввести адрес
+var error_no_title      = "Вы должны ввести название"; //lang_post: Вы должны ввести название";
+var error_no_email      = "Вы должны ввести е-мэйл"; //lang_posr: Вы должны ввести адрес электронной почты
+var error_no_email_name = "Вы должны ввести имя для е-мэйл"; //lang_post: Вы должны ввести имя";
+</script>
+
+<script type="text/javascript" src="index.php_files/global.js"></script>
+
+<table border="0" cellpadding="1" cellspacing="0" width="100%">
+<tbody><tr id="logostrip">
+<td width="210"><a href="http://www.sources.ru/" title="На главную"><img src="index.php_files/logo4.gif" alt="На главную" border="0"></a></td>
+
+<td align="center">
+<!-- SLOGAN -->
+</td>
+
+<td align="right" width="468">
+<a target="_blank" href="http://forum.sources.ru/index.php?showtopic=294399&amp;st=0&amp;#entry2498898"><img class=" ekaobfhptdkhkcfzqbab" src="index.php_files/admin_vic.gif" title="Викторина для сисадминов! Прими участие!" alt="Sysadmins Quiz"></a>
+</td>
+</tr>
+
+<tr style="height: 24px;">
+<td align="right">
+Наши проекты:
+</td>
+<td colspan="2">
+· 
+<a href="http://www.sources.ru/magazine/"><b>Журнал</b></a>
+· 
+<a href="http://alglib.sources.ru/"><b>Алгоритмы</b></a>
+· 
+<a href="http://e-science.sources.ru/"><b>Естественные Науки</b></a>
+·
+<a href="http://www.sources.ru/wiki/"><b>Wiki</b></a>
+·
+<a href="http://drkb.ru/"><b>DRKB</b></a>
+·
+<a href="http://www.sources.ru/donate.php"><b>Помощь&nbsp;проекту</b></a>
+</td>
+</tr>
+</tbody></table>
+
+
+<table id="submenu" cellspacing="0" width="100%">
+<tbody><tr align="center">
+ <td>
+<a href="http://forum.sources.ru/rules.html" target="blank_"><img src="index.php_files/atb_rules.gif" alt="" border="0">ПРАВИЛА</a>
+</td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showtopic=50223"><img src="index.php_files/atb_faq.gif" alt="" border=""> FAQ</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Help"><img src="index.php_files/atb_help.gif" alt="" border="0"> Помощь</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Search&amp;f=161"><img src="index.php_files/atb_search.gif" alt="" border="0"> Поиск</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Members"><img src="index.php_files/atb_members.gif" alt="" border="0"> Участники</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=calendar"><img src="index.php_files/atb_calendar.gif" alt="" border="0"> Календарь</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=fav&amp;show=1"><img src="index.php_files/atb_favs.gif" alt="" border="0"> Избранное</a></td>
+ <td><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=store"><img src="index.php_files/atb_coin.gif" alt="" border="0"> DigiMania</a></td>
+ <td><a href="http://forum.sources.ru/index.php?showtopic=81342"><img src="index.php_files/rss.gif" alt="RSS" border="0"> RSS</a>
+</td>
+</tr>
+</tbody></table>
+
+
+<table id="userlinks" cellspacing="6" width="100%">
+  <tbody><tr align="center">
+    <td align="left">Здравствуйте, Гость [81.201.20.46]
+    </td>
+    <td>
+      <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Login&amp;CODE=00">Вход</a> ·
+      <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Reg&amp;CODE=00">Регистрация</a> ·
+      <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Reg&amp;CODE=reval">Выслать повторно письмо для активации</a> ·
+      <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showtopic=50223">Что даёт регистрация на форуме?</a>
+    </td>
+  </tr>
+</tbody></table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td id="navstrip" align="left">
+<!--div id='navstrip' align='left'--><img src="index.php_files/nav.gif" alt="&gt;" border="0">&nbsp;
+<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;">Форум на Исходниках.RU</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="index.php_files/open.gif" alt="" border="0">&nbsp;&nbsp;<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=SC&amp;c=6">FAQ</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="index.php_files/open.gif" alt="" border="0">&nbsp;&nbsp;<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showforum=124">Pascal FAQ</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="index.php_files/open.gif" alt="" border="0">&nbsp;&nbsp;<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showforum=161">Pascal: Математика</a>
+<!--/div-->
+</td>
+<td align="right" valign="middle" width="468">
+<!-- TOP NAV BANNER -->
+<br>
+<a target="_blank" href="http://www.msm.ru/"><img class=" ekaobfhptdkhkcfzqbab" src="index.php_files/msm.gif" title="MSM - Аренда и размещение серверов" alt="msm.ru"></a>
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+
+<script language="javascript" type="text/javascript">
+var 
+base_url	    = "http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;",
+tid		    = "72091",
+session_id	    = "c32be018d89386e7696dc82f87cd9c27",
+error_no_url        = "Вы должны ввести адрес",
+error_no_title      = "Вы должны ввести название",
+error_no_email      = "Вы должны ввести е-мэйл",
+error_no_width      = "Вы должны ввести ширину",
+error_no_height     = "Вы должны ввести высоту",
+text_enter_url      = "Введите полный адрес ссылки",
+text_enter_url_name = "Введите название сайта",
+text_enter_image    = "Введите полный адрес картинки",
+list_prompt         = "Введите пункт списка. Для завершения списка нажмите 'отмена' или оставьте очередное поле пустым",
+prompt_start        = "Введите текст для форматирования",
+tt_prompt	    = "Копирование прямой ссылки этой темы для сохранения ссылки в буфере обмена вашего компьютера",
+js_del_1	    = "Вы действительно хотите удалить это сообщение?",
+js_del_2	    = "Не хотите, как хотите :)",
+msg_no_title	    = "Необходимо ввести заголовок сообщения",
+js_no_message	    = "Вы должны ввести текст сообщения!",
+js_max_length	    = "Максимальная длина",
+js_characters	    = "символов",
+js_current	    = "Текущие символы",
+error_no_url        = "Вы должны ввести адрес",
+error_no_title      = "Вы должны ввести название",
+error_no_email      = "Вы должны ввести е-мэйл",
+error_no_width      = "Вы должны ввести ширину",
+error_no_height     = "Вы должны ввести высоту",
+text_enter_url      = "Введите полный адрес ссылки",
+text_enter_url_name = "Введите название сайта",
+text_enter_image    = "Введите полный адрес картинки",
+list_prompt         = "Введите пункт списка. Для завершения списка нажмите 'отмена' или оставьте очередное поле пустым",
+prompt_start        = "Введите текст для форматирования",
+MessageMax  	    = "",
+Override    	    = "",
+rusLet		    = new Array("Э","Щ","Щ","Ч","Ч","Ш","Ш","Ё","Ё","Ё","Ё","Ю","Ю","Ю","Ю","Я","Я","Я","Я","Ж","Ж","А","Б","В","Г","Д","Е","З","ИЙ","ИЙ","ЫЙ","ЫЙ","И","Й","К","КС","Л","М","Н","О","П","Р","С","Т","У","Ф","Х","Ц","Щ","Ы","э","щ","ч","ш","ё","ё","ю","ю","я","я","ж","а","б","в","г","д","е","з","ий","ий","ый","ый","и","й","к","кс","л","м","н","о","п","р","с","т","у","ф","х","ц","щ","щ","ы","ъ","ъ","ь"),
+engReg		    = new Array(/E'/g,/SHCH/g,/Shch/g,/CH/g,/Ch/g,/SH/g,/Sh/g,/YO/g,/JO/g,/Yo/g,/Jo/g,/YU/g,/JU/g,/Yu/g,/Ju/g,/YA/g,/JA/g,/Ya/g,/Ja/g,/ZH/g,/Zh/g,/A/g,/B/g,/V/g,/G/g,/D/g,/E/g,/Z/g,/II/g,/IY/g,/YI/g,/YY/g,/I/g,/J/g,/K/g,/X/g,/L/g,/M/g,/N/g,/O/g,/P/g,/R/g,/S/g,/T/g,/U/g,/F/g,/H/g,/C/g,/W/g,/Y/g,/e'/g,/shch/g,/ch/g,/sh/g,/yo/g,/jo/g,/yu/g,/ju/g,/ya/g,/ja/g,/zh/g,/a/g,/b/g,/v/g,/g/g,/d/g,/e/g,/z/g,/ii/g,/iy/g,/yi/g,/yy/g,/i/g,/j/g,/k/g,/x/g,/l/g,/m/g,/n/g,/o/g,/p/g,/r/g,/s/g,/t/g,/u/g,/f/g,/h/g,/c/g,/w/g,/#/g,/y/g,/`/g,/~/g,/'/g),
+decline1 	    = "Отклонить",
+decline2 	    = "Восстановить",
+post_delete1 	    = "X",
+post_delete2 	    = "Уд. %s дн.".replace("%s","0"),
+solve1 		    = "<b>Вопрос решён</b>",
+solve2 		    = "Вопрос не решён",
+fav1		    = "Добавить в Избранное",
+fav2		    = "Удалить из Избранного",
+scroll_to	    = 0,
+MessageMax          = parseInt(MessageMax);
+if ( MessageMax < 0 ) MessageMax = 0;
+</script>
+
+<script type="text/javascript" src="index.php_files/ibfcode_11.js"></script>
+<script type="text/javascript" src="index.php_files/topics.js"></script>
+<script type="text/javascript" src="index.php_files/video.js"></script>
+
+<a name="top"></a>
+
+    <div id="ipbwrapper" align="left"><img src="index.php_files/forum_rules.gif" alt="!" border="0">&nbsp;<b>Правила ЧаВо (FAQ) разделов Паскаля</b><br><br><table style="border: 2px solid red;" bgcolor="#ffffff"><tbody><tr><td>В
+этом разделе разрешено создавать только темы, в которых описано РЕШЕНИЕ
+какой-либо общей проблемы, или описание какого-либо аспекта языка
+Паскаль.<br>Обсуждение уже созданных тем разрешено, но только конструктивное, например указание на ошибку или уточнение имеющегося текста.<hr><br>Также читать <a href="http://forum.sources.ru/index.php?showtopic=90123" target="_blank">Требования к оформлению статей</a></td></tr></tbody></table></div>
+	<br>
+
+Модераторы: <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showuser=5319">Romtek</a>, <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showuser=10362">volvo877</a>
+<div></div>
+<div></div>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+ <td align="left" nowrap="nowrap" width="20%">&nbsp;&nbsp;</td>
+ <td align="right" width="80%"></td>
+</tr>
+</tbody></table>
+<br>
+<div class="tableborder">
+  <div class="maintitle"><img src="index.php_files/nav_m.gif" alt="&gt;" border="0">&nbsp;<b>Длинная арифметика - решение математики</b>, ...и не только</div>
+  <!--{IBF.POLL}-->
+  
+  <div class="postlinksbar" align="right">
+  <b><!--{IBF.START_NEW_POLL}--><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Track&amp;f=161&amp;t=72091">Подписаться на тему</a> |
+  <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Forward&amp;f=161&amp;t=72091">Сообщить другу</a> |
+  <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Print&amp;client=choose&amp;f=161&amp;t=72091">Скачать/распечатать тему</a></b>
+  </div>
+
+    <table border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tbody><tr>
+       <td class="row4" valign="middle" width="1%"> <a name="entry506463"></a><span class="normalname"><a onmouseover="get_name('[b]Морской Ёж[/b]');" href="javascript:Insert();">Морской&nbsp;Ёж</a></span></td>
+       <td class="row4" valign="top" width="99%">
+        <div class="row4" style="float: left; padding-top: 4px; padding-bottom: 4px;" align="left">
+         <span class="postdetails"><b>Сообщ.</b> <a title="Показать ссылку этой темы" href="#" onclick="link_to_post(506463); return false;" style="text-decoration: underline;"><b>#</b>1</a> от 9.11.04, 20:41</span></div>
+	<div class="row4" style="float: right; padding-top: 4px; padding-bottom: 4px;" align="right">      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="post2" valign="top">
+        <span class="postdetails"><img src="index.php_files/av-12857.jpg" alt="" border="0" height="100" width="100"><br>
+        <b>Senior Member<br></b>
+        <img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><br>
+        <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showuser=12857" target="_blank">Профиль</a> · <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Msg&amp;CODE=4&amp;MID=12857" target="_blank">PM</a><br><br>
+        	
+        Рейтинг (т): 16 <br>
+        </span>
+        <!--$ author[field_1]-->
+<div class="post2" style="float: left; width: auto;" align="left">
+<b></b></div>
+<img src="index.php_files/spacer.gif" alt="" height="1" width="160"><br> 
+      </td>
+      <td class="post2" valign="top" width="100%">
+        <div class="postcolor"> <span style="color: blue;"><b><span style="font-size: 11pt; line-height: 100%;">Длинная Арифметика</span></b></span><br><br>При
+написании программ на паскале часто приходится сталкиваться с такой
+проблемой, что стандартных типов не хватает для работы с большими
+числами. Даже типа int64, который есть в TMT паскале, может не хватить
+во многих случаях. Чтобы работать с большими числами существует прием,
+который называется длинной арифметикой. Для наглядного объяснения сразу
+начнем писать модуль для работы с длинной арифметикой. Для начала
+напишем следующее банальное выражение:<br><div><div id="CODE" title="Подсветка синтаксиса доступна зарегистрированным участникам Форума.">unit&nbsp;Long;<br>interface<br>const<br>&nbsp;&nbsp;osn&nbsp;=&nbsp;10000;&nbsp;&nbsp;&nbsp;{Порядок&nbsp;каждого&nbsp;числа}<br>&nbsp;&nbsp;MaxDig&nbsp;=&nbsp;1000;&nbsp;{Максимальное&nbsp;количество&nbsp;элементов}<br>type<br>&nbsp;&nbsp;TLong&nbsp;=&nbsp;array[0..MaxDig]&nbsp;of&nbsp;integer;&nbsp;{Длинное&nbsp;число}<br>implementation<br>end.<br></div></div><br><br>Длинное число хранится в массиве типа TLong. В каждом элементе хранится по i цифр длинного числа. i вычисляется по формуле:<br><br>i = lg(osn)<br><br>При osn = 10000 i равно 4. <br><br>В
+нулевом элементе массива хранится количество задействованных элементов,
+а само число записывается в массив в обратном порядке. То есть если мы
+запишем в массив А число 123456789, то массив будет выглядеть так:<br><div><div id="CODE" title="Подсветка синтаксиса доступна зарегистрированным участникам Форума.">a[0]&nbsp;=&nbsp;3<br>a[1]&nbsp;=&nbsp;6789;<br>a[2]&nbsp;=&nbsp;2345;<br>a[3]&nbsp;=&nbsp;1;<br></div></div><br><br>Теперь надо написать две самые необходимые процедуры. Это процедуры чтения и вывода длинных чисел.<br><br><div><div id="CODE" title="Подсветка синтаксиса доступна зарегистрированным участникам Форума.">procedure&nbsp;Long_Read(var&nbsp;f:text;&nbsp;var&nbsp;a:TLong);&nbsp;{Читает&nbsp;длинное&nbsp;число&nbsp;из&nbsp;консоли&nbsp;или&nbsp;из&nbsp;файла}<br>var&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{откуда&nbsp;будет&nbsp;производиться&nbsp;чтение,&nbsp;зависит&nbsp;от&nbsp;переменной&nbsp;F}<br>&nbsp;&nbsp;ch:char;<br>&nbsp;&nbsp;i:integer;<br>begin<br>&nbsp;&nbsp;FillChar(a,Sizeof(A),0);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Заполняем&nbsp;массив&nbsp;нулями}<br>&nbsp;&nbsp;repeat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Пропускаем&nbsp;НЕ&nbsp;цифры&nbsp;вначале&nbsp;файла}&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Read(f,ch);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;until&nbsp;ch&nbsp;in&nbsp;['0'..'9'];<br>&nbsp;&nbsp;while&nbsp;ch&nbsp;in&nbsp;['0'..'9']&nbsp;do&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Начинаем&nbsp;читать&nbsp;цифры}<br>&nbsp;&nbsp;&nbsp;&nbsp;begin<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;i&nbsp;:=&nbsp;a[0]&nbsp;downto&nbsp;1&nbsp;do<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;begin<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a[i+1]&nbsp;:=&nbsp;a[i+1]+(Longint(a[i])*10)&nbsp;div&nbsp;osn;&nbsp;&nbsp;{Записываем&nbsp;цифры&nbsp;в&nbsp;массив}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a[i]&nbsp;&nbsp;&nbsp;:=&nbsp;(Longint(a[i])*10)&nbsp;mod&nbsp;osn;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a[1]&nbsp;:=&nbsp;a[1]+Ord(ch)-ord('0');<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;a[a[0]+1]&gt;0&nbsp;then&nbsp;inc(a[0]);&nbsp;{Если&nbsp;элемент&nbsp;текущий&nbsp;элемент&nbsp;заполнили,&nbsp;то&nbsp;переходим&nbsp;к&nbsp;следующему}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Read(f,ch)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Читаем&nbsp;след.&nbsp;символ}&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;end<br>end;<br>{-----------------------------------------------------------------------------------------}<br>procedure&nbsp;Long_Write(var&nbsp;f:text;&nbsp;const&nbsp;a:TLong);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Выводит&nbsp;число&nbsp;в&nbsp;файл&nbsp;или&nbsp;в&nbsp;консоль}<br>var<br>&nbsp;&nbsp;ls,s:string;<br>&nbsp;&nbsp;i:integer;<br>begin<br>&nbsp;&nbsp;Str(Osn&nbsp;div&nbsp;10,ls);&nbsp;&nbsp;{Преобразуем&nbsp;в&nbsp;стоку&nbsp;osn&nbsp;div&nbsp;10}<br>&nbsp;&nbsp;Write(f,A[A[0]]);&nbsp;&nbsp;&nbsp;&nbsp;{Выводим&nbsp;последний&nbsp;элемент}<br>&nbsp;&nbsp;for&nbsp;i&nbsp;:=&nbsp;a[0]-1&nbsp;downto&nbsp;1&nbsp;do<br>&nbsp;&nbsp;&nbsp;&nbsp;begin<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Str(a[i],s);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Преобразуем&nbsp;в&nbsp;стороку&nbsp;каждый&nbsp;след.&nbsp;элемент}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;Length(s)&lt;Length(ls)&nbsp;do&nbsp;s&nbsp;:=&nbsp;'0'+s;&nbsp;&nbsp;{Если&nbsp;длина&nbsp;строки&nbsp;не&nbsp;равна&nbsp;lg(osn),&nbsp;то&nbsp;ставим&nbsp;перед&nbsp;ней&nbsp;0}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write(f,s);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{Печатаем&nbsp;строку}<br>&nbsp;&nbsp;&nbsp;&nbsp;end;<br>&nbsp;&nbsp;WriteLn<br>end;<br></div></div><br><br>Процедура Long_Read читает длинное число из текстового файла в переменную А, а Long_Write записывает число из А в файл. <br>Если поставить input(output для Long_Write) в качестве первого параметра, то чтение и запись будут выполняться с консоли.<br><br>Чтобы
+можно было с этими считанными числами что-то делать, надо написать
+процедуры сложения, вычитания, умножения, деления, операции больше,
+меньше и т. п.<br><br>Арифметические операции производятся столбиком
+(вспоминаем 3 класс). Операции "больше-меньше" реализованы на том же
+уровне, т.е. поразрядное сравнение. Все это скомпонованное, отлаженное,
+проверенное я кладу в модуле LongMath.pas, в который добавлены операции
+с комплексными числами.<br><br>...и вот на всякий случай маленький примерчик...<br><div><div id="CODE" title="Подсветка синтаксиса доступна зарегистрированным участникам Форума.">uses&nbsp;LongMath;<br>var<br>&nbsp;&nbsp;a,b,c&nbsp;:&nbsp;TLong;<br>&nbsp;&nbsp;x,y,z&nbsp;:&nbsp;TComplex;<br>&nbsp;&nbsp;<br>begin<br>&nbsp;&nbsp;WriteLn&nbsp;('Введите&nbsp;2&nbsp;длинных&nbsp;числа:');<br>&nbsp;&nbsp;Long_Read(input,a);&nbsp;{Читаем&nbsp;с&nbsp;клавиатура&nbsp;а&nbsp;и&nbsp;b}<br>&nbsp;&nbsp;Long_Read(input,b);<br>&nbsp;&nbsp;if&nbsp;Long_Equal(a,b)&nbsp;then&nbsp;WriteLn('Числа&nbsp;a&nbsp;и&nbsp;b&nbsp;равны')&nbsp;{Сравниваем&nbsp;числа}<br>&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;begin<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Long_Less(a,b)&nbsp;then&nbsp;WriteLn('a&nbsp;меньше&nbsp;b');<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Long_Above(a,b)&nbsp;then&nbsp;WriteLn('a&nbsp;больше&nbsp;b');<br>&nbsp;&nbsp;&nbsp;&nbsp;end;<br>&nbsp;&nbsp;WriteLn&nbsp;('Нажмите&nbsp;Ввод&nbsp;для&nbsp;продолжения');<br>&nbsp;&nbsp;ReadLn;<br><br>&nbsp;&nbsp;Long_Add(a,b,c);&nbsp;&nbsp;&nbsp;&nbsp;{c&nbsp;:=&nbsp;a+b}<br>&nbsp;&nbsp;WriteLn('Сумма&nbsp;x&nbsp;и&nbsp;y&nbsp;равна&nbsp;');&nbsp;{Выводим&nbsp;сумму&nbsp;на&nbsp;экран}<br>&nbsp;&nbsp;Long_Write&nbsp;(output,&nbsp;c);<br><br>&nbsp;&nbsp;WriteLn&nbsp;('Нажмите&nbsp;Ввод&nbsp;для&nbsp;продолжения');<br>&nbsp;&nbsp;readln;<br>end.<br></div></div><br><br><span style="color: blue;">(V.
+Приведенный модуль работает с беззнаковыми числами, впрочем в задачах,
+в которых нужны именно ОЧЕНЬ большие числа, они почти всегда больше
+нуля.)</span> <br><br><span class="edit">Сообщение отредактировано: <b>Romtek</b> - 24.11.04, 18:11</span> 
+<br>
+<br>
+<strong><span class="edit">Прикреплённый файл ( скачиваний: 447 )</span></strong>
+<br>
+<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Attach&amp;type=post&amp;id=506463" title="Скачать файл" target="_blank"><img src="index.php_files/zip.gif" alt="Прикреплённый файл" border="0"></a>
+&nbsp;<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Attach&amp;type=post&amp;id=506463" title="Скачать файл" target="_blank">LongMath.zip</a>
+&nbsp;<span class="edit">(2 кб)</span>
+</div>
+        
+<br>___________<br><div class="signature"> Я не алкоголик </div>
+
+      </td>
+    </tr>
+    </tbody></table>
+    <div class="darkrow1" style="height: 5px;"><!-- --></div>
+
+    <table border="0" cellpadding="3" cellspacing="1" width="100%">
+    <tbody><tr>
+       <td class="row4" valign="middle" width="1%"> <a name="entry561808"></a><span class="normalname"><a onmouseover="get_name('[b]Мыкв[/b]');" href="javascript:Insert();">Мыкв</a></span></td>
+       <td class="row4" valign="top" width="99%">
+        <div class="row4" style="float: left; padding-top: 4px; padding-bottom: 4px;" align="left">
+         <span class="postdetails"><b>Сообщ.</b> <a title="Показать ссылку этой темы" href="#" onclick="link_to_post(561808); return false;" style="text-decoration: underline;"><b>#</b>2</a> от 31.12.04, 14:52</span></div>
+	<div class="row4" style="float: right; padding-top: 4px; padding-bottom: 4px;" align="right">      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="post1" valign="top">
+        <span class="postdetails"><img src="index.php_files/av-9095.gif" alt="" border="0" height="75" width="73"><br>
+        <b>Senior Member<br></b>
+        <img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><img src="index.php_files/pip.gif" alt="*" border="0"><br>
+        <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showuser=9095" target="_blank">Профиль</a> · <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;act=Msg&amp;CODE=4&amp;MID=9095" target="_blank">PM</a><br><br>
+        	
+        Рейтинг (т): 56 <br>
+        </span>
+        <!--$ author[field_1]-->
+<div class="post1" style="float: left; width: auto;" align="left">
+<b></b></div>
+<img src="index.php_files/spacer.gif" alt="" height="1" width="160"><br> 
+      </td>
+      <td class="post1" valign="top" width="100%">
+        <div class="postcolor"> ИМХО, копирайты-то поставить надо. Это код из книги С.М.Окулова.<br><br>и const osn  - имелся ввиду не порядок, а основание системы счисления, в которой оперируем. <br>MaxDig - мкасимальное количество цифр.  </div>
+        
+<br>___________<br><div class="signature"> Everything in this room is
+*eat*able. Even I'm *eat*able. But that is called cannibalism, my dear
+children, and is in fact frowned upon in most societies (c) Уилли
+Уонка. </div>
+
+      </td>
+    </tr>
+    </tbody></table>
+    <div class="darkrow1" style="height: 5px;"><!-- --></div>
+
+
+<div class="activeuserstrip">0 пользователей читают эту тему (0 гостей и 0 скрытых пользователей)</div>
+	  <div class="row2" style="padding: 6px;">0 пользователей: </div>
+
+
+<div class="activeuserstrip" align="center">« 
+<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showtopic=72091&amp;view=old">Предыдущая тема</a> | 
+<strong><a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showforum=161">Pascal: Математика</a></strong> | 
+<a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showtopic=72091&amp;view=new">Следующая тема</a> »
+</div></div><br>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td valign="top" width="60%"><img src="index.php_files/nav.gif" alt="&gt;" border="0"> <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;">Форум на Исходниках.RU</a> · <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showforum=124">Pascal FAQ</a> · <a href="http://forum.sources.ru/index.php?s=c32be018d89386e7696dc82f87cd9c27&amp;showforum=161">Pascal: Математика</a><br><br></td>
+<td align="right" valign="top" width="40%"></td>
+</tr>
+<tr>
+ <td colspan="2">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+   <tbody><tr>
+    <td align="left" nowrap="nowrap" width="20%"></td>
+    <td align="right" width="80%"><!--IBF.QUICK_REPLY_CLOSED--> 
+   </td></tr>
+  </tbody></table>
+ </td>
+
+</tr>
+<tr><td></td></tr>
+<tr><td></td></tr>
+</tbody></table>
+
+<!--IBF.QUICK_REPLY_OPEN-->
+<br>
+<div align="right"></div>
+<br>
+
+
+<br>
+<br>
+<div align="center">[ Script Execution time: 0.0467 ] &nbsp; [ 21 queries used ] &nbsp; [ Generated: 14.02.10, 16:56 ] &nbsp; </div>
+<br>
+
+<noindex>
+
+<!-- Copyright Information -->
+
+<div class="copyright" align="center">Powered by <a rel="nofollow" href="http://www.invisionboard.com/" target="_blank">Invision Power Board</a>(U) v1.2 © 2003 &nbsp;<a rel="nofollow" href="http://www.invisionpower.com/" target="_blank">IPS, Inc.</a></div>
+
+
+
+
+<table width="100%">
+<tbody><tr>
+
+<td><div align="center">Гаражные <a href="http://www.bestrol.ru/" title="рольставни">рольставни</a> ворота, встроенные рольставни</div></td>
+<td align="center"><!-- XAP banner -->
+<br></td>
+</tr></tbody></table>
+
+<noindex>
+
+<!--Rating@Mail.ru COUNTER--><script language="JavaScript" type="text/javascript"><!--
+d=document;var a='';a+=';r='+escape(d.referrer)
+js=10//--></script><script language="JavaScript1.1" type="text/javascript"><!--
+a+=';j='+navigator.javaEnabled()
+js=11//--></script><script language="JavaScript1.2" type="text/javascript"><!--
+s=screen;a+=';s='+s.width+'*'+s.height
+a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth)
+js=12//--></script><script language="JavaScript1.3" type="text/javascript"><!--
+js=13//--></script><script language="JavaScript" type="text/javascript"><!--
+d.write('<a href="http://top.mail.ru/jump?from=89876"'+
+' target="_top"><img src="http://df.c5.b1.a0.top.mail.ru/counter'+
+'?id=89876;t=57;js='+js+a+';rand='+Math.random()+
+'" alt="Rating@Mail.ru"'+' border="0" height="1" width="1"/></a>')
+if(11<js)d.write('<'+'!-- ')//--></script><a href="http://top.mail.ru/jump?from=89876" target="_top"><img src="index.php_files/counter.gif" alt="Rating@Mail.ru" border="0" height="1" width="1"></a><!-- <noscript><a
+target="_top" href="http://top.mail.ru/jump?from=89876"><img
+src="http://df.c5.b1.a0.top.mail.ru/counter?js=na;id=89876;t=57"
+border="0" height="1" width="1"
+alt="Rating@Mail.ru"/></a></noscript><script language="JavaScript" type="text/javascript"><!--
+if(11<js)d.write('--'+'>')//-->
+<!--/Rating@Mail.ru COUNTER-->
+
+
+<!--Rambler--><a rel="nofollow" href="http://counter.rambler.ru/top100/"><img src="index.php_files/top100.gif" alt="Rambler's Top100" border="0" height="1" width="1"></a>
+</noindex>
+
+</noindex></div>
+<!-- <script type='text/javascript'>if(window.comboInit)setTimeout('comboInit()',10)</script> -->
+</body></html>

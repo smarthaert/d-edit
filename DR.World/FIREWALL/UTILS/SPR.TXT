@@ -1,0 +1,6 @@
+Home Games II:
+
+FileSize-2:Word;
+SizeX,SizeY:Word;
+Sprite:Array[SizeY,SizeX] of Byte;
+

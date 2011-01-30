@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/6.0/XMLDataBinding">
+  <xs:element name="Arhive" type="ArhiveType"/>
+  <xs:complexType name="ArhiveType"><xs:annotation>
+      <xs:appinfo xdb:docElement="Arhive"/>
+    </xs:annotation>
+    
+    <xs:sequence>
+      <xs:element name="Messages" type="MessagesType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MessagesType">
+    <xs:sequence>
+      <xs:element name="Message" type="MessageType" maxOccurs="unbounded"><xs:annotation>
+          <xs:appinfo xdb:identifierName="_Message"/>
+        </xs:annotation>
+        
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MessageType">
+    <xs:sequence>
+      <xs:element name="Litera" type="xs:string"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Time" type="xs:integer"/>
+      <xs:element name="Answer" type="xs:string"/>
+      <xs:element name="Num" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

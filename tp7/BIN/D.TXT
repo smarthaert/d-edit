@@ -1,0 +1,4 @@
+ishodnie dannie
+32 10 12
+c=
+12

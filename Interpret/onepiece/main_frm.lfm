@@ -1,0 +1,41 @@
+object Form1: TForm1
+  Left = 239
+  Height = 557
+  Top = 320
+  Width = 711
+  Caption = 'Form1'
+  ClientHeight = 557
+  ClientWidth = 711
+  ParentFont = False
+  LCLVersion = '0.9.26'
+  object Sandbox: TPaintBox
+    Height = 553
+    Width = 313
+    Anchors = [akTop, akLeft, akBottom]
+    BorderSpacing.InnerBorder = 1
+  end
+  object btn_start: TButton
+    Left = 328
+    Height = 25
+    Width = 75
+    Caption = 'start'
+    OnClick = btn_startClick
+    TabOrder = 0
+  end
+  object lst_log: TListBox
+    Left = 312
+    Height = 100
+    Top = 452
+    Width = 393
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+  object Inputmemo: TEdit
+    Left = 312
+    Height = 416
+    Top = 32
+    Width = 392
+    TabOrder = 2
+    Text = 'круг(10,10,10);'
+  end
+end

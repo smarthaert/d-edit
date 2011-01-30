@@ -1,0 +1,73 @@
+// GraphCtrl.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (GraphCtrl.tlb) that will become a resource in
+// GraphCtrl.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(704FFE06-3DD1-4431-87D9-0B7CB2AA1F46), version(1.0),
+  helpfile("GraphCtrl.hlp"),
+  helpstring("GraphCtrl ActiveX Control module"),
+  control ]
+library GRAPHCTRLLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CGraphCtrlCtrl
+
+	[ uuid(7C49FE05-20A8-42B0-BD79-2CD7E23971CC),
+	  helpstring("Dispatch interface for GraphCtrl Control"), hidden ]
+	dispinterface _DGraphCtrl
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CGraphCtrlCtrl)
+			[id(1)] short Tops;
+			[id(2)] boolean Oriented;
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CGraphCtrlCtrl)
+			[id(3)] void SetEdge(long v1, long v2);
+			[id(4)] void RemoveEdge(short v1, short v2);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CGraphCtrlCtrl
+
+	[ uuid(E2B53D75-4EBB-4FD9-8716-CF01AD0805CD),
+	  helpstring("Event interface for GraphCtrl Control") ]
+	dispinterface _DGraphCtrlEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CGraphCtrlCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CGraphCtrlCtrl
+
+	[ uuid(80B7CC80-F4C3-4EAC-8174-FD1F64D50227),
+	  helpstring("GraphCtrl Control"), control ]
+	coclass GraphCtrl
+	{
+		[default] dispinterface _DGraphCtrl;
+		[default, source] dispinterface _DGraphCtrlEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

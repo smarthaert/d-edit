@@ -1,0 +1,36 @@
+;Help text for Turbo Professional Online Reference Guide
+;Copyright (c) 1989, TurboPower Software
+;All rights reserved
+;Version 5.20
+;
+;Full screen width is used to best display procedure headers
+;Actual width available after framing is 76 characters
+!WIDTH 80
+;
+;For best appearance, use an active help window height of at least 12 rows.
+;
+;Topics 1..9 are reserved for special items like Help on Help
+;Topics 10 and up are used for units, data structures, and routines
+;A unit overview begins each section, followed by topics for each routine
+;Only the special and unit overview topics are indexed
+;
+;Formatting conventions:
+; Char  Where used (usually)  Video attribute
+; ----  --------------------  ---------------------------
+;   -   normal help text      dim on a monochrome monitor
+;  ^A   keystroke sequences   reverse video
+;  ^B   function headers      bold video
+;  ^C   emphasis              underlined bold video
+;  ^E   unselected xref       underlined dim video
+;  ^E   selected xref         reverse video
+;
+;
+!INCLUDE TPRO.TX1  ;tp8087, tasciiz, tpbcd, tpcmd, tpcmdlin
+!INCLUDE TPRO.TX2  ;tpcrt
+!INCLUDE TPRO.TX3  ;tpdate, tpdir, tpdos, tpearray, tprarray, tpvarray
+!INCLUDE TPRO.TX4  ;tpedit, tpems, tpenhkbd
+!INCLUDE TPRO.TX5  ;tpentry
+!INCLUDE TPRO.TX6  ;tperrhan, tpextmem, tphelp, tpinline, tpint, tpint24
+!INCLUDE TPRO.TX7  ;tpmaced, tpmacro, tpmemchk, tpmemo, tpmenu
+!INCLUDE TPRO.TX8  ;tpmouse, tppick, tpscreen
+!INCLUDE TPRO.TX9  ;tpsort, tpstrdev, tpstring, tptsr, tpwindow

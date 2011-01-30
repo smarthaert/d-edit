@@ -1,0 +1,62 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Graph - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x419 /fo"Debug/Graph.res" /d "_DEBUG" /d "_AFXDLL" "C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\Graph.rc"" 
+Creating temporary file "C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP21.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Graph.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\Graph.cpp"
+"C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp"
+"C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP21.tmp" 
+Creating temporary file "C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP22.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Graph.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP22.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Graph.pdb" /debug /machine:I386 /out:"Debug/Graph.exe" /pdbtype:sept  ".\Debug\Graph.obj" ".\Debug\GraphDlg.obj" ".\Debug\PropertiesDlg.obj" ".\Debug\StdAfx.obj" ".\Debug\Graph.res" "
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+Graph.cpp
+GraphDlg.cpp
+c:\program files\microsoft visual studio\myprojects\mlita\graph\graphdlg.h(23) : error C2065: 'IDD_GRAPH_DIALOG' : undeclared identifier
+c:\program files\microsoft visual studio\myprojects\mlita\graph\graphdlg.h(23) : error C2057: expected constant expression
+c:\program files\microsoft visual studio\myprojects\mlita\graph\propertiesdlg.h(21) : error C2065: 'IDD_PropertiesDlg' : undeclared identifier
+c:\program files\microsoft visual studio\myprojects\mlita\graph\propertiesdlg.h(21) : error C2057: expected constant expression
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(25) : error C2065: 'IDD_ABOUTBOX' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(25) : error C2057: expected constant expression
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(70) : error C2065: 'IDR_MAINFRAME' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(87) : error C2065: 'ID_VIEW_SHOWPROPERTIESWINDOW' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(101) : error C2065: 'IDM_ABOUTBOX' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(108) : error C2065: 'IDS_ABOUTBOX' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\GraphDlg.cpp(130) : warning C4018: '==' : signed/unsigned mismatch
+PropertiesDlg.cpp
+c:\program files\microsoft visual studio\myprojects\mlita\graph\propertiesdlg.h(21) : error C2065: 'IDD_PropertiesDlg' : undeclared identifier
+c:\program files\microsoft visual studio\myprojects\mlita\graph\propertiesdlg.h(21) : error C2057: expected constant expression
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(36) : error C2065: 'IDC_CHECK1' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(37) : error C2065: 'IDC_CHECK2' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(38) : error C2065: 'IDC_CHECK3' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(39) : error C2065: 'IDC_CHECK4' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(40) : error C2065: 'IDC_EDIT1' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(41) : error C2065: 'IDC_EDIT2' : undeclared identifier
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Graph\PropertiesDlg.cpp(48) : error C2065: 'IDC_BUTTON1' : undeclared identifier
+Generating Code...
+Error executing cl.exe.
+
+
+
+<h3>Results</h3>
+Graph.exe - 19 error(s), 1 warning(s)
+</pre>
+</body>
+</html>

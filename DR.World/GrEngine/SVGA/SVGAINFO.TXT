@@ -1,0 +1,960 @@
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0100h
+ Resolution : 640 * 400 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0101h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0102h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 100
+ Char : 8 * 8
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0103h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 800
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0104h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 128
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0105h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0106h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 160
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0107h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0109h
+ Resolution : 132 * 25 ( Text Mode )
+ Video Scan Line Size : 264
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 32
+ Window Size : 32
+ Window A Segment : B800h
+ Window B Segment : B800h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Text mode
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 010Ah
+ Resolution : 132 * 43 ( Text Mode )
+ Video Scan Line Size : 264
+ Char : 8 * 8
+ Planes : 4
+ Window Granularity : 32
+ Window Size : 32
+ Window A Segment : B800h
+ Window B Segment : B800h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Text mode
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 010Dh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 010Eh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 010Fh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0110h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0111h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0112h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0113h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0114h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0115h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 3200
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0116h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0117h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0118h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 4096
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0119h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 011Ah
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0120h
+ Resolution : 1600 * 1200 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0207h
+ Resolution : 1152 * 864 ( Graphics Mode )
+ Video Scan Line Size : 1152
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0212h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 24
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0213h
+ Resolution : 640 * 400 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0215h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 512
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0216h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0217h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 0218h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8100h
+ Resolution : 640 * 400 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8101h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8102h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 100
+ Char : 8 * 8
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8103h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 800
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8104h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 128
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8105h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8106h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 160
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : 4-plane planar
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8107h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8109h
+ Resolution : 132 * 25 ( Text Mode )
+ Video Scan Line Size : 264
+ Char : 8 * 16
+ Planes : 4
+ Window Granularity : 32
+ Window Size : 32
+ Window A Segment : B800h
+ Window B Segment : B800h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Text mode
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 810Ah
+ Resolution : 132 * 43 ( Text Mode )
+ Video Scan Line Size : 264
+ Char : 8 * 8
+ Planes : 4
+ Window Granularity : 32
+ Window Size : 32
+ Window A Segment : B800h
+ Window B Segment : B800h
+ BitsPerPixel : 4
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Text mode
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 810Dh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 810Eh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 640
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 810Fh
+ Resolution : 320 * 200 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8110h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8111h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 1280
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8112h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8113h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8114h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8115h
+ Resolution : 800 * 600 ( Graphics Mode )
+ Video Scan Line Size : 3200
+ Char : 8 * 8
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8116h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8117h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8118h
+ Resolution : 1024 * 768 ( Graphics Mode )
+ Video Scan Line Size : 4096
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8119h
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 811Ah
+ Resolution : 1280 * 1024 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8120h
+ Resolution : 1600 * 1200 ( Graphics Mode )
+ Video Scan Line Size : 1600
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8207h
+ Resolution : 1152 * 864 ( Graphics Mode )
+ Video Scan Line Size : 1152
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8212h
+ Resolution : 640 * 480 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 24
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8213h
+ Resolution : 640 * 400 ( Graphics Mode )
+ Video Scan Line Size : 2560
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8215h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 512
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 8
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Packed pixel
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8216h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 15
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8217h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 1024
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 16
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+
+÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
+ Video Mode 8218h
+ Resolution : 512 * 384 ( Graphics Mode )
+ Video Scan Line Size : 2048
+ Char : 8 * 16
+ Planes : 1
+ Window Granularity : 64
+ Window Size : 64
+ Window A Segment : A000h
+ Window B Segment : A000h
+ BitsPerPixel : 32
+ Banks Num : 1
+ Bank Size : 0
+ Mem Model : Reserved, to be defined by VESA
+

@@ -1,0 +1,746 @@
+{\rtf1\ansi\ansicpg1251\uc1 \deff0\deflang1033\deflangfe1049{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f2\fmodern\fcharset0\fprq1{\*\panose 02070309020205020404}Courier New;}
+{\f16\froman\fcharset238\fprq2 Times New Roman CE;}{\f17\froman\fcharset204\fprq2 Times New Roman Cyr;}{\f19\froman\fcharset161\fprq2 Times New Roman Greek;}{\f20\froman\fcharset162\fprq2 Times New Roman Tur;}
+{\f21\froman\fcharset186\fprq2 Times New Roman Baltic;}{\f28\fmodern\fcharset238\fprq1 Courier New CE;}{\f29\fmodern\fcharset204\fprq1 Courier New Cyr;}{\f31\fmodern\fcharset161\fprq1 Courier New Greek;}{\f32\fmodern\fcharset162\fprq1 Courier New Tur;}
+{\f33\fmodern\fcharset186\fprq1 Courier New Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;
+\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;}{\stylesheet{\nowidctlpar\widctlpar\adjustright \fs20\cgrid \snext0 
+\'ce\'e1\'fb\'f7\'ed\'fb\'e9;}{\s1\keepn\nowidctlpar\widctlpar\outlinelevel0\adjustright \i\f2\fs16\cf1\lang1049\cgrid \sbasedon0 \snext0 \'e7\'e0\'e3\'ee\'eb\'ee\'e2\'ee\'ea 1;}{\*\cs10 \additive \'ce\'f1\'ed\'ee\'e2\'ed\'ee\'e9 \'f8\'f0\'e8\'f4\'f2;}{
+\s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid \sbasedon0 \snext15 \'d2\'e5\'ea\'f1\'f2;}{\*\cs16 \additive \ul\cf2 \sbasedon10 \'c3\'e8\'ef\'e5\'f0\'f1\'f1\'fb\'eb\'ea\'e0;}}{\*\listtable{\list\listtemplateid655816790\listsimple
+{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat5\levelspace0\levelindent0{\leveltext\'01\'00;}{\levelnumbers\'01;}\fbias0 \fi-360\li600\jclisttab\tx600 }{\listname ;}\listid1351757653}}{\*\listoverridetable{\listoverride\listid1351757653
+\listoverridecount0\ls1}}{\info{\author \'c0\'ed\'e4\'f0\'e5\'e9 \'cf\'e5\'f2\'f0\'ee\'e2\'e8\'f7}{\operator \'c0\'ed\'e4\'f0\'e5\'e9 \'cf\'e5\'f2\'f0\'ee\'e2\'e8\'f7}{\creatim\yr2001\mo10\dy30\hr22\min31}{\revtim\yr2001\mo11\dy1\hr14\min31}{\version11}
+{\edmins456}{\nofpages8}{\nofwords2387}{\nofchars13608}{\*\company  }{\nofcharsws16711}{\vern73}}\widowctrl\ftnbj\aendnotes\aftnstart0\hyphhotz0\aftnnar\lytprtmet\hyphcaps0\viewkind4\viewscale100\pgbrdrhead\pgbrdrfoot \fet0\sectd 
+\linex0\headery709\footery709\colsx709\endnhere\sectdefaultcl {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4
+\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}{\*\pnseclvl5\pndec\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}
+{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl9\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\cf1\lang1049 
+\par }\pard\plain \s1\keepn\nowidctlpar\widctlpar\outlinelevel0\adjustright \i\f2\fs16\cf1\lang1049\cgrid {\f29                                           \'cf\'ee\'f1\'e2\'ff\'f9\'e0\'e5\'f2\'f1\'ff \'cd\'e8\'ea\'ee\'eb\'e0\'fe 
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\i\f29\fs16\cf1\lang1049                                           \'c8\'e2\'e0\'ed\'ee\'e2\'e8\'f7\'f3 \'cb\'ee\'e1\'e0\'f7\'e5\'e2\'f1\'ea\'ee\'ec\'f3
+\par }{\i\fs16\lang1049 
+\par }{\f17\fs40\lang1049       \'cd\'e5\'e5\'e2\'ea\'eb\'e8\'e4\'ee\'e2\'fb \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e8
+\par }{\lang1049 
+\par             }{\f29\fs32\lang1049 \'c2\'e2\'e5\'e4\'e5\'ed\'e8\'e5
+\par }{\lang1049 
+\par }{\f29\cf1\lang1049    \'c2 \'ed\'e0\'f1\'f2\'ee\'ff\'f9\'e5\'e5 \'e2\'f0\'e5\'ec\'ff \'e8\'e7\'e2\'e5\'f1\'f2\'ed\'ee \'ed\'e5\'ec\'e0\'eb\'ee \'f2\'e5\'ee\'f0\'e8\'e9, \'ef\'ee\'e4\'f2\'e2\'e5\'f0\'e6\'e4\'e0\'fe\'f9\'e8\'f5, \'f7\'f2\'ee \'e0\'ea\'f1
+\'e8\'ee\'ec\'e0\'f2\'e8\'f7\'e5\'f1\'ea\'e8\'e9 \'f4\'f3\'ed\'e4\'e0\'ec\'e5\'ed\'f2 \'ec\'e0\'f2\'e5\'ec\'e0\'f2\'e8\'ea\'e8 \'e4\'e0\'eb\'e5\'ea\'ee \'ed\'e5 \'e1\'e5\'e7\'f3\'ef\'f0\'e5\'f7\'e5\'ed}{\f2\cf1 , }{\f29\cf1\lang1049 \'e0 \'e8\'ed\'f4\'ee
+\'f0\'ec\'e0\'f2\'e8\'ea\'e8 \'e8 \'e2\'ee\'e2\'f1\'e5 \'ee\'f2\'f1\'f3\'f2\'f1\'f2\'e2\'f3\'e5\'f2.  \'ca\'e0\'ec\'e5\'ed\'ed\'fb\'e5 \'c5\'e2\'ea\'eb\'e8\'e4\'ee\'e2\'fb \'e0\'ea\'f1\'e8\'ee\'ec\'fb, \'ef\'f0\'ee\'f1\'f2\'ee\'ff\'e2\'f8\'e8\'e5 2000 
+\'eb\'e5\'f2}{\f2\cf1 ,}{\f29\cf1\lang1049  \'f2\'f0\'e5\'f1\'ed\'f3\'eb\'e8. \'c8 \'e2 \'ef\'e5\'f0\'e2\'ee\'e9 \'f2\'f0\'e5\'f9\'e8\'ed\'e5 \'e2\'fb\'f0\'ee\'f1 \'f6\'e2\'e5\'f2\'ee\'ea \'ed\'e5\'e5\'e2\'ea\'eb\'e8\'e4\'ee\'e2\'ee\'e9 \'e3\'e5\'ee\'ec
+\'e5\'f2\'f0\'e8\'e8 \'cd\'e8\'ea\'ee\'eb\'e0\'ff \'c8\'e2\'e0\'ed\'ee\'e2\'e8\'f7\'e0 \'cb\'ee\'e1\'e0\'f7\'e5\'e2\'f1\'ea\'ee\'e3\'ee. \'c2 \'ea\'ee\'ed\'f6\'e5 \'ef\'f0\'ee\'f8\'eb\'ee\'e3\'ee \'e2\'e5\'ea\'e0 \'ed\'e8\'ea\'e0\'ea \'ed\'e5 \'f3\'e4\'e0
+\'e2\'e0\'eb\'ee\'f1\'fc \'f0\'e5\'f8\'e8\'f2\'fc \'e2\'ee\'ef\'f0\'ee\'f1 \'ee V \'ef\'ee\'f1\'f2\'f3\'eb\'e0\'f2\'e5 \'c5\'e2\'ea\'eb\'e8\'e4\'e0. \'ce\'ed \'f3\'f2\'e2\'e5\'f0\'e6\'e4\'e0\'e5\'f2}{\f2\cf1 , }{\f29\cf1\lang1049 \'f7\'f2\'ee \'f7\'e5\'f0
+\'e5\'e7 \'ea\'e0\'e6\'e4\'f3\'fe \'f2\'ee\'f7\'ea\'f3 \'ec\'ee\'e6\'ed\'ee \'ef\'f0\'ee\'e2\'e5\'f1\'f2\'e8 \'f2\'ee\'eb\'fc\'ea\'ee \'ee\'e4\'ed\'f3 \'ef\'f0\'ff\'ec\'f3\'fe, \'ef\'e0\'f0\'e0\'eb\'eb\'e5\'eb\'fc\'ed\'f3\'fe \'e7\'e0\'e4\'e0\'ed\'ed\'ee
+\'e9. \'cf\'ee\'ef\'fb\'f2\'ea\'e8 \'eb\'ee\'e3\'e8\'f7\'e5\'f1\'ea\'e8 \'e2\'fb\'e2\'e5\'f1\'f2\'e8 \'fd\'f2\'f3 \'e0\'ea\'f1\'e8\'ee\'ec\'f3 \'e8\'e7 \'ee\'f1\'f2\'e0\'eb\'fc\'ed\'fb\'f5 \'ee\'ea\'e0\'e7\'e0\'eb\'e8\'f1\'fc \'f2\'f9\'e5\'f2\'ed\'fb\'ec
+\'e8 \'e4\'eb\'ff \'ec\'ed\'ee\'e3\'e8\'f5.  \'cd\'ee \'f2\'ee\'eb\'fc\'ea\'ee \'cd\'e8\'ea\'ee\'eb\'e0\'e9 \'c8\'e2\'e0\'ed\'ee\'e2\'e8\'f7  \'ef\'ee\'ed\'ff\'eb, \'f7\'f2\'ee \'e5\'f1\'f2\'fc \'e3\'e5\'ee\'ec\'e5\'f2\'f0\'e8\'e8, \'e2 \'ea\'ee\'f2\'ee
+\'f0\'fb\'f5 \'f7\'e5\'f0\'e5\'e7 \'f2\'ee\'f7\'ea\'f3 \'ec\'ee\'e6\'ed\'ee \'ef\'f0\'ee\'e2\'e5\'f1\'f2\'e8 \'ed\'e5\'f1\'ea\'ee\'eb\'fc\'ea\'ee \'ef\'e0\'f0\'e0\'eb\'eb\'e5\'eb\'fc\'ed\'fb\'f5.  \'c8 \'e4\'e0\'eb\'fc\'ed\'e5\'e9\'f8\'e5\'e5 \'f0\'e0\'e7
+\'e2\'e8\'f2\'e8\'e5 \'e3\'e5\'ee\'ec\'e5\'f2\'f0\'e8\'e8 \'e2\'ef\'ee\'eb\'ed\'e5 \'ef\'ee\'e4\'f2\'e2\'e5\'f0\'e4\'e8\'eb\'ee \'ef\'eb\'ee\'e4\'ee\'f2\'e2\'ee\'f0\'ed\'ee\'f1\'f2\'fc \'fd\'f2\'e8\'f5 \'e8\'e4\'e5\'e9. \'c8 \'f1\'ef\'ee\'f1\'ee\'e1\'f1
+\'f2\'e2\'ee\'e2\'e0\'eb\'e8 \'fd\'f2\'ee\'ec\'f3, \'ef\'ee \'e2\'fb\'f0\'e0\'e6\'e5\'ed\'e8\'fe \'ee\'e4\'ed\'ee\'e3\'ee \'e8\'e7 \'ea\'ee\'f0\'f0\'e5\'f1\'ef\'ee\'ed\'e4\'e5\'ed\'f2\'ee\'e2 \'c3\'e0\'f3\'f1\'f1\'e0, \'e7\'e0\'e3\'e0\'e4\'ee\'f7\'ed\'fb
+\'e5 \lquote \'f0\'f3\'f1\'f1\'ea\'e8\'e5 \'f1\'f2\'e5\'ef\'e8\rquote .
+\par }{\f2\cf1\lang1049 
+\par }{\f29\cf1\lang1049    \'d1\'e5\'e4\'fc\'ec\'e0\'ff \'e0\'ea\'f1\'e8\'ee\'ec\'e0  \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e8 \'c5\'e2\'ea\'eb\'e8\'e4\'e0 \'f3\'f2\'e2\'e5\'f0\'e6\'e4\'e0\'e5\'f2, \'f7\'f2\'ee \'f1\'f2\'e5\'ef\'e5\'ed\'fc \'ef\'f0\'ee\'f1
+\'f2\'ee\'e3\'ee \'ed\'e5 \'ec\'ee\'e6\'e5\'f2 \'e8\'ec\'e5\'f2\'fc \'e4\'f0\'f3\'e3\'e8\'f5 \'ef\'f0\'ee\'f1\'f2\'fb\'f5 \'e4\'e5\'eb\'e8\'f2\'e5\'eb\'e5\'e9. \'dd\'f2\'e0 \'e0\'ea\'f1\'e8\'ee\'ec\'e0 \'ed\'e5 \'e7\'e0\'e2\'e8\'f1\'e8\'f2 \'ee\'f2 \'e4
+\'f0\'f3\'e3\'e8\'f5 \'e0\'ea\'f1\'e8\'ee\'ec \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e8.  \'d7\'f2\'ee\'e1\'fb \'f3\'e1\'e5\'e4\'e8\'f2\'fc\'f1\'ff \'e2 \'fd\'f2\'ee\'ec \'ef\'f0\'ee\'f9\'e5 \'e2\'f1\'e5\'e3\'ee \'ef\'ee\'f1\'f2\'f0\'ee\'e8\'f2\'fc \'e0
+\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'f3, \'e2 \'ea\'ee\'f2\'ee\'f0\'ee\'e9  \'fd\'f2\'e0 \'e0\'ea\'f1\'e8\'ee\'ec\'e0 \'ed\'e0\'f0\'f3\'f8\'e0\'e5\'f2\'f1\'ff. \'cd\'e8\'e6\'e5 \'ec\'fb \'e2\'fb\'ff\'f1\'ed\'e8\'ec, \'f7\'f2\'ee \'e8\'ec\'e5\'ed\'ed\'ee \'f2
+\'e0\'ea\'ee\'e9 \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e0 G-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e9  \'ed\'e5\'e2\'fb\'f0\'ee\'e6\'e4\'e5\'ed\'ed\'ee\'e9 (\'ea\'ee\'ed\'e5\'f7\'ed\'ee\'e9 
+\endash  \'e4\'eb\'ff \'ef\'f0\'ee\'f1\'f2\'ee\'f2\'fb) \'e3\'f0\'f3\'ef\'ef\'fb G.
+\par }{\f2\lang1049 
+\par 
+\par      }{\f29\fs32\lang1049 \'c4\'e5\'e9\'f1\'f2\'e2\'e8\'ff \'e3\'f0\'f3\'ef\'ef\'fb \'ed\'e0 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0\'f5}{\f2\lang1049 .
+\par 
+\par }{\f29\lang1049    \'d0\'e0\'f1\'f1\'ec\'ee\'f2\'f0\'e8\'ec \'ef\'f0\'e8\'ec\'e5\'f0 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'ee\'e9 \'e3\'f0\'f3\'ef\'ef\'fb C4 4-\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0. \'ca\'e0\'ea \'ec\'ee\'e6\'e5\'f2 \'fd\'f2\'e0 \'e3\'f0
+\'f3\'ef\'ef\'e0 \'e4\'e5\'e9\'f1\'f2\'e2\'ee\'e2\'e0\'f2\'fc \'ed\'e0 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e5? \'c2\'ee-\'ef\'e5\'f0\'e2\'fb\'f5, \'ee\'ed\'e0 \'ec\'ee\'e6\'e5\'f2 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'e8 \'ef\'e5\'f0\'e5\'f1\'f2\'e0\'e2\'eb
+\'ff\'f2\'fc \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'fb \'e2\'fb\'e1\'f0\'e0\'ed\'ed\'fb\'f5 \'f7\'e5\'f2\'e2\'e5\'f0\'ee\'ea \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ee\'e2. \'ca\'f0\'ee\'ec\'e5 \'f2\'ee\'e3\'ee, \'ee\'ed\'e0 \'ec\'ee\'e6\'e5\'f2 \'ef\'e5\'f0\'e5\'f1\'f2\'e0
+\'e2\'eb\'ff\'f2\'fc \'ef\'e0\'f0\'fb \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ee\'e2. \'cd\'e0\'ea\'ee\'ed\'e5\'f6, \'ec\'ee\'e3\'f3\'f2 \'e1\'fb\'f2\'fc \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'fb, \'ea\'ee\'f2\'ee\'f0\'fb\'e5 \'ef\'f0\'ee\'f1\'f2\'ee \'ed\'e5 \'f1\'e4\'e2
+\'e8\'ed\'f3\'f2\'fc. \'d2\'e5\'ec \'f1\'e0\'ec\'fb\'ec, \'ea\'e0\'e6\'e4\'ee\'e5 C4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'ee \'e8\'ec\'e5\'e5\'f2 \'e2\'e8\'e4:
+\par }{\f2\lang1049 
+\par  (2) X4C4+X2C2+X1
+\par 
+\par }{\f29\lang1049 \'e3\'e4\'e5 X4 - \'ea\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee \'f7\'e5\'f2\'e2\'e5\'f0\'ee\'ea   (\'e8\'eb\'e8 C4-\'ee\'f0\'e1\'e8\'f2),
+\par     X2 - \'ea\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee \'ef\'e0\'f0        (\'e8\'eb\'e8 C2-\'ee\'f0\'e1\'e8\'f2),
+\par     X1 - \'ea\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee \'ed\'e5\'e4\'e2\'e8\'e6\'e8\'ec\'fb\'f5 (\'e8\'eb\'e8  1-\'ee\'f0\'e1\'e8\'f2),
+\par }{\f2\lang1049 
+\par }{\f29\lang1049   \'c2\'ef\'ee\'eb\'ed\'e5 \'ff\'f1\'ed\'ee, \'f7\'f2\'ee \'f1\'ea\'eb\'e0\'e4\'fb\'e2\'e0\'fe\'f2\'f1\'ff C4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 \'ef\'ee\'ea\'ee\'ec\'ef\'ee\'ed\'e5\'ed\'f2\'ed\'ee:
+\par }{\f2\lang1049 
+\par   X1+X2C2+X4C4 + Y1+Y2C2+Y4C4 = (X1+Y1)+(X2+Y2)C2+(X4+Y4)C4
+\par 
+\par }{\f29\lang1049    \'d7\'f2\'ee\'e1\'fb \'e2\'fb\'ff\'f1\'ed\'e8\'f2\'fc, \'ea\'e0\'ea \'f3\'f1\'f2\'f0\'ee\'e5\'ed\'fb \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'ff, \'e4\'ee\'f1\'f2\'e0\'f2\'ee\'f7\'ed\'ee \'e2\'ee\'f1\'ef\'ee\'eb\'fc\'e7\'ee\'e2\'e0
+\'f2\'fc\'f1\'ff \'f2\'e5\'ec, \'f7\'f2\'ee \'fd\'f2\'e8 \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'ff \'f1\'ee\'f5\'f0\'e0\'ed\'ff\'fe\'f2\'f1\'ff \'eb\'fe\'e1\'fb\'ec\'e8 \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff\'ec\'e8 Hom(U,_), \'e8 
+\'e2 \'f7\'e0\'f1\'f2\'ed\'ee\'f1\'f2\'e8 (1,X) = X1, (\'d12,X) = X1+2X2.\'d12 \'e8 (\'d14,X) = X1+2X2.\'d12+4C4.\'d14. }{\f2\lang1049  
+\par 
+\par }{\f29\lang1049    \'c1\'ee\'eb\'e5\'e5 \'f2\'ee\'e3\'ee, \'ed\'e5 \'f2\'f0\'f3\'e4\'ed\'ee \'f3\'e1\'e5\'e4\'e8\'f2\'fc\'f1\'ff \'e2 \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee\'f1\'f2\'e8 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2, \'f1\'ed\'e0\'f7\'e0\'eb\'e0
+ C2-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2:
+\par }{\f2\lang1049 
+\par     C2*X + 2(1,X) = 2X + C2(1,X) = 2X1+C2(X1+2X2)
+\par 
+\par }{\f29\lang1049   \'c0 \'e7\'e0\'f2\'e5\'ec, \'e8 C4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2:
+\par }{\f2\lang1049   C4*X + 2C2(C2,X) + 4(1,X) = 4X + 2C2(1,X) + C4(C2,X)
+\par   = 4X1+2C2(X1+2X2)+C4(X1+2X2+4X4)
+\par 
+\par }{\f2   }{\f2\lang1049  }{\f29 \'ca\'eb\'fe\'f7\'e5\'e2\'fb\'ec }{\f29\lang1049 \'ff}{\f29 \'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ef\'ee\'f1\'f2\'f0\'ee\'e5\'ed\'e8\'e5 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2. }{\f2\lang1049  }{\f29 \'d0\'e0\'f1\'f1\'ec\'ee\'f2\'f0
+\'e8\'ec}{\f2\lang1049  }{\f29 \'e3\'f0\'f3\'ef\'ef\'f3 \'e2\'f0\'e0\'f9\'e5\'ed\'e8\'e9}{\f2\lang1049  }{\f29 \'f2\'e5\'f2\'f0\'e0\'fd\'e4\'f0\'e0 \'e8\'eb\'e8 \'e3\'f0\'f3\'ef\'ef}{\f29\lang1049 \'f3}{\f29  \'f7\'b8\'f2\'ed\'fb\'f5 \'ef\'e5\'f0\'e5\'f1
+\'f2\'e0\'ed\'ee\'e2\'ee\'ea 4-\'f5 \'e1\'f3\'ea\'e2 A4. }{\f29\lang1049 \'dd\'f2\'e0 \'e3\'f0\'f3\'ef\'ef\'e0}{\f29  \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 12 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ee\'e2, \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f9\'e8\'f5 \'ef\'ee \'f1\'ee\'ef
+\'f0\'ff\'e6\'e5\'ed\'e8\'ff\'ec \'f7\'e5\'f2\'fb\'f0\'e5 A4-\'ee\'f0\'e1\'e8\'f2\'fb:
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {\f29  1  \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'e5 \'e8 \'ed\'e5\'ef\'ee\'e2\'f2\'ee\'f0\'e8\'ec\'ee\'e5 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'e5 \'e2\'f0\'e0
+\'f9\'e5\'ed\'e8\'e5}{; 
+\par }{\f29  U3 \'f2\'f0\'e8 2-\'e2\'f0\'e0\'f9\'e5\'ed\'e8\'e9
+\par  U4 \'f7\'e5\'f2\'fb\'f0\'e5 '\'eb\'e5\'e2\'fb\'f5' 3-\'e2\'f0\'e0\'f9\'e5\'ed\'e8\'e9
+\par  V4 \'f7\'e5\'f2\'fb\'f0\'e5 '\'ef\'f0\'e0\'e2\'fb\'f5' 3-\'e2\'f0\'e0\'f9\'e5\'ed\'e8\'e9
+\par \'d2\'e5\'ec \'f1\'e0\'ec\'fb\'ec \'ef\'ee\'f1\'f2\'f0\'ee\'e5\'ed\'ee \'ea\'ee\'eb\'fc\'f6\'ee \'f1 4-\'ec\'ff \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f9\'e8\'ec\'e8 \'e8 \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'ec\'e8 \'ea\'ee\'fd\'f4\'f4\'e8\'f6\'e8\'e5\'ed\'f2
+\'e0\'ec\'e8}{\f29\lang1033 , (\'ef\'ee\'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ed\'ee\'e5) }{\f29 \'f3\'ec\'ed\'ee\'e6\'e5\'ed\'e8\'e5 \'e2 \'fd\'f2\'ee\'ec \'ea\'ee\'eb\'fc\'f6\'e5 \'e7\'e0\'e4\'e0\'b8\'f2\'f1\'ff \'f2\'e0\'e1\'eb\'e8\'f6\'e5\'e9}{\lang1033 :
+
+\par        }{U3      U4       V4
+\par  U3   3+2U3    3U4      3V4 
+\par  U4    3U4     4V4     4+4U3 
+\par  V4    3V4    4+4U3     4U4 
+\par 
+\par }{\f29    \'ce\'e4\'ed\'e0\'ea\'ee \'e2\'f1\'e5 }{\lang1033 A4-}{\f29 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f2 \'e4\'f0\'f3\'e3\'ee\'e5 \'ea\'ee\'eb\'fc\'f6\'ee}{\lang1033 , }{\f29 \'e2 \'ea\'ee\'f2\'ee\'f0\'ee\'ec \'fd\'ea
+\'e2\'e8\'e2\'e0\'eb\'e5\'ed\'f2\'ed\'fb\'e5 \'ee\'f0\'e1\'e8\'f2\'fb }{\lang1033 U4 }{\f29 \'e8 }{\lang1033 V4 }{\f29 \'f1\'ea\'eb\'e5\'e8\'e2\'e0\'fe\'f2\'f1\'ff \'e2 \'ee\'e4\'ed\'f3 \'e8 \'ef\'ee\'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ee\'f0\'e1\'e8\'f2
+\'e0 }{\lang1033 U6 C2-}{\f29 \'ea\'eb\'e0\'f1\'f1\'ee\'e2 \'f1\'ec\'e5\'e6\'ed\'ee\'f1\'f2\'e8}{\lang1033 , (}{\f29 \'ef\'f0\'ff\'ec}{\f29\lang1033 \'ee\'e5) }{\f29 \'f3\'ec\'ed\'ee\'e6\'e5\'ed\'e8\'e5 \'e2 \'fd\'f2\'ee\'ec \'ea\'ee\'eb\'fc\'f6\'e5 \'e7
+\'e0\'e4\'e0\'b8\'f2\'f1\'ff \'f2\'e0\'e1\'eb\'e8\'f6\'e5\'e9}{\lang1033 :
+\par }{        U3     U4       U6
+\par  U3    3U3     A4      3U6 
+\par  U4     A4   U4+A4     2A4 
+\par  U6    3U6    2A4    2U6+2A4 
+\par 
+\par }{\f29 \'ce\'e1\'e0 \'ea\'ee\'eb\'fc\'f6\'e0 \'ee\'e1\'eb\'e0\'e4\'e0\'fe\'f2 Hom-\'f4\'ee\'f0\'ec\'ee\'e9 (_,_) \'e8 \'e2 \'ee\'e1\'ee\'e8\'f5 \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee
+\par }{  (A+B,C) = (A,C).(B,C).
+\par }{\f29 \'ce\'e4\'ed\'e0\'ea\'ee, \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee
+\par }{  (A,B.C) = (A,B).(A,C).
+\par }{\f29 \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee \'f2\'ee\'eb\'fc\'ea\'ee \'e4\'eb\'ff A4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2}{\lang1033 . }{\f29 \'c8\'ec\'e5\'ed\'ed\'ee \'ef\'ee\'fd\'f2\'ee\'ec\'f3 \'e2 \'ef\'e5\'f0\'e2\'ee\'ec \'ea\'ee\'eb\'fc\'f6\'e5 
+\'ed\'e5 \'f3\'e4\'e0\'b8\'f2\'f1\'ff \'ef\'ee\'f1\'f2\'f0\'ee\'e8\'f2\'fc \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2\'fb}{\lang1033 , }{\f29 \'e8 \'f3\'e4\'e0\'b8\'f2\'f1\'ff \'e2\'ee \'e2\'f2\'ee\'f0\'ee\'ec}{\lang1033 .
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\lang1049 
+\par 
+\par        }{\f29\fs32\lang1049 \'dd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2\'fb}{\f2\lang1049 .
+\par 
+\par }{\f29\lang1049   \'d1\'ee\'e2\'f0\'e5\'ec\'e5\'ed\'ed\'ee\'e5 \'ef\'ee\'ed\'ff\'f2\'e8\'e5 \'ee\'e1 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2\'e0\'f5, \'f5\'ee\'f0\'ee\'f8\'ee (\'ed\'ee \'ed\'e5 \'e8\'f1\'f7\'e5\'f0\'ef\'fb\'e2\'e0\'fe\'f9\'e5)  \'ee\'f2\'f0
+\'e0\'e6\'e5\'ed\'ed\'ee \'e2 \'f2\'e5\'ee\'f0\'e8\'e8 \'f2\'ee\'ef\'ee\'f1\'ee\'e2, \'e3\'ee\'f0\'e0\'e7\'e4\'ee \'f8\'e8\'f0\'e5 \'ef\'f0\'e8\'e2\'fb\'f7\'ed\'ee\'e3\'ee, \'e8\'e7\'e2\'e5\'f1\'f2\'ed\'ee\'e3\'ee \'f1\'ee \'f8\'ea\'ee\'eb\'fb:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049    A^B: \'fd\'f2\'ee B - \'ea\'f0\'e0\'f2\'ed\'ee\'e5 \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'e5 \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb\'e5\'e9 A.
+\par }{\f2\lang1049 
+\par }{\f29\lang1049   \'d2\'e0\'ea\'ee\'e5 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'e8\'e5 \'ef\'ee\'f7\'f2\'e8 \'e1\'e5\'f1\'ef\'ee\'eb\'e5\'e7\'ed\'ee, \'ed\'e0\'ef\'f0\'e8\'ec\'e5\'f0, \'e4\'eb\'ff \'e3\'f0\'f3\'ef\'ef A \'e8 B. \'ca\'eb\'fe\'f7\'ee\'ec \'e4
+\'eb\'ff \'ef\'ee\'f1\'f2\'f0\'ee\'e5\'ed\'e8\'ff \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2 \'ff\'e2\'eb\'ff\'fe\'f2\'f1\'ff \'e8\'f5 \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'fb\'e5 \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'e0:
+\par }{\f2\lang1049 
+\par    A^(B+C) = A^B.A}{\f29\lang1049 ^C \'e8 (A^B)^C = A^(B.C) = (A^C)^B
+\par    \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'e5\'ed\'ed\'ee, \'e4\'eb\'ff \'eb\'fe\'e1\'fb\'f5 A, B, C.
+\par }{\f2\lang1049 
+\par }{\f29\lang1049    \'c4\'eb\'ff \'eb\'ee\'e3\'e8\'ea\'ee\'e2 \'e3\'ee\'f0\'e0\'e7\'e4\'ee \'ef\'f0\'e8\'e2\'fb\'f7\'ed\'e5\'e5 \'f0\'ee\'e4\'ed\'fb\'e5 \'e8\'ec\'ef\'eb\'e8\'ea\'e0\'f6\'e8\'e8:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049    A=>(B+C) = A=>B.A=>C \'e8 A=>(B.C) = (A=>B)=>C = (A=>C)=>B
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {
+\par }{\f29    \'ce\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2\'f1\'ff, \'f7\'f2\'ee \'e4\'eb\'ff \'ef\'ee\'f1\'f2\'f0\'ee\'e5\'ed\'e8\'ff \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2 \'e4\'ee\'f1\'f2\'e0\'f2\'ee\'f7\'ed\'ee \'e8\'ec\'e5\'f2\'fc Hom-\'f4\'ee\'f0\'ec\'f3 (_,_) 
+\'ee\'e1\'eb\'e0\'e4\'e0\'fe\'f9\'f3\'fe \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee\'ec \'e4\'e5\'ea\'e0\'f0\'f2\'ee\'e2\'ee\'e9 \'e7\'e0\'ec\'ea\'ed\'f3\'f2\'ee\'f1\'f2\'e8:
+\par }{
+\par    (X.B,A) = (X,A^B)
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\lang1049 
+\par }{\f29\lang1049    \'c2 \'f2\'e5\'ee\'f0\'e8\'e8 \'f2\'ee\'ef\'ee\'f1\'ee\'e2 \'fd\'f2\'e8 \'ef\'f0\'ee\'e1\'eb\'e5\'ec\'fb \'ef\'ee\'e4\'f0\'ee\'e1\'ed\'ee \'f0\'e0\'f1\'f1\'ec\'e0\'f2\'f0\'e8\'e2\'e0\'fe\'f2\'f1\'ff}{\f2 . }{\f29\lang1049 \'c7\'e4\'e5
+\'f1\'fc \'ee\'e3\'f0\'e0\'ed\'e8\'f7\'e8\'ec\'f1\'ff \'f5\'e0\'f0\'e0\'ea\'f2\'e5\'f0\'ed\'fb\'ec \'ef\'f0\'e8\'ec\'e5\'f0\'ee\'ec}{\f2 . }{\f29\lang1049 \'c2\'fb\'e1\'e5\'f0\'e5\'ec \'ef\'f0\'ee\'f1\'f2\'ee\'e5 }{\f2 p }{\f29\lang1049 \'e8 \'f0\'e0\'f1
+\'f1\'ec\'ee\'f2\'f0\'e8\'ec
+\par }\pard \nowidctlpar\adjustright {\f29\cgrid0 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'e3\'f0\'f3\'ef\'ef\'f3 C(p)}{\f29\lang1049\cgrid0  \'e8 }{\f2\cgrid0 C(p)-}{\f29\lang1049\cgrid0 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0}{\f2\cgrid0 . }{
+\f29\lang1049\cgrid0 \'d1\'e0\'ec\'ee\'e5 \'e8\'ed\'f2\'e5\'f0\'e5\'f1\'ed\'ee\'e5}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'f7\'f2\'ee \'f1\'ee\'e4\'e5\'f0\'e6\'e0\'f2\'e5\'eb\'fc\'ed\'ee}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'f1}{\f29\cgrid0 \'f3\'f9\'e5
+\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e5 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2 C(p)-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'e2 \'f2\'ee\'f7\'ed\'ee\'f1\'f2\'e8 \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee '\'cc\'e0\'eb\'ee\'e9 \'f2\'e5\'ee\'f0\'e5\'ec\'e5 \'d4\'e5
+\'f0\'ec\'e0'.}{\f2\lang1049\cgrid0 
+\par }{\f29\cgrid0 \'c4\'e5\'e9\'f1\'f2\'e2\'e8\'f2\'e5\'eb\'fc\'ed\'ee, \'ea\'e0\'e6\'e4\'ee\'e5 C(p)-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'ee \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 \'f2\'ee\'eb\'fc\'ea\'ee 1 \'e8 p \'ee\'f0\'e1\'e8\'f2\'fb, \'f1\'f3\'f9\'e5\'f1\'f2
+\'e2\'ee\'e2\'e0\'ed\'e8\'e5 S^G \'f2\'f0\'e5\'e1\'f3\'e5\'f2, \'f7\'f2\'ee\'e1\'fb \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff (G,S^G) = S^p  \'e8 
+\par (1,S^G) = S \'ee\'f2\'eb\'e8\'f7\'e0\'eb\'e8\'f1\'fc \'ed\'e0  \'ea\'f0\'e0\'f2\'ed\'ee\'e5 \'ef\'ee\'f0\'ff\'e4\'ea\'f3 (G,G)=p, }{\f29\lang1049\cgrid0 \'f7\'f2\'ee \'e8 \'f3\'f2\'e2\'e5\'f0\'e6\'e4\'e0\'e5\'f2
+\par }{\f29\cgrid0 '\'cc\'e0\'eb}{\f29\lang1049\cgrid0 \'e0\'ff}{\f29\cgrid0  \'f2\'e5\'ee\'f0\'e5\'ec\'e0 \'d4\'e5\'f0\'ec\'e0'!}{\f2\lang1049\cgrid0 
+\par 
+\par }{\f29\lang1049\cgrid0    \'c1\'ee\'eb\'e5\'e5 \'f2\'ee\'e3\'ee}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e5 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'ef\'ee\'e7\'e2\'ee\'eb
+\'ff\'e5\'f2 \'ef\'ee\'eb\'f3\'f7\'e8\'f2\'fc \'e8 \'e4\'f0\'f3\'e3\'e8\'e5
+\par }{\f29\cgrid0 \'e0\'ed\'e0\'eb\'ee\'e3\'e8 \'f2\'e5\'ee\'f0\'e5\'f2\'e8\'ea\'ee-\'f7\'e8\'f1\'eb\'ee\'e2\'fb\'f5 '\'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2 \'f2\'e8\'ef\'e0 \'d4\'e5\'f0\'ec\'e0'. \'d0\'e0\'f1\'f1\'ec\'e0\'f2\'f0\'e8\'e2\'e0\'ff }{
+\f2\lang1049\cgrid0 
+\par }{\f29\cgrid0 C(p^n)-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2}{\f29\lang1049\cgrid0 \'e0}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'ef\'ee\'eb\'f3\'f7\'e0\'e5\'ec}{\f2\cgrid0  }{\f29\lang1049\cgrid0 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee}{\f2\cgrid0 :
+\par }{\f2\lang1049\cgrid0 
+\par    }{\f2\cgrid0 S^p}{\f29\cgrid0 ^n = S^p^(n-1)  (mod p^n) \'e4\'eb\'ff \'e2\'f1\'ff\'ea\'ee\'e3\'ee \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'ee\'e3\'ee S
+\par }\pard \nowidctlpar\widctlpar\adjustright {\f2 
+\par }\pard \nowidctlpar\adjustright {\f29\lang1049\cgrid0 \'c0, \'f0\'e0\'f1\'f1\'ec\'e0\'f2\'f0\'e8\'e2\'e0\'ff }{\f29\cgrid0 C(pq)-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2}{\f29\lang1049\cgrid0 \'e0}{\f2\cgrid0  }{\f29\lang1049\cgrid0 \'e4\'eb\'ff \'ef\'f0\'ee\'f1
+\'f2\'fb\'f5 }{\f2\cgrid0 p,q }{\f29\lang1049\cgrid0 \'ef\'ee\'eb\'f3\'f7\'e0\'e5\'ec}{\f2\cgrid0  }{\f29\lang1049\cgrid0 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee}{\f2\cgrid0 :
+\par 
+\par }{\f29\cgrid0    S^pq + S = S^p + S^q  (mod pq) \'e4\'eb\'ff \'e2\'f1\'ff\'ea\'ee\'e3\'ee \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'ee\'e3\'ee S
+\par }{\f2\cgrid0 
+\par }{\f2\lang1049\cgrid0 
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {\cgrid0   }{\lang1033\cgrid0  }{\f29\cgrid0 \'c4\'eb\'ff \'ef\'ee\'f1\'f2\'f0\'ee\'e5\'ed\'e8\'ff \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2 \'c8\'ee\'ed\'e5\'e4\'e0 \'ef\'f0\'e5\'e4
+\'eb\'ee\'e6\'e8\'eb \'e3\'e5\'ed\'e8\'e0\'eb\'fc\'ed\'ee \'ef\'f0\'ee\'f1\'f2\'ee\'e9 \'e0\'eb\'e3\'ee\'f0\'e8\'f2\'ec, \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'f1\'e2\'ee\'e4\'e8\'f2\'fc\'f1\'ff \'ea \'f2\'ee\'ec\'f3, \'f7\'f2\'ee \'e4\'ee\'f1\'f2\'e0\'f2\'ee\'f7
+\'ed\'ee \'e2\'fb\'f7\'e8\'f1\'eb\'e8\'f2\'fc }{(}{\lang1033 U}{,}{\lang1033 _}{)}{\lang1033  }{\f29 \'e4\'eb\'ff \'e2\'f1\'e5\'f5
+\par \'ee\'f0\'e1\'e8\'f2 }{\lang1033 U }{\f29 \'e8 \'f0\'e5\'f8\'e0\'f2\'fc \'e7\'e0\'f2\'e5\'ec \'f1\'e8\'f1\'f2\'e5\'ec\'f3 \'f3\'f0\'e0\'e2\'ed\'e5\'ed\'e8\'e9 \'e2 \'f6\'e5\'eb\'fb\'f5 \'f7\'e8\'f1\'eb\'e0\'f5}{\f29\cgrid0 , \'e8 \'e8\'f1\'ef\'ee\'eb\'fc
+\'e7\'f3\'ff \'f2\'ee\'eb\'fc\'ea\'ee \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee \'e4\'e5\'ea\'e0\'f0\'f2\'ee\'e2\'ee\'e9 \'e7\'e0\'ec\'ea\'ed\'f3\'f2\'ee\'f1\'f2\'e8}{\lang1033\cgrid0 .
+\par }\pard\plain \nowidctlpar\adjustright \fs20\cgrid {\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0    \'d0\'e0\'f1\'f1\'ec\'ee\'f2\'f0\'e8\'ec }{\f29\cgrid0 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'f3\'fe \'e3\'f0\'f3\'ef\'ef\'f3 C2. C2-}{\f29\lang1049\cgrid0 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0}{\f2\cgrid0  }{\f29\lang1049\cgrid0 
+\'f1\'ee\'e4\'e5\'f0\'e6\'e0\'f2 \'f2\'ee\'eb\'fc\'ea\'ee }{\f29\cgrid0 1 \'e8  C2}{\f29\lang1049\cgrid0  \'ee\'f0\'e1\'e8\'f2\'fb}{\f29\cgrid0 . \'c4\'eb\'ff }{\f29\lang1049\cgrid0 \'eb\'fe\'e1\'ee\'e3\'ee }{\f29\cgrid0 C2-\'ec\'ed\'ee\'e6\'e5\'f1\'f2
+\'e2}{\f29\lang1049\cgrid0 \'e0}{\f2\cgrid0  X }{\f29\lang1049\cgrid0 \'ed\'e5\'f2\'f0\'f3\'e4\'ed\'ee \'f3\'f1\'f2\'e0\'ed\'ee\'e2\'e8\'f2\'fc}{\f29\cgrid0  \'ef\'f0\'ee\'f1\'f2\'ee\'e5 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee:    }{\f2\lang1049\cgrid0 
+
+\par 
+\par    }{\f2\cgrid0 C2.X + 2(1,X) = 2X + C2(1,X)}{\f2\lang1049\cgrid0 
+\par 
+\par }{\f29\cgrid0 \'d1\'f3\'f9\'e5\'f1\'f2\'e2\'f3\'fe\'f2 \'e2\'f1\'e5\'e3\'ee \'e4\'e2\'e0 \'d12-\'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff \'e4\'e2\'f3\'f5\'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ed\'ee\'e3\'ee \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 C2->C2. \'dd\'f2
+\'ee \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'e5 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'e5 \'e8 \'ef\'e5\'f0\'e5\'f1\'f2\'e0\'ed\'ee\'e2\'ea\'e0. \'d2\'e5\'ec \'f1\'e0\'ec\'fb\'ec}{\f2\lang1049\cgrid0  }{\f29\cgrid0 (C2,C2)=2=(1,C2^C2), \'ef
+\'ee\'fd\'f2\'ee\'ec\'f3 C2^C2 \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 2 \'e5\'e4\'e8\'ed\'e8\'f6\'fb. \'c0 \'f2\'e0\'ea \'ea\'e0\'ea C2.C2 = 2C2, \'f2\'ee (C2,C2^C2)=(C2.C2,C2)=(2C2,C2)=(C2,C2)^2=4. \'d2\'e5\'ec \'f1\'e0\'ec\'fb\'ec \'ea\'f0\'ee\'ec\'e5
+ 1+1 C2^C2 \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 \'ee\'e4\'ed\'f3 \'ee\'f0\'e1\'e8\'f2\'f3 C2, \'f2\'e0\'ea \'f7\'f2\'ee C2^C2 = 2+C2 (\'e8 =2^C2).}{\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0 \'ce\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2\'f1\'ff}{\f29\cgrid0 , C2^C2 \'ed\'e5 \'f0\'e0\'f1\'ef\'e0\'e4\'e0\'e5\'f2\'f1\'ff \'e2 \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'e5 \'e4\'f0\'f3\'e3\'e8\'f5 \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb
+\'e5\'e9. }{\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0 \'c5\'f1\'eb\'e8 \'f1\'f7\'e8\'f2\'e0\'f2\'fc \'e5\'e3\'ee \'ef\'f0\'ee\'f1\'f2\'fb\'ec}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'f2\'ee }{\f29\cgrid0 \'f3 \'ea\'e0\'e6\'e4\'ee\'e9 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2\'fb
+ 2^(nC2)=(C2^C2)^n \'ef\'ee\'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ef\'f0\'ee\'f1\'f2\'ee\'e9 \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb\'fc C2^C2 \'e2\'e7\'e0\'e8\'ec\'ed\'ee \'ef\'f0\'ee\'f1\'f2\'ee\'e9 \'f1 2!
+\par }{\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0    \'c8\'ec\'e5\'ed\'ed\'ee \'e2 \'fd\'f2\'ee\'ec \'e8 \'f1\'ee\'f1\'f2\'ee\'e8\'f2 \'ed\'e5\'e5\'e2\'ea\'eb\'e8\'e4\'ee\'e2\'ee\'f1\'f2\'fc \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e8 }{\f2\cgrid0 G-}{\f29\lang1049\cgrid0 \'ec\'ed\'ee
+\'e6\'e5\'f1\'f2\'e2}{\f2\cgrid0 , 
+\par }{\f29\lang1049\cgrid0 \'e8 \'ef\'ee\'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'e4\'f0\'f3\'e3\'e0\'ff \'f2\'f0\'e5\'f9\'e8\'ed\'e0 \'e2 \'ec\'ee\'ed\'f3\'ec\'e5\'ed\'f2\'e5 \'e3\'ee\'f1\'ef\'ee\'e4\'e8\'ed\'e0 \'c5\'e2\'ea\'eb\'e8\'e4\'e0}{\f2\cgrid0 .
+\par }{\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0 \'c1\'ee\'eb\'e5\'e5 \'f2\'ee\'e3\'ee}{\f2\cgrid0 , }{\f29\lang1049\cgrid0 \'e2 \'f2\'e0\'ea\'ee\'e9 \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e5 \'ed\'e5 \'e2\'f1\'e5\'e3\'e4\'e0 \'f3\'e4\'e0\'b8\'f2\'f1\'ff \'f1\'ee\'ea\'f0\'e0\'f9
+\'e0\'f2\'fc \'ee\'e1\'f9\'e8\'e9 \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb\'fc}{\f2\cgrid0 :
+\par }\pard \nowidctlpar\widctlpar\adjustright {\f2\lang1049 
+\par }{\f29\lang1049  AxC=BxC \'ed\'e5 \'e2\'f1\'e5\'e3\'e4\'e0 \'e2\'eb\'e5\'f7\'b8\'f2 A=B.
+\par }\pard \nowidctlpar\adjustright {\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0 ( \'dd\'f2\'ee \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee \'f1\'ee\'f5\'f0\'e0\'ed\'ff\'e5\'f2\'f1\'ff \'f2\'ee\'eb\'fc\'ea\'ee \'e4\'eb\'ff \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb\'e5\'e9 \'f1 \'e3\'eb\'ee\'e1\'e0\'eb\'fc\'ed\'fb\'ec\'e8 \'fd\'eb
+\'e5\'ec\'e5\'ed\'f2\'e0\'ec\'e8 (1}{\f2\cgrid0 ,C)>0.)
+\par }\pard \nowidctlpar\widctlpar\adjustright {\f29\lang1049 A^C=B^C \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee A=B \'f2\'ee\'eb\'fc\'ea\'ee \'e4\'eb\'ff }{\f2 C: (1,C)>0.
+\par }{\f29\lang1049 C^A=C^B \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee A=B \'f2\'ee\'eb\'fc\'ea\'ee \'e4\'eb\'ff }{\f2 C: (1,C)>1.
+\par }\pard \nowidctlpar\adjustright {\f2\lang1049\cgrid0 
+\par }{\f29\lang1049\cgrid0 \'d2\'e5\'ef\'e5\'f0\'fc}{\f2\cgrid0 ,}{\f29\lang1049\cgrid0  \'ef\'ee\'f7\'f2\'e8 \'e2\'f1\'e5 \'ef\'ee\'e4\'e2\'ee\'e4\'ed\'fb\'e5 \'ea\'e0\'ec\'ed\'e8 \'ee\'e1\'ee\'e7\'ed\'e0\'f7\'e5\'ed\'fb \'e8 \'e4\'e0\'eb\'fc\'f8\'e5 }{
+\f29\cgrid0 \'f0\'e0\'e1\'ee\'f2\'e0\'f2\'fc \'e2 \'f2\'e0\'ea\'ee\'e9 \'e0\'f0\'e8\'f4\'ec\'e5\'f2\'e8\'ea\'e5 \'ed\'e5 \'f2\'e0\'ea \'f1\'f2\'f0\'e0\'f8\'ed\'ee.
+\par }\pard \nowidctlpar\widctlpar\adjustright {\f2\lang1049 
+\par 
+\par 
+\par        }{\f29\fs32\lang1049 \'ce\'f2\'ed\'ee\'f1\'e8\'f2\'e5\'eb\'fc\'ed\'ee\'f1\'f2\'fc \'e1\'e8\'ed\'ee\'ec\'e0}{\f2\lang1049 .
+\par 
+\par }{\f29\lang1049    \'d2\'e0\'ea\'e0\'ff \'e0\'e1\'f1\'ee\'eb\'fe\'f2\'ed\'e0\'ff \'e2\'e5\'f9\'fc, \'ea\'e0\'ea  \'e1\'e8\'ed\'ee\'ec  \'cd\'fc\'fe\'f2\'ee\'ed\'e0 \'e2 \'e3\'f0\'f3\'ef\'ef\'ee\'e2\'fb\'f5 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0\'f5  \'ee
+\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2\'f1\'ff \'ee\'f2\'ed\'ee\'f1\'e8\'f2\'e5\'eb\'fc\'ed\'ee\'e9 (\'f0\'e0\'e7\'f3\'ec\'e5\'e5\'f2\'f1\'ff, \'e4\'eb\'ff \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'f5 \'ef\'ee\'ea\'e0\'e7\'e0\'f2\'e5\'eb\'e5\'e9 \'ed\'e8\'f7
+\'e5\'e3\'ee \'ed\'ee\'e2\'ee\'e3\'ee \'ed\'e5 \'e2\'ee\'e7\'ed\'e8\'ea\'e0\'e5\'f2!)  \'e8 \'e4\'eb\'ff  \'f0\'e0\'e7\'ed\'fb\'f5 \'e3\'f0\'f3\'ef\'ef \'e4\'e0\'b8\'f2 \'ef\'ee\'f0\'e0\'e7\'e8\'f2\'e5\'eb\'fc\'ed\'ee\'e5 \'f0\'e0\'e7\'ed\'ee\'ee\'e1\'f0
+\'e0\'e7\'e8\'e5 \'ec\'ee\'e4\'e8\'f4\'e8\'ea\'e0\'f6\'e8\'e9. \'c8\'f1\'ea\'eb\'fe\'f7\'e5\'ed\'e8\'e5\'ec \'ff\'e2\'eb\'ff\'fe\'f2\'f1\'ff \'eb\'e8\'f8\'fc \'ee\'f0\'e1\'e8\'f2\'fb \'e2\'f2\'ee\'f0\'ee\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'d3\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5 (\'ee 2-\'eep\'e1\'e8\'f2\'e5)
+\par      \'cf\'f3\'f1\'f2\'fc G-\'e3p\'f3\'ef\'ef\'e0 \'e8 U \'ee\'f0\'e1\'e8\'f2\'e0 2-\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0 (G,U)=2, \'f2\'ee\'e3\'e4\'e0
+\par      \'e4\'eb\'ff \'eb\'fe\'e1\'fb\'f5 G-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 X,Y \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee:
+\par }{\f2\lang1049 
+\par         (X+Y)^U = X^U+UXY+Y^U
+\par 
+\par }{\f29\lang1049   \'c4\'eb\'ff \'e4\'ee\'ea\'e0\'e7\'e0\'f2\'e5\'eb\'fc\'f1\'f2\'e2\'e0 \'e4\'ee\'f1\'f2\'e0\'f2\'ee\'f7\'ed\'ee \'f0\'e0\'f1\'f1\'ec\'ee\'f2\'f0\'e5\'f2\'fc 3 \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff \'e8 \'f3\'f7\'e8\'f2\'fb
+\'e2\'e0\'ff, \'f7\'f2\'ee (G,U)=2 \'e8 G.U=2G \'ef\'ee\'eb\'f3\'f7\'e0\'e5\'ec
+\par }{\f2\lang1049 1: (1,(X+Y)^U)=(U,X+Y)=(U,X)+(U,Y)=(U,X)+(U,Y)=
+\par     =(1,X^U)+(1,Y^U)=(1,X^U)+(1,Y^U)+(1,UXY)=(1,X^U+UXY+Y^U)
+\par U: (U,(X+Y)^U)=(U,X+Y)^2=(U,X)^2+(U,Y)^2+2(U,XY)=
+\par     =(U,X^U)+(U,Y^U)=(U,X^U)+(U,Y^U)+(U,UXY)=(U,X^U+UXY+Y^U)
+\par G: (G,(X+Y)^U)=(G,X+Y)^2=(G,X)^2+(G,Y)^2+2(G,XY)=
+\par     =(G,X^U)+(G,Y^U)=(G,X^U)+(G,Y^U)+(G,UXY)=(G,X^U+UXY+Y^U)
+\par }{\f29\lang1049   \'cf\'e5\'f0\'e2\'ee\'e5 \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'e5 \'e4\'ee\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2 \'ef\'f0\'e8\'f1\'f3\'f2\'f1\'f2\'e2\'e8\'e5 \'e2 \'ef\'f0\'e0\'e2\'ee\'e9 \'f7\'e0\'f1\'f2\'e8 \'f1\'eb\'e0\'e3\'e0
+\'e5\'ec\'fb\'f5 X^U+Y^U, \'e2\'f2\'ee\'f0\'ee\'e5 \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'e5 - \'f7\'eb\'e5\'ed\'e0 UXY, \'e0 \'f2\'f0\'e5\'f2\'fc\'e5 \'e4\'ee\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2, \'f7\'f2\'ee \'e4\'f0\'f3\'e3\'e8\'f5 \'ed\'e5\'f2.
+
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'c0\'ed\'e0\'eb\'ee\'e3\'e8\'f7\'ed\'fb\'e5 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'e0 \'e1\'e5\'e7 \'ee\'f1\'eb\'ee\'e6\'ed\'e5\'ed\'e8\'e9 \'ef\'ee\'eb\'f3\'f7\'e0\'fe\'f2\'f1\'ff \'e4\'eb\'ff \'ef\'f0\'ee\'f1\'f2\'fb\'f5 \'f6\'e8\'ea\'eb
+\'e8\'f7\'e5\'f1\'ea\'e8\'f5 \'e3\'f0\'f3\'ef\'ef Cp:
+\par }{\f2\lang1049 
+\par  (X+Y)^C3 = X^C3+Y^C3+C3XY(X+Y)
+\par  (X+Y)^C5 = X^C5+Y^C5+C5XY(X^3+Y^3)+2C5X^2Y^2(X+Y)
+\par  (X+Y)^C5 = X^C5+Y^C5+C5XY(X+Y)((X+Y)^2+XY)
+\par  (X+Y)^C7 = X^C7+Y^C7+C7XY(X^5+Y^5)+4C7X^2Y^2(X^3+Y^3)+C7X^3Y^3(X+Y)
+\par 
+\par }{\f29\lang1049    \'c2\'fb\'f7\'e8\'f1\'eb\'e5\'ed\'e8\'e5 \'e4\'f0\'f3\'e3\'e8\'f5 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2 \'e3\'f0\'ee\'ec\'ee\'e7\'e4\'ea\'ee}{\f2 , }{\f29\lang1049 \'ed\'ee \'ed\'ee\'e2\'fb\'f5 \'ef\'f0\'ee\'e1\'eb\'e5\'ec \'ed\'e5 \'ef
+\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'ff\'e5\'f2 \'e8 \'ef\'f0\'e5\'e4\'eb\'e0\'e3\'e0\'e5\'f2\'f1\'ff \'f7\'e8\'f2\'e0\'f2\'e5\'eb\'fe}{\f2 .
+\par }{\f2\lang1049 
+\par }{\f29\lang1049 \'c8\'ed\'f2\'e5\'f0\'e5\'f1\'ed\'ee, \'f7\'f2\'ee U-\'f1\'f2\'e5\'ef\'e5\'ed\'e8 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'ee\'f0\'e1\'e8\'f2\'fb \'ef\'f0\'ee\'f1\'f2\'ee\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0 U \'ee\'e4\'e8\'ed\'e0\'ea\'ee\'e2
+\'fb \'e2 \'f0\'e0\'e7\'ed\'fb\'f5 \'e3\'f0\'f3\'ef\'ef\'e0\'f5:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'d3\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5 (\'ee \'ef\'f0\'ee\'f1\'f2\'fb\'f5 \'ee\'f0\'e1\'e8\'f2\'e0\'f5)
+\par      \'cf\'f3\'f1\'f2\'fc G-\'e3p\'f3\'ef\'ef\'e0 \'e8 U \'ee\'f0\'e1\'e8\'f2\'e0 \'ef\'f0\'ee\'f1\'f2\'ee\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0 (G,U)=p,
+\par      \'f2\'ee\'e3\'e4\'e0 \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e3\'ee \'f6\'e5\'eb\'ee\'e3\'ee S  \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049      S^U = S+TU \'e4\'eb\'ff \'ed\'e5\'ea\'ee\'f2\'ee\'f0\'ee\'e3\'ee \'f6\'e5\'eb\'ee\'e3\'ee T=T(S): S^p=S+pT
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'ef\'f0\'e8\'f7\'e5\'ec, \'e0\'ed\'e0\'eb\'ee\'e3\'e8\'f7\'ed\'fb\'ec \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee\'ec \'ee\'e1\'eb\'e0\'e4\'e0\'fe\'f2 \'e8 \'e2\'f1\'e5 \'ed\'ee\'f0\'ec\'e0\'eb\'fc\'ed\'fb\'e5 \'ee\'f0\'e1\'e8\'f2\'fb:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'d3\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5 (\'ee \'ed\'ee\'f0\'ec\'e0\'eb\'fc\'ed\'fb\'f5 \'ee\'f0\'e1\'e8\'f2\'e0\'f5)
+\par      \'cf\'f3\'f1\'f2\'fc G-\'e3p\'f3\'ef\'ef\'e0 \'e8 U \'ee\'f0\'e1\'e8\'f2\'e0 \'ef\'f0\'ee\'f1\'f2\'ee\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0 (G,U)=p,
+\par      \'f2\'ee\'e3\'e4\'e0 \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e9 \'ed\'ee\'f0\'ec\'e0\'eb\'fc\'ed\'ee\'e9 \'ee\'f0\'e1\'e8\'f2\'fb V \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee:
+\par }{\f2\lang1049 
+\par }{\f29\lang1049      V^U = V+TU \'e4\'eb\'ff \'ed\'e5\'ea\'ee\'f2\'ee\'f0\'ee\'e3\'ee \'f6\'e5\'eb\'ee\'e3\'ee T=T(S): S^p=S+pT
+\par }{\f2\lang1049 
+\par }{\f29\lang1049    \'d2\'e5\'ef\'e5\'f0\'fc \'e7\'e0\'ec\'e5\'f7\'e0\'ff, \'f7\'f2\'ee \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e3\'ee G-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 X \'e2\'fb\'ef\'ee\'eb\'ed\'ff\'e5\'f2\'f1\'ff \'ed\'e5\'f0\'e0\'e2\'e5\'ed\'f1\'f2\'e2\'ee
+: (X,2)^p.2^(1,X)  >  (G.X,2)).2^p(1,X),  \'ea\'ee\'f2\'ee\'f0\'ee\'e5 \'ef\'f0\'e5\'e2\'f0\'e0\'f9\'e0\'e5\'f2\'f1\'ff \'e2 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'ee \'e4\'eb\'ff \'ef\'f0\'ee\'f1\'f2\'fb\'f5 p, \'ed\'e5\'f2\'f0\'f3\'e4\'ed\'ee \'f3\'e1\'e5
+\'e4\'e8\'f2\'fc\'f1\'ff \'e2 \'f2\'ee\'ec, \'f7\'f2\'ee \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee
+\par }{\f2\lang1049 
+\par }{\f29\lang1049  \'d3\'f2\'e2\'e5\'f0\'e6\'e4\'e5\'ed\'e8\'e5 (\'ee \'f6\'e8\'ea\'eb\'e8\'f7\'ed\'ee\'f1\'f2\'e8 \'e3\'f0\'f3\'ef\'ef\'fb):
+\par      \'c3\'f0\'f3\'ef\'ef\'e0 G \'e8\'ec\'e5\'e5\'f2 \'ef\'f0\'ee\'f1\'f2\'ee\'e9 \'ef\'ee\'f0\'ff\'e4\'ee\'ea p=(G,G) <=>
+\par      G \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'ee\'e9 \'e8 \'e2\'fb\'ef\'ee\'eb\'ed\'ff\'e5\'f2\'f1\'ff \'f0\'e0\'e2\'e5\'ed\'f1\'f2\'e2\'ee:
+\par }{\f2\lang1049      G+G^G = (G,G)+(G,G)^[(G,G)-1]G
+\par }{\f2 
+\par }{\f2\lang1049 
+\par        }{\f29\fs32\lang1049 \'c2\'ee\'e7\'f0\'ee\'e6\'e4\'e0\'ff \'f0\'e5\'eb\'e8\'ea\'f2\'fb}{\f2\lang1049 .
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {
+\par }{\f29    \'c2\'ee\'e7\'e2\'f0\'e0\'f9\'e0\'ff\'f1\'fc \'ea \'e7\'e0\'e1\'fb\'f2\'fb\'ec C4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0\'ec \'e2\'fb\'f7\'e8\'f1\'eb\'e8\'ec \'f1\'f0\'e0\'e7\'f3 6 \'fd\'ea\'f1\'ef\'ee\'ed\'e5\'ed\'f2:
+\par }{   C2      C2      C2       C2     C2       C2
+\par }{\f29   6  , (2C4) ,(6+C4)   \'e8   5  ,(3C4) ,(5+2C4)
+\par }{
+\par }{\f29  \'e2\'fb\'f7\'e8\'f1\'eb\'e8\'e2 \'ef\'f0\'e5\'e4\'f1\'f2\'e0\'e2\'eb\'e5\'ed\'e8\'ff \'c8\'ee\'ed\'e5\'e4\'e0
+\par }{
+\par  X^C2:6   (2C4)   (6+C4)   5    (3C4)  (5+2C4)
+\par   _____________________________________________
+\par   1  6     0       6     5      0       5
+\par  C2 36     0      36    25      0      25
+\par  C4 36    64     100    25    144     169
+\par   _____________________________________________
+\par 
+\par }{\f29   \'f3\'e1\'e5\'e6\'e4\'e0\'e5\'ec\'f1\'ff \'e2 \'f1\'ef\'f0\'e0\'e2\'e5\'e4\'eb\'e8\'e2\'ee\'f1\'f2\'e8 \'f0\'e0\'e2\'e5\'ed\'f1\'f2\'e2:
+\par }{   C2      C2       C2
+\par   6  + (2C4) = (6+C4) = 6 + 15C2 + 16C4
+\par    C2      C2        C2
+\par {\pntext\pard\plain\s15 \f2\fs20\cgrid \hich\af2\dbch\af0\loch\f2 5\tab}}\pard \s15\fi-360\li600\nowidctlpar\widctlpar\jclisttab\tx600{\*\pn \pnlvlbody\ilvl0\ls1\pnrnot0\pndec\pnstart5\pnindent600\pnhang}\ls1\adjustright {
++ (3C4) = (5+2C4) = 5 + 10C2 + 36C4
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\lang1049 
+\par }{\f29\lang1049 \'a8\'eb\'fb-\'ef\'e0\'eb\'fb}{\f2 , }{\f29\lang1049 \'f2\'e0\'ea \'fd\'f2\'ee \'e6\'e5 \'f0\'e5\'f8\'e5\'ed\'e8\'ff \'f1\'e0\'ec\'ee\'e3\'ee \'ee\'e4\'e8\'ee\'e7\'ed\'ee\'e3\'ee \'e8\'e7 \'f3\'f0\'e0\'e2\'ed\'e5\'ed\'e8\'e9}{\f2 :
+\par 
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {           N   N   N
+\par  (1)      X + Y = Z
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\lang1049 
+\par }\pard\plain \s15\nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {\f29 \'ce\'e1\'f9\'e8\'e5 \'f0\'e5\'f8\'e5\'ed\'e8\'ff (1) \'e2 C4-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0\'f5 \'f0\'e0\'f1\'ef\'e0\'e4\'e0\'fe\'f2\'f1\'ff \'ed\'e0 \'e4\'e2\'e0 
+\'f2\'e8\'ef\'e0:
+\par }{  X^C2+(abC4)}{\f29 ^C2=(X+ aC4)^C2 \'e8 \'eb\'fe\'e1\'fb\'f5 X: (C4,X)=2a(b^2-1)
+\par   X^C2+(abC4)^C2=(X+2aC4)^C2 \'e8 \'eb\'fe\'e1\'fb\'f5 X: (C4,X)= a(b^2-4)
+\par }{
+\par }{\f29   \'c0\'ed\'e0\'eb\'ee\'e3\'e8\'f7\'ed\'fb\'e5 \'f0\'e5\'f8\'e5\'ed\'e8\'ff (1) \'ed\'e5\'f2\'f0\'f3\'e4\'ed\'ee \'ef\'ee\'eb\'f3\'f7\'e8\'f2\'fc \'e8 \'e2 \'e3\'f0\'f3\'ef\'ef\'e5
+\par Q-\'ea\'e2\'e0\'f2\'e5p\'ed\'e8\'ee\'ed\'ee\'e2. \'dd\'f2\'e0 \'e3\'f0\'f3\'ef\'ef\'e0 \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 \'f2\'f0\'e8 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'e8\'f5 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb C4, \'e8 \'f1\'ee\'ee\'f2\'e2\'e5\'f2
+\'f1\'f2\'e2\'e5\'ed\'ed\'ee \'ee\'f0\'e1\'e8\'f2\'fb \'e2\'f2\'ee\'f0\'ee\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0. \'c4\'eb\'ff \'eb\'fe\'e1\'ee\'e9 \'e8\'e7 \'ed\'e8\'f5 \'f0\'e5\'f8\'e5\'ed\'e8\'ff \'f3\'f0\'e0\'e2\'ed\'e5\'ed\'e8\'ff (1) \'e8\'ec\'e5\'fe
+\'f2 \'e2\'e8\'e4:
+\par }{
+\par   (X+aQ)^N+(bcQ)^N = (X+(a+c)Q)^N
+\par 
+\par }{\f29   \'e4\'eb\'ff \'eb\'fe\'e1\'fb\'f5 \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'f5 a,b,c: cb^2>2a+c \'e8
+\par   \'eb\'fe\'e1\'ee\'e3\'ee Q-\'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 X: (Q,X)= 16(cb^2-2a-c).
+\par }{
+\par   }{\lang1033  }{\f29 \'cc\'fb \'f3\'e1\'e5\'e4\'e8\'eb\'e8\'f1\'fc \'f7\'f2\'ee \'e5\'f1\'f2\'fc \'e3\'f0\'f3\'ef\'ef\'fb G, \'e4\'ee\'ef\'f3\'f1\'ea\'e0\'fe\'f9\'e8\'e5 \'f0\'e5\'f8\'e5\'ed\'e8\'ff (1).}{\lang1033  }{\f29 \'cf\'ee\'ef\'f0\'ee\'e1\'f3
+\'e5\'ec \'e2\'fb\'ff\'f1\'ed\'e8\'f2\'fc, \'f7\'f2\'ee \'fd\'f2\'ee \'e7\'e0 \'e3\'f0\'f3\'ef\'ef\'fb. \'d1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e5 \'ee\'f0\'e1\'e8\'f2\'fb N}{\lang1033  }{\f29 2-\'e3\'ee \'ef\'ee\'f0\'ff\'e4\'ea\'e0 \'f0\'e0\'e2
+\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee \'f2\'ee\'ec\'f3, \'f7\'f2\'ee \'ef\'ee\'eb\'ee\'e2\'e8\'ed\'e0 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ee\'e2 \'e3\'f0\'f3\'ef\'ef\'fb}{\lang1033  }{\f29 \'f1\'e0\'ec\'e8 \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f2 \'ef\'ee\'e4\'e3\'f0\'f3
+\'ef\'ef\'f3, \'e8\'eb\'e8 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'f3 \'e8\'ed\'e4\'e5\'ea\'f1\'e0 2. \'c8\'ec\'e5\'ed\'ed\'ee}{\lang1033  }{\f29 \'f2\'e0\'ea\'e8\'ec\'e8 \'ff\'e2\'eb\'ff\'fe\'f2\'f1\'ff \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb \'e2\'f0\'e0\'f9\'e5
+\'ed\'e8\'e9 \'e3\'f0\'f3\'ef\'ef \'f1\'e8\'ec\'ec\'e5\'f2\'f0\'e8\'e9 \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e3\'ee}{\lang1033  }{\f29 \'e3\'e5\'ee\'ec\'e5\'f2\'f0\'e8\'f7\'e5\'f1\'ea\'ee\'e3\'ee \'ea\'ee\'ec\'ef\'eb\'e5\'ea\'f1\'e0. \'c1\'f3\'e4\'e5\'ec \'ed
+\'e0\'e7\'fb\'e2\'e0\'f2\'fc \'f2\'e0\'ea\'e8\'e5 \'e3\'f0\'f3\'ef\'ef\'fb}{\lang1033  }{\f29 \'ef\'e8\'f4\'e0\'e3\'ee\'f0\'ee\'e2\'fb\'ec\'e8. \'c3\'f0\'f3\'ef\'ef\'e0 \'e2\'f0\'e0\'f9\'e5\'ed\'e8\'e9 \'f2\'e5\'f2\'f0\'e0\'fd\'e4\'f0\'e0 A4 12-\'e3\'ee 
+\'ef\'ee\'f0\'ff\'e4\'ea\'e0 \'ed\'e5 \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef 6-\'e3\'ee, \'e8 \'f2\'e5\'ec \'f1\'e0\'ec\'fb\'ec \'ed\'e5 \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ef\'e8\'f4\'e0\'e3\'ee\'f0\'ee\'e2\'ee\'e9.}{\lang1033  
+}{\f29 \'ca\'e0\'ea \'ef\'f0\'ee\'f7\'e5\'ec, \'e8 \'e4\'f0\'f3\'e3\'e8\'e5 \'e7\'ed\'e0\'ea\'ee\'ef\'e5\'f0\'e5\'ec\'e5\'ed\'ed\'fb\'e5 \'e3\'f0\'f3\'ef\'ef\'fb A5,A6 ...
+\par \'c8, \'ed\'e0\'ea\'ee\'ed\'e5\'f6, \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'e5\'ed\'ed\'fb\'ec \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'f2\'ee, \'f1\'ee\'e4\'e5\'f0\'e6\'e8\'f2 \'eb\'e8 \'fd\'f2\'e0}{\lang1033  }{\f29 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'e0 \'e2\'f1\'e5 
+\'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'e8\'e5 C2-\'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb. \'cd\'e0 \'ff\'e7\'fb\'ea\'e5 \'ee\'f0\'e1\'e8\'f2 \'fd\'f2\'ee}{\lang1033  }{\f29 \'f3\'f1\'eb\'ee\'e2\'e8\'e5 \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee \'f2\'ee\'ec
+\'f3, \'f7\'f2\'ee \'e3\'f0\'f3\'ef\'ef\'e0 G \'ed\'e5 \'e4\'ee\'eb\'e6\'ed\'e0 \'f0\'e0\'f1\'ef\'e0\'e4\'e0\'f2\'fc\'f1\'ff}{\lang1033  }{\f29 \'ed\'e8 \'e2 \'ea\'e0\'ea\'ee\'e5 \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'e5 G-\'ec\'ed\'ee\'e6\'e5\'f1
+\'f2\'e2 G=N*M. \'c4\'e5\'e9\'f1\'f2\'e2\'e8\'f2\'e5\'eb\'fc\'ed\'ee, \'e5\'f1\'eb\'e8 \'f2\'e0\'ea\'ee\'e5 M \'ed\'e0\'e9\'e4\'e5\'f2\'f1\'ff, \'f2\'ee \'f1\'e8\'f1\'f2\'e5\'ec\'e0 \'e4\'eb\'ff \'ea\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2 \'ee\'f2\'ee\'e1\'f0
+\'e0\'e6\'e5\'ed\'e8\'e9:
+\par }{
+\par  (M,X^N)+(M,Y^N)=(M,Z^N)
+\par  (G,X^N)+(G,Y^N)=(G,Z^N)
+\par 
+\par }{\f29 \'f2\'e0\'ea \'ea\'e0\'ea G*N=2G, \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'e0
+\par }{
+\par  (G,X) + (G,Y) = (G,Z)
+\par  (G,X)^2+(G,Y)^2=(G,Z)^2
+\par 
+\par }{\f29 \'e8 \'ee\'e4\'ed\'ee \'e8\'e7 \'f1\'eb\'e0\'e3\'e0\'e5\'ec\'fb\'f5 \'e2\'fb\'f0\'ee\'e6\'e4\'e0\'e5\'f2\'f1\'ff. \'d2\'ee\'eb\'fc\'ea\'ee \'f2\'e5\'ef\'e5\'f0\'fc \'ef\'ee\'ed\'ff\'f2\'ed\'ee, \'f7\'f2\'ee
+\par }{
+\par }{\f29   \'c4\'eb\'ff \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'ff \'ed\'e5\'e2\'fb\'f0\'ee\'e6\'e4\'e5\'ed\'ed\'fb\'f5 \'f0\'e5\'f8\'e5\'ed\'e8\'e9 (1) \'e2 \'e3\'f0\'f3\'ef\'ef\'e5 G 
+\par   \'ed\'e5\'ee\'e1\'f5\'ee\'e4\'e8\'ec\'ee \'e8 \'e4\'ee\'f1\'f2\'e0\'f2\'ee\'f7\'ed\'ee, \'f7\'f2\'ee\'e1\'fb \'ed\'e0\'f8\'eb\'e0\'f1\'fc \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'e0 \'e8\'ed\'e4\'e5\'ea\'f1\'e0 2, 
+\par   \'f1\'ee\'e4\'e5\'f0\'e6\'e0\'f9\'e0\'ff \'e2\'f1\'e5 (!) \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'e8\'e5 C2-\'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb.
+\par }{
+\par 
+\par   }{\lang1033  }{\f29 \'cc\'ed\'ee\'e3\'e8\'e5 \'ef\'e8\'f4\'e0\'e3\'ee\'f0\'ee\'e2\'fb \'e3\'f0\'f3\'ef\'ef\'fb \'ea\'e0\'ea \'f0\'e0\'e7 \'ef\'ee\'f1\'eb\'e5\'e4\'ed\'e5\'ec\'f3 \'f3\'f1\'eb\'ee\'e2\'e8\'fe \'e8 \'ed\'e5}{\f29\lang1033  \'f3}{\f29 \'e4
+\'ee\'e2\'eb\'e5\'f2\'e2\'ee\'f0\'ff\'fe\'f2. \'d2\'e0\'ea\'e8\'ec\'e8 \'ee\'ea\'e0\'e7\'fb\'e2\'e0\'fe\'f2\'f1\'ff \'e8 \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'e8\'e5 \'e3\'f0\'f3\'ef\'ef\'fb C6,C10}{\lang1033  }{\f29 \'e8 \'e3\'f0\'f3\'ef\'ef\'e0 \'f2\'f0
+\'e5\'f3\'e3\'ee\'eb\'fc\'ed\'e8\'ea\'e0 S3, \'e0 \'f2\'e0\'ea\'e6\'e5 \'e4\'f0\'f3\'e3\'e8\'e5 \'f1\'e8\'ec\'ec\'e5\'f2\'f0\'e8\'f7\'e5\'f1\'ea\'e8\'e5 S4,S5 ...}{\lang1033 
+\par }{\f29 \'ce\'f1\'f2\'e0\'eb\'f1\'ff \'e6\'e8\'e4\'ea\'e8\'e9 \'f1\'ef\'e8\'f1\'ee\'ea \'e8\'e7 \'ed\'e0\'e7\'e2\'e0\'ed\'ed\'fb\'f5 \'e3\'f0\'f3\'ef\'ef }{\f29\lang1033 C4 \'e8 \'ea\'e2\'e0\'f2\'e5\'f0\'ed\'e8\'ee\'ed\'ee\'e2 Q }{\f29 \'e0 \'f2\'e0\'ea
+\'e6\'e5 \'e4\'e8\'fd\'e4\'f0\'e8\'f7\'e5\'f1\'ea\'ee\'e9 }{\lang1033 D4 }{\f29 \'e8 \'ed\'e5\'ea\'ee\'f2\'ee\'f0\'fb\'f5 \'e4\'f0\'f3\'e3\'e8\'f5}{\lang1033 .
+\par }\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\cgrid {\f2\lang1049 
+\par }{\f29\lang1049 \'c7\'e0\'e1\'e0\'e2\'ed\'ee}{\f2 , }{\f29\lang1049 \'ed\'ee \'f0\'e5\'f8\'e5\'ed\'e8\'ff \'ef\'ee\'eb\'f3\'f7\'e8\'eb\'e8\'f1\'fc '\'ef\'ee\'f7\'f2\'e8 \'e4\'e0\'f0\'ee\'ec}{\f2 \rquote . Verbum Supientibus.
+\par }{\f2\lang1049 
+\par 
+\par 
+\par 
+\par        }{\f29\fs32\lang1049 \'c4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc}{\f2\lang1049 .
+\par 
+\par }{\f29\lang1049    \'d1\'ee \'f8\'ea\'ee\'eb\'fb \'ea\'e0\'e6\'e4\'ee\'ec\'f3 \'e8\'e7\'e2\'e5\'f1\'f2\'ed\'ee \'ed\'e5\'e7\'fb\'e1\'eb\'e5\'ec\'ee\'e5 \'e2 \'f1\'e2\'ee\'e9 \'ef\'f0\'ee\'f1\'f2\'ee\'f2\'e5:
+\par    \'c5\'f1\'eb\'e8 A \'e8 B \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'e5 \'f7\'e8\'f1\'eb\'e0, \'f2\'ee \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc B \'ed\'e0 A \'ee\'e7\'ed\'e0\'f7\'e0\'e5\'f2, 
+\par    \'f7\'f2\'ee \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'f3\'e5\'f2 \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'e5 \'f7\'e0\'f1\'f2\'ed\'ee\'e5 C, \'f2\'e0\'ea\'ee\'e5 \'f7\'f2\'ee B=AxC  \'f1
+\par    \'ea\'e0\'ed\'ee\'ed\'e8\'f7\'e5\'f1\'ea\'ee\'e9 \'ef\'f0\'ee\'e5\'ea\'f6\'e8\'e5\'e9 B=AxC->A.
+\par \'ca\'ee\'ed\'e5\'f7\'ed\'ee, \'ef\'f0\'e8 \'fd\'f2\'ee\'ec, \'f1\'e0\'ec\'ee \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e5 \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'e8 \'ed\'e5 \'ee\'e1\'f1\'f3\'e6\'e4\'e0\'e5\'f2\'f1\'ff. \'c8, \'ea\'ee\'ed\'e5\'f7\'ed
+\'ee \'e6\'e5, \'f2\'e0\'ea\'ee\'e5 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'e8\'e5 \'e4\'e0\'eb\'e5\'ea\'ee \'ed\'e5 \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'ee \'e8 \'ef\'ee\'eb\'e5\'e7\'ed\'ee \lquote \'ef\'ee\'f7\'f2\'e8 \'e8\'f1\'ea\'eb\'fe\'f7\'e8
+\'f2\'e5\'eb\'fc\'ed\'ee\rquote  \'e4\'eb\'ff \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'f5 \'f7\'e8\'f1\'e5\'eb. \'d3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'fb\'ec \'e6\'e5 \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee\'ec \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'e8 \'ff
+\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee \'ea\'e0\'ed\'ee\'ed\'e8\'f7\'e5\'f1\'ea\'e8\'f5 \'ef\'f0\'ee\'e5\'ea\'f6\'e8\'e9 AxC->A \'ea\'ee\'f2\'ee\'f0\'ee\'e5 \'f1\'ee\'f1\'f2\'ee\'e8\'f2 \'e2 \'f2\'ee\'ec, \'f7\'f2\'ee \'f0\'e0\'e7
+\'eb\'e8\'f7\'ed\'fb\'e5 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'fb  a:1 -> A \'e8\'ec\'e5\'fe\'f2 \'ee\'e4\'e8\'ed\'e0\'ea\'ee\'e2\'fb\'e5 \'ef\'f0\'ee\'ee\'e1\'f0\'e0\'e7\'fb, \'e8\'eb\'e8 \'e8\'ed\'e0\'f7\'e5 \'f0\'e0\'e7\'eb\'e8\'f7\'ed\'fb\'e5 \'ef\'ee\'e4\'fa
+\'b8\'ec\'fb
+\par }{\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\lang1049\cgrid {\object\objemb\objw1139\objh1198{\*\objclass PBrush}{\*\objdata 01050000020000000700000050427275736800000000000000000000040000
+424dfe030000000000003e000000280000004c000000500000000100010000000000c0030000c40e0000c40e0000000000000000000000000000ffffff00fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffdfffffff7dffff00000fffffdfffffbf7dffff00000fffffdfffff9f83ffff00000fffffdfffff8fbbffff0
+0000fffffdc000007bbffff00000fffffdfffff8fd7ffff00000fffffdfffff9fd7ffff00000fffff1fffffbfefffff00000fffffdfffffffefffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffbfffffffefffff00000fffff1fffffffc7ffff00000ffffe0fffffff83ffff00000ffffc07ffffff01ffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff0
+0000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbff
+fffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffbfffffdf87ffff00000fffffbfffffcfbbffff00000fffffbfffffc7bbffff0
+0000fffffbe000003bbffff00000fffffbfffffc787ffff00000fffff5fffffcfbbffff00000ffffeefffffdfbbffff00000ffffdf7ffffffbbffff00000ffffdf7ffffff87ffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff0
+0000fffffffffffffffffff00000000001050000050000000d0000004d45544146494c455049435400d9070000bff7ffff381c00000800d90741080000
+010009000003180e00000000020e00000000050000000b0200000000050000000c0250004c00020e0000430f2000cc00000050004c000000000050004c0000000000280000004c000000500000000100080000000000c0170000c70e0000ca0e0000000100000001000000000000ffffff00000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101000101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010001
+010101010101010101010101010101010101010101000101010101010001010101010001010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010000010101010101000000000001010101010101010101010101010101
+010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010100000001010101010001010100010101010101010101010101010101010101010101010101010101010101010101010101010101010001010100000000000000000000000000000000000000000000
+000101010100010101000101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010000000101010101010001000101010101010101010101010101010101010101010101010101010101010101010101010101010101
+000101010101010101010101010101010101010101010100000101010101010100010001010101010101010101010101010101010101010101010101010101010101010101010101010100000001010101010101010101010101010101010101010101000101010101010101010001010101010101010101010101010101
+010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101
+010100000001010101010101010101010101010101010101010101010101010101010101000000010101010101010101010101010101010101010101010101010101010101010101010101010100000000000101010101010101010101010101010101010101010101010101010101000000000001010101010101010101
+010101010101010101010101010101010101010101010101010100000000000000010101010101010101010101010101010101010101010101010101000000000000000101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101
+010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101
+010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101
+010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101
+010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101
+010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101
+010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101
+010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101
+010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101
+010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101
+010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101
+010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010001010101010100000000010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101
+010101010101010101010101010100000101010101000101010001010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101000000010101010001010100010101010101010101010101010101010101010101010101
+010101010101010101010101010101000101010101000000000000000000000000000000000000000000000001010100010101000101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010100000001010101000000
+000101010101010101010101010101010101010101010101010101010101010101010101010101010001000101010101010101010101010101010101010101010101000001010101010001010100010101010101010101010101010101010101010101010101010101010101010101010101010001010100010101010101
+010101010101010101010101010101010001010101010100010101000101010101010101010101010101010101010101010101010101010101010101010101010001010101010001010101010101010101010101010101010101010101010101010101000101010001010101010101010101010101010101010101010101
+010101010101010101010101010100010101010100010101010101010101010101010101010101010101010101010101010000000001010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+01010101010101010101010101010101010101010101010101010101030000000000}{\result {\lang1049 {\*\shppict{\pict{\*\picprop\shplid1025{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0
+\picw2009\pich2113\picwgoal1139\pichgoal1198\pngblip\bliptag795248741{\*\blipuid 2f6688655b0be3fb13a9d8fbe1c3e5b1}89504e470d0a1a0a0000000d494844520000004c000000500803000000845d63f90000000467414d410000b1889598f4a600000300504c5445000000ffffff00
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006776ec63000000
+097048597300000ec700000eca018d3c513b000000b149444154789cedd74b0e80200c04d0f1fe979685a92e3af69386b098ae0cd44745fc806b30204c983061
+47618847c18a39ecefcc54ea27bd80ad465617deb2b318bfc667aef27366adf063bcb221ccfa07302b303f67cd103685c54390c750983061c2846dc7de5f0a2a
+910cf7c31c5834c32f37b058c6861bd00c616762e118f9a541172d9ca3b804d60ceb2ffc2053cc364f458c6f506afb80a8b221ccd0f42b286a06c969adb322d60b61c2848dc50dbb0816f2b84dbd0f0000000049454e44ae426082}}{\nonshppict
+{\pict\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0\picw2009\pich2113\picwgoal1139\pichgoal1198\wmetafile8\bliptag795248741\blipupi96{\*\blipuid 2f6688655b0be3fb13a9d8fbe1c3e5b1}
+0100090000032802000000000602000000000400000003010800050000000b0200000000050000000c0250004c00040000000701040006020000430f2000cc00
+000050004c000000000050004c0000000000280000004c000000500000000100010000000000c0030000c70e0000ca0e0000020000000200000000000000ffff
+ff00fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff07500ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00100ffffffffffff
+fffffff07500fffffffffffffffffff00000fffffdfffffff7dffff00000fffffdfffffbf7dffff00000fffffdfffff9f83ffff00000fffffdfffff8fbbffff0
+0000fffffdc000007bbffff00000fffffdfffff8fd7ffff00000fffffdfffff9fd7ffff00000fffff1fffffbfefffff00000fffffdfffffffefffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff
+fffffff00000fffffbfffffffefffff00000fffff1fffffffc7ffff00000ffffe0fffffff83ffff00000ffffc07ffffff01ffff00000fffffbfffffffefffff0
+0000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000ffff
+fbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbffffff
+fefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffbfffffffefffff0
+0000fffffbfffffffefffff00000fffffbfffffffefffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffbfffffdf87ffff00000fffffbfffffcfbbffff00000fffffbfffffc7bbffff00000fffffbe00000
+3bbffff00000fffffbfffffc787ffff00000fffff5fffffcfbbffff00000ffffeefffffdfbbffff00000ffffdf7ffffffbbffff00000ffffdf7ffffff87ffff0
+0000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff
+fffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff000000400000007010100030000000000}}}}}}{\f29\lang1049 \'ef\'f0\'e8\'e2\'ee\'e4\'ff\'f2 \'ea \'ee\'e4\'ed\'ee\'ec\'f3 \'e8 \'f2
+\'ee\'ec\'f3 \'e6\'e5 Y, \'ed\'e5\'e7\'e0\'e2\'e8\'f1\'e8\'ec\'ee \'ee\'f2 \'e2\'fb\'e1\'ee\'f0\'e0 1->A.
+\par }{\f2\lang1049 
+\par }{\f29\lang1049   \'cf\'ee\'fd\'f2\'ee\'ec\'f3, \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'fb\'ec \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'f1\'eb\'e5\'e4\'f3\'fe\'f9\'e5\'e5 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'e8\'e5:
+\par   \'ce\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'e5 B->A \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'e4\'e5\'eb\'e5\'ed\'e8\'e5\'ec \'e8\'eb\'e8 \'f4\'e0\'ea\'f2\'ee\'f0\'ee\'ec, \'e5\'f1\'eb\'e8
+\par   \'e4\'eb\'ff \'eb\'fe\'e1\'ee\'e3\'ee \'ee\'e1\'fa\'e5\'ea\'f2\'e0 X \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'f3\'e5\'f2 \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'fb\'e9 Y, \'f2\'e0\'ea\'ee\'e9
+\par   \'f7\'f2\'ee \'ef\'ee\'e4\'fa\'b8\'ec\'ee\'ec \'eb\'fe\'e1\'ee\'e3\'ee X->A \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ed\'e5\'ea\'ee\'f2\'ee\'f0\'fb\'e9 Y->B
+\par }{\pard\plain \nowidctlpar\widctlpar\adjustright \fs20\lang1049\cgrid {\object\objemb\objw1139\objh1198{\*\objclass PBrush}{\*\objdata 01050000020000000700000050427275736800000000000000000000040000
+424dfe030000000000003e000000280000004c000000500000000100010000000000c0030000c40e0000c40e0000000000000000000000000000ffffff00fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff7dfffff00000fffdf7ffffbf7dfffff0
+0000fffdf7ffff9f83fffff00000fffeefffff8fbbfffff00000ffff5f000007bbfffff00000ffffbfffff8fd7fffff00000ffff5fffff9fd7fffff00000fffeefffffbfeffffff00000fffdf7ffffffeffffff00000fffdf7fffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffbfffffffeffffff00000ffff1fffffffc7fffff00000fffe0fffffff83fffff00000fffc07ffffff01fffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff0
+0000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfff
+ffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffbfffffdf87fffff0
+0000ffffbfffffcfbbfffff00000ffffbfffffc7bbfffff00000ffffbe000003bbfffff00000ffffbfffffc787fffff00000ffff5fffffcfbbfffff00000fffeefffffdfbbfffff00000fffdf7ffffffbbfffff00000fffdf7ffffff87fffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffff
+fffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff0
+0000fffffffffffffffffff00000000001050000050000000d0000004d45544146494c455049435400d9070000bff7ffff381c00000800d90741080000
+010009000003180e00000000020e00000000050000000b0200000000050000000c0250004c00020e0000430f2000cc00000050004c000000000050004c0000000000280000004c000000500000000100080000000000c0170000c70e0000ca0e0000000100000001000000000000ffffff00000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010001010101010101010101010101010101010101
+010101010101010101010101010101010001010101010001010101010101010101010101010101010101010001010101010100010101010100010101010101010101010101010101010101010101010101010101010101010101010100010101010100010101010101010101010101010101010101010100000101010101
+010000000000010101010101010101010101010101010101010101010101010101010101010101010101010001010100010101010101010101010101010101010101010101000000010101010100010101000101010101010101010101010101010101010101010101010101010101010101010101010101000100010101
+010100000000000000000000000000000000000000000001010101000101010001010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010100000001010101010100010001010101010101010101010101010101010101
+010101010101010101010101010101010101010100010001010101010101010101010101010101010101010101000001010101010101000100010101010101010101010101010101010101010101010101010101010101010101010101010100010101000101010101010101010101010101010101010101010001010101
+010101010100010101010101010101010101010101010101010101010101010101010101010101010101010100010101010100010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101000101010101
+000101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101
+010101010101010101010101010101010101010101010101000000010101010101010101010101010101010101010101010101010101010101010000000101010101010101010101010101010101010101010101010101010101010101010101010101000000000001010101010101010101010101010101010101010101
+010101010101010000000000010101010101010101010101010101010101010101010101010101010101010101010101000000000000000101010101010101010101010101010101010101010101010101010000000000000001010101010101010101010101010101010101010101010101010101010101010101010101
+010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101
+010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101
+010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101
+010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101
+010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101
+010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101
+010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101
+010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101
+010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101
+010101010101010001010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101000101010101010101
+010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101
+010101010101010101010101010101010100010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010001010101010101010101010101010101010101010101010100010101010101000000000101010101010101010101010101010101010101010101010101010101
+010101010101010101010100010101010101010101010101010101010101010101010101000001010101010001010100010101010101010101010101010101010101010101010101010101010101010101010101010101000101010101010101010101010101010101010101010101010000000101010100010101000101
+010101010101010101010101010101010101010101010101010101010101010101010101010001010101010000000000000000000000000000000000000000000000010101000101010001010101010101010101010101010101010101010101010101010101010101010101010101010100010101010101010101010101
+010101010101010101010101000000010101010000000001010101010101010101010101010101010101010101010101010101010101010101010101010100010001010101010101010101010101010101010101010101010000010101010100010101000101010101010101010101010101010101010101010101010101
+010101010101010101010100010101000101010101010101010101010101010101010101010100010101010101000101010001010101010101010101010101010101010101010101010101010101010101010101010100010101010100010101010101010101010101010101010101010101010101010101010001010100
+010101010101010101010101010101010101010101010101010101010101010101010101000101010101000101010101010101010101010101010101010101010101010101010100000000010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+01010101010101010101010101010101010101010101010101010101030000000000}{\result {\lang1049 {\*\shppict{\pict{\*\picprop\shplid1026{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0
+\picw2009\pich2113\picwgoal1139\pichgoal1198\pngblip\bliptag1695407159{\*\blipuid 650ddc37de763726c0c27e458531668e}89504e470d0a1a0a0000000d494844520000004c000000500803000000845d63f90000000467414d410000b1889598f4a600000300504c5445000000ffffff00
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006776ec63000000
+097048597300000ec700000eca018d3c513b000000ba49444154789cedd74b0e8030080450bcffa5ed42696285a1e9e8428795a9f8fa8d29b611c3840913f63b
+cc700fd68287c509d7669c3a81b58670127dd8552c9ee3b156f535f316bb0ffac84898bf27603ec0fa9a2d8430068679b4dfc284091326ec2dac5f29c20f928c
+e17e06ac3463bc9f012bcb7878031642d83256282ac858f968c4d75fbb7942bd84158a9ffba48629b49c98174f65ec4c8d0a144e5567d34545b29b3ecbf22f28c360c6fcf9a462b82361c2847d1adb01215016ee25348eab0000000049454e44ae426082}}{\nonshppict
+{\pict\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0\picw2009\pich2113\picwgoal1139\pichgoal1198\wmetafile8\bliptag1695407159\blipupi96{\*\blipuid 650ddc37de763726c0c27e458531668e}
+0100090000032802000000000602000000000400000003010800050000000b0200000000050000000c0250004c00040000000701040006020000430f2000cc00
+000050004c000000000050004c0000000000280000004c000000500000000100010000000000c0030000c70e0000ca0e0000020000000200000000000000ffff
+ff00fffffffffffffffffff00000fffffffffffffffffff07500fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff
+fffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff7dfffff00000fffdf7ffffbf7dfffff0
+0000fffdf7ffff9f83fffff00000fffeefffff8fbbfffff00000ffff5f000007bbfffff00000ffffbfffff8fd7fffff00000ffff5fffff9fd7fffff00000fffe
+efffffbfeffffff00000fffdf7ffffffeffffff00000fffdf7fffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffffffffff
+fffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffbfffffffeffffff00000ffff1fffffffc7fffff00000fffe0fffffff83fffff0
+0000fffc07ffffff01fffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffff
+bfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffff
+effffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff0
+0000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000ffffbfffffffeffffff00000fffffffffffffffffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffffbfffffdf87fffff00000ffffbfffffcf
+bbfffff00000ffffbfffffc7bbfffff00000ffffbe000003bbfffff00000ffffbfffffc787fffff00000ffff5fffffcfbbfffff00000fffeefffffdfbbfffff0
+0000fffdf7ffffffbbfffff00000fffdf7ffffff87fffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000ffff
+fffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff0fffffffffffffffffffffff0ffffffffffffffff
+fffffff00020fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff00000fffffffffffffffffff000000400000007010100030000000000}}}}}}{\f2\lang1049 (pull-back)
+\par  }{\f2  }{\f29\lang1049  \'c8 \'fd\'f2\'ee \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'e8\'e5 \'ed\'e8\'f7\'e5\'e3\'ee \'ed\'e5 \'e3\'ee\'e2\'ee\'f0\'e8\'f2 \'ed\'e5 \'f2\'ee\'eb\'fc\'ea\'ee \'ee \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e8 \'e4\'e5\'eb
+\'e8\'ec\'ee\'f1\'f2\'e8}{\f2 , }{\f29\lang1049 \'ed\'ee \'e8 \'ee \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'f1\'f2\'e8 \'f7\'e0\'f1\'f2\'ed\'fb\'f5}{\f2 . }{\f29\lang1049 \'ce\'ea\'e0\'e7\'fb\'e2\'e0\'e5\'f2\'f1\'ff \'e2\'ee\'e7\'ec\'ee\'e6\'ed\'ee
+\'e9  \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc \'e2\'ee\'ee\'e1\'f9\'e5 \'e1\'e5\'e7 \'f7\'e0\'f1\'f2\'ed\'fb\'f5}{\f2 .}{\f29\lang1049  \'cd\'e0\'ef\'f0\'e8\'ec\'e5\'f0,}{\f2  }{\f29\lang1049 \'e4\'eb\'ff \'f6\'e8\'ea\'eb\'e8\'f7\'e5\'f1\'ea\'ee\'e9 \'e3\'f0
+\'f3\'ef\'ef\'fb C4 \'ee\'e1\'e0 C4-\'ee\'f2\'ee\'e1p\'e0\'e6\'e5\'ed\'e8\'ff }{\f2 C}{\f29\lang1049 4->U2 \'ff\'e2\'eb\'ff\'fe\'f2\'f1\'ff \'e4\'e5\'eb\'e5\'ed\'e8\'ff\'ec\'e8 \'e1\'e5\'e7 \'f7\'e0\'f1\'f2\'ed\'fb\'f5, \'f2\'e0\'ea \'ea\'e0\'ea \'ee\'f2
+\'f1\'f3\'f2\'f1\'f2\'e2\'f3\'e5\'f2 \'ee\'e1\'fa\'e5\'ea\'f2 }{\f2 C}{\f29\lang1049 4/2. U2xU2 = 2U2 \'e8 \'e4\'e5\'eb\'e5\'ed\'e8\'e5 2U2->U2 \'ee\'e1\'eb\'e0\'e4\'e0\'e5\'f2 \'e4\'e2\'f3\'ec\'ff \'f7\'e0\'f1\'f2\'ed\'fb\'ec\'e8 2 \'e8 U2.
+\par }{\f2  }{\f29\lang1049   \'c8\'ec\'e5\'ed\'ed\'ee  \'fd\'f2\'ee  \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'ee \'e8 \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'fb\'ec \'e8 \'ef\'ee\'e7\'e2\'ee\'eb\'ff\'e5\'f2 \'e2\'fb\'ff\'f1\'ed\'ff
+\'f2\'fc \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc \'ee\'e1\'fa\'e5\'ea\'f2\'ee\'e2, \'e2\'ee\'ee\'e1\'f9\'e5 \'ed\'e5 \'f1\'ee\'e4\'e5\'f0\'e6\'e0\'f9\'e8\'f5 \'e3\'eb\'ee\'e1\'e0\'eb\'fc\'ed\'fb\'f5 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'ee\'e2, \'ed\'e0\'ef\'f0\'e8
+\'ec\'e5\'f0 G-\'ee\'f0\'e1\'e8\'f2, \'f7\'f2\'ee, \'ed\'e0\'e8\'e1\'ee\'eb\'e5\'e5 \'e8\'ed\'f2\'e5\'f0\'e5\'f1\'ed\'ee.
+\par   \'cd\'e5\'f2\'f0\'f3\'e4\'ed\'ee \'f3\'e1\'e5\'e4\'e8\'f2\'f1\'ff \'f7\'f2\'ee, \'e4\'eb\'ff \'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'f5 \'f7\'e8\'f1\'e5\'eb \'e8 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'ed\'e8\'f7\'e5\'e3\'ee \'ed\'e5 \'e8\'e7\'ec\'e5\'ed
+\'e8\'eb\'ee\'f1\'fc, \'e8 \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc B->A \'e4\'eb\'ff \'ea\'e0\'e6\'e4\'ee\'e3\'ee \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'e0  1->A  \'ef\'ee-\'ef\'f0\'e5\'e6\'ed\'e5\'ec\'f3 
+\par \'ef\'f0\'e8\'e2\'ee\'e4\'e8\'f2 \'ea \'ef\'f0\'e8\'e2\'fb\'f7\'ed\'ee\'ec\'f3 \'e8 \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'ee\'ec\'f3 \'f7\'e0\'f1\'f2\'ed\'ee\'ec\'f3  C: B=C*A, \'f2\'e0\'ea \'ea\'e0\'ea \'e8 \'f2\'ee\'e6\'e4\'e5\'f1\'f2\'e2\'e5\'ed
+\'ed\'ee\'e5 A->A \'e8 A->1->A \'ef\'f0\'e8\'e2\'ee\'e4\'ff\'f2 \'ea \'ef\'ee\'e4\'fa\'e5\'ec\'f3:
+\par }{\pard\plain \nowidctlpar\widctlpar\adjustright \f2\fs20\lang1049\cgrid {\object\objemb\objw1469\objh1035{\*\objclass PBrush}{\*\objdata 010500000200000007000000504272757368000000000000000000a0040000
+424d8e040000000000003e000000280000006200000045000000010001000000000050040000c40e0000c40e0000000000000000000000000000ffffff00ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000
+ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffefbfc0000000fffbefffff7ffffffff7efbfc0000000fffbefffff3fc1fffff3f07fc0000000fffc1fffff1ff7fffff1f77fc000
+0000fffdde00000ff7e00000f77fc0000000fffddfffff1ff7fffff1faffc0000000fffebfffff3ff7fffff3faffc0000000fffebfffff7ff7fffff7fdffc0000000ffff7fffffffc7fffffffdffc0000000ffff7ffffffff7ffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffff
+c0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffff7ffffffff7fffffffdffc0000000fffe3fffffffe3fffffff8ffc0000000fffc1fffffffc1fffffff07fc0000000fff80fffffff80ffffffe03fc0000000ffff7ffffffff7ffffff
+fdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7ff
+fffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7fffffff
+f7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffff7ffffffff7fffffffdffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000fe39988f
+ffbfe3fffffbf0ffc0000000fdddbddfff9fddfffff9f77fc0000000fbfe7e3fff8fbffffff8f77fc0000000fbfe7eb80007bfc00000777fc0000000fbfdbebfff8fbffffff8f0ffc0000000fbf99ebfff9fbffffff9f77fc0000000fddfff7fffbfddfffffbf77fc0000000fe1ffe7fffffe1fffffff77fc0000000ffff
+fffffffffffffffff0ffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000
+ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc000000000000000000000000000000000000000000001050000050000000d0000004d45544146494c4550494354001f0a0000def8ffffd004000008001f0a22070000
+0100090000036402000000004e0200000000050000000b0200000000050000000c02450062004e020000430f2000cc00000045006200000000004500620000000000280000006200000045000000010001000000000050040000c50e0000c50e0000020000000200000000000000ffffff00ffffffffffffffffffffffff
+c0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffff
+efbfc0fffffffffbefffff7ffffffff7efbfc0fffffffffbefffff3fc1fffff3f07fc0fffffffffc1fffff1ff7fffff1f77fc0fffffffffdde00000ff7e00000f77fc0fffffffffddfffff1ff7fffff1faffc0fffffffffebfffff3ff7fffff3faffc0fffffffffebfffff7ff7fffff7fdffc0ffffffffff7fffffffc7ff
+fffffdffc0ffffffffff7ffffffff7ffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffff7ffffffff7fffffffdffc0fffffffffe3fffffff
+e3fffffff8ffc0fffffffffc1fffffffc1fffffff07fc0fffffffff80fffffff80ffffffe03fc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7fff
+fffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff
+7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffff
+ffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0fffffffe39988fffbfe3fffffbf0ffc0fffffffdddbddfff9fddfffff9f77fc0fffffffbfe7e3fff8fbffffff8f77fc0fffffffbfe7eb80007bfc00000777fc0fffffffbfdbebfff8fbffffff8f0ffc0ff
+fffffbf99ebfff9fbffffff9f77fc0fffffffddfff7fffbfddfffffbf77fc0fffffffe1ffe7fffffe1fffffff77fc0fffffffffffffffffffffffffff0ffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffff
+c0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffff030000000000}{\result {\f2\lang1049 {\*\shppict
+{\pict{\*\picprop\shplid1027{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0
+\picw2591\pich1826\picwgoal1469\pichgoal1035\pngblip\bliptag1777619255{\*\blipuid 69f4513708201974c00739e9d8277a76}89504e470d0a1a0a0000000d49484452000000620000004501030000008bc2a1c30000000467414d410000b1889598f4a600000006504c5445000000ffffffa5
+d99fdd000000097048597300000ec500000ec501476cecff000000cd49444154789ce5933b1282301086b7b3e4089cc32ac7b233de80d64aae61a38b95a74070
+3c0038168091ac7f8228ce58325a98999dd92f3bfb4e480627a1df5109b2a1d5224750a5136a33d1c2a98871649a154bcc228da776cb12816ae767ec7c4d134e
+8866da93ea6c3e4abac9244e1f7e76ba8c844f88598ed883761543da7fa73a80b680e40a740ba1eddc6e3179b10a1a262ff58728e3eee145fb3e83655cc0563d49812e574778681282ce1d1d88822a2772efc5f7e06d9e4c013f7474297bf2290b1ed6f24e5ff94777f6823a6f2893bb0b0000000049454e44ae426082}
+}{\nonshppict{\pict\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0\picw2591\pich1826\picwgoal1469\pichgoal1035\wmetafile8\bliptag1777619255\blipupi96{\*\blipuid 69f4513708201974c00739e9d8277a76}
+0100090000037002000000004e02000000000400000003010800050000000b0200000000050000000c024500620004000000070104004e020000430f2000cc00
+000045006200000000004500620000000000280000006200000045000000010001000000000050040000c50e0000c50e0000020000000200000000000000ffff
+ff00ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc000
+0000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc0000000ffffffffffffffffffffffffc000
+0000ffffffffffffffffffffefbfc0fffffffffbefffff7ffffffff7efbfc0fffffffffbefffff3fc1fffff3f07fc0fffffffffc1fffff1ff7fffff1f77fc0ff
+fffffffdde00000ff7e00000f77fc0fffffffffddfffff1ff7fffff1faffc0fffffffffebfffff3ff7fffff3faffc0fffffffffebfffff7ff7fffff7fdffc0ff
+ffffffff7fffffffc7fffffffdffc0ffffffffff7ffffffff7ffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ff
+ffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffff7ffffffff7fffffffdffc0ff
+fffffffe3fffffffe3fffffff8ffc0fffffffffc1fffffffc1fffffff07fc0fffffffff80fffffff80ffffffe03fc0ffffffffff7ffffffff7fffffffdffc0ff
+ffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ff
+ffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ff
+ffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ff
+ffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ff
+ffffffff7ffffffff7fffffffdffc0ffffffffff7ffffffff7fffffffdffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ff
+ffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0fffffffe39988fffbfe3fffffbf0ffc0ff
+fffffdddbddfff9fddfffff9f77fc0fffffffbfe7e3fff8fbffffff8f77fc0fffffffbfe7eb80007bfc00000777fc0fffffffbfdbebfff8fbffffff8f0ffc0ff
+fffffbf99ebfff9fbffffff9f77fc0fffffffddfff7fffbfddfffffbf77fc0fffffffe1ffe7fffffe1fffffff77fc0fffffffffffffffffffffffffff0ffc0ff
+ffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ff
+ffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffffffffffffffffffffffffffffc0ffffff0400000007010100030000000000}}}}}}{\f2\lang1049   (pull-back)
+\par 
+\par }{\f29\lang1049    \'d2\'e0\'ea\'ee\'e5 \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'e5\'ed\'e8\'e5 \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'e8 \'ed\'e0\'f1\'eb\'e5\'e4\'f3\'e5\'f2 \'ec\'ed\'ee\'e3\'e8\'e5 \'f1\'e2\'ee\'e9\'f1\'f2\'e2\'e0 \'e4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'e8 
+\'ed\'e0\'f2\'f3\'f0\'e0\'eb\'fc\'ed\'fb\'f5 \'f7\'e8\'f1\'e5\'eb}{\f2 . }{\f29\lang1049 \'cc\'ee\'e6\'ed\'ee \'e0\'ea\'ea\'f3\'f0\'e0\'f2\'ed\'ee \'ef\'ee\'f1\'f2\'f0\'ee\'e8\'f2\'fc \'ed\'e0\'e8\'ec\'e5\'ed\'fc\'f8\'e5\'e5 \'ee\'e1\'f9\'e5\'e5 \'ea\'f0
+\'e0\'f2\'ed\'ee\'e5}{\f2 ,}{\f29\lang1049  \'ed\'e0\'e8\'e1\'ee\'eb\'fc\'f8\'e8\'e9 \'ee\'e1\'f9\'e8\'e9 \'e4\'e5\'eb\'e8\'f2\'e5\'eb\'fc \'e8 \'e4\'e0\'e6\'e5 \'f4\'e0\'ea\'f2\'ee\'f0\'e8\'e0\'eb \'e8\'eb\'e8 \'e3\'e0\'ec\'ec\'e0 \'f4\'f3\'ed\'ea\'f6
+\'e8\'fe}{\f2 , }{\f29\lang1049 \'ed\'ee \'fd\'f2\'ee \'e2\'fb\'f5\'ee\'e4\'e8\'f2 \'e7\'e0 \'ef\'f0\'e5\'e4\'e5\'eb\'fb \'fd\'f2\'ee\'e9 \'f0\'e0\'e1\'ee\'f2\'fb}{\f2 .
+\par }{\f2\lang1049 
+\par 
+\par 
+\par        }{\f29\fs32\lang1049 \'d3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'e0\'ff \'f2\'e5\'ee\'f0\'e8\'ff \'e3\'f0\'f3\'ef\'ef}{\f2\lang1049 .
+\par }{\f2 
+\par }{\f29\lang1049    \'c3\'f0\'f3\'ef\'ef\'fb \'ef\'f0\'e8\'ed\'f6\'e8\'ef\'e8\'e0\'eb\'fc\'ed\'ee \'ee\'f2\'eb\'e8\'f7\'e0\'fe\'f2\'f1\'ff \'ee\'f2 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'f1\'e2\'ee\'e8\'ec \'ee\'f2\'ed\'ee\'f8\'e5\'ed\'e8\'e5\'ec \'ef\'f0\'e8
+\'ed\'e0\'e4\'eb\'e5\'e6\'ed\'ee\'f1\'f2\'e8}{\f2 : }{\f29\lang1049 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'e0\'ec\'e8 \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2\'e0 A \'ff\'e2\'eb\'ff\'fe\'f2\'f1\'ff \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff 1-}{\f2 >A}{\f29\lang1049 , 
+\'ee\'e4\'ed\'e0\'ea\'ee \'ed\'e5\'f2 \'ed\'e8 \'ee\'e4\'ed\'ee\'e3\'ee \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff 1-}{\f2 >G}{\f29\lang1049 , \'f1\'ee\'f5\'f0\'e0\'ed\'ff\'fe\'f9\'e5\'e3\'ee }{\f2 G-}{\f29\lang1049 \'f1\'e4\'e2\'e8\'e3\'e8}{\f2 .}{
+\f29\lang1049  \'cf\'ee\'fd\'f2\'ee\'ec\'f3 \'e2 \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'ee\'e9 \'f2\'e5\'ee\'f0\'e8\'e8 \'e3\'f0\'f3\'ef\'ef \'ef\'ee\'e4 \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'e0\'ec\'e8 \'e3\'f0\'f3\'ef\'ef\'fb }{\f2 G }{\f29\lang1049 \'ef
+\'ee\'ed\'e8\'ec\'e0\'fe\'f2\'f1\'ff  \'f0\'e0\'e7\'eb\'e8\'f7\'ed\'fb\'e5 }{\f2 G-}{\f29\lang1049 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff. \'c4\'e5\'e9\'f1\'f2\'e2\'e8\'f2\'e5\'eb\'fc\'ed\'ee}{\f2 ,}{\f29\lang1049  \'e4\'eb\'ff \'e2\'f1\'ff\'ea\'ee
+\'e3\'ee \'fd\'eb\'e5\'ec\'e5\'ed\'f2\'e0 g \'e3\'f0\'f3\'ef\'ef\'fb }{\f2 G}{\f29\lang1049  \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'f3\'e5\'f2 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'e5 X(x)=xg, \'ea\'ee\'f2\'ee\'f0\'ee\'e5 \'f1\'ee\'f5\'f0\'e0\'ed\'ff\'e5\'f2
+ G-\'f1\'e4\'e2\'e8\'e3\'e8. \'c0 \'ea\'e0\'e6\'e4\'ee\'e5 }{\f2 G-}{\f29\lang1049 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'e5 X:G->G, \'f1\'ee\'f5\'f0\'e0\'ed\'ff\'fe\'f9\'e5\'e5 G-\'f1\'e4\'e2\'e8\'e3\'e8, \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'ff\'e5\'f2\'f1
+\'ff \'f1\'e2\'ee\'e8\'ec \'e7\'ed\'e0\'f7\'e5\'ed\'e8\'e5\'ec \'ed\'e0 \'e5\'e4\'e8\'ed\'e8\'f6\'e5 X(x) = x.X(e). 
+\par    \'c4\'eb\'ff \'ea\'e0\'e6\'e4\'ee\'e9 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb }{\f2 H }{\f29\lang1049 \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'f3\'e5\'f2 \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'fb\'e9 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2 }{\f2 C(H), }{
+\f29\lang1049 \'e8 \'f1\'ee\'ef\'f0\'ff\'e6\'b8\'ed\'ed\'fb\'ec \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'e0\'ec \'f1\'ee\'ee\'f2\'e2\'e5\'f2\'f1\'f2\'e2\'f3\'fe\'f2 \'f1\'ee\'ef\'f0\'ff\'e6\'b8\'ed\'ed\'fb\'e5 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'fb}{\f2 . }{
+\f29\lang1049 \'ca\'e0\'e6\'e4\'e0\'ff \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'e0 }{\f2 H }{\f29\lang1049 \'ed\'ee\'f0\'ec\'e0\'eb\'fc\'ed\'ee \'e2\'ea\'eb\'e0\'e4\'fb\'e2\'e0\'e5\'f2\'f1\'ff \'e2 \'f1\'e2\'ee\'e9 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2 }{\f2 C(H)
+}{\f29\lang1049  \'f1 \'f4\'e0\'ea\'f2\'ee\'f0\'ee\'ec 
+\par }{\f2 F(H)=C(H)/H, }{\f29\lang1049 \'f2\'e0\'ea \'f7\'f2\'ee }{\f2 H->C(H)->C(H)/H. }{\f29\lang1049 \'cf\'f0\'e8\'f7\'b8\'ec}{\f2 ,}{\f29\lang1049  \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'f3 }{\f2 H }{\f29\lang1049 \'ec\'ee\'e6\'ed\'ee \'ef\'f0\'e5\'e4\'f1\'f2
+\'e0\'e2\'e8\'f2\'fc }{\f2 G-}{\f29\lang1049 \'e0\'e2\'f2\'ee\'ec\'ee\'f0\'f4\'e8\'e7\'ec\'e0\'ec\'e8 G/}{\f2 F->G/F, }{\f29\lang1049 \'e0 \'f4\'e0\'ea\'f2\'ee\'f0 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'e0 F(H) -
+\par }{\f2 G-}{\f29\lang1049 \'e0\'e2\'f2\'ee\'ec\'ee\'f0\'f4\'e8\'e7\'ec\'e0\'ec\'e8 G/}{\f2 H->G/H. }{\f29\lang1049 \'c2\'f1\'e5 \'f1\'ee\'ef\'f0\'ff\'e6\'b8\'ed\'ed\'fb\'e5 }{\f2 H }{\f29\lang1049 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb \'e8\'f1\'f7\'e5\'f0
+\'ef\'fb\'e2\'e0\'fe\'f2\'f1\'ff 
+\par }{\f2 G-}{\f29\lang1049 \'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff\'ec\'e8 }{\f2 G->G/C(H).}{\f2\lang1049 
+\par }\pard \nowidctlpar\adjustright {\f29\cgrid0    \'c3\'ee\'f1\'ef\'ee\'e4\'e8\'ed \'cb\'e0\'e3\'f0\'e0\'ed\'e6 \'ea\'ee\'e3\'e4\'e0-\'f2\'ee \'e4\'ee\'ea\'e0\'e7\'e0\'eb, \'f7\'f2\'ee \'ef\'ee\'f0\'ff\'e4\'ee\'ea \'eb\'fe\'e1\'ee\'e9 \'ef\'ee\'e4\'e3\'f0
+\'f3\'ef\'ef\'fb H \'e4\'e5\'eb\'e8\'f2 \'ef\'ee\'f0\'ff\'e4\'ee\'ea \'e3\'f0\'f3\'ef\'ef\'fb G. \'ce\'ed \'ed\'e5 \'f1\'ea\'e0\'e7\'e0\'eb, \'f7\'f2\'ee \'ee\'f1\'f2\'e0\'ed\'e5\'f2\'f1\'ff \'ef\'ee\'f1\'eb\'e5 \'e4\'e5\'eb\'e5\'ed\'e8\'ff. \'cc\'ee\'e6
+\'ed\'ee \'f3\'e1\'e5\'e4\'e8\'f2\'fc\'f1\'ff \'e2 \'f2\'ee\'ec, }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'f7\'f2\'ee }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'f7\'e0\'f1\'f2\'ed\'ee\'e5 }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'fd\'f2\'ee\'e3\'ee }{
+\f2\lang1049\cgrid0  }{\f29\cgrid0 \'e4\'e5\'eb\'e5\'ed\'e8\'ff }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'e8 }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f2 }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'f0\'e0\'e7\'eb\'e8\'f7\'ed\'fb\'e5 G-
+\'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff G->G/H. \'c1\'ee\'eb\'e5\'e5 \'f2\'ee\'e3\'ee, (G,G/H) \'e2 \'f1\'e2\'ee\'fe \'ee\'f7\'e5\'f0\'e5\'e4\'fc \'e4\'e5\'eb\'e8\'f2\'f1\'ff \'ed\'e0 (G/H,G/H) - \'ea\'ee\'eb\'e8\'f7\'e5\'f1\'f2\'e2\'ee G-\'e0\'e2
+\'f2\'ee\'ec\'ee\'f0\'f4\'e8\'e7\'ec\'ee\'e2. \'c2 \'f1\'e2\'ee\'fe \'ee\'f7\'e5\'f0\'e5\'e4\'fc, \'f7\'e0\'f1\'f2\'ed\'ee\'e5 \'fd\'f2\'ee\'e3\'ee \'e4\'e5\'eb\'e5\'ed\'e8\'ff \'ff\'e2\'eb\'ff\'e5\'f2\'f1\'ff \'ef\'ee\'f0\'ff\'e4\'ea\'ee\'ec \'ee\'f0\'e1
+\'e8\'f2\'fb \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'e0, \'e8 \'e5\'e3\'ee \'ee\'e1\'f0\'e0\'e7\'f3\'fe\'f2 \'f0\'e0\'e7\'eb\'e8\'f7\'ed\'fb\'e5 
+\par G-\'ee\'f2\'ee\'e1\'f0\'e0\'e6\'e5\'ed\'e8\'ff (G,G/\'d1(H)) \'e8\'eb\'e8 \'ef\'ee \'f1\'f3\'f2\'e8 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb, \'f1\'ee\'ef\'f0\'ff\'e6\'b8\'ed\'ed\'fb\'e5 H.
+\par    \'d2\'e0\'ea\'e8\'ec \'ee\'e1\'f0\'e0\'e7\'ee\'ec, \'ef\'ee\'eb\'ed\'ee\'f6\'e5\'ed\'ed\'e0\'ff \'f2\'e5\'ee\'f0\'e5\'ec\'e0 \'cb\'e0\'e3\'f0\'e0\'ed\'e6\'e0 \'f1\'ee\'f1\'f2\'ee\'e8\'f2 \'e2 \'f2\'ee\'ec, \'f7\'f2\'ee \'e4\'eb\'ff \'ea\'e0\'e6\'e4\'ee
+\'e9 \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb H \'ef\'ee\'f0\'ff\'e4\'ee\'ea \'e3\'f0\'f3\'ef\'ef\'fb G \'f0\'e0\'f1\'ef\'e0\'e4\'e0\'e5\'f2\'f1\'ff \'e2 \'ef\'f0\'ee\'e8\'e7\'e2\'e5\'e4\'e5\'ed\'e8\'e5
+\par \'f2\'f0\'b8\'f5 \'ec\'ed\'ee\'e6\'e8\'f2\'e5\'eb\'e5\'e9:
+\par    k: \'f7\'e8\'f1\'eb\'ee \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef, \'f1\'ee\'ef\'f0\'ff\'e6\'b8\'ed\'ed\'fb\'f5 H \'e8\'eb\'e8 (G,G/\'d1(H))}{\f2\cgrid0 
+\par }{\f29\cgrid0    m: \'ef\'ee\'f0\'ff\'e4\'ee\'ea \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'fb H \'e8\'eb\'e8 (G/F(H),G/F(H))
+\par    n: \'ef\'ee\'f0\'ff\'e4\'ee\'ea \'f4\'e0\'ea\'f2\'ee\'f0\'e0 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'e0 F(H), \'e8\'eb\'e8 (G/H,G/H)
+\par    \'f2\'e0\'ea \'f7\'f2\'ee (G,G) = k.m.n
+\par }{\f2\cgrid0 
+\par   }{\f2\lang1049\cgrid0  }{\f29\cgrid0 \'c4\'e5\'eb\'e8\'ec\'ee\'f1\'f2\'fc \'ee\'f0\'e1\'e8\'f2 \'ee\'e7\'ed\'e0\'f7\'e0\'e5\'f2 \'ed\'e5 \'f2\'ee\'eb\'fc\'ea\'ee \'e2\'eb\'ee\'e6\'e8\'ec\'ee\'f1\'f2\'fc \'f1\'ee\'ee\'f2\'e2\'e5\'f2\'f1\'f2\'e2\'f3\'fe
+\'f9\'e8\'f5 }{\f29\lang1049\cgrid0 \'ef}{\f29\cgrid0 \'ee\'e4\'e3\'f0\'f3\'ef\'ef, \'ed\'ee \'e8 \'e2\'eb\'ee\'e6\'e8\'ec\'ee\'f1\'f2\'fc \'e8\'f5 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'ee\'e2. \'d2\'ee\'eb\'fc\'ea\'ee \'f2\'e5\'ef\'e5\'f0\'fc \'ec\'ee
+\'e6\'ed\'ee }{\f29\lang1049\cgrid0 \'f1}{\f29\cgrid0 \'f4\'ee\'f0\'ec\'f3\'eb\'e8\'f0\'ee\'e2\'e0\'f2\'fc \'f3\'ed\'e8\'e2\'e5\'f0\'f1\'e0\'eb\'fc\'ed\'ee\'e5 \'f1\'e2\'ee\'e9\'f2\'e2\'ee \'e3\'f0\'f3\'ef\'ef\'fb:
+\par  \'c4\'eb\'ff \'ea\'e0\'e6\'e4\'ee\'e9 \'e3\'f0\'f3\'ef\'ef\'fb G \'ea\'e0\'e6\'e4\'e0\'ff \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef\'e0 H \'ee\'ef\'f0\'e5\'e4\'e5\'eb\'ff\'e5\'f2
+\par  \'e5\'e4\'e8\'ed\'f1\'f2\'e2\'e5\'ed\'ed\'fb\'e9 G->G/H, \'ea\'ee\'f2\'ee\'f0\'fb\'e9 \'ef\'f0\'ee\'e4\'ee\'eb\'e6\'e0\'e5\'f2\'f1\'ff \'e4\'ee G->G/H->G/C(H),
+\par  \'ef\'f0\'e8\'f7\'e5\'ec \'e2\'f1\'ff\'ea\'ee\'e5 \'e4\'e5\'eb\'e5\'ed\'e8\'e5 \'ee\'f0\'e1\'e8\'f2  U->V  \'f0\'e0\'e2\'ed\'ee\'f1\'e8\'eb\'fc\'ed\'ee \'e2\'eb\'ee\'e6\'e5\'ed\'e8\'fe
+\par  \'ef\'ee\'e4\'e3\'f0\'f3\'ef\'ef H < F \'e2\'ec\'e5\'f1\'f2\'e5 \'f1 \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'ed\'f2\'e0\'ec\'e8 C(H) < C(F), \'f2\'e0\'ea \'f7\'f2\'ee 
+\par  \'ea\'ee\'ec\'ec\'f3\'f2\'e0\'f2\'e8\'e2\'ed\'e0 \'e4\'e8\'e0\'e3\'f0\'e0\'ec\'ec\'e0 \'e4\'e5\'eb\'e5\'ed\'e8\'e9:
+\par }{\pard\plain \nowidctlpar\adjustright \fs20 {\object\objemb\objw1964\objh1095{\*\objclass PBrush}{\*\objdata 01050000020000000700000050427275736800000000000000000000060000
+424df2050000000000003e0000002800000083000000490000000100010000000000b4050000c40e0000c40e0000000000000000000000000000ffffff00ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffff
+ffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000fffffffffffffffffffffffffff7fdffe0000000ffffffffffe2deffffff
+ffffffeffeffe0000000ffffffffffdcdeffffff7f16f86efeffe0000000ffffffffffdeeeffffff3ee6f7aefeffe0000000ffffffffffdeeeffffff1ef777eefeffe0000000ffffffffffd8f61e00000ef777eefeffe0000000ffffffffffdff6ffffff1ec7b7ee1effe0000000ffffffffffdffaffffff3effb7eefeff
+e0000000ffffffffffdefaffffff7effd7eefeffe0000000ffffffffffe1fa0ffffffef7d7aefeffe0000000ffffffffffffffffffffff0fd8760dffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffff
+ffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000fffffffffffffffffffffffffbffffffe0000000ffffffffffffdffffffffffff1ffffffe0000000ffffffffffff8fffffffffffe0ffffffe0000000fffffffe0fff07ffffffffffc07fffffe0000000ffffffff8ffe03ff
+fffffffffbffffffe0000000ffffffff8fffdffffffffffffbffffffe0000000ffffffff6fffdffffffffffffbffffffe0000000fffffffeefffdffffffffffffbffffffe0000000fffffffdffffdffffffffffffbffffffe0000000fffffffbffffdffffffffffffbffffffe0000000fffffff7ffffdffffffffffffbff
+ffffe0000000ffffffefffffdffffffffffffbffffffe0000000ffffffdfffffdffffffffffffbffffffe0000000ffffffbfffffdffffffffffffbffffffe0000000ffffff7fffffdffffffffffffbffffffe0000000fffffeffffffdffffffffffffbffffffe0000000fffffdffffffdffffffffffffbffffffe0000000
+fffffbffffffdffffffffffffbffffffe0000000fffff7ffffffdffffffffffffbffffffe0000000ffffefffffffdffffffffffffbffffffe0000000ffffdfffffffdffffffffffffbffffffe0000000ffffbfffffffdffffffffffffbffffffe0000000ffff7fffffffdffffffffffffbffffffe0000000fffeffffffff
+ffffffffffffffffffffe0000000fffdffffffffffffffffffffffffffffe0000000fffffffffffffffffffffffffff7fdffe0000000ffffffffffffffffffffffffffeffeffe0000000ff8bffffff8b7bdfffffff16f86deeffe0000000ff73ffffdf737bdfffff7ee6f7adeeffe0000000ff7bffffcf7bbbdfffff3ef7
+77edeeffe0000000ff7bffffc77bbbdfffff1ef777edeeffe0000000ff6200000363d81e00000ec7b7ec0effe0000000ff7fffffc77fdbdfffff1effb7edeeffe0000000ff7fffffcf7febdfffff3effd7edeeffe0000000ff7bffffdf7bebdfffff7ef7d7adeeffe0000000ff87ffffff87ebdfffffff0fd875edffe000
+0000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffff
+ffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffff
+ffffffffffffe0000000000000000000000000000000000001050000050000000d0000004d45544146494c455049435400880d000075f8ffff340600000800880d8b070000
+010009000003160300000000000300000000050000000b0200000000050000000c024900830000030000430f2000cc000000490083000000000049008300000000002800000083000000490000000100010000000000b4050000c60e0000c40e0000020000000200000000000000ffffff00ffffffffffffffffffffffff
+ffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ff
+ffffffffffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffff7fdffe0ffffffffffffffffe2deffffffffffffeffeffe0ffffffffffffffffdcdeffffff7f16f86efeffe0ffffffffffffffffdeeeffffff3ee6f7aefeffe0ffffffffffffffffdeeeffffff1ef777eefeffe0ffffffffffffff
+ffd8f61e00000ef777eefeffe0ffffffffffffffffdff6ffffff1ec7b7ee1effe0ffffffffffffffffdffaffffff3effb7eefeffe0ffffffffffffffffdefaffffff7effd7eefeffe0ffffffffffffffffe1fa0ffffffef7d7aefeffe0ffffffffffffffffffffffffffff0fd8760dffe0ffffffffffffffffffffffffff
+ffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffbffffffe0ffffffffffffffffffdffffffffffff1ffffff
+e0ffffffffffffffffff8fffffffffffe0ffffffe0fffffffffffffe0fff07ffffffffffc07fffffe0ffffffffffffff8ffe03fffffffffffbffffffe0ffffffffffffff8fffdffffffffffffbffffffe0ffffffffffffff6fffdffffffffffffbffffffe0fffffffffffffeefffdffffffffffffbffffffe0ffffffffff
+fffdffffdffffffffffffbffffffe0fffffffffffffbffffdffffffffffffbffffffe0fffffffffffff7ffffdffffffffffffbffffffe0ffffffffffffefffffdffffffffffffbffffffe0ffffffffffffdfffffdffffffffffffbffffffe0ffffffffffffbfffffdffffffffffffbffffffe0ffffffffffff7fffffdfff
+fffffffffbffffffe0fffffffffffeffffffdffffffffffffbffffffe0fffffffffffdffffffdffffffffffffbffffffe0fffffffffffbffffffdffffffffffffbffffffe0fffffffffff7ffffffdffffffffffffbffffffe0ffffffffffefffffffdffffffffffffbffffffe0ffffffffffdfffffffdffffffffffffbff
+ffffe0ffffffffffbfffffffdffffffffffffbffffffe0ffffffffff7fffffffdffffffffffffbffffffe0fffffffffeffffffffffffffffffffffffffffe0fffffffffdffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffff7fdffe0ffffffffffffffffffffffffffffffffeffeffe0ffffff
+ff8bffffff8b7bdfffffff16f86deeffe0ffffffff73ffffdf737bdfffff7ee6f7adeeffe0ffffffff7bffffcf7bbbdfffff3ef777edeeffe0ffffffff7bffffc77bbbdfffff1ef777edeeffe0ffffffff6200000363d81e00000ec7b7ec0effe0ffffffff7fffffc77fdbdfffff1effb7edeeffe0ffffffff7fffffcf7f
+ebdfffff3effd7edeeffe0ffffffff7bffffdf7bebdfffff7ef7d7adeeffe0ffffffff87ffffff87ebdfffffff0fd875edffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffff
+ffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ff
+ffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffff030000000000}{\result {\cgrid0 {\*\shppict{\pict{\*\picprop\shplid1028{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0
+\picw3464\pich1931\picwgoal1964\pichgoal1095\pngblip\bliptag51479008{\*\blipuid 031181e0271133182720a41862dbd43d}89504e470d0a1a0a0000000d4948445200000083000000490103000000242007f70000000467414d410000b1889598f4a600000006504c5445000000ffffffa5
+d99fdd000000097048597300000ec600000ec401d8e3af100000013049444154789cddd2b14ec3301006604b1d9868b68e79943c0cccc050418748f5d8a1439f
+04d60c0c65cbd83191407161e80275c452578de2e32e6e92ca27241618c870513e9d7ce7e817e03d6bf16f6586afd9bbc21ae4b75b921840c5245393dd6b1209
+b092241164db5652f98c1242e2e44288c1651e0a314c938fe1f19c347ea41e33713d28ab46a256c6386b1cd3ac8d71b3e6b8c99c0446fb2bedef5c5a5f4c4d52
+b37b597e775c1a54f3551d65c944312999182615939a8965420b79b264a298944c0c938a49cdc496bec00d9305173bf0ce09e0ac9127d9676cd1d435f4e2cef9
+043f871513f82d09f2bbf3565e0f01ae6eb2872e51c501cb1432dd8922892039911d96304d74d84abea3cc9b49df53686832ef49b431fdac97028b1cedaf3b792bdc8edf25fc2ffecfcfe50b8f548d690180bf500000000049454e44ae426082}}{\nonshppict
+{\pict\picscalex100\picscaley100\piccropl0\piccropr0\piccropt0\piccropb0\picw3464\pich1931\picwgoal1964\pichgoal1095\wmetafile8\bliptag51479008\blipupi96{\*\blipuid 031181e0271133182720a41862dbd43d}
+0100090000032203000000000003000000000400000003010800050000000b0200000000050000000c0249008300040000000701040000030000430f2000cc00
+0000490083000000000049008300000000002800000083000000490000000100010000000000b4050000c60e0000c40e0000020000000200000000000000ffff
+ff00ffffffffffffffffffffffffffffffffe0d87500ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffff
+ffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffffffffffffffffffffffffe0000000ffffffffffff
+ffffffffffffffffffffe0777815ffffffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffff7fdffe0ffffffffffffffffe2deffffff
+ffffffeffeffe0ffffffffffffffffdcdeffffff7f16f86efeffe0ffffffffffffffffdeeeffffff3ee6f7aefeffe0ffffffffffffffffdeeeffffff1ef777ee
+feffe0ffffffffffffffffd8f61e00000ef777eefeffe0ffffffffffffffffdff6ffffff1ec7b7ee1effe0ffffffffffffffffdffaffffff3effb7eefeffe0ff
+ffffffffffffffdefaffffff7effd7eefeffe0ffffffffffffffffe1fa0ffffffef7d7aefeffe0ffffffffffffffffffffffffffff0fd8760dffe0ffffffffff
+ffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffff
+ffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffbffffffe0ffffffffffffffffffdfffffff
+fffff1ffffffe0ffffffffffffffffff8fffffffffffe0ffffffe0fffffffffffffe0fff07ffffffffffc07fffffe0ffffffffffffff8ffe03fffffffffffbff
+ffffe0ffffffffffffff8fffdffffffffffffbffffffe0ffffffffffffff6fffdffffffffffffbffffffe0fffffffffffffeefffdffffffffffffbffffffe0ff
+fffffffffffdffffdffffffffffffbffffffe0fffffffffffffbffffdffffffffffffbffffffe0fffffffffffff7ffffdffffffffffffbffffffe0ffffffffff
+ffefffffdffffffffffffbffffffe0ffffffffffffdfffffdffffffffffffbffffffe0ffffffffffffbfffffdffffffffffffbffffffe0ffffffffffff7fffff
+dffffffffffffbffffffe0fffffffffffeffffffdffffffffffffbffffffe0fffffffffffdffffffdffffffffffffbffffffe0fffffffffffbffffffdfffffff
+fffffbffffffe0fffffffffff7ffffffdffffffffffffbffffffe0ffffffffffefffffffdffffffffffffbffffffe0ffffffffffdfffffffdffffffffffffbff
+ffffe0ffffffffffbfffffffdffffffffffffbffffffe0ffffffffff7fffffffdffffffffffffbffffffe0fffffffffeffffffffffffffffffffffffffffe0ff
+fffffffdffffffffffffffffffffffffffffe0fffffffffffffffffffffffffffffffff7fdffe0ffffffffffffffffffffffffffffffffeffeffe0ffffffff8b
+ffffff8b7bdfffffff16f86deeffe0ffffffff73ffffdf737bdfffff7ee6f7adeeffe0ffffffff7bffffcf7bbbdfffff3ef777edeeffe0ffffffff7bffffc77b
+bbdfffff1ef777edeeffe0ffffffff6200000363d81e00000ec7b7ec0effe0ffffffff7fffffc77fdbdfffff1effb7edeeffe0ffffffff7fffffcf7febdfffff
+3effd7edeeffe0ffffffff7bffffdf7bebdfffff7ef7d7adeeffe0ffffffff87ffffff87ebdfffffff0fd875edffe0ffffffffffffffffffffffffffffffffff
+ffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ff
+ffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffff
+ffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffff
+ffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffffffffffffffffffffffffffffffffffffe0ffffff0400000007010100030000000000}}}}}}{\f29\cgrid0  (\'ef\'f0\'e8\'f7\'e5\'ec, \'e2\'f1\'e5 G-\'ee\'f2\'ee\'e1p\'e0\'e6\'e5\'ed\'e8\'ff \'f1\'f3\'f2
+\'fc \'e4\'e5\'eb\'e5\'ed\'e8\'ff)
+\par \'cc\'ee\'e6\'ed\'ee \'ef\'ee\'ea\'e0\'e7\'e0\'f2\'fc, \'f7\'f2\'ee \'e4\'eb\'ff \'ec\'ed\'ee\'e6\'e5\'f1\'f2\'e2 \'fd\'f2\'ee \'e2 \'f2\'ee\'f7\'ed\'ee\'f1\'f2\'e8 \'ee\'e7\'ed\'e0\'f7\'e0\'e5\'f2 \'f1\'f3\'f9\'e5\'f1\'f2\'e2\'ee\'e2\'e0\'ed\'e8\'e5 \'e3
+\'f0\'f3\'ef\'ef\'ee\'e2\'ee\'e9 \'ee\'ef\'e5\'f0\'e0\'f6\'e8\'e8.
+\par }\pard \nowidctlpar\widctlpar\adjustright {\f2\lang1049 
+\par }{\f29\lang1049 \'ce\'f9\'e5\'ef\'ea\'ee\'e2 \'c0\'ed\'e4\'f0\'e5\'e9 \'cf\'e5\'f2\'f0\'ee\'e2\'e8\'f7  \'cc\'e0\'f2\'e5\'ec\'e0\'f2\'e8\'ea-\'ef\'f0\'ee\'e3\'f0\'e0\'ec\'ec\'e8\'f1\'f2
+\par \'d1}{\f2 .-}{\f29\lang1049 \'cf\'e5\'f2\'e5\'f0\'e1\'f3\'f0\'e3 (2001)
+\par }{\f2 Phone:    (812)1583042
+\par Email: }{\field{\*\fldinst {\f2  HYPERLINK mailto:Andrey1951@mail.ru }{\f2 {\*\datafield 
+00d0c9ea79f9bace118c8200aa004ba90b02000000170000001300000041006e006400720065007900310039003500310040006d00610069006c002e00720075000000e0c9ea79f9bace118c8200aa004ba90b340000006d00610069006c0074006f003a0041006e006400720065007900310039003500310040006d006100
+69006c002e007200750000000000ffffff00ffffff00e00000}}}{\fldrslt {\cs16\ul\cf2 Andrey1951@mail.ru}}}{\f2 
+\par 
+\par }}

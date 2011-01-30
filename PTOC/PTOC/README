@@ -1,0 +1,173 @@
+This is yet another Pascal to C/C++ converter. The primary idea of this
+converter is to produce readable and supportable code which
+preserves style of original code as far as possible. 
+
+Converter recognizes Pascal dialects which are compatible with new ISO 
+Pascal standard - IEC 7185:1990(E) (including conformant arrays).
+Now it is tuned for Oregon Pascal-2 V2.1 which has few extensions to standard 
+Pascal.
+
+Converter can produce both C++ and C output. Using of C++ language allows 
+to encapsulate some Pascal types and constructions into C++ classes.
+So mapping between Pascal and C++ becomes more direct 
+then between Pascal and C. We use C++ templates to implement pascal arrays 
+and files. Special template classes are used for conformant arrays. 
+C++ like streams are used to implement Pascal IO routines. 
+There is single runtime library for C and C++ code.   
+
+
+Below there is a short description of converter itself: 
+
+- Scanner (lex.l) is written using LEX. It produce list
+  of all tokens including comments and whitespaces.
+
+- Parser (parser.y) is written using YACC. Parser takes from
+  list of tokens created by scanner all tokens except separators
+  and create object tree (classes are described in trnod.h) which
+  nodes contain references to tokens. All names are inserted in global
+  name table (nmtbl.h). 
+
+- Attributes are assigned to tree nodes by executing virtual method
+  'attrib' (trnod.cxx). At this step symbol table (bring.h) is created.
+  Classes for type expressions are implemented in tpexpr.cxx.
+  
+- Virtual method 'translate' is recursively called for all nodes 
+  in tree (trnod.cxx). This methods perform conversion of input tokens 
+  (modify value,  swap tokens, add new tokens) and as a result prepare 
+  output list of tokens. 
+
+- All tokens from output list of tokens are printed to target file
+  with intelligent preserving position and layout of tokens (token.cxx).  
+ 
+
+Converter can perform global call graph analyze in order to recognize 
+non-recursive functions and making static variables of such functions which
+are accessed by nested functions. If you specify '-analyze' option, 
+converter append to file "call.grp" information about callers and callees. 
+After conversion of all files special utility 'cganal' can be used
+to produced transitive closure of call graph and output list
+of recursive procedures in file "recur.prc". When you run converter 
+once again (with '-analyze' option) information from this file is 
+used to mark recursive procedures. 
+This approach greatly increase readability of program as no extra
+arguments need to be passed to nested functions. 
+
+
+Resolving of names conflicts is controlled by file "ptoc.cfg"
+which is redden by converter at startup. This file specifies
+reserved symbols (C and C++ keywords), names of functions from C
+standard library, names of macros defined by converter, and 
+mapping of names for some functions from pascal runtime. 
+
+Description of Pascal runtime library emulationcan be found in file 
+"paslib.doc".
+
+
+When converter produces C code, it doesn't copy arrays which are
+passed by value. Instead of this converter declare such arrays as 'const',
+so any attempt to modify contents of such array cause C compiler 
+warning or error. It seems to me, that there are usually few places 
+in program where procedure modifies array which is passed by value.
+As a rule absence of VAR qualifier means that procedure only access 
+but not modify contents of the array. So we decide that efficient generation 
+of  this most common is more important then some amount of manual job 
+which is necessary to correct places where array has to be copied. 
+(You should only rename formal parameter, create local variable with original
+name and copy value to it: 
+
+	foo(str20 const name) { 
+            ...
+        }  
+
+=>
+
+	foo(str20 name_) { 
+	    str20 name;
+
+	    memcpy(name, name_, sizeof(name));
+            ...
+        }
+
+(There is no such problem with C++)
+
+
+Some C++ compilers doesn't allow classes with any assignment operators 
+to be members of unions (for correct implementation it is only
+necessary that such classes should not redefine DEFAULT assignment operator). 
+More over some compilers (DEC C++ for example) do not generate
+default assignment method for template classes. As far as arrays can be
+member of variant components in Pascal, converter can generate code
+without using of assignment operator for arrays. If your specify '-assign'
+option, converter will use 'assign' method of array instead of '=' operator.
+To compile such produce code pass -DNO_ARRAY_ASSIGN_OPERATOR option
+to C++ compiler. 
+
+When your are porting application from 16-bit architecture platform
+you may want to preserve integer size (2 bytes). In this case
+you can face with two problems: one is that pointers will not
+more fit into such integers. Converter can't help your in this
+case. You should change types of some variables and records fields. 
+And second problem is less obvious. In language C short and char
+operands are converted to int type before operation takes place. 
+So if you you compare for equality variables of signed and unsigned type 
+declared in Pascal as  
+
+	word : -32768..32767
+	uword : 0..65535
+
+containing the same value (for example 40000) then result will be 
+false (unlike original application) ! 
+This is because variable with signed type will be 
+converted to integer with sign extension, and variable with unsigned
+type - without sign extension. To help to deal with this problem
+converter provides option "-unsigned" which force converter to insert
+implicit type conversion in such operations. 
+
+Sometimes it is significant to preserve original size of data structure.
+For example if structure is mapped to another structure by means of union
+(record with variants in Pascal) or is extracted from file. There are 
+two options in converter which can help you in this case. First 
+option is "-intset", which order converter to generate short sets
+(2 or 4 bytes) for sets of enumeration types, Operations with 
+short sets are implemented by macros using bit arithmetic. 
+(so they are significantly faster than operations with universal sets). 
+Disadvantage of using short sets is that adding elements to enumeration
+may cause problems in future. And another option is "-smallenum". 
+The problem is that "enum" type in C is treated by many compilers as 
+integers and there are no ways to make compiler use less bytes for their 
+representation. When you specify option "-smallenum" converter replace
+original enumeration type definition with "unsigned char" or "unsigned short"
+definitions according to number of elements in enumeration. So construction
+
+	colors = (red, green, blue);
+
+will be translated to 
+
+	typedef unsigned char colors;
+	enum {red, green, blue};	
+
+
+As was mentioned above converter tries to preserve original
+indentation of converted sources. But if Pascal sources are not properly
+aligned you can reformat produced C code using some indentation
+utility, for example GNU indent, which is freely distributed 
+(GNU 'indent' has one interesting bug: it fails to work with 
+files with empty comments /**/ which are produced from popular Pascal {}
+comments. To avoid this problem just replace such comments with /* */ 
+or something else).
+
+
+
+This converter was used in project of portation of manufacturing 
+management system from Pascal-2/RSX to C/OpenVMS. There are more than 
+400.000 lines in Pascal which were converted to C with minimum manual 
+changes. Directory "vms" contains VMS specific versions of pascal 
+runtime library emulation module "io.c".   
+
+PTOC is distributed in the hope that it will be useful.
+Your are free to use this converter, modify the sources 
+and do with this converter everything else you want. 
+Also feel free to ask any questions about the converter. 
+
+My e-mail address
+knizhnik@cecmow.enet.dec.com

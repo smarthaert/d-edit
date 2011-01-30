@@ -1,0 +1,9 @@
+TasksDir \DENIS\CONTEST\TASKS
+JudgesDir \DENIS\CONTEST\JUDGES.!!!
+UsersDir \DENIS\CONTEST\USERS.!!!
+InfoDir \DENIS\CONTEST\INFO.!!!
+WorkDir \DENIS\CONTEST\WORK.!!!
+UsersList
+LastProblem F
+Start 10
+Monitor

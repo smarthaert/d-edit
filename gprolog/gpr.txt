@@ -1,0 +1,77 @@
+Факториал
+fact(0,1).
+fact(N,V) :- N>0, N1 is N-1, fact(N1,V1), V is V1*N.
+
+Числа Фибаначчи
+fib(0,1).
+fib(1,1).
+fib(N,V) :- N1 is N-1, N2 is N-2, fib(N1,V1), 
+  fib(N2,V2), V is V1+V2.
+
+Проверка принадлежности к списку
+member(X,L)
+X - объект, L - список
+например: истина member(b,[a,b,c]), ложь member(b,[a,[b,c]])
+программа: member(X,[X|Tail]).
+           member(X,[Head|Tail]) :- member(X,Tail).
+
+Конкотенация
+conc(L1,L2,L3)
+L1,L2 - два списка, L3 - их конкотенация
+например: истина conc([a,b],[c,d],[a,b,c,d]), 
+          ложь conc([a,b],[c,d],[a,b,a,c,d])
+программа: conc([],L,L).
+           conc([X|L1],L2,[X,L3]) :- conc(L1,L2,L3) 
+
+Добавление элемента
+add(X,L,[X|L]).
+
+Удаление элемента
+del(X,L,L1)
+L1 - список с удаленнм X
+Программа: del(X,[X|Tail],Tail).
+           del(X,[Y|Tail],[Y|Tail]) :- del(X,Tail,Tail).
+
+Вставка элемента в любое место
+insert(X,List,BiggerList) :- del(X,BiggetList,List).
+
+Подсписок
+sublist(S,L) :- conc(L1,L2,L), conc(S,L3,L2).
+
+Перестановки
+permutation([],[]).
+permutation([X|L],P) :- permutation(L,L1), insert(X,L1,P).
+
+repeat - предикат, который всегда верен
+fail - предикат, который всегда не верен
+read(X) - предикат для чтения Х из текущего входного потока
+write(X) - предикат вывода Х в текущий выходной поток
+nl - выводит в выходной поток знак перевода каретки
+
+Вычисление максимума
+max(X,Y,X):- X>=Y.    max(X,Y,X):- X>=Y,!.
+max(X,Y,Y):- X<Y.     max(X,Y,Y).
+
+Вычисление минимума
+min(X,Y,X):- X<Y.      min(X,Y,X):- X<Y,!.
+min(X,Y,Y):- X>=Y.     min(X,Y,Y).
+
+Проверка принадлежности к списку, только для первого вхождения
+member(X,[X|Tail]) :- !.
+member(X,[Head|Tail]) :- member(X,Tail).
+
+Добавление элемента к списку без дублирования
+add(X,L,L) :- member(X,L), !.
+add(X,L,[X|L]).
+
+Вычитание списков
+minus([],_,[]).
+minus([X|L1],L2,L) :- member(X,L2),!, minus(L1,L2,L).
+minus([X|L1],L2,[X|L]) :- minus(L1,L2,L).
+
+Возведение числа в квадрат
+square :- repeat, n1, write('Enter X = '), read(X),
+X = end,!; Y is X*X, write('X*X = '), write(Y), fail).
+для защиты от некоректного ввода
+square :- repeat, n1, write('Enter X = '), read(X),
+(X = end,!; number(X), Y is X*X, write('X*X = '), write(Y), fail).

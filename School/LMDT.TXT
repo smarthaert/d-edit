@@ -1,0 +1,5 @@
+Последнее изменение текущей страницы (дата)
+
+<script language="JavaScript"><!-- 
+var dateMod = "" ;dateMod = document.lastModified ;document.write("Последнее обновление: "); document.write(dateMod); document.write(); 
+// --></script>

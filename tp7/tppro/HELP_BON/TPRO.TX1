@@ -1,0 +1,1259 @@
+;
+;===========================================================================
+!TOPIC 1 Help on Help
+!INDEX 1
+
+This pop-up reference GUIDE is a tool to help you make most effective use
+of the many capabilities in Turbo Professional. While it cannot be a
+complete replacement for the printed manual, it does serve as a valuable
+quick reference to the available routines and the most important data
+structures and constants.
+
+GUIDE is a memory resident program that can be activated in several ways:
+!PAGE
+
+  Shift F1
+    reads a word from the screen at a location nearest to the cursor
+    position and then scans its list of topics and displays the matching
+    topic. If none is found, it displays the main help index. The help
+    window is positioned away from the cursor position if possible.
+
+  Shift F2
+    redisplays the most recently selected help topic.
+!PAGE
+
+  Shift F3
+    pops up the main help index, which displays the names of the Turbo
+    Professional units and other items of interest, such as Help on Help.
+
+The following keystrokes may be used after GUIDE is popped up:
+
+  F1
+    displays the main topic index again.
+!PAGE
+
+  Alt F1
+    displays the topic that was displayed prior to the current one.
+
+  F3
+    prompts for a new help file. GUIDE will read any help file built using
+    the Turbo Professional MAKEHELP utility.
+!PAGE
+
+  F5
+    allows repositioning the help window using the cursor keys. Press
+    Enter or Esc to finalize the position.
+
+  PgUp, PgDn
+    moves to the next or previous page of the current help topic.
+!PAGE
+
+  Left, Right, Up, Down
+    moves the highlight bar to the next corresponding cross-reference topic.
+    For example, the help topic for the TPDIR unit lists all of the
+    procedures and functions within that unit as cross-reference items.
+    Moving the highlight bar to one of these procedure or function names and
+    pressing Enter will cause GUIDE to display more information about
+    that particular routine.
+!PAGE
+
+  Enter
+    selects the currently highlighted cross-reference topic.
+
+  Esc
+    Exits GUIDE. The current topic and page are retained and may be
+    redisplayed by pressing Shift F2.
+;
+;===========================================================================
+!TOPIC 2 Defines
+!INDEX 2
+A number of conditional defines affect the behavior of Turbo Professional.
+All such defines are located in the file TPDEFINE.INC, which is included by
+many units. By convention, unwanted defines are deactivated by placing a
+period immediately after the opening comment brace, e.g.:
+
+   {.$DEFINE UseMouse}
+
+The following defines are contained in TPDEFINE.INC. The default condition
+of the define is indicated by whether a period appears in the define.
+
+{.$DEFINE UseCrt}
+  Determines whether TPCRT and CRT can coexist in the same program.
+
+{$DEFINE UseMouse}
+  Enables mouse support in various units.
+
+{$DEFINE Tpro5Menu}
+  Enables menu shadowing and disabled item support in TPMENU.
+
+{$DEFINE FourByteDates}
+  Dates in TPDATE are stored as LongInt's when enabled, Word's otherwise.
+
+{$DEFINE AllowDateTime}
+  Enables the display of size, date, and time in TPDIR directory listings.
+
+{$DEFINE IncludeNumeric}
+  Enables the numeric (right-left) editor in TPENTRY.
+
+{$DEFINE IncludeChoice}
+  Enables multiple choice fields in TPENTRY.
+
+{.$DEFINE UseBCD}
+  Enables support for BCD reals in TPENTRY.
+
+{$DEFINE FastDispose}
+  Enables a special dispose technique that improves performance in TPSORT.
+  Disable if the program must allocate heap space during the sort.
+
+{$DEFINE ThwartSideKick}
+  When defined, TPTSR tries to thwart SideKick.
+
+{$DEFINE ExplodingWindows}
+  Enables exploding window effects in TPWINDOW.
+
+{$DEFINE ShadowedWindows}
+  Enabled shadowed window effects in TPWINDOW.
+
+{.$DEFINE TpEntryScrolls}
+  Enables scrollable data entry screens in TPENTRY.
+
+{.$DEFINE PickItemDisable}
+  Enables protected pick items in TPPICK.
+
+{.$DEFINE EnablePickOrientations}
+  Enables alternate picklist orientations in TPPICK.
+;
+;===========================================================================
+!TOPIC 3 Scan Codes
+!INDEX 3
+The following table shows the hexadecimal scan words (returned by
+272ReadKeyWord) for all the keys on a normal keyboard. For additional
+keystrokes returned on an enhanced keyboard, see 488TpEnhKbd. The low
+byte of each word is the normal ASCII character returned by 196ReadKey.
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+     Up  4800   4838    --     --        Down  5000   5032    --     --
+   Left  4B00   4B34   7300    --       Right  4D00   4D36   7400    --
+   Home  4700   4737   7700    --         End  4F00   4F31   7500    --
+   PgUp  4900   4939   8400    --        PgDn  5100   5133   7600    --
+    Ins  5200   5230    --     --         Del  5300   532E    --     --
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+     F1  3B00   5400   5E00   6800         F2  3C00   5500   5F00   6900
+     F3  3D00   5600   6000   6A00         F4  3E00   5700   6100   6B00
+     F5  3F00   5800   6200   6C00         F6  4000   5900   6300   6D00
+     F7  4100   5A00   6400   6E00         F8  4200   5B00   6500   6F00
+     F9  4300   5C00   6600   7000        F10  4400   5D00   6700   7100
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+    Esc  011B   011B   011B    --         Tab  0F09   0F00    --     --
+   BkSp  0E08   0E08   0E7F    --
+    [ {  1A5B   1A7B   1A1B    --         ] }  1B5D   1B7D   1B1D    --
+    ; :  273B   273A    --     --         ' "  2827   2822    --     --
+    , <  332C   333C    --     --         . >  342E   343E    --     --
+    / ?  352F   353F    --     --         ` ~  2960   297E    --     --
+    \ |  2B5C   2B7C   2B1C    --
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+      a  1E61   1E41   1E01   1E00          b  3062   3042   3002   3000
+      c  2E63   2E43   2E03   2E00          d  2064   2044   2004   2000
+      e  1265   1245   1205   1200          f  2166   2146   2106   2100
+      g  2267   2247   2207   2200          h  2368   2348   2308   2300
+      i  1769   1749   1709   1700          j  246A   244A   240A   2400
+      k  256B   254B   250B   2500          l  266C   264C   260C   2600
+      m  326D   324D   320D   3200          n  316E   314E   310E   3100
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+      o  186F   184F   180F   1800          p  1970   1950   1910   1900
+      q  1071   1051   1011   1000          r  1372   1352   1312   1300
+      s  1F73   1F53   1F13   1F00          t  1474   1454   1414   1400
+      u  1675   1655   1615   1600          v  2F76   2F56   2F16   2F00
+      w  1177   1157   1117   1100          x  2D78   2D58   2D18   2D00
+      y  1579   1559   1519   1500          z  2C7A   2C5A   2C1A   2C00
+!PAGE
+
+        Plain  Shift  Control  Alt            Plain  Shift  Control  Alt
+    1 !  0231   0221    --   7800         2 @  0332   0340   0300  7900
+    3 #  0433   0423    --   7A00         4 $  0534   0524    --   7B00
+    5 %  0635   0625    --   7C00         6 ^  0736   075E   071E  7D00
+    7 &  0837   0826    --   7E00         8 *  0938   092A    --   7F00
+    9 (  0A39   0A28    --   8000         0 )  0B30   0B29    --   8100
+;
+;===========================================================================
+!TOPIC 4 Line Drawing
+!INDEX 4
+The following figures make it easy to pick out the extended ASCII line drawing
+characters. The ASCII character number is shown in decimal next to the way it
+actually appears:
+       205                196                 203                194
+ 201ÉÍÍÍÍÍÍÍ»187    218ÚÄÄÄÄÄÄÄ¿191     201ÉÍÍÍËÍÍÍ»187    218ÚÄÄÄÂÄÄÄ¿191
+    º       º          ³       ³           º206º   º          ³197³   ³
+ 186º       º186    179³       ³179     204ÌÍÍÍÎÍÍÍ¹185    195ÃÄÄÄÅÄÄÄ´180
+    º       º          ³       ³           º   º   º          ³   ³   ³
+ 200ÈÍÍÍÍÍÍÍ¼188    192ÀÄÄÄÄÄÄÄÙ217     200ÈÍÍÍÊÍÍÍ¼188    192ÀÄÄÄÁÄÄÄÙ217
+       205                196                 202                193
+!PAGE
+
+       203                210                 194                209
+ 213ÕÍÍÍËÍÍÍ¸184    214ÖÄÄÄÒÄÄÄ·183     214ÖÄÄÄÂÄÄÄ·183    213ÕÍÍÍÑÍÍÍ¸184
+    ³206º   ³          º215º   º           º197³   º          ³216³   ³
+ 198ÆÍÍÍÎÍÍÍµ181    199ÇÄÄÄ×ÄÄÄ¶182     199ÇÄÄÄÅÄÄÄ¶182    198ÆÍÍÍØÍÍÍµ181
+    ³   º   ³          º   º   º           º   ³   º          ³   ³   ³
+ 212ÔÍÍÍÊÍÍÍ¾190    211ÓÄÄÄÐÄÄÄ½189     211ÓÄÄÄÁÄÄÄ½189    212ÔÍÍÍÏÍÍÍ¾190
+       202                208                 193                207
+;
+;===========================================================================
+!TOPIC 5 Tp8087
+Tp8087 is intended primarily for TSR's that use 8087 reals (Single,
+Double, Extended, Comp) for floating point calculations. It also includes
+routines to control the error handling behavior of the 8087 or numeric
+emulator.
+
+      11Error8087              10Exceptions8087         09Installed8087
+      12Reinit8087             13ReinitEmulator         08Restore8087
+      07Save8087               06SaveBuffer8087         14UseEmulator
+;
+;---------------------------------------------------------------------------
+!TOPIC 6 SaveBuffer8087
+!NOINDEX
+type
+  05Tp8087.SaveBuffer8087 =
+    record
+      Control : Word;                     {control word}
+      Status : Word;                      {status word}
+      Tag : Word;                         {tags for stack}
+      InstPtr : LongInt;                  {instruction pointer}
+      OpPtr : LongInt;                    {data pointer}
+      Regs8087 : array[0..7] of Extended; {stack}
+    end;
+
+Used to store data needed to save and later restore the state of the math
+coprocessor with 07Save8087 and 08Restore8087.
+;
+;---------------------------------------------------------------------------
+!TOPIC 7 Save8087
+!NOINDEX
+procedure 05Tp8087.Save8087(var SaveBuf : 06SaveBuffer8087);
+
+Saves the 80x87 registers in the save buffer.
+
+See also: 08Restore8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 8 Restore8087
+!NOINDEX
+procedure 05Tp8087.Restore8087(var SaveBuf : 06SaveBuffer8087);
+
+Restores the 80x87 registers from the save buffer.
+
+See also: 07Save8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 9 Installed8087
+!NOINDEX
+function 05Tp8087.Installed8087 : Boolean;
+
+Returns true if an 80x87 coprocessor is installed. Note that under Turbo
+Pascal 5.0 or later, this function simply refers to the variable Test8087 in
+the SYSTEM unit, which is initialized by the compiler's runtime system to
+indicate whether a math coprocessor is installed and active. Calling
+Installed8087 has the side effect of enabling numeric exceptions.
+
+See also: 10Exceptions8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 10 Exceptions8087
+!NOINDEX
+procedure 05Tp8087.Exceptions8087(On : Boolean);
+
+Turn coprocessor exception interrupts on or off. When interrupts are off,
+11Error8087 is used to check the status of the coprocessor.
+;
+;---------------------------------------------------------------------------
+!TOPIC 11 Error8087
+!NOINDEX
+function 05Tp8087.Error8087 : Word;
+
+Return (and clear) the error status of the 80x87. Zero indicates no error.
+Otherwise the bits of the result can be interpreted as follows:
+
+  Bit  Val  Meaning
+  5    32   Precision lost (result is not exact--had to be rounded)
+  4    16   Underflow error
+  3     8   Overflow error
+  2     4   Divide by zero error
+  1     2   Denormalized operand (result is so small the significand
+              has leading zeros)
+  0     1   Invalid operation (e.g., SQRT or LN of negative number)
+
+See also: 10Exceptions8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 12 Reinit8087
+!NOINDEX
+procedure 05Tp8087.Reinit8087;
+
+Reinitialize the 8087 chip. Restores all default modes, including exception
+generation for errors.
+
+See also: 10Exceptions8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 13 ReinitEmulator
+!NOINDEX
+procedure 05Tp8087.ReinitEmulator;
+
+Reinitialize the Turbo Pascal numeric emulator.
+
+See also: 10Exceptions8087
+;
+;---------------------------------------------------------------------------
+!TOPIC 14 UseEmulator
+!NOINDEX
+function 05Tp8087.UseEmulator : Boolean;
+
+Return True if 13ReinitEmulator should be used rather than 12Reinit8087.
+;
+;===========================================================================
+!TOPIC 15 TpAsciiz
+The TPASCIIZ unit defines a new string type for Turbo Pascal. Unlike normal
+Turbo strings, which are limited to 255 bytes in length, the Asciiz string
+type can be of any length up to 65520 characters.
+
+The Asciiz string is defined in the same way as the one used by MS-DOS for
+internal operations and by the C programming language. An Asciiz is simply
+an array of characters terminated by a null character (ASCII #0).
+
+Because the Asciiz string is terminated by a null character, it may not
+contained nulls itself.
+!PAGE
+  19Asc2Str           46AscCenter         45AscCenterCh       37AscCharStr
+  47AscCompareType    31AscFromHeap       41AscLeftPad        40AscLeftPadCh
+  36AscLocase         39AscPad            38AscPadCh          30AscToHeap
+  44AscTrim           42AscTrimLead       43AscTrimTrail      35AscUpcase
+  18Asciiz            18AsciizPtr         48CompAsc           49CompUCAsc
+  24ConcatAsc         25ConcatStr         22CopyAsc           23DeleteAsc
+  32DisposeAsc        26InsertAsc         27InsertStr         21LenAsc
+  16MaxAsciiz         17NotFound          29PosAsc            28PosStr
+  33ReadLnAsc         20Str2Asc           34WriteAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 16 MaxAsciiz
+!NOINDEX
+const
+  15TpAsciiz.MaxAsciiz = 1024;
+
+Maximum length of Asciiz. Can be increased to a maximum of 65520.
+
+See also: 18Asciiz
+;
+;---------------------------------------------------------------------------
+!TOPIC 17 NotFound
+!NOINDEX
+const
+  15TpAsciiz.NotFound = $FFFF;
+
+Returned by the Asciiz Pos functions if substring not found.
+
+See also: 29PosAsc  28PosStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 18 Asciiz
+!NOINDEX
+type
+  15TpAsciiz.Asciiz = array[0..16MaxAsciiz] of Char;
+  AsciizPtr = ^Asciiz;
+
+Data types describing the Asciiz string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 19 Asc2Str
+!NOINDEX
+function 15TpAsciiz.Asc2Str(var A : Asciiz) : string;
+
+Convert Asciiz to Turbo string, truncating if longer than 255 chars.
+
+See also: 20Str2Asc
+;
+;---------------------------------------------------------------------------
+!TOPIC 20 Str2Asc
+!NOINDEX
+procedure 15TpAsciiz.Str2Asc(S : string; var A : Asciiz);
+
+Convert a Turbo string into an Asciiz.
+
+See also: 19Asc2Str
+;
+;---------------------------------------------------------------------------
+!TOPIC 21 LenAsc
+!NOINDEX
+function 15TpAsciiz.LenAsc(A : Asciiz) : Word;
+
+Return the length of an Asciiz string. Actually an inline macro to improve
+speed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 22 CopyAsc
+!NOINDEX
+procedure 15TpAsciiz.CopyAsc(var A : Asciiz; Start, Len : Word;
+                           var O : Asciiz);
+
+Return a substring of A. Note Start=0 for first char in A.
+;
+;---------------------------------------------------------------------------
+!TOPIC 23 DeleteAsc
+!NOINDEX
+procedure 15TpAsciiz.DeleteAsc(var A : Asciiz; Start, Len : Word);
+
+Delete Len characters of A, starting at position Start.
+;
+;---------------------------------------------------------------------------
+!TOPIC 24 ConcatAsc
+!NOINDEX
+procedure 15TpAsciiz.ConcatAsc(var A, B, C : Asciiz);
+
+Concatenate two Asciiz strings, returning a third in C.
+
+See also: 25ConcatStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 25 ConcatStr
+!NOINDEX
+procedure 15TpAsciiz.ConcatStr(var A : Asciiz; S : string;
+                             var C : Asciiz);
+
+Concatenate a string to an Asciiz, returning a new Asciiz in C.
+
+See also: 24ConcatAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 26 InsertAsc
+!NOINDEX
+procedure 15TpAsciiz.InsertAsc(var Obj, A : Asciiz; Start : Word);
+
+Insert Asciiz Obj at position start of A, returning new string in A.
+
+See also: 27InsertStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 27 InsertStr
+!NOINDEX
+procedure 15TpAsciiz.InsertStr(Obj : string; var A : Asciiz;
+                             Start : Word);
+
+Insert string Obj at position start of A, returning new string in A.
+
+See also: 26InsertAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 28 PosStr
+!NOINDEX
+function 15TpAsciiz.PosStr(Obj : string; var A : Asciiz) : Word;
+
+Return the position of the string Obj in A, returning 17NotFound if not found.
+
+See also: 29PosAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 29 PosAsc
+!NOINDEX
+function 15TpAsciiz.PosAsc(var Obja, A : Asciiz) : Word;
+
+Return the position of Obja in A, returning 17NotFound if not found.
+
+See also: 28PosStr
+;
+;---------------------------------------------------------------------------
+!TOPIC 30 AscToHeap
+!NOINDEX
+function 15TpAsciiz.AscToHeap(var A : Asciiz) : AsciizPtr;
+
+Put Asciiz A on heap, returning a pointer, nil if insufficient memory.
+
+See also: 31AscFromHeap  32DisposeAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 31 AscFromHeap
+!NOINDEX
+procedure 15TpAsciiz.AscFromHeap(P : AsciizPtr; var A : Asciiz);
+
+Return an Asciiz from the heap at position P, empty if pointer is nil.
+
+See also: 30AscToHeap  32DisposeAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 32 DisposeAsc
+!NOINDEX
+procedure 15TpAsciiz.DisposeAsc(P : AsciizPtr);
+
+Dispose of heap space in Asciiz string pointed to by P.
+
+See also: 30AscToHeap  31AscFromHeap
+;
+;---------------------------------------------------------------------------
+!TOPIC 33 ReadLnAsc
+!NOINDEX
+function 15TpAsciiz.ReadLnAsc(var F : Text; var A : Asciiz) : Boolean;
+
+Read an Asciiz string from text file, returning true if successful.
+
+See also: 34WriteAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 34 WriteAsc
+!NOINDEX
+function 15TpAsciiz.WriteAsc(var F : Text; var A : Asciiz) : Boolean;
+
+Write an Asciiz to text file, returning true if successful.
+
+See also: 33ReadLnAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 35 AscUpcase
+!NOINDEX
+procedure 15TpAsciiz.AscUpcase(var A, B : Asciiz);
+
+Uppercase the Asciiz in A, returning B.
+
+See also: 36AscLocase
+;
+;---------------------------------------------------------------------------
+!TOPIC 36 AscLocase
+!NOINDEX
+procedure 15TpAsciiz.AscLocase(var A, B : Asciiz);
+
+Lowercase the Asciiz in A, returning B.
+
+See also: 35AscUpcase
+;
+;---------------------------------------------------------------------------
+!TOPIC 37 AscCharStr
+!NOINDEX
+procedure 15TpAsciiz.AscCharStr(Ch : Char; Len : Word; var A : Asciiz);
+
+Return an Asciiz of length Len filled with Ch.
+;
+;---------------------------------------------------------------------------
+!TOPIC 38 AscPadCh
+!NOINDEX
+procedure 15TpAsciiz.AscPadCh(var A : Asciiz; Ch : Char;
+                            Len : Word; var B : Asciiz);
+
+Right-pad the Asciiz in A to length Len with Ch, returning B.
+
+See also: 39AscPad
+;
+;---------------------------------------------------------------------------
+!TOPIC 39 AscPad
+!NOINDEX
+procedure 15TpAsciiz.AscPad(var A : Asciiz; Len : Word; var B : Asciiz);
+
+Right-pad the Asciiz in A to length Len with blanks, returning B.
+
+See also: 38AscPadCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 40 AscLeftPadCh
+!NOINDEX
+procedure 15TpAsciiz.AscLeftPadCh(var A : Asciiz; Ch : Char; Len : Word;
+                                var B : Asciiz);
+
+Left-pad the Asciiz in A to length Len with Ch, returning B.
+
+See also: 41AscLeftPad
+;
+;---------------------------------------------------------------------------
+!TOPIC 41 AscLeftPad
+!NOINDEX
+procedure 15TpAsciiz.AscLeftPad(var A : Asciiz; Len : Word;
+                              var B : Asciiz);
+
+Left-pad the Asciiz in A to length Len with blanks, returning B.
+
+See also: 40AscLeftPadCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 42 AscTrimLead
+!NOINDEX
+procedure 15TpAsciiz.AscTrimLead(var A, B : Asciiz);
+
+Return an Asciiz with leading white space removed.
+
+See also: 43AscTrimTrail  44AscTrim
+;
+;---------------------------------------------------------------------------
+!TOPIC 43 AscTrimTrail
+!NOINDEX
+procedure 15TpAsciiz.AscTrimTrail(var A, B : Asciiz);
+
+Return an Asciiz with trailing white space removed.
+
+See also: 42AscTrimLead  44AscTrim
+;
+;---------------------------------------------------------------------------
+!TOPIC 44 AscTrim
+!NOINDEX
+procedure 15TpAsciiz.AscTrim(var A, B : Asciiz);
+
+Return an Asciiz with leading and trailing white space removed.
+
+See also: 42AscTrimLead  43AscTrimTrail
+;
+;---------------------------------------------------------------------------
+!TOPIC 45 AscCenterCh
+!NOINDEX
+procedure 15TpAsciiz.AscCenterCh(var A : Asciiz; Ch : Char;
+                               Width : Word; var B : Asciiz);
+
+Return an Asciiz centered in an Asciiz of Ch with specified Width.
+
+See also: 46AscCenter
+;
+;---------------------------------------------------------------------------
+!TOPIC 46 AscCenter
+!NOINDEX
+procedure 15TpAsciiz.AscCenter(var A : Asciiz; Width : Word;
+                             var B : Asciiz);
+
+Return an Asciiz centered in an Asciiz of blanks with specified Width.
+
+See also: 45AscCenterCh
+;
+;---------------------------------------------------------------------------
+!TOPIC 47 AscCompareType
+!NOINDEX
+type
+  15TpAsciiz.AscCompareType = (AscLess, AscEqual, AscGreater);
+
+Values returned by the Asciiz comparison functions 48CompAsc and 49CompUCAsc.
+;
+;---------------------------------------------------------------------------
+!TOPIC 48 CompAsc
+!NOINDEX
+function 15TpAsciiz.CompAsc(var A1, A2 : Asciiz) : AscCompareType;
+
+Return AscLess, AscEqual, or AscGreater if A1<A2, A1=A2, or A1>A2.
+
+See also: 47AscCompareType 49CompUCAsc
+;
+;---------------------------------------------------------------------------
+!TOPIC 49 CompUCAsc
+!NOINDEX
+function 15TpAsciiz.CompUCAsc(var A1, A2 : Asciiz) : AscCompareType;
+
+Compare two Asciiz's in a case insensitive manner, returning AscLess,
+AscEqual, or AscGreater.
+
+See also: 47AscCompareType 48CompAsc
+;
+;===========================================================================
+!TOPIC 50 TpBcd
+The TPBCD unit offers an extended set of BCD arithmetic routines providing
+18 digit accuracy using decimal arithmetic. A BCD real is represented as an
+array[1..10] of byte, with the same internal format as Turbo Pascal 3.0's
+BCD reals. Besides a full complement of arithmetic, comparison and format
+conversion routines, TPBCD provides the transcendental functions: Sqrt, Exp,
+Ln, Sin, Cos, and ArcTan. In addition, TPBCD includes a Form function for
+easy formatting of numeric results.
+!PAGE
+  63AbsBCD            69AddBCD            79ArcTanBCD         52BCD
+  51BCDsize           59BCDtoReal         56CommaForPeriod    80CosBCD
+  72DivBCD            73EqualBCD          81ExpBCD            68Form
+  64FracBCD           75GreaterBCD        76GreaterEqualBCD   65IntBCD
+  77LessBCD           78LessEqualBCD      82LnBCD             58LongintToBCD
+  55MoneySign         71MultBCD           74NotEqualBCD       53PiBcd
+  57RealToBCD         66RoundBCD          83SinBCD            84SqrBCD
+  085SqrtBCD           60StrBCD            61StrExpBCD         70SubBCD
+  67TruncBCD          62ValBCD            54ZeroBcd
+;
+;---------------------------------------------------------------------------
+!TOPIC 51 BCDsize
+!NOINDEX
+const
+  50TpBcd.BCDsize = 10;
+
+Number of bytes used to store a BCD real. BCDsize-1 bytes are used for the
+mantissa and two digits are packed into each mantissa byte. Hence, 18 digits
+of precision are available.
+
+See also: 52BCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 52 BCD
+!NOINDEX
+type
+  50TpBcd.BCD = array[1..51BCDsize] of Byte;
+
+The fundamental data type used to describe the BCD real.
+;
+;---------------------------------------------------------------------------
+!TOPIC 53 PiBcd
+!NOINDEX
+const
+  50TpBcd.PiBcd : BCD = ($40, $24, $93, $97, $58, $53, $26, $59, $41, $31);
+
+Pi in BCD format. Other BCD constants can be generated using the supplied
+demonstration programs PCALC and SMACS.
+;
+;---------------------------------------------------------------------------
+!TOPIC 54 ZeroBcd
+!NOINDEX
+const
+  50TpBcd.ZeroBcd : BCD = ($0, $0, $0, $0, $0, $0, $0, $0, $0, $0);
+
+Zero in BCD format. Other BCD constants can be generated using the supplied
+demonstration programs PCALC and SMACS.
+;
+;---------------------------------------------------------------------------
+!TOPIC 55 MoneySign
+!NOINDEX
+const
+  50TpBcd.MoneySign : Char = '$';
+
+Used by the 68Form function for the floating dollar sign. May be replaced with
+another character to make Form work better with international currencies.
+;
+;---------------------------------------------------------------------------
+!TOPIC 56 CommaForPeriod
+!NOINDEX
+const
+  50TpBcd.CommaForPeriod : Boolean = False;
+
+If True, the 68Form function will return '.' for ',' and vice versa. Useful to
+make Form work better with international currencies.
+;
+;---------------------------------------------------------------------------
+!TOPIC 57 RealToBCD
+!NOINDEX
+procedure 50TpBcd.RealToBCD(R : Real; var B : BCD);
+
+Convert a 6-byte real to a BCD.
+
+See also: 58LongintToBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 58 LongintToBCD
+!NOINDEX
+procedure 50TpBcd.LongintToBCD(L : LongInt; var B : BCD);
+
+Convert a Longint to a BCD.
+
+See also: 57RealToBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 59 BCDtoReal
+!NOINDEX
+function 50TpBcd.BCDtoReal(B : BCD) : Real;
+
+Convert a BCD to a 6-byte real.
+;
+;---------------------------------------------------------------------------
+!TOPIC 60 StrBCD
+!NOINDEX
+function 50TpBcd.StrBCD(B : BCD; Width, Places : Byte) : string;
+
+Return a BCD as a string. Functionally equivalent to the Turbo Pascal syntax
+Str(R:Width:Places, S);
+
+See also: 68Form  61StrExpBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 61 StrExpBCD
+!NOINDEX
+function 50TpBcd.StrExpBCD(B : BCD; Width : Byte) : string;
+
+Return B as a string in exponential format.
+
+See also: 68Form  60StrBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 62 ValBCD
+!NOINDEX
+procedure 50TpBcd.ValBCD(S : string; var B : BCD; var Code : Word);
+
+Convert a string to a BCD. Code is zero for success, else the position of
+the character causing the error.
+
+See also: 60StrBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 63 AbsBCD
+!NOINDEX
+procedure 50TpBcd.AbsBCD(B1 : BCD; var B2 : BCD);
+
+Return absolute value of B1 in B2.
+;
+;---------------------------------------------------------------------------
+!TOPIC 64 FracBCD
+!NOINDEX
+procedure 50TpBcd.FracBCD(B1 : BCD; var B2 : BCD);
+
+Return the fractional part of B1 in B2.
+
+See also: 65IntBCD  66RoundBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 65 IntBCD
+!NOINDEX
+procedure 50TpBcd.IntBCD(B1 : BCD; var B2 : BCD);
+
+Return the integer part of B1 in B2.
+
+See also: 64FracBCD  66RoundBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 66 RoundBCD
+!NOINDEX
+function 50TpBcd.RoundBCD(B1 : BCD) : LongInt;
+
+Return the value of B1 rounded to the nearest long integer.
+
+See also: 64FracBCD  65IntBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 67 TruncBCD
+!NOINDEX
+function 50TpBcd.TruncBCD(B1 : BCD) : LongInt;
+
+Return the greatest long integer less than or equal to B1.
+
+See also: 66RoundBCD  65IntBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 68 Form
+!NOINDEX
+function 50TpBcd.Form(Mask : string; B : BCD) : string;
+
+Return a formatted string with digits from B merged into the Mask. The
+following is a brief summary of the characters that have special meaning
+within the picture Mask.
+
+ #   A digit position, blank if not available. Implies floating minus sign.
+ *   A digit position, filled with asterisk if not available.
+ @   A digit position, fill with zero if not available.
+ $   A digit position, activating a floating dollar sign.
+ -   A sign position, needed if * or @ digits are used exclusively.
+ +   A sign position, shows '+' for positive numbers as well.
+ ,   A decimal comma or a separator comma.
+ .   A decimal period or a separator period.
+
+See also: 60StrBCD  61StrExpBCD  1057TpString.Form
+;
+;---------------------------------------------------------------------------
+!TOPIC 69 AddBCD
+!NOINDEX
+procedure 50TpBcd.AddBCD(B1, B2 : BCD; var B3 : BCD);
+
+Add B1 to B2 and put result in B3.
+;
+;---------------------------------------------------------------------------
+!TOPIC 70 SubBCD
+!NOINDEX
+procedure 50TpBcd.SubBCD(B1, B2 : BCD; var B3 : BCD);
+
+Subtract B2 from B1 and put result in B3.
+;
+;---------------------------------------------------------------------------
+!TOPIC 71 MultBCD
+!NOINDEX
+procedure 50TpBcd.MultBCD(B1, B2 : BCD; var B3 : BCD);
+
+Multiply B1 by B2 and put result in B3.
+;
+;---------------------------------------------------------------------------
+!TOPIC 72 DivBCD
+!NOINDEX
+procedure 50TpBcd.DivBCD(B1, B2 : BCD; var B3 : BCD);
+
+Divide B1 by B2 and put result in B3.
+;
+;---------------------------------------------------------------------------
+!TOPIC 73 EqualBCD
+!NOINDEX
+function 50TpBcd.EqualBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 = B2. Note that this requires exact equality in all 18
+places in order to return True.
+
+See also: 74NotEqualBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 74 NotEqualBCD
+!NOINDEX
+function 50TpBcd.NotEqualBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 <> B2. Note that this requires exact equality in all 18
+places in order to return False.
+
+See also: 73EqualBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 75 GreaterBCD
+!NOINDEX
+function 50TpBcd.GreaterBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 > B2.
+
+See also: 76GreaterEqualBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 76 GreaterEqualBCD
+!NOINDEX
+function 50TpBcd.GreaterEqualBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 >= B2.
+
+See also: 75GreaterBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 77 LessBCD
+!NOINDEX
+function 50TpBcd.LessBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 < B2.
+
+See also: 78LessEqualBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 78 LessEqualBCD
+!NOINDEX
+function 50TpBcd.LessEqualBCD(B1, B2 : BCD) : Boolean;
+
+Returns true if B1 <= B2.
+
+See also: 77LessBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 79 ArcTanBCD
+!NOINDEX
+procedure 50TpBcd.ArcTanBCD(B1 : BCD; var B2 : BCD);
+
+Returns arc tangent of B1 in B2.
+;
+;---------------------------------------------------------------------------
+!TOPIC 80 CosBCD
+!NOINDEX
+procedure 50TpBcd.CosBCD(B1 : BCD; var B2 : BCD);
+
+Returns cosine of B1 in B2.
+
+See also: 83SinBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 81 ExpBCD
+!NOINDEX
+procedure 50TpBcd.ExpBCD(B1 : BCD; var B2 : BCD);
+
+Returns the exponential of B1 in B2.
+
+See also: 82LnBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 82 LnBCD
+!NOINDEX
+procedure 50TpBcd.LnBCD(B1 : BCD; var B2 : BCD);
+
+Returns the natural log of B1 in B2.
+
+See also: 81ExpBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 83 SinBCD
+!NOINDEX
+procedure 50TpBcd.SinBCD(B1 : BCD; var B2 : BCD);
+
+Returns the sine of B1 in B2.
+
+See also: 80CosBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 84 SqrBCD
+!NOINDEX
+procedure 50TpBcd.SqrBCD(B1 : BCD; var B2 : BCD);
+
+Returns the square of B1 in B2.
+
+See also: 085SqrtBCD
+;
+;---------------------------------------------------------------------------
+!TOPIC 85 SqrtBCD
+!NOINDEX
+procedure 50TpBcd.SqrtBCD(B1 : BCD; var B2 : BCD);
+
+Returns the square root of B1 in B2.
+
+See also: 84SqrBCD
+;
+;===========================================================================
+!TOPIC 86 TpCmd
+TPCMD is a unit not documented in the Turbo Professional manual.
+Nevertheless, it serves a very important role for many of the other Turbo
+Professional units by processing keyboard input and converting keystroke
+sequences into logical command numbers. This serves as the basis for
+customizable command sets for TPPICK, TPMENU, TPENTRY, and others.
+!PAGE
+      092AddCommandPrim         089AlphaCmd               104ConflictsFound
+      091GetCommand             093GetKeysForCommand      096KeyLength
+      098KeyRec                 097KeyString              090MapWordStar
+      087MatchType              095MaxCommands            094MaxKeys
+      088NoCmd                  102PackKeys               100PackedKeyArray
+      100PackedKeyPtr           103SizeKeys               101UnpackKeys
+      099UnpackedKeyArray       099UnpackedKeyPtr
+;
+;---------------------------------------------------------------------------
+!TOPIC 87 MatchType
+!NOINDEX
+type
+  086TpCmd.MatchType = (NoMatch, PartMatch, FullMatch);
+
+Used when comparing one key sequence to another. PartMatch means that the
+target sequence is found at the beginning of an existing sequence, but does
+not completely match it.
+;
+;---------------------------------------------------------------------------
+!TOPIC 88 NoCmd
+!NOINDEX
+const
+  086TpCmd.NoCmd = 0;
+
+Returned by 091GetCommand when the keystroke entered is not an alphanumeric
+character and does not match any registered commands.
+;
+;---------------------------------------------------------------------------
+!TOPIC 89 AlphaCmd
+!NOINDEX
+const
+  086TpCmd.AlphaCmd = 1;
+
+Returned by 091GetCommand for an alphanumeric character that matches no
+registered command.
+;
+;---------------------------------------------------------------------------
+!TOPIC 90 MapWordStar
+!NOINDEX
+const
+  086TpCmd.MapWordStar : Boolean = True;
+
+True to map second character of a keystroke sequence to a control char. For
+example, entering ^Kq would be equivalent to entering ^KQ or ^K^Q.
+;
+;---------------------------------------------------------------------------
+!TOPIC 91 GetCommand
+!NOINDEX
+function 086TpCmd.GetCommand(var KeySet; KeyPtr : Pointer;
+                          var ChWord : Word) : Byte;
+
+Get next command or character. KeySet is an array of bytes that describe
+acceptable keystroke sequences. KeyPtr is a pointer to a function that reads
+the keyboard (typically 272ReadKeyWord). ChWord is the last keystroke entered.
+And the function result returns a command code.
+;
+;---------------------------------------------------------------------------
+!TOPIC 92 AddCommandPrim
+!NOINDEX
+function 086TpCmd.AddCommandPrim(var KeySet; LastKeyIndex : Word;
+                              Cmd, NumKeys : Byte;
+                              Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one. Called by
+466AddEditCommand, 0953AddPickCommand, and the others described in Appendix C of
+the manual.
+;
+;---------------------------------------------------------------------------
+!TOPIC 93 GetKeysForCommand
+!NOINDEX
+procedure 086TpCmd.GetKeysForCommand(var KeySet; Cmd : Byte;
+                                  var NumKeys : Byte;
+                                  var Key1, Key2 : Word);
+
+Search KeySet for Cmd, returning first set of matching keys. NumKeys = 0 if
+no match found.
+;
+;---------------------------------------------------------------------------
+!TOPIC 94 MaxKeys
+!NOINDEX
+const
+  086TpCmd.MaxKeys = 300;
+
+Arbitrary upper limit on the number of bytes in a packed key array.
+;
+;---------------------------------------------------------------------------
+!TOPIC 95 MaxCommands
+!NOINDEX
+const
+  086TpCmd.MaxCommands = 150;
+
+Arbitrary upper limit on the number of commands in an unpacked key array.
+;
+;---------------------------------------------------------------------------
+!TOPIC 96 KeyLength
+!NOINDEX
+const
+  086TpCmd.KeyLength = 6;
+
+Maximum number of keystroke bytes for one command. Note that extended
+keystroke sequences like F1 and Left Arrow count as two keystroke bytes.
+;
+;---------------------------------------------------------------------------
+!TOPIC 97 KeyString
+!NOINDEX
+type
+  086TpCmd.KeyString = string[096KeyLength];
+
+Stores the keystroke sequence for a particular command when it is unpacked
+for use by an installation program.
+;
+;---------------------------------------------------------------------------
+!TOPIC 98 KeyRec
+!NOINDEX
+type
+  086TpCmd.KeyRec =
+    record
+      Modified : Boolean;
+      Conflict : Boolean;
+      CommandCode : Byte;
+      Keys : 097KeyString;
+    end;
+
+Describes a keystroke sequence for a particular command when it is unpacked
+for use by an installation program.
+;
+;---------------------------------------------------------------------------
+!TOPIC 99 UnpackedKeyArray
+!NOINDEX
+type
+  086TpCmd.UnpackedKeyArray = array[1..095MaxCommands] of 098KeyRec;
+  UnpackedKeyPtr = ^UnpackedKeyArray;
+
+Describes a set of keystroke sequences and commands after unpacking for an
+installation program.
+;
+;---------------------------------------------------------------------------
+!TOPIC 100 PackedKeyArray
+!NOINDEX
+type
+  086TpCmd.PackedKeyArray = array[0..094MaxKeys] of Byte;
+  PackedKeyPtr = ^PackedKeyArray;
+
+Describes a set of keystroke sequences and commands after packing. Many
+Turbo Professional units, such as TPEDIT, TPMENU, and TPENTRY, contain such
+packed key arrays.
+;
+;---------------------------------------------------------------------------
+!TOPIC 101 UnpackKeys
+!NOINDEX
+function 086TpCmd.UnpackKeys(var PackedKeys, UnpackedKeys;
+                          MaxCmds : Word; Cols : Byte) : Word;
+
+Unpack keys into a fixed element array. Returns number of commands in
+PackedKeys.
+;
+;---------------------------------------------------------------------------
+!TOPIC 102 PackKeys
+!NOINDEX
+function 086TpCmd.PackKeys(var PackedKeys; NumCmds, MaxBytes : Word;
+                        var UnpackedKeys) : Word;
+
+Convert fixed array into a packed list of keys again. Returns the number of
+keys that we wanted to store. Error if that number is greater than
+MaxBytes.
+;
+;---------------------------------------------------------------------------
+!TOPIC 103 SizeKeys
+!NOINDEX
+function 086TpCmd.SizeKeys(var UnpackedKeys; NumCmds : Word) : Word;
+
+Return number of bytes in packed version of UnpackedKeys.
+;
+;---------------------------------------------------------------------------
+!TOPIC 104 ConflictsFound
+!NOINDEX
+function 086TpCmd.ConflictsFound(var UnpackedKeys;
+                              NumCmds : Word) : Boolean;
+
+Check UnpackedKeys for conflicts. Returns True if Conflicts were found.
+;
+;===========================================================================
+!TOPIC 105 TpCmdLin
+
+TPCMDLIN is a unit not documented in the Turbo Professional manual. It is
+used to aid in parsing command lines passed from DOS. Several of the Turbo
+Professional demonstration programs, including DIFF, BSORT, and REP, make
+use of it.
+
+      106CmdLineError           109ConvertArg             111GetArgNumber
+      110GetArgString           107ParamCnt               108ParamStrPos
+;
+;---------------------------------------------------------------------------
+!TOPIC 106 CmdLineError
+!NOINDEX
+function 105TpCmdLin.CmdLineError : Integer;
+
+Should be polled after calling one of the other TPCMDLIN functions.
+Resets the internal status variable to 0 after each call.
+
+Returns
+   0 : success
+   1 : missing argument
+   2 : invalid argument
+   3 : internal error
+;
+;---------------------------------------------------------------------------
+!TOPIC 107 ParamCnt
+!NOINDEX
+function 105TpCmdLin.ParamCnt(P : string) : Integer;
+
+Return the number of parameters in the string P using the same logic as
+Turbo Pascal's ParamCount function.
+;
+;---------------------------------------------------------------------------
+!TOPIC 108 ParamStrPos
+!NOINDEX
+function 105TpCmdLin.ParamStrPos(P : string; ParamNum : Integer;
+                              var StartPos : Integer) : string;
+
+Return the specified parameter and its position in the string P. The first
+parameter is number 1.
+;
+;---------------------------------------------------------------------------
+!TOPIC 109 ConvertArg
+!NOINDEX
+function 105TpCmdLin.ConvertArg(InStr : string;
+                             ConvertAsc : Boolean) : string;
+
+Return a string with Ascii sequences (#nnn) converted to characters if
+ConvertAsc is True. Otherwise, return the input string unchanged. A valid
+input string would be 'aaa#33bbb#127'.
+
+See also: 106CmdLineError
+;
+;---------------------------------------------------------------------------
+!TOPIC 110 GetArgString
+!NOINDEX
+function 105TpCmdLin.GetArgString(var I : Integer;
+                               TakeQuoted : Boolean;
+                               ConvertAscii : Boolean) : string;
+
+Returns the command line string starting with ParamStr(I+1). If TakeQuoted
+is True, all parameters within matching quotes '' or "" are returned. If
+ConvertAscii is True, Ascii character sequences #nnn are converted to the
+corresponding characters.
+
+See also: 106CmdLineError
+;
+;---------------------------------------------------------------------------
+!TOPIC 111 GetArgNumber
+!NOINDEX
+
+function 105TpCmdLin.GetArgNumber(var I : Integer) : Integer;
+
+Returns the integer number from the command line parameter ParamStr(I+1) and
+increments I.
+
+See also: 106CmdLineError
+

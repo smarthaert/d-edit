@@ -1,0 +1,40 @@
+uses
+  TPString,
+  TPCrt,
+  TPCmd,
+  TPWindow,
+  TPMenu;
+
+procedure InitMenu(var M : Menu);
+const
+  Color1 : MenuColorArray = ($1E, $2E, $1F, $4E, $1E, $1B, $19, $78);
+  Frame1 : FrameArray = '╔╚╗╝═║';
+
+begin
+  {Customize this call for special exit characters and custom item displays}
+  M := NewMenu([], nil);
+
+  SubMenu(1,2,24,Horizontal,Frame1,Color1,'');
+    MenuItem(' 1. Файл ',2,1,1,' Работа с файлами');
+    MenuItem(' 2. Редактирование ',13,2,2,' оророророро');
+    SubMenu(13,4,24,Vertical,Frame1,Color1,'');
+      MenuItem(' Копировать ',1,2,4,'оророро');
+      MenuItem(' Вставить ',2,2,5,'ждждждждж');
+      PopSublevel;
+    MenuItem(' 3. Выход ',34,2,3,'Закончить работу');
+    PopSublevel;
+
+  ResetMenu(M);
+end;
+
+var
+  M : Menu;
+  Ch : Char;
+  Key : MenuKey;
+
+begin
+  InitMenu(M);
+  Key := MenuChoice(M, Ch);
+  EraseMenu(M, False);
+  Writeln('Key=', Key, ' Ch=#', Ord(Ch));
+end.

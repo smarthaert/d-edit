@@ -1,0 +1,616 @@
+;
+;===========================================================================
+!TOPIC 437 TpEdit
+The central routine in the TPEDIT unit is ReadString, a sophisticated line
+editor with WordStar compatibility and lots of options. TPEDIT also allows
+entry of numbers, characters, and yes/no responses.
+
+      471Edit Properties        472Edit Routines
+;
+;---------------------------------------------------------------------------
+!TOPIC 438 RSType
+!NOINDEX
+type
+  437TpEdit.RStype = RSnone..RSuser9;
+
+Byte values associated with editor commands. See TPEDIT.PAS or the Turbo
+Professional manual for all the constants associated with this type.
+
+See also: 466AddEditCommand  456RSCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 439 ForceUpper
+!NOINDEX
+const
+  437TpEdit.ForceUpper : Boolean = False;
+
+If True, characters entered in 459ReadString are forced to uppercase.
+;
+;---------------------------------------------------------------------------
+!TOPIC 440 CursorToEnd
+!NOINDEX
+const
+  437TpEdit.CursorToEnd : Boolean = True;
+
+If True, cursor is forced to end of default string in 459ReadString;
+otherwise, to start.
+
+See also: 449HouseCursorAtEnd
+;
+;---------------------------------------------------------------------------
+!TOPIC 441 TrimBlanks
+!NOINDEX
+const
+  437TpEdit.TrimBlanks : Boolean = True;
+
+If True, 459ReadString trims leading and trailing blanks before returning. This
+constant is forced True during numeric reads.
+;
+;---------------------------------------------------------------------------
+!TOPIC 442 InsertByDefault
+!NOINDEX
+const
+  437TpEdit.InsertByDefault : Boolean = True;
+
+If True, 459ReadString defaults to insert mode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 443 EditSize
+!NOINDEX
+const
+  437TpEdit.EditSize : Byte = 0;
+
+If not zero, this overrides MaxLen as edit field width. When EditSize is
+less than MaxLen, 459ReadString will horizontally scroll to allow editing of
+the complete string.
+;
+;---------------------------------------------------------------------------
+!TOPIC 444 ClearFirstChar
+!NOINDEX
+const
+  437TpEdit.ClearFirstChar : Boolean = True;
+
+If True, ReadString clears the initial string if the first character entered
+is ASCII.
+
+See also: 440CursorToEnd  442InsertByDefault
+;
+;---------------------------------------------------------------------------
+!TOPIC 445 PasswordMode
+!NOINDEX
+const
+  437TpEdit.PasswordMode : Boolean = False;
+
+If True, the actual string is not displayed as it is entered. Instead, each
+character is displayed using 446PassWordChar.
+;
+;---------------------------------------------------------------------------
+!TOPIC 446 PasswordChar
+!NOINDEX
+const
+  437TpEdit.PasswordChar : Char = ^G;
+
+Character used to represent text in 445password mode.
+;
+;---------------------------------------------------------------------------
+!TOPIC 447 EditMapCtrls
+!NOINDEX
+const
+  437TpEdit.EditMapCtrls : Boolean = True;
+
+If True, control characters are mapped to upper case alphabetics in an
+alternate video attribute before they are displayed.
+;
+;---------------------------------------------------------------------------
+!TOPIC 448 RSpadChar
+!NOINDEX
+const
+  437TpEdit.RSpadChar : Char = ' ';
+
+Character used to pad strings being edited.
+;
+;---------------------------------------------------------------------------
+!TOPIC 449 HouseCursorAtEnd
+!NOINDEX
+const
+  437TpEdit.HouseCursorAtEnd : Boolean = True;
+
+If True, one extra character is appended to edit field to hold the cursor
+when the string is full.
+
+See also: 440CursorToEnd
+;
+;---------------------------------------------------------------------------
+!TOPIC 450 ShowReadChar
+!NOINDEX
+const
+  437TpEdit.ShowReadChar : Boolean = False;
+
+If True, display the character pressed in response to a call to
+464ReadCharacter or 465YesOrNo.
+;
+;---------------------------------------------------------------------------
+!TOPIC 451 HideCursorInReadChar
+!NOINDEX
+const
+  437TpEdit.HideCursorInReadChar : Boolean = False;
+
+If True, the cursor will be hidden during calls to 464ReadCharacter and
+465YesOrNo.
+;
+;---------------------------------------------------------------------------
+!TOPIC 452 WindowRelative
+!NOINDEX
+const
+  437TpEdit.WindowRelative : Boolean = False;
+
+If True, all coordinates passed to routines in TPEDIT are interpreted as
+window-relative; otherwise, as absolute.
+;
+;---------------------------------------------------------------------------
+!TOPIC 453 EditKeyPtr
+!NOINDEX
+var
+  437TpEdit.EditKeyPtr : Pointer;
+
+Pointer to a routine to return next keystroke. The routine must match the
+declaration of 272TpCrt.ReadKeyWord and it must be declared far and global.
+;
+;---------------------------------------------------------------------------
+!TOPIC 454 EditHelpPtr
+!NOINDEX
+var
+  437TpEdit.EditHelpPtr : Pointer;
+
+Pointer to a routine to display help. See Appendix C of the manual for
+details.
+;
+;---------------------------------------------------------------------------
+!TOPIC 455 EditHelpIndex
+!NOINDEX
+var
+  437TpEdit.EditHelpIndex : Word;
+
+Current help topic passed to the context sensitive help routine pointed to
+by 454EditHelpPtr.
+;
+;---------------------------------------------------------------------------
+!TOPIC 456 RSCommand
+!NOINDEX
+var
+  437TpEdit.RSCommand : 438RStype;
+
+Last command code given in 459ReadString.
+;
+;---------------------------------------------------------------------------
+!TOPIC 457 RSChWord
+!NOINDEX
+var
+  437TpEdit.RSChWord : Word;
+
+Last keystroke entered in 459ReadString.
+;
+;---------------------------------------------------------------------------
+!TOPIC 458 EditMouseEnabled
+!NOINDEX
+const
+  437TpEdit.EditMouseEnabled : Boolean = False;
+
+True when the mouse has been enabled in TPEDIT.
+
+See also: 467EnableEditMouse  468DisableEditMouse
+;
+;---------------------------------------------------------------------------
+!TOPIC 459 ReadString
+!NOINDEX
+procedure 437TpEdit.ReadString(Prompt : string;
+                            Row, Col, MaxLen : Byte;
+                            PromptAttr, StringAttr, CtrlAttr : Byte;
+                            var Escaped : Boolean;
+                            var S : string);
+
+Prompt for and receive a string. Prompt is a prompt string. Row and Col
+specify the screen position for the prompt. MaxLen is the maximum length of
+the string to be entered. PromptAttr, StringAttr, and CtrlAttr specify the
+video attributes to use. Escaped is set True if the user pressed Esc to
+exit ReadString. S is the string to be edited, which must be given an
+initial value by the caller.
+
+See also: 444ClearFirstChar   440CursorToEnd     447EditMapCtrls
+          443EditSize         439ForceUpper      449HouseCursorAtEnd
+          442InsertByDefault  445PasswordMode    448RSpadChar
+          441TrimBlanks       452WindowRelative
+;
+;---------------------------------------------------------------------------
+!TOPIC 460 ReadLongInt
+!NOINDEX
+procedure 437TpEdit.ReadLongInt(Prompt : string;
+                             Row, Col, MaxLen : Byte;
+                             PromptAttr, StringAttr : Byte;
+                             LLo, LHi : LongInt;
+                             var Escaped : Boolean;
+                             var L : LongInt);
+
+Prompt for and receive a long integer argument in the range LLo to LHi. If
+LLo and LHi are the same, no range checking is performed. This routine is a
+shell around 459ReadString. If an invalid response is given, ReadLongInt
+displays a default error message (if one will fit within the prompt area) or
+else beeps.
+
+See also: 461ReadInteger  463ReadReal  462ReadWord
+;
+;---------------------------------------------------------------------------
+!TOPIC 461 ReadInteger
+!NOINDEX
+procedure 437TpEdit.ReadInteger(Prompt : string;
+                             Row, Col, MaxLen : Byte;
+                             PromptAttr, StringAttr : Byte;
+                             NLo, NHi : Integer;
+                             var Escaped : Boolean;
+                             var N : Integer);
+
+Prompt for and receive an integer argument in the range NLo to NHi. This
+routine is a shell around 460ReadLongInt.
+;
+;---------------------------------------------------------------------------
+!TOPIC 462 ReadWord
+!NOINDEX
+procedure 437TpEdit.ReadWord(Prompt : string;
+                          Row, Col, MaxLen : Byte;
+                          PromptAttr, StringAttr : Byte;
+                          WLo, WHi : Word;
+                          var Escaped : Boolean;
+                          var W : Word);
+
+Prompt for and receive a word argument in the range WLo to WHi. This routine
+is a shell around 460ReadLongInt.
+;
+;---------------------------------------------------------------------------
+!TOPIC 463 ReadReal
+!NOINDEX
+procedure 437TpEdit.ReadReal(Prompt : string;
+                          Row, Col, MaxLen : Byte;
+                          PromptAttr, StringAttr : Byte;
+                          DecimalPlaces : Byte;
+                          RLo, RHi : TpString.Float;
+                          var Escaped : Boolean;
+                          var R : TpString.Float);
+
+Prompt for and receive a real argument in the range RLo to RHi.
+DecimalPlaces specifies how many decimals to display for the default string
+value. This routine is a shell around 459ReadString.
+;
+;---------------------------------------------------------------------------
+!TOPIC 464 ReadCharacter
+!NOINDEX
+procedure 437TpEdit.ReadCharacter(Prompt : string;
+                               Row, Col : Byte;
+                               PromptAttr : Byte;
+                               Accept : CharSet;
+                               var Ch : Char);
+
+Display a prompt and wait for a key in the Accept set.
+
+See also: 451HideCursorInReadChar  450ShowReadChar
+;
+;---------------------------------------------------------------------------
+!TOPIC 465 YesOrNo
+!NOINDEX
+function 437TpEdit.YesOrNo(Prompt : string;
+                        Row, Col : Byte;
+                        PromptAttr : Byte;
+                        Default : Char) : Boolean;
+
+Return True for yes, False for no. If the Default is 'Y' or 'N', this
+character is displayed in brackets following the prompt, and the appropriate
+answer is returned when the user presses Enter. This routine is a shell
+around 464ReadCharacter.
+;
+;---------------------------------------------------------------------------
+!TOPIC 466 AddEditCommand
+!NOINDEX
+function 437TpEdit.AddEditCommand(Cmd : 438RStype; NumKeys : Byte;
+                               Key1, Key2 : Word) : Boolean;
+
+Add a new command key assignment or change an existing one.
+;
+;---------------------------------------------------------------------------
+!TOPIC 467 EnableEditMouse
+!NOINDEX
+procedure 437TpEdit.EnableEditMouse;
+
+Enable mouse support in TPEDIT.
+
+See also: 468DisableEditMouse  458EditMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 468 DisableEditMouse
+!NOINDEX
+procedure 437TpEdit.DisableEditMouse;
+
+Disable mouse support in TPEDIT.
+
+See also: 467EnableEditMouse  458EditMouseEnabled
+;
+;---------------------------------------------------------------------------
+!TOPIC 469 EditKeyMax
+!NOINDEX
+const
+  437TpEdit.EditKeyMax = 150;
+
+The number of bytes (less one) available for command to keystroke mapping in
+TPEDIT.
+
+See also: 470EditKeySet
+;
+;---------------------------------------------------------------------------
+!TOPIC 470 EditKeySet
+!NOINDEX
+const
+  437TpEdit.EditKeySet : array[0..469EditKeyMax] of Byte = (...);
+
+The default command to keystroke mapping for TPEDIT.
+
+See also: 466AddEditCommand
+;
+;---------------------------------------------------------------------------
+!TOPIC 471 Edit Properties
+!NOINDEX
+TPEDIT provides the following constants, types, variables, and routines to
+customize the properties of its line editors:
+
+  466AddEditCommand    444ClearFirstChar    440CursorToEnd       468DisableEditMouse
+  455EditHelpIndex     454EditHelpPtr       469EditKeyMax        453EditKeyPtr
+  470EditKeySet        447EditMapCtrls      458EditMouseEnabled  443EditSize
+  467EnableEditMouse   439ForceUpper        451HideCursorInReadChar 449HouseCursorAtEnd
+  442InsertByDefault   446PasswordChar      445PasswordMode      457RSChWord
+  456RSCommand         448RSpadChar         438RStype            450ShowReadChar
+  441TrimBlanks        452WindowRelative
+;
+;---------------------------------------------------------------------------
+!TOPIC 472 Edit Routines
+!NOINDEX
+TPEDIT provides the following routines for line and character editing:
+
+      464ReadCharacter          461ReadInteger            460ReadLongInt
+      463ReadReal               459ReadString             462ReadWord
+      465YesOrNo
+;
+;===========================================================================
+!TOPIC 473 TpEms
+The TPEMS unit contains a variety of routines for working with expanded
+memory. It allows you to determine whether or not EMS memory is installed
+and, if so, how much is currently available. You can allocate and deallocate
+memory, and you can also save and restore the state ("context") of the
+expanded memory manager, in case you need to access EMS memory from a TSR.
+
+  480AllocateEmsPages  482DeallocateEmsHandle 486EmsActiveHandles 474EmsErrorCode
+  475EmsInstalled      479EmsPageFramePtr     477EmsPagesAvail    487EmsPagesOwned
+  476EmsStatusOK       478EmsTotalPages       483EmsVersion       481MapEmsPage
+  485RestoreEmsContext 484SaveEmsContext
+;
+;---------------------------------------------------------------------------
+!TOPIC 474 EmsErrorCode
+!NOINDEX
+const
+  473TpEms.EmsErrorCode = $0FFFF;
+
+Used by several of the TPEMS functions to signal an error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 475 EmsInstalled
+!NOINDEX
+function 473TpEms.EmsInstalled : Boolean;
+
+Returns 473TpEms.true if the expanded memory manager is installed.
+
+See also: 476EmsStatusOK  483EmsVersion
+;
+;---------------------------------------------------------------------------
+!TOPIC 476 EmsStatusOK
+!NOINDEX
+function 473TpEms.EmsStatusOK : Boolean;
+
+Returns true if the expanded memory manager reports its status as being OK.
+
+See also: 475EmsInstalled
+;
+;---------------------------------------------------------------------------
+!TOPIC 477 EmsPagesAvail
+!NOINDEX
+function 473TpEms.EmsPagesAvail : Word;
+
+Returns the number of available pages from the expanded memory manager, or
+474EmsErrorCode in case of error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 478 EmsTotalPages
+!NOINDEX
+function 473TpEms.EmsTotalPages : Word;
+
+Returns total number of pages of EMS memory, including allocated pages, or
+474EmsErrorCode in case of error.
+
+See also: 477EmsPagesAvail
+;
+;---------------------------------------------------------------------------
+!TOPIC 479 EmsPageFramePtr
+!NOINDEX
+function 473TpEms.EmsPageFramePtr : Pointer;
+
+Returns the page frame base address as a pointer.
+;
+;---------------------------------------------------------------------------
+!TOPIC 480 AllocateEmsPages
+!NOINDEX
+function 473TpEms.AllocateEmsPages(NumPages : Word) : Word;
+
+Allocates the indicated number of pages and returns a handle. Returns
+474EmsErrorCode in case of error.
+
+See also: 477EmsPagesAvail
+;
+;---------------------------------------------------------------------------
+!TOPIC 481 MapEmsPage
+!NOINDEX
+function 473TpEms.MapEmsPage(Handle, LogicalPage : Word;
+                          PhysicalPage : Byte) : Boolean;
+
+Maps the specified LogicalPage associated with Handle into PhysicalPage
+(0-3). Returns true if successful.
+;
+;---------------------------------------------------------------------------
+!TOPIC 482 DeallocateEmsHandle
+!NOINDEX
+function 473TpEms.DeallocateEmsHandle(Handle : Word) : Boolean;
+
+Deallocates the indicated handle and the memory associated with it.
+;
+;---------------------------------------------------------------------------
+!TOPIC 483 EmsVersion
+!NOINDEX
+function 473TpEms.EmsVersion : Byte;
+
+Returns a BCD version number of the EMM handle. To check for version 3.2 or
+greater for example, use: 'if EmsVersion >= $32 then'. Returns 0 in case of
+error.
+
+See also: 475EmsInstalled
+;
+;---------------------------------------------------------------------------
+!TOPIC 484 SaveEmsContext
+!NOINDEX
+function 473TpEms.SaveEmsContext(Handle : Word) : Boolean;
+
+Saves the EMM context for resident programs. The handle passed must have
+been allocated with a call to 480AllocateEmsPages. Returns True if successful.
+
+See also: 485RestoreEmsContext
+;
+;---------------------------------------------------------------------------
+!TOPIC 485 RestoreEmsContext
+!NOINDEX
+function 473TpEms.RestoreEmsContext(Handle : Word) : Boolean;
+
+Restores the mapping context of the EMM driver for the handle specified. The
+handle should the same one used in a prior call to 484SaveEmsContext. Returns
+True if successful.
+;
+;---------------------------------------------------------------------------
+!TOPIC 486 EmsActiveHandles
+!NOINDEX
+function 473TpEms.EmsActiveHandles : Word;
+
+Returns the number of active EMS handles, 474EmsErrorCode in case of error.
+;
+;---------------------------------------------------------------------------
+!TOPIC 487 EmsPagesOwned
+!NOINDEX
+function 473TpEms.EmsPagesOwned(Handle : Word) : Word;
+
+Returns the number of pages owned by Handle, or 474EmsErrorCode in case of
+error.
+;
+;===========================================================================
+!TOPIC 488 TpEnhKbd
+TPENHKBD invisibly installs a pair of interrupt handlers which trap all
+system calls that request keyboard input. Besides activating or emulating
+the enhanced keyboard, TPENHKBD makes the Alt key act like a normal
+shift key where the numeric keypad is concerned. Hence, Alt-Left,
+Alt-Up, and the rest can be used as additional keystrokes for an
+application. Note, however, that this disables the normal ability to enter
+arbitrary ASCII characters using the Alt and the keypad. This capability
+is still possible by pressing LeftShift and Alt simultaneously.
+
+  0489EnableEnhanced   0494Enhanced Keystrokes  0490HasEnhancedKbd
+  0493FiltersEnhanced  0492InitKbdVectors       0491RestoreKbdVectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 489 EnableEnhanced
+!NOINDEX
+const
+  488TpEnhKbd.EnableEnhanced : Boolean = True;
+
+Set False to temporarily disable the enhanced keyboard interrupt handlers.
+
+See also: 491RestoreKbdVectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 490 HasEnhancedKbd
+!NOINDEX
+var
+  488TpEnhKbd.HasEnhancedKbd : Boolean;
+
+True when a real enhanced keyboard is detected.
+;
+;---------------------------------------------------------------------------
+!TOPIC 491 RestoreKbdVectors
+!NOINDEX
+procedure 488TpEnhKbd.RestoreKbdVectors;
+
+Restores original vectors for interrupts $09 and $16. Needed only when using
+TPENHKBD in a TSR.
+
+See also: 489EnableEnhanced  0492InitKbdVectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 492 InitKbdVectors
+!NOINDEX
+procedure 488TpEnhKbd.InitKbdVectors;
+
+Save and setup interrupt vectors. This routine should be called only if
+RestoreKbdVectors has been called first!! Needed only when using TPENHKBD
+in a TSR.
+
+See also: 489EnableEnhanced  491RestoreKbdVectors
+;
+;---------------------------------------------------------------------------
+!TOPIC 493 FiltersEnhanced
+!NOINDEX
+var
+  FiltersEnhanced : Boolean;
+
+Set to True when keyboard BIOS filters enhanced keys.
+;
+;---------------------------------------------------------------------------
+!TOPIC 494 Enhanced Keystrokes
+!NOINDEX
+The following keystrokes are added or changed as a result of using TPENHKBD
+in a program. Numeric values are the scan words returned by 272ReadKeyWord, in
+hexadecimal.
+
+                 Plain   Shift  Control Alt 
+  F11            8500    8700   8900    8B00
+  F12            8600    8800   8A00    8C00
+  Esc            011B    011B   011B    0100
+  Backquote      2960    297E   2960    2900
+  Backspace      0E08    0E08   0E7F    0E00
+                 Plain   Shift  Control Alt 
+  Tab            0F09    0F00   9400    A500
+  Left Bracket   1A5B    1A7B   1A1B    1A00
+  Right Bracket  1B5D    1B7D   1B1D    1B00
+  Backslash      2B5C    2B7C   2B1C    2B00
+  Semicolon      273B    273A   ----    2700
+  Quote          2827    2822   ----    2800
+  Enter          1C0D    1C0D   1C0A    1C00
+  Comma          332C    333C   ----    3300
+  Period         342E    343E   ----    3400
+                 Plain   Shift  Control Alt 
+  Slash          352F    353F   ----    3500
+  Insert         5200    5230   9200    A200
+  Del            5300    532E   9300    A300
+  Home           4700    4737   7700    9700
+  End            4F00    4F31   7500    9F00
+  PgUp           4900    4939   8400    9900
+  PgDn           5100    5133   7600    A100
+  Up             4800    4838   8D00    9800
+  Down           5000    5032   9100    A000
+                 Plain   Shift  Control Alt 
+  Left           4B00    4B34   7300    9B00
+  Right          4D00    4D36   7400    9D00
+!LINE
+On numeric keypad:
+  Pad-Asterisk   372A    ----    ----   3700
+  Pad-Minus      4A2D    4A2D    8E00   4A00
+  Pad-Plus       4E2B    4E2B    9000   4E00
+  Pad-5          4C00    4C35    8F00   9C00

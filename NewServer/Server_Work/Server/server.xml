@@ -1,0 +1,113 @@
+<Server>
+        <CONTEST>
+                  <Name>Train 1</Name>
+                  <Place>SPbETU</Place>
+                  <Data>1 September 2003</Data>
+                  <Rules>1</Rules>
+                  <Start>12:00:00</Start>
+                  <End>17:00:00</End>
+                  <Length>300</Length>
+       </CONTEST>
+       <TESTERS>
+            <TESTER>
+                   <ID>1</ID>
+                   <Path>E:\ETUClub\Testers\01</Path>
+                   <Queue>E:\ETUClub\Testers\01\Queue</Queue>
+            </TESTER>
+       </TESTERS>
+       <PATHS>
+                   <Queue>E:\ETUClub\Queue</Queue>
+                   <QueueNumber>E:\ETUClub\Queue\Queue.cfg</QueueNumber>
+                   <Arhive>E:\ETUClub\Arhive</Arhive>
+                   <Results>E:\ETUClub\Arhive\Results</Results>
+       </PATHS>
+       <COMPILERS>
+                   <Compilator>
+                                  <Name>Borland Pascal 7.0</Name>
+                                  <FileExt>pas</FileExt>
+                                  <Program>bpc.exe</Program>
+                                  <CmdLine>-b</CmdLine>
+                   </Compilator>
+                   <Compilator>
+                                  <Name>Borland C++ 3.1</Name>
+                                  <FileExt>c</FileExt>
+                                  <Program>bcc.exe</Program>
+                                  <CmdLine>-ml</CmdLine>
+                   </Compilator>
+                   <Compilator>
+                                  <Name>Borland C++ 3.1</Name>
+                                  <FileExt>cpp</FileExt>
+                                  <Program>bcc.exe</Program>
+                                  <CmdLine>-ml</CmdLine>
+                   </Compilator>
+                   <Compilator>
+                                  <Name>Borland Delphi 6.0</Name>
+                                  <FileExt>dpr</FileExt>
+                                  <Program>dcc32.exe</Program>
+                                  <CmdLine></CmdLine>
+                   </Compilator>
+                   <Compilator>
+                                  <Name>Java (JDK 1.4.0)</Name>
+                                  <FileExt>java</FileExt>
+                                  <Program>?????</Program>
+                                  <CmdLine>?????</CmdLine>
+                   </Compilator>
+                   <Compilator>
+                                  <Name>MS Visual C++ 6.0</Name>
+                                  <FileExt>cpp</FileExt>
+                                  <Program>?????</Program>
+                                  <CmdLine>?????</CmdLine>
+                   </Compilator>
+       </COMPILERS>
+       <USERS>
+             <USER>
+                   <ID>1</ID>
+                   <Name>Dream Team 1</Name>
+                   <Dir_Path>E:\ETuclub\Users\01</Dir_Path>
+                   <Disqualificated>False</Disqualificated>
+             </USER>
+             <USER>
+                   <ID>2</ID>
+                   <Name>Dream Team 2</Name>
+                   <Dir_Path>E:\ETuclub\Users\02</Dir_Path>
+                   <Disqualificated>False</Disqualificated>
+             </USER>
+             <USER>
+                   <ID>3</ID>
+                   <Name>Dream Team 3</Name>
+                   <Dir_Path>E:\ETuclub\Users\03</Dir_Path>
+                   <Disqualificated>False</Disqualificated>
+             </USER>
+             <USER>
+                   <ID>4</ID>
+                   <Name>Dream Team 4</Name>
+                   <Dir_Path>E:\ETuclub\Users\04</Dir_Path>
+                   <Disqualificated>False</Disqualificated>
+             </USER>
+       </USERS>
+       <PROBLEMS>
+             <PROBLEM>
+                   <ID>1</ID>
+		   <Name>A+B Problem</Name>
+                   <Litera>A</Litera>
+                   <Tests>2</Tests>
+                   <Status>OK</Status>
+             </PROBLEM>
+
+             <PROBLEM>
+                   <ID>2</ID>
+		   <Name>A-B Problem</Name>
+                   <Litera>B</Litera>
+                   <Tests>12</Tests>
+                   <Status>OK</Status>
+             </PROBLEM>
+
+             <PROBLEM>
+                   <ID>3</ID>
+		   <Name>A*B Problem</Name>
+                   <Litera>C</Litera>
+                   <Tests>12</Tests>
+                   <Status>OK</Status>
+             </PROBLEM>
+       </PROBLEMS>
+</Server>

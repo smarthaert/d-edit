@@ -1,0 +1,277 @@
+                   Pascal runtime library emulation
+ 		======================================
+			     (C language)
+
+I.  Arrays
+
+    All pascal arrays in C are stored as zero based (first element has 
+    offset 0). Low value of pascal array bounds is subtracted from index 
+    expression. When array is passed to conformant array parameter or 
+    to input/output functions pascal array bounds are passed before array 
+    pointer. Low bound is always passed as it was mentioned in pascal 
+    array definition (symbolic constant or integer literal).
+    High bound is calculated depending on value of low bound (if it is
+    explicit constant) and whether variable is formal parameter. 
+    if variable is not formal parameter and low bound is either 0 or 1
+    macro items(x) is used to calculate high array bound: 
+	
+      #define items(x) (sizeof(x)/sizeof(*(x)))
+
+      procedure foo(a : array [l1..h1,l2..h2:integer] of char); external;
+      var a : array [1..10,-10..10] of char; 
+      begin foo(a); end;    
+
+    ==>
+
+      foo(const int l1, const int h2, const int l2, const int h2,
+          char* arr);
+      char a[10][21];
+      { foo(1, items(a), -10, items(*a), *a); }
+	
+
+
+    Operations with arrays: 
+    If left operand is not formal parameter and hence 'sizeof' operation
+    can be used to obtain array size two macros are used to copy and 
+    compare array:
+
+      #define arrcmp(a,b) memcmp(a, b, sizeof(a))
+      #define arrcpy(a,b) memcpy(a, b, sizeof(a))
+
+    If left operand is formal parameter sizeof operator is applied to it's
+    type: 
+	
+	
+      foo(str5 s) { 
+	  memcpy(s, "12345", sizeof(str5));
+      }
+
+    When string is passed as actual parameter for conformant array 
+    macro: 
+
+      #define array(s)  1, sizeof(s)-1, (s)  
+   
+    is used to calculate bounds of string. 
+
+
+
+
+II. Sets
+
+    By default converter use single set type for all pascal sets. 
+    This set type can handle sets with card up to 256 elements
+    (consequently size of set is 256/8 = 32 bytes). Following functions
+    implement pascal operations with sets: 
+
+      boolean subset(set a, set b); /* if <a> is subset of <b> */
+      boolean inset(SetElemType elem, set s);
+      boolean equivalent(set a, set b); 
+      set     join(set a, set b);
+      set     difference(set a, set b);
+      set     intersect(set a, set b);
+    
+    There is a special constructor for set constants:  setof(). 
+    This function takes varying number of arguments each of them
+    is either set element or range of elements, defined by macro range(a,b). 
+    List of elements should be  terminated with "eos" (end of set) constant:
+
+      s := [' ', '!', '?', '_', '0'..'9', 'a'..'z'];  
+
+    ==>
+
+      s = setof(' ', '!', '?', '_', range('0','9'), range('a','z'), eos); 
+
+
+
+III. Mathematical functions.
+ 
+    This is one to one correspondence between Pascal and C mathematical 
+    functions: 
+
+                        Pascal           C 
+		       ---------------------		
+ 			sin		sin
+			cos		cos
+			tan		tan
+			arctan		atan
+			ln		log
+			sqrt		sqrt
+
+    Functions "trunc", "pred", "succ", "bitsize", "odd", "chr", "ord"  
+    are implemented by macros in the following way: 	
+	
+      #define trunc(x)  ((integer)(x))
+      #define pred(type,x) ((type)((x) - 1))
+      #define succ(type,x) ((type)((x) + 1))
+      #define bitsize(x) (sizeof(x)*8)
+      #define odd(x) ((x) & 1)
+      #define chr(n) ((char)(n))
+      #define ord(c) ((unsigned char)(c))
+
+    Round function is implemented as 
+
+			trunc(x+0.5)   x >= 0
+            round(x) = 
+			trunc(x-0.5)   x < 0
+
+    Pascal function size(x) is replaced with C operator sizeof(x). 
+ 
+
+IV. Input/Output
+
+    We use standard C io library to emulate pascal input/output.
+    Pascal file type is emulated by C macro file(r) which defines structure
+    containing file descriptor and current record. There are following 
+    fields in file descriptor: pointer to C FILE structure, file name, 
+    last io-operation error status, open mode, file status (and FAB pointer
+    for OpenVMS system). Special macros are used for all Pascal
+    file accessing procedures which scatter file structure fields
+    and call corresponding functions. Bellow there is a table
+    specifying mapping between Pascal functions, macros and C functions:
+	
+		Pascal          Macro           C function
+               --------------------------------------------
+    		rewrite         rewrite         pio_rewrite_file
+		reset 		reset		pio_reset_file
+		get		get		pio_get_record
+		put		put		pio_put_record
+		eof		eof		pio_check_end_of_file
+		read		sread		pio_read_record  (1)
+		write		swrite		pio_write_record (1)
+		close		close		pio_close
+		seek		seek		pio_seek_file
+		rename		rename		pio_rename_file
+		break		flush		pio_flush_file   (2)
+		delete		delete_file	pio_delete_file  (2)
+		iostatus	iostatus	pio_iostatus     (2)
+		ioerror		ioerror		pio_ioerror      (2) 
+		noioerror	noioerror	pio_ignore_error (2)
+		-		scopy           pio_copy_record  (3)
+		- 		access		pio_access_recprd(3)
+		- 		store		pio_store_record (3)	
+						
+    1) read and write with first file parameter
+    2) Oregon Pascal extensions		
+    3) This macros are used for translation of some Pascal constructions.
+    Let the following variable are defined: 
+
+      type rec = record ... end;
+      var f, g : file of rec;  
+          r : rec;
+
+    Then translation translation for the following construction will be:
+
+      r := f^;
+      f^ := r;
+      f^ := g^;
+
+    ==>
+
+      r = *access(f); 
+      store(f, r); 
+      scopy(f, g); 
+
+    
+    We use lazy evaluation strategy for implementing Pascal file access. 
+    Current record is red from disc only when it is accessed. 
+    To handle current state of current record two flags are used: 
+    "fs_record_defined" and "fs_next_pos". First flag is used
+    to mark record which is either red from disk or was assigned
+    a value. Flag "fs_next_pos" is set when pointer in file 
+    is moved to position after current record. There is the 
+    following invariant: flag "fs_next_pos" is set only when 
+    flag "fs_record_defined" is set. A table below shows state
+    of this flags after execution of some functions:  
+
+    
+        function               	fs_next_pos     fs_record_defined       
+       -----------------------------------------------------------
+    	pio_rewrite_file	0		0
+	pio_reset_file		0		0
+	pio_get_record		0		0
+	pio_put_record		0		0
+	pio_read_record  	0		0
+	pio_write_record 	0		0
+	pio_seek_file		0		0
+	pio_copy_record  	0		0	
+	pio_access_record 	1		1
+	pio_store_record 	0		1
+
+    
+     Pascal write and read procedures working with text files are 
+     replaced with "twrite" and "tread" C functions when first parameter
+     is file and "cwrite" and "cread" when console input/output is used.
+     This functions receive printf-like format string and varying
+     number of arguments. Format string can include arbitrary text
+     and format specifiers:
+
+
+        type  		read 		write 
+       =======================================			
+	integer		%i		%i
+					%<width>i
+       ---------------------------------------	
+	real		%f		%f
+					%<width>f
+					%<width>.<precision>f
+       ---------------------------------------	
+	char[]		%s		%s
+	array of char			%<width>s
+       ---------------------------------------
+        char*                           %z 
+        const ok := 'ok'		%<width>z
+        (zero terminated string)
+       ---------------------------------------	
+	short		%W
+	unsigned short  
+	[-32768..32767] 
+	[0..65535]
+       ---------------------------------------	
+	char            %B
+	unsigned char
+	[-128..127]
+	[0..255]
+
+    where <width> and <precision> is either literal specified in 
+    format string either symbol '*'. In former case value of this 
+    qualifiers is specified AFTER (unlike C) corresponding parameter:
+	
+      write(x:5:2);        ==>	      cwrite("%5.2f",x);
+      write(x:w:p);	   ==>	      cwrite("%*.*f",x,w,p);
+	  
+    For symbols not preceding with % action performed by read and write 
+    are:
+
+      - write		just output character.	
+
+      - read 		if character is '\n' then skip all input
+			character until newline character is reached;
+
+			otherwise character is compared with next 
+			input character and if not equal read operation
+			fails.
+			
+    To output % character this symbol should be included in the format 
+    string twice. 
+	
+    Procedures "writeln" and "readln" are implemented by the same 
+    functions but symbol '\n' is appended to the formating string.	
+
+    Array arguments are passed to read and write function with low
+    and high bound specified before array pointer: 
+
+      procedure foo(str : packed array [1..100] of char); 
+      begin
+	writeln('str = ',str);
+      end;
+
+    ==>	
+	
+      void foo(char str[100]) { 
+	writec("str = %s\n", 1, 100, str); 
+      }
+
+
+
+
+

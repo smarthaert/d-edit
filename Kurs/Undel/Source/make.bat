@@ -1,0 +1,7 @@
+@ECHO OFF
+REM Путь к BIN каталогу Borland Pascal 7.0
+PATH %PATH%;C:\SYSTEM\BP\BIN
+BPC /B UNDEL.PAS /E..\
+BPC /B TESTDIR.PAS /E..\
+COPY MKEY.COM ..\MKEY.COM
+DEL ..\*.TPU

@@ -1,0 +1,117 @@
+                      VBE PRO VESA VBE Development Kit
+
+                              License Agreement
+
+
+BEFORE PROCEEDING WITH THE USE OF THIS SOFTWARE, CAREFULLY READ THE
+FOLLOWING TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT AND LIMITED
+WARRANTY (The "Agreement").
+
+BY USING THIS SOFTWARE YOU INDICATE YOUR ACCEPTANCE OF THIS AGREEMENT.
+IF YOU DO NOT ACCEPT OR AGREE WITH THESE TERMS, YOU MAY NOT USE THIS
+SOFTWARE!
+
+INTRODUCTION
+
+The terms and conditions of the DPMI PRO License Agreement have one major
+goal to help to produce 32-bit software using Borland Pascal 7.0.
+Vadim Bodrov (The "Author") encourage you to change and modify
+the library to suit your needs, but you may not redistribute modified
+versions of the DPMI PRO library source code without getting an express
+permission from Author.
+
+LICENSE
+
+This software, including documentation and source code and additional
+materials (the "Software") is owned by Vadim Bodrov and is protected
+by copyright law and international treaty provisions. This Agreement
+does not provide you with title or ownership of Product, but only a
+right of limited use as outlined in this license agreement. Hereby you
+have non-exclusive, royalty free license to use the Software as set
+forth below:
+
+ - integrate the Software with your Applications, subject to the
+   redistribution terms below;
+ - modify or adapt the Software in whole or in part for the development of
+   Applications based on the Software;
+ - use portions of the DPMI PRO source code in your own products and
+   libraries, provided you obtains prior written consent from Author of
+   this Software.
+
+REDISTRIBUTION RIGHTS
+
+You are granted a non-exclusive, royalty-free right to reproduce and
+redistribute distribute verbatim copies of the DPMI PRO, but changing
+it is not allowed.
+
+RESTRICTIONS
+
+Without the expressed, written consent of this License Agreement, you may
+NOT:
+
+ - distribute modified versions of the Software;
+ - sell any portion of the Software on its own, without integrating it
+   into your Applications as Executable Code.
+
+LIMITED WARRANTY
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER
+EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
+WARRANTIES MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PRODUCT IS WITH
+YOU. SHOULD THE PRODUCT PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+NECESSARY SERVICING OR ERROR CORRECTION.
+
+AUTHOR OF DPMI PRO DOES NOT WARRANT THAT THE FUNCTIONS CONTAINED IN THE
+SOFTWARE WILL MEET YOUR REQUIREMENTS OR THAT THE OPERATION OF THE SOFTWARE
+WILL BE UNINTERRUPTED OR ERROR FREE.
+
+LIMITATION OF REMEDIES AND LIABILITY.
+
+IN NO EVENT SHALL AUTHOR OF SOFTWARE, OR ANY OTHER PARTY WHO MAY HAVE
+DISTRIBUTED THE SOFTWARE AS PERMITTED ABOVE, BE LIABLE FOR DAMAGES,
+INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF THE USE OR INABILITY TO USE THE SOFTWARE (INCLUDING BUT
+NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR
+LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR FAILURE OF THE SOFTWARE TO
+OPERATE WITH ANY OTHER PRODUCTS), EVEN IF SUCH HOLDER OR OTHER PARTY
+HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+The cumulative liability of Author to you for all claims relating to the
+Software, in contract, tort, or otherwise, shall not exceed the total amount
+of license fees paid to Author for the relevant Software. The foregoing
+limitation of liability and exclusion of certain damages shall apply
+regardless of the success or effectiveness of other remedies.
+
+GENERAL
+
+Severability. Should any term of this License Agreement be declared
+void or unenforceable by any court of competent jurisdiction, such
+declaration shall have no effect on the remaining terms hereof.
+
+Governing Law. This Agreement shall be governed by and construed and
+enforced in accordance with the International laws as it applies to
+a contract made and performed in such state.
+
+No Waiver. The failure of either party to enforce any rights granted
+hereunder or to take action against the other party in the event of
+any breach hereunder shall not be deemed a waiver by that party as to
+subsequent enforcement of rights or subsequent actions in the event of
+future breaches.
+
+Costs of Litigation. If any action is brought by either party to this
+License Agreement against the other party regarding the subject matter
+hereof, the prevailing party shall be entitled to recover, in addition
+to any other relief granted, reasonable attorney fees and expenses of
+litigation.
+
+ADDITION
+
+If you have any questions regarding this agreement, or if you found this
+software useful and want to send me some money :-), feel free to contact
+me by following address:
+e-mail: falkoris@hotmail.com.
+
+Don't forget to visit my home page at:
+http://members.tripod.com/~falkoris
+

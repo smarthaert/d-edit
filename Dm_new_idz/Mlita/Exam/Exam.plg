@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Exam - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP4E.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Exam.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Exam\FloydDlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP4E.tmp" 
+Creating temporary file "C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP4F.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Exam.pdb" /debug /machine:I386 /out:"Debug/Exam.exe" /pdbtype:sept 
+".\Debug\Alhoritms.obj"
+".\Debug\AlhoritmsDlg.obj"
+".\Debug\Exam.obj"
+".\Debug\ExamDlg.obj"
+".\Debug\FloydDlg.obj"
+".\Debug\font.obj"
+".\Debug\Graph.obj"
+".\Debug\graphctrl.obj"
+".\Debug\KraskalDlg.obj"
+".\Debug\msflexgrid.obj"
+".\Debug\oleobject.obj"
+".\Debug\oleobjects.obj"
+".\Debug\PathDlg.obj"
+".\Debug\picture.obj"
+".\Debug\Query.obj"
+".\Debug\QueryElement.obj"
+".\Debug\Random.obj"
+".\Debug\richtext.obj"
+".\Debug\rowcursor.obj"
+".\Debug\SearchDlg.obj"
+".\Debug\Stack.obj"
+".\Debug\StackElement.obj"
+".\Debug\StdAfx.obj"
+".\Debug\Exam.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\9335~1\LOCALS~1\Temp\RSP4F.tmp"
+<h3>Output Window</h3>
+Compiling...
+FloydDlg.cpp
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Exam\FloydDlg.cpp(61) : warning C4018: '>' : signed/unsigned mismatch
+C:\Program Files\Microsoft Visual Studio\MyProjects\Mlita\Exam\FloydDlg.cpp(61) : warning C4018: '>' : signed/unsigned mismatch
+Linking...
+
+
+
+<h3>Results</h3>
+Exam.exe - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

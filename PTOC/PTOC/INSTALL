@@ -1,0 +1,26 @@
+This archive contains executable files 'ptoc' and 'cganal' 
+compiled for Linux. If you want to build coverter on some other
+platform or you have done some changes in sources and want to
+rebuild converter just run make. It seems to me that converter 
+code is almost platform independent. Makefile for Microsoft
+Visual C++ is also available. 
+
+To build converter just try "make". Converter consists of two
+excutable files: "ptoc" - converter itself and "cganal" - analyzer
+of call graph (see README), runtime library "libptoc.a", configuration file
+for converter "ptoc.cfg", Pascal header for converter "ptoc.pas"
+and include file for all converted sources "ptoc.h".
+To run converter you should only specify path to directory with "ptoc"
+and "cganal". To compile and link converted files you should
+specify for compiler and linker path to header file "ptoc.h" and
+library "libptoc.a". 
+   
+For example, I have used converter in following way: 
+
+rm */*.[ch] call.grp
+for name in */*.pas
+do
+$(PTOC_DIR)ptoc -I include -in $name -c -analyze -intset -init -unsigned 
+done
+cganal
+

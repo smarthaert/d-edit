@@ -1,0 +1,4 @@
+@ECHO OFF
+PATH S:\BP\BIN
+BPC TIMER.PAS -B -E..\..\
+DEL ..\..\MCB.TPU
